@@ -54,7 +54,10 @@ npm run assets:prepare -- --path ptcg-server/scans/duo/21267.png
 npm run assets:music -- --list
 npm run assets:music -- --accept-source-terms
 npm run assets:music:check
+npm run build
 ```
+
+BGM 通过构建期索引加入前端；下载后运行 `npm run build`，并重启已运行的服务，网页才会显示音乐入口。
 
 音源可能限流、改变格式或下架，且其上传公开性不等于获得分发许可。缺失片段可以按清单手动准备；前端曲目表保持当前版本。
 

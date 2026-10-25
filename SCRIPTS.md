@@ -29,6 +29,8 @@
 | `npm run assets:music -- --theme <主题>` | 限定 BGM 主题；实际下载仍需条款确认参数 |
 | `npm run assets:music:check` | 离线检查 BGM 文件；不联网 |
 
+BGM 下载到源码目录后，需要运行 `npm run build` 将音乐编入前端；若服务正在运行，再停止并重新执行 `npm start`。只下载或执行音乐文件检查不会更新已构建的网页。
+
 核心素材报告位于 `.cache/assets-report.json`；BGM 准备状态位于 `.cache/music-state.json`。背景音乐检查是文件有效性检查，不代表取得了内容使用权。
 
 ## 检查与数据库维护

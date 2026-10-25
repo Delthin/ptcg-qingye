@@ -64,9 +64,10 @@ npm run room:invite
 npm run assets:music -- --list
 npm run assets:music -- --accept-source-terms
 npm run assets:music:check
+npm run build
 ```
 
-清单固定当前 39 段曲目及其裁切方式。BGM 只影响背景音乐；缺少它时卡图、音效和对战仍可使用。源站限流或下架时，脚本会列出缺失曲目和手工准备入口，不会改变前端播放清单。
+音乐在前端构建时打包，因此下载后必须运行 `npm run build`；服务已运行时，再停止并重新执行 `npm start`。清单固定当前 39 段曲目及其裁切方式。BGM 只影响背景音乐；缺少它时卡图、音效和对战仍可使用。源站限流或下架时，脚本会列出缺失曲目和手工准备入口，不会改变前端播放清单。
 
 ## 常用操作
 

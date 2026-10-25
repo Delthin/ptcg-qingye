@@ -1,6 +1,6 @@
 {
   "name": "ptcg-qingye",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "青叶牌桌：面向简体中文卡池的 PTCG 收藏、组牌与双人对战应用",
   "license": "MIT",
