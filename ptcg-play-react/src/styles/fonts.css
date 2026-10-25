@@ -1,0 +1,18 @@
+/**
+ * 品牌标题字体（训练家卡桌）。
+ *
+ * Fusion Poke Pixel 是给宝可梦同人游戏做的像素字体，这里只用于品牌标题与登录页
+ * 大字。像素字形的设计字号是 13px，用它的地方字号要取 13 的整数倍（26/39/52），
+ * 并配合 -webkit-font-smoothing: none，否则会被抗锯齿糊成一片灰边。
+ *
+ * 字体放在 public/fonts/（src/assets/ 在 .gitignore 里，不能放会被发布的素材）；
+ * 授权、版本与来源见 public/fonts/ATTRIBUTION.json。URL 带版本参数是为了绕开
+ * public 目录不做文件名指纹、CDN/浏览器可能长期缓存旧字体的问题。
+ */
+@font-face {
+  font-family: 'Fusion Poke Pixel';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/fusion-poke-pixel-normal-zh-hans.woff2?v=2026.09.25') format('woff2');
+}

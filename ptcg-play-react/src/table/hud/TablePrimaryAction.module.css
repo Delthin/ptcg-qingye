@@ -1,0 +1,153 @@
+/* One fixed brass console: the compass never moves when Cancel appears. */
+.actionDock {
+  --orb-size: 112px;
+  --cancel-size: 60px;
+  position: fixed;
+  right: max(22px, env(safe-area-inset-right));
+  bottom: max(18px, env(safe-area-inset-bottom));
+  z-index: 70;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 32px;
+  pointer-events: none;
+  isolation: isolate;
+}
+
+/* The narrow shared mounting plate joins the two controls without competing
+   with the existing compass housing. It extends left, never shifting the orb. */
+.actionDock[data-cancellable]::before {
+  content: '';
+  position: absolute;
+  top: calc((var(--orb-size) - var(--cancel-size)) / 2 - 6px);
+  left: -7px;
+  right: 4px;
+  height: calc(var(--cancel-size) + 12px);
+  border-radius: 999px;
+  background: linear-gradient(175deg, #b69b56, #6d571f 24%, #342a17 58%, #796135);
+  box-shadow: 0 4px 0 #241c0e, 0 12px 22px #06040288, inset 0 1px 1px #e4cf8a99;
+  z-index: -1;
+}
+
+.primaryOrb {
+  position: relative;
+  flex: none;
+  width: var(--orb-size);
+  height: var(--orb-size);
+  z-index: 1;
+}
+
+/* Keep the original compass and its brass housing. */
+.primaryOrb::after {
+  content: '';
+  position: absolute;
+  inset: -7%;
+  border-radius: 50%;
+  background: conic-gradient(from 210deg, #8a6f14, #e8c85a 22%, #9a7d1c 46%, #f2dfa6 62%, #8a6f14 82%, #e8c85a);
+  box-shadow: 0 5px 0 #4a3a0c, 0 16px 30px #0604028c, inset 0 2px 4px #ffffff59, inset 0 -3px 6px #0007;
+  z-index: -1;
+  pointer-events: none;
+  transition: box-shadow 200ms var(--a-ease-out, ease-out), filter 200ms var(--a-ease-out, ease-out);
+}
+
+.primaryOrb[data-active]::after {
+  box-shadow: 0 5px 0 #4a3a0c, 0 16px 30px #0604028c, 0 0 26px #e8c85a42, inset 0 2px 4px #ffffff61, inset 0 -3px 6px #0007;
+}
+
+.primaryOrb:not([data-active])::after,
+.primaryOrb:disabled::after,
+.primaryOrb[data-disabled]::after {
+  filter: saturate(.45) brightness(.62);
+  box-shadow: 0 4px 0 #3a2d09, 0 10px 20px #06040273, inset 0 2px 4px #fff3, inset 0 -3px 6px #0008;
+}
+.primaryOrb[data-disabled] { cursor: default; }
+
+.cancelButton {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: var(--cancel-size);
+  height: var(--cancel-size);
+  padding: 0;
+  border: 2px solid #b79b52;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 25%, #59482c, #302617 70%);
+  box-shadow: 0 3px 0 #20180b, 0 5px 10px #06040280, inset 0 1px 2px #f4dc9859, inset 0 -3px 5px #0d090799;
+  color: #f2dfa6;
+  font: inherit;
+  cursor: pointer;
+  pointer-events: auto;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 160ms ease-out, transform 160ms ease-out;
+}
+.cancelButton > svg { width: 24px; height: 24px; }
+.cancelButton:focus-visible { outline: 2px solid #f2dfa6; outline-offset: 5px; }
+.cancelButton:active:not(:disabled) { transform: translateY(2px); }
+.cancelButton:disabled { cursor: default; filter: saturate(.45) brightness(.7); }
+
+.actionLabel {
+  position: absolute;
+  top: calc(50% + var(--orb-size) / 2 + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: calc(var(--orb-size) + 8px);
+  box-sizing: border-box;
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: #20190fef;
+  color: #f6ebcf;
+  font-family: var(--a-font-body, sans-serif);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: center;
+  text-shadow: none;
+}
+.cancelButton .actionLabel { max-width: calc(var(--cancel-size) + 16px); }
+
+@media (hover: hover) and (pointer: fine) {
+  .cancelButton:hover:not(:disabled) { background: #5e4a29; transform: translateY(-1px); }
+}
+
+@media (max-aspect-ratio: 17/20) {
+  .actionDock {
+    --orb-size: 64px;
+    --cancel-size: 44px;
+    gap: 16px;
+    right: max(10px, env(safe-area-inset-right));
+    bottom: calc(144px + env(safe-area-inset-bottom));
+  }
+  .actionLabel { font-size: 11px; }
+}
+
+/* Reserve the console strip only for dialogs that own a primary-action host.
+   Card details and unrelated HUD popovers keep their original layout. */
+:global([role="presentation"]:has(> [role="dialog"] [data-table-primary-host])) {
+  --table-action-space: calc(176px + env(safe-area-inset-bottom));
+  padding-bottom: var(--table-action-space);
+  box-sizing: border-box;
+}
+:global([role="dialog"]:has([data-table-primary-host])) {
+  max-height: calc(100dvh - var(--table-action-space) - 48px);
+}
+@media (max-aspect-ratio: 17/20) {
+  :global([role="presentation"]:has(> [role="dialog"] [data-table-primary-host])) {
+    --table-action-space: calc(256px + env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-height: 500px) and (min-aspect-ratio: 17/20) {
+  .actionDock { --orb-size: 64px; --cancel-size: 44px; gap: 16px; right: 12px; bottom: 8px; }
+  .actionLabel { font-size: 11px; }
+  :global([role="presentation"]:has(> [role="dialog"] [data-table-primary-host])) {
+    --table-action-space: calc(116px + env(safe-area-inset-bottom));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primaryOrb::after, .cancelButton { transition: none; }
+  .cancelButton:hover:not(:disabled), .cancelButton:active:not(:disabled) { transform: none; }
+}

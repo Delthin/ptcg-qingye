@@ -1,0 +1,24 @@
+{
+  "name": "ptcg-qingye",
+  "version": "0.1.0",
+  "private": true,
+  "description": "青叶牌桌：面向简体中文卡池的 PTCG 收藏、组牌与双人对战应用",
+  "license": "MIT",
+  "engines": { "node": "^22.12.0 || ^24.0.0" },
+  "scripts": {
+    "setup": "bash deploy/setup.sh",
+    "config:init": "node deploy/init-config.cjs",
+    "room:invite": "node deploy/init-config.cjs --show-room-password",
+    "assets:prepare": "bash deploy/prepare-assets.sh",
+    "assets:check": "bash deploy/prepare-assets.sh --check",
+    "assets:music": "python3 deploy/download-music.py",
+    "assets:music:check": "python3 deploy/download-music.py --check",
+    "build": "bash deploy/build.sh",
+    "start": "bash deploy/start.sh",
+    "dev": "bash deploy/dev-client.sh",
+    "check:assets": "node deploy/check-assets.cjs",
+    "check:downloads": ".venv/bin/python -B -m unittest discover -s deploy -p 'test_download_*.py' -v",
+    "check:ui": "cd ptcg-play-react && node scripts/check-table-primary-actions.cjs && node scripts/check-qa13.cjs && node scripts/check-energy-board-effects.cjs",
+    "check:sqlite": "cd ptcg-server && node scripts/check-sqlite-maintenance.cjs"
+  }
+}

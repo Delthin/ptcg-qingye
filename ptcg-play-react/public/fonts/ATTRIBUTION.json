@@ -1,0 +1,18 @@
+{
+  "note": "品牌标题字体，OFL-1.1 授权，可随前端一起部署。详见同目录 fusion-poke-pixel-OFL.txt。",
+  "fonts": [
+    {
+      "family": "Fusion Poke Pixel",
+      "file": "fusion-poke-pixel-normal-zh-hans.woff2",
+      "weight": 400,
+      "style": "normal",
+      "designSize": 13,
+      "project": "pixel-font-studio/fusion-poke-pixel-font",
+      "version": "2026.09.25",
+      "source": "https://github.com/pixel-font-studio/fusion-poke-pixel-font/releases/tag/2026.09.25",
+      "sourceFile": "fusion-poke-pixel-normal-zh_hans.ttf",
+      "license": "OFL-1.1（上游字形来自方舟像素字体 / Ark Pixel Font 等 OFL 字体）",
+      "derive": "fontTools.ttLib.woff2 compress fusion-poke-pixel-normal-zh_hans.ttf"
+    }
+  ]
+}

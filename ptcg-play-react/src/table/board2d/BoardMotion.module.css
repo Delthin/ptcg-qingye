@@ -1,0 +1,16 @@
+.flight { position:fixed; z-index:140; object-fit:fill; border-radius:5px; box-shadow:0 12px 24px #0006; pointer-events:none; }
+.reveal { position:fixed; z-index:145; right:24px; top:28%; width:156px; display:grid; justify-items:center; color:#e8d39a; pointer-events:none; }
+.reveal img { width:128px; border-radius:5px; box-shadow:0 5px 15px #0008; }
+.reveal strong,.reveal span { display:none; }
+.damage,.ability { position:fixed; z-index:150; pointer-events:none; font-weight:700; white-space:nowrap; }
+.damage { color:#f4d193; font-size:36px; text-shadow:0 2px 7px #000a; }
+.ability { padding:8px 16px; transform:translate(-50%,-80%); font-size:14px; color:#ecd9a7; background:linear-gradient(90deg,transparent,#131b16dd 15% 85%,transparent); text-shadow:0 2px 5px #000; }
+.coinStage { position:absolute; z-index:130; left:50%; top:45%; transform:translate(-50%,-50%); pointer-events:none; display:grid; justify-items:center; perspective:600px; }
+.coin { width:82px; height:82px; position:relative; transform-style:preserve-3d; animation:heads 900ms cubic-bezier(.77,0,.175,1) both; }
+.coin[data-result='tails'] { animation-name:tails; }
+.coinFront,.coinBack { display:grid; place-items:center; position:absolute; inset:0; border-radius:50%; background:linear-gradient(135deg,#f5e2a6,#bea363 60%,#78633b); border:5px solid #cfb878; box-shadow:inset 0 0 0 2px #4b402c70,0 12px 25px #0006; backface-visibility:hidden; color:#695435; font-size:40px; }
+.coinBack { transform:rotateY(180deg); background:linear-gradient(135deg,#e0c98c,#99793f); }
+@keyframes heads { 0% { transform:translateY(0) rotateY(0) scale(.95); } 40% { transform:translateY(-65px) rotateY(620deg) scale(1.1); } 100% { transform:translateY(0) rotateY(1440deg) scale(1); } }
+@keyframes tails { 0% { transform:translateY(0) rotateY(0) scale(.95); } 40% { transform:translateY(-65px) rotateY(620deg) scale(1.1); } 100% { transform:translateY(0) rotateY(1620deg) scale(1); } }
+@media(max-width:600px) { .reveal { right:8px; top:24%; width:106px; } .reveal img { width:84px; } }
+@media(prefers-reduced-motion:reduce) { .coin { animation:none; } .coin[data-result='tails'] { transform:rotateY(180deg); } }

@@ -1,0 +1,361 @@
+import { getManager, EntityManager } from 'typeorm';
+import { serializedTransaction } from '../../storage/transaction';
+import { LessThanOrEqual } from 'typeorm';
+
+import { Client } from '../client/client.interface';
+import { Core } from './core';
+import type { GameSettings } from './game-settings';
+import { State, GamePhase, GameWinner } from '../store/state/state';
+import { User, Match, Deck, BattlePassSeason, UserBattlePass, MatchXpAward } from '../../storage';
+import { awardBattleReward, BattleOutcome } from '../../economy/battle-reward';
+import { RankingCalculator } from './ranking-calculator';
+import { Replay } from './replay';
+import { ReplayPlayer } from './replay.interface';
+
+export class MatchRecorder {
+
+  private finished: boolean = false;
+  private accepted = false;
+  private client1: Client | undefined;
+  private client2: Client | undefined;
+  private ranking: RankingCalculator;
+  private replay: Replay;
+  private transactionTimeout: NodeJS.Timeout | undefined;
+  private readonly TRANSACTION_TIMEOUT_MS = 30000; // 30 seconds
+
+  constructor(private core: Core, private gameSettings?: GameSettings) {
+    this.ranking = new RankingCalculator();
+    this.replay = new Replay({ indexEnabled: false });
+  }
+
+  public onStateChange(state: State) {
+    if (this.finished) {
+      return;
+    }
+
+    if (state.players.length >= 2) {
+      this.updateClients(state);
+    }
+
+    if (state.phase !== GamePhase.WAITING_FOR_PLAYERS && state.phase !== GamePhase.FINISHED) {
+      this.accepted = true;
+    }
+    if (state.phase !== GamePhase.WAITING_FOR_PLAYERS) {
+      this.replay.appendState(state);
+    }
+
+    if (state.phase === GamePhase.FINISHED) {
+      this.finished = true;
+      if (this.accepted && state.winner !== GameWinner.NONE) {
+        this.saveMatch(state);
+      } else {
+        this.cleanup();
+      }
+    }
+  }
+
+  private async saveMatch(state: State): Promise<void> {
+    try {
+      const users = await serializedTransaction(getManager().connection,
+        manager => this.saveMatchTransaction(state, manager));
+      // Never mutate live users or announce rankings before the database commits.
+      if (users.length >= 2) {
+        for (const client of this.core.clients) {
+          const saved = users.find(user => user.id === client.user.id);
+          if (saved) Object.assign(client.user, { ranking: saved.ranking, lastRankingChange: saved.lastRankingChange });
+        }
+        this.core.emit(c => c.onUsersUpdate(users));
+      }
+    } catch (error) {
+      // Includes failure to BEGIN: decorator-started transactions used to reject
+      // outside this catch and could roll back a concurrent wallet operation.
+      console.error('[MatchRecorder] Error saving match:', error);
+    } finally {
+      this.cleanup();
+    }
+  }
+
+  private async saveMatchTransaction(state: State, manager: EntityManager): Promise<User[]> {
+    if (!this.client1 || !this.client2) return [];
+
+    // A timer is diagnostic only; it cannot cancel a database transaction.
+    this.transactionTimeout = setTimeout(() => {
+      console.error('[MatchRecorder] Transaction timeout after', this.TRANSACTION_TIMEOUT_MS, 'ms');
+    }, this.TRANSACTION_TIMEOUT_MS);
+
+    const match = new Match();
+    match.player1 = Object.assign(new User(), this.client1.user);
+    match.player2 = Object.assign(new User(), this.client2.user);
+    match.winner = state.winner;
+    match.created = Date.now();
+    match.ranking1 = match.player1.ranking;
+    match.ranking2 = match.player2.ranking;
+    match.rankingStake1 = 0;
+    match.rankingStake2 = 0;
+
+    // Store archetype information based on deck analysis
+    const player1Archetypes = await this.getPlayerArchetypes(state.players[0]);
+    const player2Archetypes = await this.getPlayerArchetypes(state.players[1]);
+    match.player1Archetype = player1Archetypes.primary;
+    match.player1Archetype2 = player1Archetypes.secondary || '';
+    match.player2Archetype = player2Archetypes.primary;
+    match.player2Archetype2 = player2Archetypes.secondary || '';
+    match.player1DeckId = state.players[0].deckId || null;
+    match.player2DeckId = state.players[1].deckId || null;
+    const deck1 = match.player1DeckId ? await manager.findOne(Deck, {
+      where: { id: match.player1DeckId, user: { id: match.player1.id } },
+    }) : undefined;
+    const deck2 = match.player2DeckId ? await manager.findOne(Deck, {
+      where: { id: match.player2DeckId, user: { id: match.player2.id } },
+    }) : undefined;
+    match.player1DeckName = deck1?.name || `Deck ${match.player1.id}`;
+    match.player2DeckName = deck2?.name || `Deck ${match.player2.id}`;
+
+    this.replay.setCreated(match.created);
+    this.replay.player1 = this.buildReplayPlayer(match.player1);
+    this.replay.player2 = this.buildReplayPlayer(match.player2);
+    this.replay.winner = match.winner;
+    match.replayData = this.replay.serialize();
+
+    // Update ranking
+    const users = this.ranking.calculateMatch(match, state);
+
+    // Update match's ranking
+    if (users.length >= 2) {
+      match.rankingStake1 = users[0].ranking - match.ranking1;
+      match.ranking1 = users[0].ranking;
+      match.rankingStake2 = users[1].ranking - match.ranking2;
+      match.ranking2 = users[1].ranking;
+    }
+
+    await manager.save(match);
+
+    if (users.length >= 2) {
+      for (const user of users) {
+        const update = { ranking: user.ranking, lastRankingChange: user.lastRankingChange };
+        await manager.update(User, user.id, update);
+      }
+    }
+
+    // Award game currency and Battle Pass XP to both players
+    await this.awardBattleCoins(manager, match, state);
+    await this.awardBattlePassXp(manager, match, state);
+    return users;
+  }
+
+  /**
+   * Coins for a settled match. Self-play is a single account playing both seats, and a match
+   * shorter than two turns is a concede on setup, so neither is a coin source.
+   */
+  private async awardBattleCoins(manager: EntityManager, match: Match, state: State): Promise<void> {
+    if (match.player1.id === match.player2.id || state.turn < 2) return;
+    const outcome = (player: GameWinner): BattleOutcome => match.winner === GameWinner.DRAW
+      ? 'draw' : match.winner === player ? 'win' : 'loss';
+    // Reward failures must roll back balances, records, match and rankings together.
+    await awardBattleReward(manager, match.player1.id, outcome(GameWinner.PLAYER_1), match.id);
+    await awardBattleReward(manager, match.player2.id, outcome(GameWinner.PLAYER_2), match.id);
+  }
+
+  private async awardBattlePassXp(manager: EntityManager, match: Match, state: State): Promise<void> {
+    try {
+      const today = new Date().toISOString().slice(0, 10);
+      const defaultSeason = await manager.findOne(BattlePassSeason, {
+        where: { startDate: LessThanOrEqual(today) },
+        order: { startDate: 'DESC' }
+      });
+      if (!defaultSeason) return;
+
+      const xpForWin = 100;
+      const xpForLoss = 50;
+      const xpForDraw = 25;
+
+      const players: { user: User; xpAmount: number }[] = [];
+      if (match.winner === GameWinner.PLAYER_1) {
+        players.push({ user: match.player1, xpAmount: xpForWin });
+        players.push({ user: match.player2, xpAmount: xpForLoss });
+      } else if (match.winner === GameWinner.PLAYER_2) {
+        players.push({ user: match.player1, xpAmount: xpForLoss });
+        players.push({ user: match.player2, xpAmount: xpForWin });
+      } else {
+        players.push({ user: match.player1, xpAmount: xpForDraw });
+        players.push({ user: match.player2, xpAmount: xpForDraw });
+      }
+
+      for (const { user, xpAmount } of players) {
+        const dbUser = await manager.findOne(User, { where: { id: user.id } });
+        let season = defaultSeason;
+        if (dbUser?.activeBattlePassSeasonId) {
+          const activeSeason = await manager.findOne(BattlePassSeason, {
+            where: { seasonId: dbUser.activeBattlePassSeasonId }
+          });
+          if (activeSeason) {
+            const seasonStart = String(activeSeason.startDate).slice(0, 10);
+            if (seasonStart <= today) {
+              season = activeSeason;
+            }
+          }
+        }
+
+        let progress = await manager.findOne(UserBattlePass, {
+          where: { userId: user.id, seasonId: season.seasonId },
+          relations: ['season']
+        });
+        if (!progress) {
+          progress = manager.create(UserBattlePass, {
+            userId: user.id,
+            seasonId: season.seasonId,
+            season,
+            exp: 0,
+            level: 1,
+            claimedRewards: []
+          });
+        } else if (!progress.season) {
+          progress.season = season;
+        }
+
+        const previousExp = progress.exp;
+        const previousLevel = progress.level;
+        await progress.addExp(xpAmount);
+        await manager.save(progress);
+
+        const award = manager.create(MatchXpAward, {
+          matchId: match.id,
+          userId: user.id,
+          seasonId: season.seasonId,
+          xpGained: xpAmount,
+          previousExp,
+          newExp: progress.exp,
+          previousLevel,
+          newLevel: progress.level,
+          viewed: false
+        });
+        await manager.save(award);
+      }
+    } catch (error) {
+      console.error('[MatchRecorder] Error awarding Battle Pass XP:', error);
+    }
+  }
+
+  public cleanup(): void {
+    this.finished = true;
+    this.client1 = undefined;
+    this.client2 = undefined;
+    if (this.transactionTimeout) {
+      clearTimeout(this.transactionTimeout);
+      this.transactionTimeout = undefined;
+    }
+    this.replay = new Replay({ indexEnabled: false });
+  }
+
+  private updateClients(state: State) {
+    const player1Id = state.players[0].id;
+    const player2Id = state.players[1].id;
+    if (this.client1 === undefined) {
+      this.client1 = this.findClient(player1Id);
+    }
+    if (this.client2 === undefined) {
+      this.client2 = this.findClient(player2Id);
+      // Self-play uses a synthetic opponent id that is not a connected client.
+      if (this.client2 === undefined && this.gameSettings?.selfPlay === true && this.client1 !== undefined) {
+        this.client2 = this.client1;
+      }
+    }
+  }
+
+  private findClient(clientId: number): Client | undefined {
+    return this.core.clients.find(c => c.id === clientId);
+  }
+
+  private buildReplayPlayer(player: User): ReplayPlayer {
+    return { userId: player.id, name: player.name, ranking: player.ranking };
+  }
+
+  private async getPlayerArchetypes(player: any): Promise<{ primary: string; secondary?: string }> {
+    // First, check if we have a deckId and can get manual archetype from deck
+    if (player.deckId) {
+      try {
+        const deck = await Deck.findOne(player.deckId);
+        if (deck) {
+          // Use manual archetypes if set, otherwise fall through to auto-detection
+          if (deck.manualArchetype1) {
+            return {
+              primary: deck.manualArchetype1,
+              secondary: deck.manualArchetype2 || undefined
+            };
+          }
+        }
+      } catch (error) {
+        // If we can't load the deck, fall through to auto-detection
+        console.error('[MatchRecorder] Error loading deck for archetype:', error);
+      }
+    }
+
+    // Analyze the player's deck to determine archetype
+    // For now, we'll use a simple approach based on the most common Pokemon in the deck
+    const deckCards = player.deck.cards || [];
+
+    if (deckCards.length === 0) {
+      return { primary: 'UNKNOWN' };
+    }
+
+    // Count Pokemon cards and their types
+    const pokemonCounts: { [name: string]: number } = {};
+    const typeCounts: { [type: string]: number } = {};
+
+    deckCards.forEach((card: any) => {
+      if (card && card.name) {
+        // Count Pokemon cards - check if cardType is a string or enum
+        const isPokemon = card.cardType && (
+          (typeof card.cardType === 'string' && card.cardType.includes('POKEMON')) ||
+          (typeof card.cardType === 'number' && card.cardType === 1) // Assuming 1 = POKEMON
+        );
+
+        if (isPokemon) {
+          pokemonCounts[card.name] = (pokemonCounts[card.name] || 0) + 1;
+
+          // Count by Pokemon type for archetype detection
+          if (card.name.includes('Pikachu')) {
+            typeCounts['Pikachu'] = (typeCounts['Pikachu'] || 0) + 1;
+          } else if (card.name.includes('Charizard')) {
+            typeCounts['Charizard'] = (typeCounts['Charizard'] || 0) + 1;
+          } else if (card.name.includes('Arceus')) {
+            typeCounts['Arceus'] = (typeCounts['Arceus'] || 0) + 1;
+          } else if (card.name.includes('Giratina')) {
+            typeCounts['Giratina'] = (typeCounts['Giratina'] || 0) + 1;
+          } else if (card.name.includes('Comfey')) {
+            typeCounts['Comfey'] = (typeCounts['Comfey'] || 0) + 1;
+          } else if (card.name.includes('Raging Bolt')) {
+            typeCounts['Raging Bolt'] = (typeCounts['Raging Bolt'] || 0) + 1;
+          } else if (card.name.includes('Pidgeot')) {
+            typeCounts['Pidgeot'] = (typeCounts['Pidgeot'] || 0) + 1;
+          }
+        }
+      }
+    });
+
+    // Determine archetype based on most common Pokemon
+    const sortedTypes = Object.entries(typeCounts)
+      .sort((a, b) => b[1] - a[1])
+      .map(([pokemon]) => pokemon.toUpperCase().replace(/\s+/g, '_'));
+
+    let primary = 'UNKNOWN';
+    let secondary: string | undefined = undefined;
+
+    if (sortedTypes.length > 0) {
+      primary = sortedTypes[0];
+      if (sortedTypes.length > 1) {
+        secondary = sortedTypes[1];
+      }
+    }
+
+    // Fallback to common archetypes if no specific Pokemon found
+    if (primary === 'UNKNOWN') {
+      const commonArchetypes = ['PIKACHU', 'CHARIZARD', 'ARCEUS', 'GIRATINA', 'COMFEY'];
+      const randomIndex = Math.floor(Math.random() * commonArchetypes.length);
+      primary = commonArchetypes[randomIndex];
+    }
+
+    return { primary, secondary };
+  }
+
+}

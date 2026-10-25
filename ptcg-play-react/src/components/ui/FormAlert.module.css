@@ -1,0 +1,10 @@
+.error {
+  background: linear-gradient(165deg, #9e382b, #68251e);
+  border: 1px solid #c96951;
+  border-radius: 4px;
+  padding: 10px 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--a-on-dark);
+  font-family: var(--a-font-ui);
+}

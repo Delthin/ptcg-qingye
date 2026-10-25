@@ -1,0 +1,313 @@
+/* PTCG 宝可梦卡牌游戏 - 设计系统 */
+
+:root {
+  /* 品牌色系 - 宝可梦经典色 */
+  --pokemon-red: #ee1515;
+  --pokemon-yellow: #ffcb05;
+  --pokemon-blue: #3b4cca;
+  --pokemon-white: #ffffff;
+  --pokemon-black: #2a2a2a;
+
+  /* 属性色系 */
+  --grass: #7ac74c;
+  --fire: #ee8130;
+  --water: #6390f0;
+  --electric: #f7d02c;
+  --psychic: #f95587;
+  --fighting: #c22e28;
+  --darkness: #705746;
+  --metal: #b7b7ce;
+  --fairy: #d685ad;
+  --dragon: #6f35fc;
+  --colorless: #a8a878;
+
+  /* 稀有度色系 */
+  --rarity-common: #4a5568;
+  --rarity-uncommon: #48bb78;
+  --rarity-rare: #4299e1;
+  --rarity-rare-holo: #9f7aea;
+  --rarity-ultra-rare: #ed64a6;
+  --rarity-secret: #f6ad55;
+
+  /* 中性色 - 更有质感的灰度 */
+  --gray-50: #fafafa;
+  --gray-100: #f4f4f5;
+  --gray-200: #e4e4e7;
+  --gray-300: #d4d4d8;
+  --gray-400: #a1a1aa;
+  --gray-500: #71717a;
+  --gray-600: #52525b;
+  --gray-700: #3f3f46;
+  --gray-800: #27272a;
+  --gray-900: #18181b;
+
+  /* 功能色 */
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+  --info: #3b82f6;
+
+  /* 渐变 */
+  --gradient-pokeball: linear-gradient(135deg, #ee1515 0%, #ffcb05 100%);
+  --gradient-holo: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-card-shine: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 25%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0.1) 75%,
+    transparent 100%
+  );
+
+  /* 阴影系统 - 模拟实体卡牌 */
+  --shadow-card:
+    0 1px 3px rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0, 0, 0, 0.24);
+  --shadow-card-hover:
+    0 10px 20px rgba(0, 0, 0, 0.15),
+    0 6px 6px rgba(0, 0, 0, 0.1);
+  --shadow-card-active:
+    0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(0, 0, 0, 0.22);
+  --shadow-panel:
+    0 4px 6px rgba(0, 0, 0, 0.07),
+    0 5px 15px rgba(0, 0, 0, 0.1);
+  --shadow-elevated:
+    0 10px 25px rgba(0, 0, 0, 0.15),
+    0 5px 10px rgba(0, 0, 0, 0.05);
+  --shadow-inset: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  /* 圆角 */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-card: 12px;
+  --radius-full: 9999px;
+
+  /* 间距系统 */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+
+  /* 动画曲线 */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-circ: cubic-bezier(0.85, 0, 0.15, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* 动画时长 */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 350ms;
+  --duration-card-flip: 600ms;
+
+  /* 卡牌尺寸 */
+  --card-width-sm: 120px;
+  --card-height-sm: 168px;
+  --card-width-md: 180px;
+  --card-height-md: 252px;
+  --card-width-lg: 240px;
+  --card-height-lg: 336px;
+
+  /* 字体 */
+  --font-display: "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+
+  /* Z-index 层级 */
+  --z-base: 0;
+  --z-dropdown: 1000;
+  --z-sticky: 1100;
+  --z-modal-backdrop: 1200;
+  --z-modal: 1300;
+  --z-tooltip: 1400;
+  --z-notification: 1500;
+}
+
+/* 暗色模式（预留） */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* 暗色模式调整 */
+  }
+}
+
+/* 全局重置和基础样式 */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-body);
+  line-height: 1.6;
+  color: var(--gray-900);
+  background: var(--gray-100);
+}
+
+/* 通用工具类 */
+.card-3d {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform var(--duration-normal) var(--ease-smooth);
+}
+
+.card-3d:hover {
+  transform: translateY(-4px) rotateX(2deg);
+}
+
+.holo-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.holo-effect::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-card-shine);
+  opacity: 0;
+  transition: opacity var(--duration-normal);
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+.holo-effect:hover::before {
+  opacity: 1;
+  animation: shine 2s ease-in-out infinite;
+}
+
+@keyframes shine {
+  0%, 100% { transform: translateX(-100%) skewX(-15deg); }
+  50% { transform: translateX(100%) skewX(-15deg); }
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: var(--shadow-panel);
+}
+
+.elevation-1 { box-shadow: var(--shadow-card); }
+.elevation-2 { box-shadow: var(--shadow-panel); }
+.elevation-3 { box-shadow: var(--shadow-elevated); }
+
+/* 按钮基础样式 */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-lg);
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-smooth);
+  user-select: none;
+  outline: none;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--pokemon-blue);
+  outline-offset: 2px;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--gradient-pokeball);
+  color: white;
+  box-shadow: var(--shadow-card);
+}
+
+.btn-primary:hover:not(:disabled) {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* 输入框样式 */
+.input {
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  border: 2px solid var(--gray-300);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  transition: all var(--duration-fast);
+  background: white;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--pokemon-blue);
+  box-shadow: 0 0 0 3px rgba(59, 76, 202, 0.1);
+}
+
+/* 卡牌容器 */
+.card-container {
+  position: relative;
+  width: var(--card-width-md);
+  height: var(--card-height-md);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+/* 动画预设 */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.fade-in { animation: fadeIn var(--duration-normal) var(--ease-smooth); }
+.slide-up { animation: slideUp var(--duration-normal) var(--ease-out-expo); }
+.scale-in { animation: scaleIn var(--duration-normal) var(--ease-spring); }
+
+/* 响应式断点 */
+@media (max-width: 640px) {
+  :root {
+    --card-width-md: 140px;
+    --card-height-md: 196px;
+  }
+}

@@ -1,0 +1,660 @@
+/* ============================================================
+   战报墙 — 贴在木墙上的成绩纸条
+   材质沿用 arena.css：胡桃桌面 + 黄铜 + 奶油纸卡
+   ============================================================ */
+
+/* 注册胜率环的进度属性，让 conic-gradient 能从 0 扫到位 */
+@property --p {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+
+.root {
+  --noise-paper: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='2' seed='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+}
+
+.root :is(a, button, summary):focus-visible {
+  outline: 2px solid var(--a-brass-lit);
+  outline-offset: 3px;
+}
+
+/* ---------------- 页头 ---------------- */
+
+.head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+/* ---------------- 失败纸条（带蜡点） ---------------- */
+
+.errorNote {
+  position: relative;
+  margin: 0 0 24px;
+  padding: 13px 18px 12px;
+  border-radius: 4px;
+  border: 1px solid var(--a-paper-edge);
+  color: #7c2d24;
+  font-size: 13px;
+  font-weight: 600;
+  background: linear-gradient(178deg, var(--a-paper), var(--a-paper-warm));
+  box-shadow: var(--a-lift-2), var(--a-inset-paper);
+}
+
+.errorNote::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  border-radius: 47% 53% 51% 49% / 52% 46% 54% 48%;
+  background: radial-gradient(circle at 35% 30%, #e8927f, #a23730 62%, #7e2822);
+  box-shadow: 0 3px 5px rgba(20, 12, 6, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+}
+
+/* ---------------- 记分牌 ---------------- */
+
+.boards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 20px;
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.board[data-self='true'] {
+  border-color: rgba(201, 162, 39, 0.62);
+}
+
+.boardTop {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.boardPortrait {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex: none;
+  display: grid;
+  place-items: center;
+  background: var(--a-paper-warm);
+  box-shadow: 0 0 0 2px var(--a-paper), 0 0 0 3.5px rgba(201, 162, 39, 0.55), var(--a-lift-1);
+}
+
+.boardPortrait svg {
+  display: block;
+}
+
+.boardMeta {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.boardName {
+  margin: 0;
+  font-family: var(--a-font-display);
+  font-weight: 400;
+  font-size: 21px;
+  letter-spacing: 0.05em;
+  line-height: 1.1;
+  color: var(--a-ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.boardName small {
+  flex: none;
+  font-family: var(--a-font-num);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: var(--a-brass-dark);
+  border: 1px solid rgba(201, 162, 39, 0.55);
+  border-radius: 3px;
+  padding: 2px 5px;
+  background: rgba(201, 162, 39, 0.12);
+}
+
+.boardTotal {
+  font-family: var(--a-font-num);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--a-ink-soft);
+}
+
+/* 胜率：黄铜环，conic-gradient 扫入 */
+.ringWrap {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.ring {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: conic-gradient(var(--a-brass-lit), var(--a-brass) calc(var(--p, 0) * 1%), rgba(74, 50, 34, 0.15) calc(var(--p, 0) * 1%));
+  box-shadow: var(--a-lift-1), inset 0 0 0 1px rgba(138, 111, 20, 0.35);
+  animation: ringFill 900ms var(--a-ease-out) backwards;
+  animation-delay: calc(var(--a-delay, 0ms) + 120ms);
+}
+
+.ring::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 32%, var(--a-paper), var(--a-paper-warm));
+  box-shadow: inset 0 1px 3px rgba(74, 50, 34, 0.28), inset 0 -1px 2px rgba(255, 255, 255, 0.7);
+}
+
+.ring b {
+  position: relative;
+  font-family: var(--a-font-display);
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 1;
+  color: var(--a-ink);
+}
+
+.ring i {
+  position: relative;
+  font-style: normal;
+  font-size: 10px;
+  color: var(--a-ink-soft);
+  margin-left: 1px;
+}
+
+.ringLabel {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: var(--a-ink-soft);
+}
+
+@keyframes ringFill {
+  from { --p: 0; }
+}
+
+/* 总场次 / 胜 / 负 的大号展示数字 */
+.boardNumbers {
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(14px, 3vw, 30px);
+}
+
+.boardNumbers > div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.boardNumbers strong {
+  font-family: var(--a-font-display);
+  font-weight: 400;
+  font-size: clamp(30px, 3.6vw, 42px);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  color: var(--a-ink);
+}
+
+.boardNumbers span {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--a-ink-soft);
+}
+
+.boardNumbers > div:nth-child(2) strong { color: #1f7a45; }
+.boardNumbers > div:nth-child(3) strong { color: #c03318; }
+
+/* 平局退一档，不打断主三联 */
+.boardNumbers > div:last-child { justify-content: flex-end; }
+.boardNumbers > div:last-child strong {
+  font-size: clamp(19px, 2.2vw, 25px);
+  color: var(--a-ink-soft);
+  padding-bottom: 3px;
+}
+
+.boardBar {
+  display: flex;
+  height: 4px;
+  border-radius: 2px;
+  overflow: hidden;
+  background: rgba(74, 50, 34, 0.12);
+}
+
+.boardBar i { height: 100%; background: #2f9e5f; }
+.boardBar i + i { background: #e3350d; }
+
+/* ---------------- 连胜 / 连败丝带 ---------------- */
+
+.streakBar {
+  display: flex;
+  justify-content: center;
+  margin: 26px 0 4px;
+}
+
+.ribbon {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 30px;
+  clip-path: polygon(14px 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 14px 100%, 0 50%);
+  background: linear-gradient(180deg, #e8c85a, #c9a227 58%, #a8831c);
+  color: #241a06;
+  box-shadow: var(--a-lift-2);
+}
+
+.ribbon[data-kind='l'] {
+  background: linear-gradient(180deg, #c25a4c, #a23730 58%, #7e2822);
+  color: var(--a-on-dark);
+}
+
+.streakSeals {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.streakSeals i {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 700;
+  border-radius: 46% 54% 52% 48% / 52% 46% 54% 48%;
+  background: rgba(36, 26, 6, 0.16);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.ribbon[data-kind='l'] .streakSeals i {
+  background: rgba(243, 234, 214, 0.18);
+}
+
+.streakSeals em {
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.streakText {
+  font-family: var(--a-font-display);
+  font-weight: 400;
+  font-size: 17px;
+  letter-spacing: 0.12em;
+}
+
+/* ---------------- 战报墙 ---------------- */
+
+.wall {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 390px), 1fr));
+  gap: 30px 22px;
+}
+
+/* 一条战报：钉在墙上的纸条 */
+.report {
+  position: relative;
+  padding: 20px 18px 16px;
+  border-radius: 4px;
+  border: 1px solid var(--a-paper-edge);
+  color: var(--a-ink);
+  background:
+    var(--noise-paper) 0 0 / 140px,
+    linear-gradient(178deg, var(--a-paper) 0%, var(--a-paper-warm) 92%);
+  background-blend-mode: overlay, normal;
+  box-shadow: var(--a-lift-3), var(--a-inset-paper);
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform var(--a-t) var(--a-ease-out), box-shadow var(--a-t) var(--a-ease-out);
+  /* 错峰贴上墙：与 a-rise 共用 --a-delay 节拍 */
+  animation: reportSlap 380ms var(--a-ease-out) backwards;
+  animation-delay: var(--a-delay, 0ms);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .report:hover {
+    transform: rotate(0deg) translateY(-3px);
+    box-shadow: var(--a-lift-4), var(--a-inset-paper);
+  }
+}
+
+@keyframes reportSlap {
+  from {
+    opacity: 0;
+    transform: translateY(-18px) rotate(calc(var(--tilt, 0deg) + 3deg)) scale(1.03);
+  }
+}
+
+/* 黄铜图钉 */
+.pin {
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  width: 13px;
+  height: 13px;
+  margin-left: -6.5px;
+  border-radius: 50%;
+  z-index: 2;
+  background: radial-gradient(circle at 34% 30%, #f4e6ba, #c9a227 55%, #8a6f14 95%);
+  box-shadow: 0 3px 6px rgba(20, 12, 6, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.55), 0 0 0 1px rgba(90, 70, 20, 0.35);
+}
+
+/* 双方阵营 + 中央 VS */
+.reportHead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.side {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1;
+}
+
+.sideRight {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.portrait {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex: none;
+  background: var(--a-paper-warm);
+  box-shadow: 0 0 0 2px var(--a-paper), 0 0 0 3.5px rgba(201, 162, 39, 0.55), var(--a-lift-1);
+}
+
+.portrait svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.sideMeta {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.sideName {
+  font-family: var(--a-font-display);
+  font-weight: 400;
+  font-size: 16.5px;
+  letter-spacing: 0.03em;
+  line-height: 1.2;
+  color: var(--a-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sideDeck {
+  font-size: 11px;
+  color: var(--a-ink-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 卡组封面缩略图 */
+.deckChip {
+  flex: none;
+  width: 30px;
+  height: 42px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: #14261d url('/assets/duo-cardback.svg') center / cover;
+  box-shadow: 0 2px 5px rgba(20, 12, 6, 0.35), 0 0 0 1px rgba(74, 50, 34, 0.3);
+  transform: rotate(-5deg);
+}
+
+.sideRight .deckChip { transform: rotate(5deg); }
+
+.deckChip img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* VS 铜币 */
+.vs {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  font-family: var(--a-font-num);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: #33290f;
+  background: linear-gradient(160deg, #f2e2b8, #d5b887);
+  box-shadow: 0 0 0 2px rgba(138, 111, 60, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.6), var(--a-lift-1);
+  transform: rotate(-6deg);
+}
+
+/* 落款行：等宽时间 + 回放键 */
+.reportFoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px dashed rgba(74, 50, 34, 0.25);
+}
+
+.reportTime {
+  font-family: var(--a-font-num);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--a-ink-soft);
+}
+
+.replayBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 0 15px;
+  border-radius: 8px;
+  border: 1px solid #8a6f3c;
+  background: linear-gradient(180deg, #ecd9ac, #c9a86b 78%, #b28d55);
+  color: #33290f;
+  font-weight: 700;
+  font-size: 12.5px;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  box-shadow: 0 3px 0 #8a6f3c, 0 8px 14px -8px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  transition: transform var(--a-t-fast) var(--a-ease), box-shadow var(--a-t-fast) var(--a-ease), filter var(--a-t-fast) var(--a-ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .replayBtn:hover { filter: brightness(1.05); }
+}
+
+.replayBtn:active {
+  transform: translateY(3px);
+  box-shadow: 0 0 0 #8a6f3c, 0 4px 8px -8px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* 印章：粗糙边缘 = clip-path + 不规则 border-radius + 倾斜 */
+.stamp {
+  position: absolute;
+  top: -13px;
+  right: 12px;
+  z-index: 2;
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  font-family: var(--a-font-display);
+  font-weight: 400;
+  font-size: 24px;
+  border-radius: 47% 53% 51% 49% / 52% 46% 54% 48%;
+  clip-path: polygon(1.5% 8%, 6% 1%, 18% 3%, 32% 0%, 48% 2.5%, 64% 0.5%, 80% 3%, 94% 1%, 99% 12%, 96.5% 28%, 100% 45%, 97% 62%, 99.5% 80%, 92% 97%, 76% 99%, 60% 96.5%, 44% 99%, 28% 97%, 12% 99%, 3% 93%, 0.5% 76%, 3% 58%, 0% 40%, 3% 22%);
+  box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.45), inset 0 -3px 6px rgba(0, 0, 0, 0.22);
+  animation: stampThump 480ms var(--a-ease-spring) backwards;
+  animation-delay: calc(var(--a-delay, 0ms) + 200ms);
+}
+
+.stamp::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  border: 2px solid rgba(51, 41, 15, 0.35);
+}
+
+.report[data-result='win'] .stamp {
+  color: #33290f;
+  background: radial-gradient(circle at 35% 28%, #eed9a4, #c9a86b 52%, #97743f 95%);
+  transform: rotate(-9deg);
+}
+
+.report[data-result='loss'] .stamp {
+  color: #ffe9dd;
+  background: radial-gradient(circle at 35% 28%, #d4695c, #a23730 55%, #7e2822 96%);
+  transform: rotate(7deg);
+}
+
+.report[data-result='loss'] .stamp::before { border-color: rgba(255, 235, 220, 0.4); }
+
+.report[data-result='draw'] .stamp {
+  color: #f4efe2;
+  background: radial-gradient(circle at 35% 28%, #b3ad9f, #857f70 55%, #6f695c 96%);
+  transform: rotate(-5deg);
+}
+
+.report[data-result='draw'] .stamp::before { border-color: rgba(244, 239, 226, 0.4); }
+
+@keyframes stampThump {
+  from { opacity: 0; transform: rotate(0deg) scale(1.7); }
+}
+
+/* ---------------- 空状态 ---------------- */
+
+.emptyBall {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 33% 28%, rgba(255, 255, 255, 0.9), transparent 30%),
+    linear-gradient(#d9584a 0 47%, #26221d 47% 55%, #f4eee2 55%);
+  box-shadow: 0 0 0 2px #211d19, 0 10px 16px -8px rgba(0, 0, 0, 0.6);
+}
+
+.emptyBall::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 13px;
+  height: 13px;
+  margin: -6.5px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fbf7ec, #cfc6b4);
+  box-shadow: 0 0 0 3px #211d19, 0 0 0 4px rgba(201, 162, 39, 0.7);
+}
+
+/* ---------------- 小屏：战报堆叠 ---------------- */
+
+@media (max-width: 680px) {
+  .head {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .boards {
+    grid-template-columns: 1fr;
+  }
+
+  .boardNumbers {
+    flex-wrap: wrap;
+    gap: 14px 22px;
+  }
+
+  .wall {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  .report { padding: 16px 14px 14px; }
+
+  .stamp {
+    width: 46px;
+    height: 46px;
+    font-size: 20px;
+    top: -11px;
+    right: 8px;
+  }
+
+  .vs {
+    width: 32px;
+    height: 32px;
+    font-size: 10px;
+  }
+
+  .portrait { width: 36px; height: 36px; }
+  .sideName { font-size: 15px; }
+  .deckChip { width: 24px; height: 34px; }
+  .reportFoot { flex-wrap: wrap; }
+}
+
+/* ---------------- 动效减弱 ---------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .report,
+  .stamp,
+  .ring {
+    animation: none;
+  }
+
+  .report,
+  .replayBtn {
+    transition: none;
+  }
+
+  .report:hover {
+    transform: rotate(var(--tilt, 0deg));
+  }
+
+  .replayBtn:active {
+    transform: none;
+  }
+}

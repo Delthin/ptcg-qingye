@@ -1,0 +1,160 @@
+/*
+ * TableTurnOrb — 黄铜罗盘（回合指示 / 主操作共用形体）。
+ * 结构固定在 TSX 的 SVG 里，这里按几何属性（d / r / cy）逐件重漆：
+ *   外圈黄铜壳座 → 绿绒刻度盘 → 奶油罗盘卡（滚花虚线刻度环）
+ *   → 双色指针（北火红菱形 + 南黄铜箭标）→ 中心黄铜铆钉 → 玻璃反光。
+ * 成为行动方的一瞬：罗盘指针式弹性归位（orbSettle）+ 克制的呼吸微光；
+ * 未激活时整体压灰（安静），按压下沉。
+ */
+
+.orb {
+  pointer-events: auto;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  border-radius: 50%;
+  filter: drop-shadow(0 3px 2px #0006) drop-shadow(0 8px 7px #0009);
+  cursor: pointer;
+  transition: transform 160ms cubic-bezier(.23, 1, .32, 1), filter 200ms cubic-bezier(.23, 1, .32, 1);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.orb svg { display: block; width: 100%; height: 100%; }
+
+/* —— 逐件重漆（按几何属性定位，不依赖 TSX 类名） —— */
+
+/* 落地投影 */
+.orb svg ellipse[cx='50'][cy='71'] {
+  fill: #060b07;
+  opacity: .7;
+}
+
+/* 黄铜壳座：罗盘坐在上面的金属碗 */
+.orb svg ellipse[cx='50'][cy='63'] {
+  fill: #6d5710;
+  stroke: #c9a227;
+  stroke-width: 1.4;
+}
+
+/* 绿绒刻度盘：虚线描边模拟刻度分划 */
+.orb svg ellipse[cx='50'][cy='58'] {
+  fill: #143d26;
+  stroke: rgba(201, 162, 39, 0.4);
+  stroke-width: 1;
+  stroke-dasharray: 1.1 3.4;
+}
+
+/* 罗盘卡：奶油卡面 + 滚花刻度环（圆周 ≈201，虚线周期 ≈4.57 → 44 齿） */
+.orb svg circle[r='32'] {
+  fill: #f6efdd;
+  stroke: #8a6f14;
+  stroke-width: 3.4;
+  stroke-dasharray: 1.3 3.27;
+}
+
+/* 北针：原半球帽裁成菱形指针（火红） */
+.orb svg path[d='M18 43A32 32 0 0 1 82 43Z'] {
+  fill: #f08030;
+  stroke: rgba(46, 30, 20, 0.45);
+  stroke-width: 0.6;
+  clip-path: polygon(50% 0%, 63% 42%, 50% 100%, 37% 42%);
+}
+
+/* 南北轴细线：原赤道带转成纵轴，垫在指针与铆钉之下 */
+.orb svg path[d='M18 43H82'] {
+  stroke: #2a1f14;
+  stroke-width: 1.3;
+  opacity: 0.38;
+  transform-box: view-box;
+  transform-origin: 50px 43px;
+  transform: rotate(90deg);
+}
+
+/* 中心铆钉：黄铜圆帽 */
+.orb svg circle[r='11'] {
+  fill: #c9a227;
+  stroke: #8a6f14;
+  stroke-width: 2.4;
+}
+
+/* 南针箭标：原下箭头上移到铆钉下方，黄铜深色（与北针构成双色） */
+.orb svg path[d='m43 64 7 6 7-6'] {
+  stroke: #8a6f14;
+  stroke-width: 3.2;
+  transform: translate(0px, -9px);
+}
+
+/* 玻璃反光 */
+.orb svg path[d='M31 23Q42 14 58 17'] {
+  stroke: #fff6cf;
+  stroke-width: 2.2;
+  opacity: 0.5;
+}
+
+/* 状态信号：铆钉上的暗刻（对勾 / 圆点）与底盘光环 */
+.orb svg path.signal { stroke: #241a06; stroke-width: 2.6; stroke-linecap: round; }
+.orb svg circle.signal { fill: #241a06; }
+.orb svg ellipse.signal { stroke: rgba(232, 200, 90, 0.85); stroke-width: 1.4; }
+
+/* —— 状态 —— */
+
+/* 激活光晕底盘（呼吸幅度压得很低，不刺眼） */
+.orb::before {
+  content: '';
+  position: absolute;
+  inset: 8%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, #f6d5674d, #e8bc3e1e 45%, transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms cubic-bezier(.23,1,.32,1);
+}
+
+.orb:not([data-active]) svg { filter: grayscale(.8) brightness(.62); }
+
+.signal { opacity: .12; transition: opacity 160ms cubic-bezier(.23, 1, .32, 1); }
+
+.orb[data-active] {
+  filter: drop-shadow(0 3px 2px #0006) drop-shadow(0 8px 7px #0009) drop-shadow(0 0 14px #f2c65d66);
+}
+
+.orb[data-active]::before { opacity: 1; animation: orbBreath 2800ms ease-in-out infinite; }
+
+.orb[data-active] .signal { opacity: 1; }
+.orb[data-active] .signal:last-child { stroke-width: 2; }
+.orb[data-state='choose'] .signal { opacity: .45; }
+.orb[data-state='waiting'] { filter: drop-shadow(0 3px 2px #0006) drop-shadow(0 8px 7px #0009); }
+
+/* 成为行动方的一瞬：罗盘指针归位式弹性转向（仅激活时触发一次） */
+.orb[data-active] svg { animation: orbSettle 480ms cubic-bezier(.34, 1.3, .5, 1) both; }
+
+@keyframes orbSettle {
+  0% { transform: rotate(-24deg); }
+  58% { transform: rotate(6deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes orbBreath {
+  0%, 100% { opacity: .72; }
+  50% { opacity: 1; }
+}
+
+.orb:disabled { cursor: default; }
+.orb:disabled:not([data-active]) { opacity: .7; }
+.orb:active:not(:disabled) { transform: translateY(3px) scale(.97); filter: drop-shadow(0 1px 1px #0007) drop-shadow(0 3px 4px #0008); }
+.orb:focus-visible { outline: 2px solid #e4d190; outline-offset: 5px; }
+.orb[data-pending] .signal { animation: working 2s linear infinite; }
+.orb[data-keyboard] { transition: none; }
+
+@keyframes working { 0%,100% { opacity: .3; } 50% { opacity: 1; } }
+
+@media (hover: hover) and (pointer: fine) { .orb:not(:disabled):hover { transform: translateY(-2px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .orb { transition: none; }
+  .orb[data-active] svg,
+  .orb[data-active]::before { animation: none; }
+  .orb[data-pending] .signal { animation: none; opacity: .65; }
+  .orb:not(:disabled):hover { transform: none; }
+}

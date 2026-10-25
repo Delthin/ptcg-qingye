@@ -1,0 +1,497 @@
+/*
+ * arena.css — 共享「实体卡桌」视觉语言
+ *
+ * 方向：暮色天光下的胡桃木牌桌 + 绿绒桌垫 + 黄铜镶边 + 奶油纸卡。
+ * 所有页面共用同一组材质与小节标题，避免每页各写一套。
+ *
+ * 只放跨页面复用的东西：token、材质类、标题组件、面板、空状态、按钮。
+ * 页面私有的布局一律写在各自的 module.css 里。
+ */
+
+:root {
+  /* —— 桌面 —— */
+  --a-walnut: #4a3222;
+  --a-walnut-lit: #6b4a32;
+  --a-walnut-dark: #2e1e14;
+  --a-felt: #1f5c3a;
+  --a-felt-lit: #2a7a4d;
+  --a-felt-dark: #143d26;
+
+  /* —— 金属与纸 —— */
+  --a-brass: #c9a227;
+  --a-brass-lit: #e8c85a;
+  --a-brass-dark: #8a6f14;
+  --a-select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='m2 2 4 4 4-4' fill='none' stroke='%23d9b977' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  --a-paper: #fffdf6;
+  --a-paper-warm: #f6efdd;
+  --a-paper-edge: rgba(74, 50, 34, 0.22);
+
+  /* —— 文字 —— */
+  --a-ink: #2a1f14;
+  --a-ink-soft: #5c4a38;
+  --a-on-dark: #f3ead6;
+  --a-on-dark-soft: rgba(243, 234, 214, 0.66);
+
+  /* —— 属性色（卡牌属性，用于强调与描边）—— */
+  --a-grass: #6cbf3f;
+  --a-fire: #f08030;
+  --a-water: #4f8ff0;
+  --a-lightning: #f2c40c;
+  --a-psychic: #d94f9a;
+  --a-fighting: #c03028;
+  --a-darkness: #5a5148;
+  --a-metal: #a8a8bc;
+  --a-dragon: #7a5cf0;
+  --a-colorless: #c8c0a8;
+
+  /* —— 稀有度 —— */
+  --a-r-common: #8b8378;
+  --a-r-uncommon: #4f9a5e;
+  --a-r-rare: #3f7fd0;
+  --a-r-holo: #9b6ce0;
+  --a-r-ultra: #e0559a;
+  --a-r-secret: #d9a520;
+
+  /* —— 立体投影：所有面板共用同一套光向（左上光源）—— */
+  --a-lift-1: 0 1px 2px rgba(20, 12, 6, 0.28);
+  --a-lift-2: 0 4px 10px rgba(20, 12, 6, 0.26), 0 1px 2px rgba(20, 12, 6, 0.2);
+  --a-lift-3: 0 12px 28px rgba(20, 12, 6, 0.34), 0 3px 8px rgba(20, 12, 6, 0.22);
+  --a-lift-4: 0 26px 54px rgba(20, 12, 6, 0.44), 0 8px 18px rgba(20, 12, 6, 0.28);
+  --a-inset-paper: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  --a-inset-felt: inset 0 2px 14px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+
+  /* —— 动效：统一曲线与时长 —— */
+  --a-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --a-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --a-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --a-ease-heavy: cubic-bezier(0.7, 0, 0.3, 1);
+  --a-t-fast: 140ms;
+  --a-t: 240ms;
+  --a-t-slow: 420ms;
+
+  /* —— 字体 —— */
+  --a-font-display: 'ZCOOL QingKe HuangYou', 'Urbanist', system-ui, sans-serif;
+  /* 品牌标题：像素字，字号需为 13 的整数倍，见 styles/fonts.css */
+  --a-font-brand: 'Fusion Poke Pixel', 'ZCOOL QingKe HuangYou', system-ui, sans-serif;
+  --a-font-ui: 'Urbanist', system-ui, -apple-system, sans-serif;
+  --a-font-num: ui-monospace, 'SFMono-Regular', monospace;
+}
+
+/* ============================================================
+   页面外壳：整页铺桌
+   ============================================================ */
+
+.a-page {
+  position: relative;
+  min-height: 100%;
+  padding: 32px clamp(16px, 4vw, 48px) 64px;
+  color: var(--a-ink);
+  font-family: var(--a-font-ui);
+}
+
+/* 页面底衬：木桌 + 绿绒，页面内容浮在其上 */
+.a-page::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(ellipse 120% 80% at 50% -10%, rgba(255, 226, 168, 0.14), transparent 62%),
+    linear-gradient(180deg, #24425f 0%, #1d3448 26%, #2b2419 58%, var(--a-walnut-dark) 100%);
+}
+
+/* 桌垫：中心一块略亮的绒面 */
+.a-page::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 62% 46% at 50% 52%, rgba(42, 122, 77, 0.5), transparent 70%),
+    radial-gradient(ellipse 90% 70% at 50% 50%, transparent 40%, rgba(12, 8, 4, 0.5) 100%);
+}
+
+/* 内容限宽 + 居中 */
+.a-wrap {
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+.a-wrap-narrow {
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+/* ============================================================
+   小节标题：黄铜细线 + 展示字体
+   ============================================================ */
+
+.a-section {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0 0 20px;
+  padding-bottom: 12px;
+  position: relative;
+}
+
+/* 标题下沿的黄铜细线，两侧渐隐 */
+.a-section::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--a-brass) 0%, rgba(201, 162, 39, 0.34) 34%, transparent 88%);
+}
+
+.a-section-title {
+  margin: 0;
+  font-family: var(--a-font-display);
+  font-size: clamp(20px, 2.4vw, 30px);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  line-height: 1.15;
+  color: var(--a-on-dark);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* 标题左侧的黄铜小菱形 */
+.a-section-title::before {
+  content: '';
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 12px;
+  vertical-align: 0.22em;
+  background: var(--a-brass);
+  transform: rotate(45deg);
+  box-shadow: 0 0 10px rgba(201, 162, 39, 0.7);
+}
+
+.a-section-meta {
+  flex: none;
+  font-family: var(--a-font-num);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--a-on-dark-soft);
+}
+
+/* 大标题：页面主标题 */
+.a-hero-title {
+  margin: 0;
+  font-family: var(--a-font-display);
+  font-size: clamp(38px, 6vw, 76px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: transparent;
+  background: linear-gradient(180deg, #fdf3d8 0%, var(--a-brass-lit) 46%, var(--a-brass) 74%, #9a7d1c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 3px 12px rgba(0, 0, 0, 0.55));
+}
+
+.a-hero-sub {
+  margin: 8px 0 0;
+  font-family: var(--a-font-num);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--a-on-dark-soft);
+}
+
+/* ============================================================
+   面板：奶油纸卡 / 深色绒面
+   ============================================================ */
+
+/* 奶油纸卡：默认内容容器 */
+.a-panel {
+  position: relative;
+  padding: 22px 24px;
+  border-radius: 6px;
+  background:
+    linear-gradient(170deg, var(--a-paper) 0%, var(--a-paper-warm) 100%);
+  color: var(--a-ink);
+  border: 1px solid var(--a-paper-edge);
+  box-shadow: var(--a-lift-3), var(--a-inset-paper);
+}
+
+/* 纸卡四角的黄铜包角 */
+.a-panel-corners::before,
+.a-panel-corners::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--a-brass);
+  opacity: 0.66;
+  pointer-events: none;
+}
+
+.a-panel-corners::before {
+  top: 5px;
+  left: 5px;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.a-panel-corners::after {
+  bottom: 5px;
+  right: 5px;
+  border-left: 0;
+  border-top: 0;
+}
+
+/* 深色绒面板：用于在亮纸卡之间做呼吸 */
+.a-panel-dark {
+  position: relative;
+  padding: 22px 24px;
+  border-radius: 6px;
+  color: var(--a-on-dark);
+  background:
+    linear-gradient(170deg, rgba(31, 92, 58, 0.92) 0%, rgba(20, 61, 38, 0.96) 100%);
+  border: 1px solid rgba(201, 162, 39, 0.34);
+  box-shadow: var(--a-lift-3), var(--a-inset-felt);
+}
+
+/* 悬停可抬升 */
+.a-lift {
+  transition: transform var(--a-t) var(--a-ease-out), box-shadow var(--a-t) var(--a-ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .a-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--a-lift-4), var(--a-inset-paper);
+  }
+}
+
+/* ============================================================
+   按钮：实体黄铜键
+   ============================================================ */
+
+/* 主按钮：黄铜，带厚度与按压下沉 */
+.a-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 18px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #241a06;
+  background: linear-gradient(180deg, var(--a-brass-lit) 0%, var(--a-brass) 52%, #a8831c 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.2),
+    0 3px 0 #6d5710,
+    0 6px 14px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: transform var(--a-t-fast) var(--a-ease), box-shadow var(--a-t-fast) var(--a-ease), filter var(--a-t-fast) var(--a-ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .a-btn:hover:not(:disabled) {
+    filter: brightness(1.07);
+    transform: translateY(-1px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.55),
+      inset 0 -2px 0 rgba(0, 0, 0, 0.2),
+      0 4px 0 #6d5710,
+      0 10px 20px rgba(0, 0, 0, 0.44);
+  }
+}
+
+/* 按下：厚度归零，像真的把键按进桌面 */
+.a-btn:active:not(:disabled) {
+  transform: translateY(3px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 0 0 #6d5710,
+    0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.a-btn:disabled {
+  opacity: 0.46;
+  cursor: not-allowed;
+  filter: grayscale(0.5);
+}
+
+/* 次要按钮：纸面描边 */
+.a-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 18px;
+  border: 1px solid rgba(243, 234, 214, 0.28);
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--a-on-dark);
+  background: rgba(243, 234, 214, 0.06);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition: background var(--a-t) var(--a-ease), border-color var(--a-t) var(--a-ease), transform var(--a-t) var(--a-ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .a-btn-ghost:hover:not(:disabled) {
+    background: rgba(243, 234, 214, 0.14);
+    border-color: rgba(201, 162, 39, 0.6);
+    transform: translateY(-1px);
+  }
+}
+
+.a-btn-ghost:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.a-btn-ghost:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+}
+
+/* ============================================================
+   输入：嵌入桌面的凹槽
+   ============================================================ */
+
+.a-input {
+  height: 40px;
+  padding: 0 14px;
+  width: 100%;
+  border: 1px solid rgba(74, 50, 34, 0.3);
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--a-ink);
+  background: var(--a-paper);
+  box-shadow: inset 0 2px 5px rgba(74, 50, 34, 0.16);
+  transition: border-color var(--a-t) var(--a-ease), box-shadow var(--a-t) var(--a-ease);
+}
+
+.a-input::placeholder {
+  color: rgba(92, 74, 56, 0.55);
+}
+
+.a-input:focus {
+  outline: none;
+  border-color: var(--a-brass);
+  box-shadow:
+    inset 0 2px 5px rgba(74, 50, 34, 0.12),
+    0 0 0 3px rgba(201, 162, 39, 0.3);
+}
+
+/* ============================================================
+   空状态：桌上的空牌位
+   ============================================================ */
+
+.a-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 56px 24px;
+  text-align: center;
+  border: 1px dashed rgba(201, 162, 39, 0.4);
+  border-radius: 8px;
+  background: radial-gradient(ellipse at 50% 40%, rgba(42, 122, 77, 0.24), transparent 72%);
+}
+
+.a-empty-title {
+  margin: 0;
+  font-family: var(--a-font-display);
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--a-on-dark);
+}
+
+.a-empty-note {
+  margin: 0;
+  max-width: 420px;
+  font-size: 12.5px;
+  line-height: 1.75;
+  color: var(--a-on-dark-soft);
+}
+
+/* ============================================================
+   标签 / 徽章
+   ============================================================ */
+
+.a-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 22px;
+  padding: 0 9px;
+  border: 1px solid rgba(201, 162, 39, 0.44);
+  border-radius: 3px;
+  font-family: var(--a-font-num);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--a-brass-lit);
+  background: rgba(201, 162, 39, 0.1);
+}
+
+/* 状态点：空闲/对局中/离线 */
+.a-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex: none;
+}
+
+.a-dot-idle { background: #48c35f; box-shadow: 0 0 8px rgba(72, 195, 95, 0.9); }
+.a-dot-busy { background: #e0533a; box-shadow: 0 0 8px rgba(224, 83, 58, 0.9); }
+.a-dot-off { background: #6b6152; }
+
+/* ============================================================
+   入场节拍：错峰浮现
+   ============================================================ */
+
+@keyframes aRise {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.a-rise {
+  animation: aRise var(--a-t-slow) var(--a-ease-out) both;
+  animation-delay: var(--a-delay, 0ms);
+}
+
+/* ============================================================
+   无障碍：减少动态
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .a-rise {
+    animation: none;
+  }
+
+  .a-lift,
+  .a-btn,
+  .a-btn-ghost {
+    transition: none;
+  }
+
+  .a-lift:hover {
+    transform: none;
+  }
+}

@@ -1,0 +1,2 @@
+# Image conversion/cropping for public-source playmats and coin artwork.
+Pillow==12.1.1

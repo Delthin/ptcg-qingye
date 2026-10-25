@@ -1,0 +1,406 @@
+/*
+ * GameOverOverlay — 终局舞台。
+ * 深色绒面 + 暗角，宣告以「印章砸下」的节拍入场：暗场 → 印章过冲 → 细节错峰浮现。
+ * 材质 token 全部对齐 arena.css（黄铜 / 胡桃 / 绒面）。
+ */
+
+.overlay {
+  --brass: #c9a227;
+  --brass-lit: #e8c85a;
+  --on-dark: #f3ead6;
+  --on-dark-soft: rgba(243, 234, 214, 0.62);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.5, 1);
+
+  position: fixed;
+  inset: 0;
+  z-index: 1700;
+  display: grid;
+  place-items: center;
+  padding: clamp(16px, 4vh, 48px) clamp(16px, 4vw, 48px);
+  box-sizing: border-box;
+  overflow: auto;
+  color: var(--on-dark);
+  font-family: var(--a-font-ui);
+  /* 深色绒 + 暗角，绝不纯黑 */
+  background:
+    radial-gradient(ellipse 120% 90% at 50% 30%, rgba(31, 92, 58, 0.34), transparent 60%),
+    radial-gradient(ellipse 90% 70% at 50% 50%, transparent 30%, rgba(6, 4, 2, 0.62) 100%),
+    linear-gradient(180deg, #17130c 0%, #100d08 55%, #0b0906 100%);
+  animation: overlayDim 360ms ease-out both;
+}
+
+@keyframes overlayDim {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 顶部黄铜细线：整个终局屏的「桌沿」 */
+.hairlineTop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 162, 39, 0.7) 18%, rgba(232, 200, 90, 0.9) 50%, rgba(201, 162, 39, 0.7) 82%, transparent);
+  pointer-events: none;
+}
+
+.panel {
+  position: relative;
+  isolation: isolate;
+  width: min(680px, 100%);
+  margin: auto;
+  padding: clamp(28px, 5vh, 56px) clamp(20px, 5vw, 56px) clamp(24px, 4vh, 44px);
+  text-align: center;
+}
+
+/* —— 眉题：黄铜小铭牌 —— */
+.eyebrow {
+  display: inline-block;
+  padding: 5px 12px;
+  border: 1px solid rgba(201, 162, 39, 0.42);
+  border-radius: 3px;
+  font-family: var(--a-font-num);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: var(--brass-lit);
+  background: rgba(201, 162, 39, 0.08);
+  animation: riseIn 420ms var(--ease-out) 120ms both;
+}
+
+/* —— 宣告：超大展示字体，印章式入场 —— */
+.title {
+  margin: clamp(14px, 2.6vh, 24px) 0 clamp(18px, 3.4vh, 30px);
+  font-family: var(--a-font-display);
+  font-weight: 400;
+  font-size: clamp(40px, 8.4vw, 84px);
+  line-height: 1.08;
+  letter-spacing: 0.02em;
+  color: var(--on-dark-soft);
+  text-shadow: 0 3px 16px rgba(0, 0, 0, 0.6);
+  animation: stampIn 520ms var(--ease-spring) 220ms both;
+}
+
+/* 胜者：黄铜渐变金字 + 外发光 */
+.overlay[data-mood='win'] .title {
+  color: transparent;
+  background: linear-gradient(180deg, #fdf3d8 0%, var(--brass-lit) 46%, var(--brass) 74%, #9a7d1c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 0 22px rgba(232, 200, 90, 0.4)) drop-shadow(0 4px 14px rgba(0, 0, 0, 0.65));
+}
+
+/* 败者：安静压暗 */
+.overlay[data-mood='lose'] .title {
+  color: rgba(214, 203, 180, 0.72);
+  text-shadow: 0 3px 14px rgba(0, 0, 0, 0.7);
+}
+
+/* 平局 / 中止：中性 */
+.overlay[data-mood='draw'] .title,
+.overlay[data-mood='abort'] .title {
+  color: rgba(226, 216, 193, 0.85);
+}
+
+/* 印章砸下：轻微过冲 + 收束时的微旋转（不动画 filter，避免覆盖胜者金字的 drop-shadow 光晕） */
+@keyframes stampIn {
+  0% {
+    opacity: 0;
+    transform: scale(1.55) rotate(-2.4deg);
+  }
+  55% {
+    opacity: 1;
+    transform: scale(0.965) rotate(0.5deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* —— 记分牌：两位训练家 —— */
+.trainers {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: clamp(18px, 4vw, 40px);
+  margin: clamp(8px, 2vh, 18px) 0 clamp(16px, 3vh, 26px);
+  animation: riseIn 460ms var(--ease-out) 400ms both;
+}
+
+/* 中缝黄铜分隔线 */
+.trainers::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1px;
+  height: min(150px, 78%);
+  transform: translate(-50%, -50%);
+  background: linear-gradient(180deg, transparent, rgba(201, 162, 39, 0.55) 22% 78%, transparent);
+}
+
+/* 中缝菱形铆钉 */
+.trainers::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  transform: translate(-50%, -50%) rotate(45deg);
+  background: var(--brass);
+  box-shadow: 0 0 10px rgba(201, 162, 39, 0.7);
+}
+
+.trainer {
+  position: relative;
+  flex: 1 1 0;
+  max-width: 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: clamp(14px, 2.6vh, 24px) clamp(12px, 2.4vw, 22px) clamp(12px, 2.2vh, 18px);
+  border-radius: 8px;
+  /* 胡桃木名牌底板 */
+  background:
+    linear-gradient(170deg, rgba(107, 74, 50, 0.42), rgba(46, 30, 20, 0.5)),
+    linear-gradient(180deg, #241812, #17100a);
+  border: 1px solid rgba(201, 162, 39, 0.24);
+  box-shadow: var(--a-lift-2), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: opacity 300ms var(--ease-out), box-shadow 300ms var(--ease-out), border-color 300ms var(--ease-out);
+}
+
+/* —— 记分牌：两位训练家（败方压暗） —— */
+.overlay[data-mood='win'] .trainer:not([data-winner]),
+.overlay[data-mood='lose'] .trainer:not([data-winner]) {
+  opacity: 0.72;
+  filter: saturate(0.82);
+}
+
+.trainer[data-winner] {
+  border-color: rgba(232, 200, 90, 0.55);
+  box-shadow:
+    0 12px 28px rgba(20, 12, 6, 0.5),
+    0 0 26px rgba(201, 162, 39, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+.portraitRing {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 104px;
+  height: 104px;
+  border-radius: 50%;
+  /* 黄铜金属环 */
+  background: conic-gradient(from 210deg, #8a6f14, #e8c85a 22%, #9a7d1c 46%, #f2dfa6 62%, #8a6f14 82%, #e8c85a);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.5),
+    inset 0 2px 5px rgba(255, 255, 255, 0.35),
+    inset 0 -3px 6px rgba(0, 0, 0, 0.45);
+}
+
+.portraitRing > * {
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 3px #17100a;
+}
+
+.trainer[data-winner] .portraitRing {
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.5),
+    0 0 24px rgba(232, 200, 90, 0.38),
+    inset 0 2px 5px rgba(255, 255, 255, 0.4),
+    inset 0 -3px 6px rgba(0, 0, 0, 0.45);
+}
+
+.trainerName {
+  font-family: var(--a-font-display);
+  font-weight: 400;
+  font-size: clamp(17px, 2.6vw, 21px);
+  letter-spacing: 0.04em;
+  color: var(--on-dark);
+}
+
+.verdict {
+  font-family: var(--a-font-num);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+  color: var(--on-dark-soft);
+}
+
+.trainer[data-winner] .verdict {
+  color: var(--brass-lit);
+  text-shadow: 0 0 12px rgba(232, 200, 90, 0.45);
+}
+
+/* —— 奖赏珠串 + 等宽计数 —— */
+.score {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 2px;
+  padding-top: 10px;
+  width: 100%;
+  border-top: 1px solid rgba(201, 162, 39, 0.2);
+}
+
+.beads {
+  display: flex;
+  gap: 5px;
+  margin: 0 auto;
+}
+
+.bead {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(243, 234, 214, 0.1);
+  border: 1px solid rgba(201, 162, 39, 0.3);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.55);
+}
+
+.bead[data-taken] {
+  background: radial-gradient(circle at 34% 30%, #f6e6a8, var(--brass) 62%, #8a6f14);
+  border-color: rgba(232, 200, 90, 0.8);
+  box-shadow: 0 0 7px rgba(201, 162, 39, 0.5);
+}
+
+.scoreNum {
+  font-family: var(--a-font-num);
+  font-size: 13px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--brass-lit);
+  min-width: 2.6em;
+  text-align: right;
+}
+
+.scoreNum + .scoreNum {
+  padding-left: 10px;
+  border-left: 1px solid rgba(201, 162, 39, 0.3);
+  color: rgba(243, 234, 214, 0.85);
+}
+
+/* —— 本局金币 —— */
+.reward {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0 auto clamp(14px, 2.6vh, 20px);
+  padding: 8px 16px;
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(201, 162, 39, 0.16), rgba(201, 162, 39, 0.05));
+  animation: riseIn 420ms var(--ease-out) 500ms both;
+}
+
+.rewardLabel {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--on-dark-soft);
+}
+
+.rewardAmount {
+  font-family: var(--a-font-num);
+  font-size: 16px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--brass-lit);
+  text-shadow: 0 0 14px rgba(232, 200, 90, 0.35);
+}
+
+/* —— 战报尾注 —— */
+.note {
+  margin: 0 auto;
+  max-width: 420px;
+  font-size: 12.5px;
+  line-height: 1.8;
+  color: var(--on-dark-soft);
+  animation: riseIn 420ms var(--ease-out) 560ms both;
+}
+
+/* —— 实体键：arena a-btn 同质感 —— */
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: clamp(20px, 3.6vh, 34px);
+  padding-top: clamp(16px, 3vh, 26px);
+  border-top: 1px solid rgba(201, 162, 39, 0.22);
+  animation: riseIn 420ms var(--ease-out) 700ms both;
+}
+
+.primaryBtn {
+  min-height: 48px;
+  padding: 0 34px;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+}
+
+/* —— 竖屏 / 窄屏 —— */
+@media (max-width: 560px), (max-aspect-ratio: 17/20) {
+  .trainers {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  /* 中缝改为水平分隔线 */
+  .trainers::before {
+    width: min(240px, 70%);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201, 162, 39, 0.55) 22% 78%, transparent);
+  }
+
+  .trainer {
+    width: min(340px, 100%);
+    max-width: none;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    column-gap: 14px;
+    row-gap: 6px;
+  }
+
+  .portraitRing {
+    width: 84px;
+    height: 84px;
+  }
+
+  .trainerName {
+    flex: 0 1 auto;
+  }
+
+  .score {
+    flex-basis: 100%;
+  }
+}
+
+/* —— 减少动态：全部入场动画直接呈现 —— */
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .eyebrow,
+  .title,
+  .trainers,
+  .note,
+  .actions {
+    animation: none;
+  }
+
+  .trainer {
+    transition: none;
+  }
+}

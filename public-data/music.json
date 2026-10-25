@@ -1,0 +1,395 @@
+{
+  "schema": 1,
+  "tracks": [
+    {
+      "theme": "anime-theme",
+      "file": "anime-theme/01-mezase-pok-mon-master-20th-anniversary-p.mp3",
+      "title": "目标是宝可梦大师",
+      "game": "松本梨香 · 20 周年版",
+      "source": "https://archive.org/details/mezase-pokemon-master-20th-anniversary",
+      "sourceFile": "Mezase Pokémon Master -20th Anniversary-/Mezase Pokémon Master -20th Anniversary--(p).mp3",
+      "trim": "",
+      "credit": ""
+    },
+    {
+      "theme": "anime-theme",
+      "file": "anime-theme/02-alola-p.mp3",
+      "title": "阿罗拉!!",
+      "game": "松本梨香",
+      "source": "https://archive.org/details/mezase-pokemon-master-20th-anniversary",
+      "sourceFile": "Mezase Pokémon Master -20th Anniversary-/Alola!!-(p).mp3",
+      "trim": "",
+      "credit": ""
+    },
+    {
+      "theme": "anime-theme",
+      "file": "anime-theme/03-getta-banban-satoshi-with-pikachu-ver-p.mp3",
+      "title": "ゲッタバンバン",
+      "game": "松本梨香",
+      "source": "https://archive.org/details/mezase-pokemon-master-20th-anniversary",
+      "sourceFile": "Mezase Pokémon Master -20th Anniversary-/Getta Banban -Satoshi with Pikachu ver.--(p).mp3",
+      "trim": "",
+      "credit": ""
+    },
+    {
+      "theme": "anime-theme",
+      "file": "anime-theme/04-xy-z-p.mp3",
+      "title": "XY&Z",
+      "game": "松本梨香",
+      "source": "https://archive.org/details/mezase-pokemon-master-20th-anniversary",
+      "sourceFile": "Mezase Pokémon Master -20th Anniversary-/XY&Z-(p).mp3",
+      "trim": "",
+      "credit": ""
+    },
+    {
+      "theme": "anime-theme",
+      "file": "anime-theme/05-poke-mon-theme.mp3",
+      "title": "Pokémon Theme",
+      "game": "英文版主题曲",
+      "source": "https://archive.org/details/pokemon-theme-song-collection",
+      "sourceFile": "Pokémon English Theme Song Collection/01 - Pokémon Theme.mp3",
+      "trim": "",
+      "credit": ""
+    },
+    {
+      "theme": "anime-theme",
+      "file": "anime-theme/06-tengger-target-pokemon-master.mp3",
+      "title": "目标是宝可梦大师（中文版）",
+      "game": "腾格尔 · 2024",
+      "source": "https://www.bilibili.com/video/BV1wfyyY7E2x",
+      "sourceFile": "bilibili BV1wfyyY7E2x p2",
+      "trim": "[0-270]",
+      "credit": "TGBUS电玩巴士"
+    },
+    {
+      "theme": "anime-theme",
+      "file": "anime-theme/07-zhou-shen-ke-meng.mp3",
+      "title": "可梦",
+      "game": "周深 · 25 周年",
+      "source": "https://www.bilibili.com/video/BV1h14y1t7bZ",
+      "sourceFile": "bilibili BV1h14y1t7bZ p1",
+      "trim": "[0-270]",
+      "credit": "Pokemon宝可梦"
+    },
+    {
+      "theme": "pokemon-songs",
+      "file": "pokemon-songs/01-slowpoke-song.mp3",
+      "title": "你怎么搞的呀呆呆兽",
+      "game": "呆呆兽 · 官方 MV",
+      "source": "https://www.bilibili.com/video/BV1va411z7HY",
+      "sourceFile": "bilibili BV1va411z7HY p1",
+      "trim": "[1.6-222.6]",
+      "credit": "Pokemon宝可梦"
+    },
+    {
+      "theme": "pokemon-songs",
+      "file": "pokemon-songs/02-slowpoke-song-cn.mp3",
+      "title": "怎么回事呀？呆呆兽（中文版）",
+      "game": "呆呆兽 · 中文版",
+      "source": "https://www.bilibili.com/video/BV1jt4y1G7sG",
+      "sourceFile": "bilibili BV1jt4y1G7sG p1",
+      "trim": "[1.6-222.6]",
+      "credit": "Pokemon宝可梦"
+    },
+    {
+      "theme": "pokemon-songs",
+      "file": "pokemon-songs/03-psyduck-song-cn.mp3",
+      "title": "总裁可达鸭（中文版）",
+      "game": "可达鸭",
+      "source": "https://www.bilibili.com/video/BV1CG4y1e7mY",
+      "sourceFile": "bilibili BV1CG4y1e7mY p1",
+      "trim": "[2.9-161.5]",
+      "credit": "Pokemon宝可梦"
+    },
+    {
+      "theme": "pokemon-songs",
+      "file": "pokemon-songs/04-meowth-song.mp3",
+      "title": "爱捡拾的喵喵",
+      "game": "喵喵",
+      "source": "https://www.bilibili.com/video/BV11r4y1W7rG",
+      "sourceFile": "bilibili BV11r4y1W7rG p1",
+      "trim": "[3.2-113.7]",
+      "credit": "Pokemon宝可梦"
+    },
+    {
+      "theme": "pokemon-songs",
+      "file": "pokemon-songs/05-gengar-song.mp3",
+      "title": "夜幕下的耿鬼",
+      "game": "耿鬼",
+      "source": "https://www.bilibili.com/video/BV13P4y1w7Xr",
+      "sourceFile": "bilibili BV13P4y1w7Xr p1",
+      "trim": "[0-93.4]",
+      "credit": "Pokemon宝可梦"
+    },
+    {
+      "theme": "pokemon-songs",
+      "file": "pokemon-songs/06-ditto-song.mp3",
+      "title": "变变百变怪",
+      "game": "百变怪",
+      "source": "https://www.bilibili.com/video/BV1f44y1n7T2",
+      "sourceFile": "bilibili BV1f44y1n7T2 p1",
+      "trim": "",
+      "credit": "Pokemon宝可梦"
+    },
+    {
+      "theme": "pokemon-songs",
+      "file": "pokemon-songs/07-magikarp-song.mp3",
+      "title": "I LOVE 鲤鱼王",
+      "game": "鲤鱼王",
+      "source": "https://www.bilibili.com/video/BV1oT4y1y7hQ",
+      "sourceFile": "bilibili BV1oT4y1y7hQ p1",
+      "trim": "[4.0-229.8]",
+      "credit": "Pokemon宝可梦"
+    },
+    {
+      "theme": "pokemon-songs",
+      "file": "pokemon-songs/08-staryu-song.mp3",
+      "title": "我们的海星星",
+      "game": "海星星",
+      "source": "https://www.bilibili.com/video/BV1t94y1Z7FY",
+      "sourceFile": "bilibili BV1t94y1Z7FY p1",
+      "trim": "[3.0-97.0]",
+      "credit": "Pokemon宝可梦"
+    },
+    {
+      "theme": "pop-remix",
+      "file": "pop-remix/01-littleroot-light-arrange.mp3",
+      "title": "未白镇 · 轻音乐改编",
+      "game": "同人改编",
+      "source": "https://www.bilibili.com/video/BV17U421o7L8",
+      "sourceFile": "bilibili BV17U421o7L8 p1",
+      "trim": "[0-163.2]",
+      "credit": "战无不胜の小太阳"
+    },
+    {
+      "theme": "pop-remix",
+      "file": "pop-remix/02-anime-theme-chinese-style.mp3",
+      "title": "动画主题曲 · 中国风改编",
+      "game": "同人改编",
+      "source": "https://www.bilibili.com/video/BV1Pr4y1G7Jk",
+      "sourceFile": "bilibili BV1Pr4y1G7Jk p1",
+      "trim": "",
+      "credit": "7799Music"
+    },
+    {
+      "theme": "pop-remix",
+      "file": "pop-remix/03-lavender-town-guitar.mp3",
+      "title": "紫苑镇 · 治愈指弹",
+      "game": "同人改编",
+      "source": "https://www.bilibili.com/video/BV1Wc411m73A",
+      "sourceFile": "bilibili BV1Wc411m73A p1",
+      "trim": "[3.5-end]",
+      "credit": "咕咕一小段"
+    },
+    {
+      "theme": "pop-remix",
+      "file": "pop-remix/04-smile-piano-arrange.mp3",
+      "title": "スマイル · 钢琴轻音乐改编",
+      "game": "同人改编",
+      "source": "https://www.bilibili.com/video/BV1fa411p7qt",
+      "sourceFile": "bilibili BV1fa411p7qt p1",
+      "trim": "[8.7-97.0]",
+      "credit": "iRhythmZ"
+    },
+    {
+      "theme": "iconic-towns",
+      "file": "iconic-towns/01-littleroot-town.mp3",
+      "title": "未白镇",
+      "game": "欧米加红宝石·阿尔法蓝宝石",
+      "source": "https://archive.org/details/pkmn-oras-ost",
+      "sourceFile": "Disc 1/05 - Littleroot Town.mp3",
+      "trim": "",
+      "credit": ""
+    },
+    {
+      "theme": "iconic-towns",
+      "file": "iconic-towns/02-twinleaf-town-day.mp3",
+      "title": "双叶镇",
+      "game": "晶灿珍珠·明亮钻石",
+      "source": "https://archive.org/details/pok-mon-brilliant-diamond-shining-pearl-2021-ost",
+      "sourceFile": "Pokémon Brilliant Diamond & Shining Pearl - 004. Twinleaf Town (Day).mp3",
+      "trim": "",
+      "credit": ""
+    },
+    {
+      "theme": "iconic-towns",
+      "file": "iconic-towns/03-jubilife-village.mp3",
+      "title": "祝庆村",
+      "game": "传说 阿尔宙斯",
+      "source": "https://archive.org/details/pokemon-legends-arceus-original-soundtrack",
+      "sourceFile": "Pokémon LEGENDS Arceus Super Music Collection (2024)/1-06. Jubilife Village.mp3",
+      "trim": "",
+      "credit": ""
+    },
+    {
+      "theme": "iconic-towns",
+      "file": "iconic-towns/04-hau-oli-city-day.mp3",
+      "title": "好奥乐市",
+      "game": "太阳·月亮",
+      "source": "https://archive.org/details/pkmn-sun-moon-ost",
+      "sourceFile": "Disc 1/44 - Hau'oli City (Day).mp3",
+      "trim": "",
+      "credit": ""
+    },
+    {
+      "theme": "iconic-towns",
+      "file": "iconic-towns/05-wild-area-south.mp3",
+      "title": "旷野地带",
+      "game": "剑·盾",
+      "source": "https://archive.org/details/pokemon-sword-and-shield-original-soundtrack",
+      "sourceFile": "Pokémon Sword・Shield + Expansion Pass Super Music Collection (2024)/1-22. Wild Area (South).mp3",
+      "trim": "",
+      "credit": ""
+    },
+    {
+      "theme": "iconic-towns",
+      "file": "iconic-towns/06-poke-mon-center.mp3",
+      "title": "宝可梦中心",
+      "game": "剑·盾",
+      "source": "https://archive.org/details/pokemon-sword-and-shield-original-soundtrack",
+      "sourceFile": "Pokémon Sword・Shield + Expansion Pass Super Music Collection (2024)/1-16. Pokémon Center.mp3",
+      "trim": "",
+      "credit": ""
+    },
+    {
+      "theme": "modern-setpieces",
+      "file": "modern-setpieces/01-tera-raid-battle.mp3",
+      "title": "太晶团体战",
+      "game": "朱·紫",
+      "source": "https://archive.org/details/pokemon-scarlet-and-violet-original-soundtrack",
+      "sourceFile": "Pokémon Scarlet・Violet + The Hidden Treasure of Area Zero Super Music Collection (2024)/2-10. Tera Raid Battle!.mp3",
+      "trim": "",
+      "credit": ""
+    },
+    {
+      "theme": "modern-setpieces",
+      "file": "modern-setpieces/02-battle-team-star.mp3",
+      "title": "天星队战",
+      "game": "朱·紫",
+      "source": "https://archive.org/details/pokemon-scarlet-and-violet-original-soundtrack",
+      "sourceFile": "Pokémon Scarlet・Violet + The Hidden Treasure of Area Zero Super Music Collection (2024)/1-31. Battle! (Team Star).mp3",
+      "trim": "",
+      "credit": ""
+    },
+    {
+      "theme": "modern-setpieces",
+      "file": "modern-setpieces/03-battle-final-tournament.mp3",
+      "title": "冠军杯决胜",
+      "game": "剑·盾",
+      "source": "https://archive.org/details/pokemon-sword-and-shield-original-soundtrack",
+      "sourceFile": "Pokémon Sword・Shield + Expansion Pass Super Music Collection (2024)/3-13. Battle! (Final Tournament).mp3",
+      "trim": "",
+      "credit": ""
+    },
+    {
+      "theme": "modern-setpieces",
+      "file": "modern-setpieces/04-max-raid-battle.mp3",
+      "title": "极巨团体战",
+      "game": "剑·盾",
+      "source": "https://archive.org/details/pokemon-sword-and-shield-original-soundtrack",
+      "sourceFile": "Pokémon Sword・Shield + Expansion Pass Super Music Collection (2024)/1-23. Max Raid Battle!.mp3",
+      "trim": "",
+      "credit": ""
+    },
+    {
+      "theme": "gym-leaders",
+      "file": "gym-leaders/01-battle-gym-leader.mp3",
+      "title": "道馆馆主战",
+      "game": "剑·盾",
+      "source": "https://archive.org/details/pokemon-sword-and-shield-original-soundtrack",
+      "sourceFile": "Pokémon Sword・Shield + Expansion Pass Super Music Collection (2024)/2-19. Battle! (Gym Leader).mp3",
+      "trim": "",
+      "credit": ""
+    },
+    {
+      "theme": "gym-leaders",
+      "file": "gym-leaders/02-battle-gym-leader-victory-gym-leader.mp3",
+      "title": "道馆馆主战",
+      "game": "朱·紫",
+      "source": "https://archive.org/details/pokemon-scarlet-and-violet-original-soundtrack",
+      "sourceFile": "Pokémon Scarlet・Violet + The Hidden Treasure of Area Zero Super Music Collection (2024)/2-04. Battle! (Gym Leader)  -  Victory! (Gym Leader).mp3",
+      "trim": "",
+      "credit": ""
+    },
+    {
+      "theme": "gym-leaders",
+      "file": "gym-leaders/03-battle-gym-leader.mp3",
+      "title": "道馆馆主战",
+      "game": "晶灿珍珠·明亮钻石",
+      "source": "https://archive.org/details/pok-mon-brilliant-diamond-shining-pearl-2021-ost",
+      "sourceFile": "Pokémon Brilliant Diamond & Shining Pearl - 039. Battle! (Gym Leader).mp3",
+      "trim": "",
+      "credit": ""
+    },
+    {
+      "theme": "gym-leaders",
+      "file": "gym-leaders/04-battle-gym-leader.mp3",
+      "title": "道馆馆主战",
+      "game": "欧米加红宝石·阿尔法蓝宝石",
+      "source": "https://archive.org/details/pkmn-oras-ost",
+      "sourceFile": "Disc 2/06 - Battle! (Gym Leader).mp3",
+      "trim": "",
+      "credit": ""
+    },
+    {
+      "theme": "gym-leaders",
+      "file": "gym-leaders/05-battle-island-kahuna.mp3",
+      "title": "岛屿之王战",
+      "game": "太阳·月亮",
+      "source": "https://archive.org/details/pkmn-sun-moon-ost",
+      "sourceFile": "Disc 2/14 - Battle! (Island Kahuna).mp3",
+      "trim": "",
+      "credit": ""
+    },
+    {
+      "theme": "elite-champion",
+      "file": "elite-champion/01-battle-elite-four.mp3",
+      "title": "四天王战",
+      "game": "朱·紫",
+      "source": "https://archive.org/details/pokemon-scarlet-and-violet-original-soundtrack",
+      "sourceFile": "Pokémon Scarlet・Violet + The Hidden Treasure of Area Zero Super Music Collection (2024)/3-15. Battle! (Elite Four).mp3",
+      "trim": "",
+      "credit": ""
+    },
+    {
+      "theme": "elite-champion",
+      "file": "elite-champion/02-battle-top-champion.mp3",
+      "title": "冠军战",
+      "game": "朱·紫",
+      "source": "https://archive.org/details/pokemon-scarlet-and-violet-original-soundtrack",
+      "sourceFile": "Pokémon Scarlet・Violet + The Hidden Treasure of Area Zero Super Music Collection (2024)/3-16. Battle! (Top Champion).mp3",
+      "trim": "",
+      "credit": ""
+    },
+    {
+      "theme": "elite-champion",
+      "file": "elite-champion/03-decisive-battle-champion-leon.mp3",
+      "title": "冠军战",
+      "game": "剑·盾",
+      "source": "https://archive.org/details/pokemon-sword-and-shield-original-soundtrack",
+      "sourceFile": "Pokémon Sword・Shield + Expansion Pass Super Music Collection (2024)/3-24. Decisive Battle! (Champion Leon).mp3",
+      "trim": "",
+      "credit": ""
+    },
+    {
+      "theme": "elite-champion",
+      "file": "elite-champion/04-battle-champion.mp3",
+      "title": "冠军战",
+      "game": "晶灿珍珠·明亮钻石",
+      "source": "https://archive.org/details/pok-mon-brilliant-diamond-shining-pearl-2021-ost",
+      "sourceFile": "Pokémon Brilliant Diamond & Shining Pearl - 146. Battle! (Champion).mp3",
+      "trim": "",
+      "credit": ""
+    },
+    {
+      "theme": "elite-champion",
+      "file": "elite-champion/05-battle-champion.mp3",
+      "title": "冠军战",
+      "game": "欧米加红宝石·阿尔法蓝宝石",
+      "source": "https://archive.org/details/pkmn-oras-ost",
+      "sourceFile": "Disc 3/27 - Battle! (Champion).mp3",
+      "trim": "",
+      "credit": ""
+    }
+  ]
+}

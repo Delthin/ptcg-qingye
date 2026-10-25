@@ -1,0 +1,417 @@
+.prepared { outline: 1px solid #cdb371; outline-offset: 3px; }
+.preparedBadge { position: absolute; z-index: 8; top: -9px; right: -9px; width: 23px; height: 23px; padding: 4px; color: #ead7a0; background: #262b20; border: 1px solid #bca160; border-radius: 50%; box-shadow: 0 3px 6px #0005; pointer-events: none; }
+.preparedBadge svg { width: 100%; height: 100%; }
+
+.card {
+  --mint: #c1a55d;
+  --mint-deep: #9e8646;
+  --coral: #f1d799;
+  --coral-deep: #bea563;
+  --ink: #e2cc91;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  /* 卡纸侧边（按 supertype 微调的实体厚度）*/
+  --edge-1: #f7f1df;
+  --edge-2: #b7ad92;
+  --edge-3: #6c6758;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  /* Slot box dictates size — never reflow via max-width / aspect-ratio.
+     Fixed px radius — .card is the query container, so cqw here is unusable. */
+  border-radius: 5px;
+  transition: opacity var(--a-t, 240ms) var(--ease-out), box-shadow var(--a-t, 240ms) var(--ease-out);
+  transform-style: preserve-3d;
+  container-type: inline-size;
+}
+
+/* 静止即有厚度：右侧/下侧露出多层卡纸边缘 + 落影。 */
+.card:not(.empty) {
+  box-shadow:
+    0 1px 0 var(--edge-1),
+    1px 2px 0 var(--edge-2),
+    2px 4px 0 var(--edge-3),
+    2.5px 6px 0 #4d4a3d,
+    0 10px 16px rgba(0, 0, 0, 0.34);
+}
+
+/* 覆膜高光：斜向柔光随悬停扫过（soft-light 叠在卡面上）。 */
+.card:not(.empty)::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 9;
+  border-radius: 3.5%;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 90% 55% at 18% 8%, rgba(255, 255, 255, 0.07), transparent 60%),
+    linear-gradient(115deg, transparent 38%, rgba(255, 250, 228, 0.05) 45%, rgba(255, 255, 255, 0.13) 50%, rgba(255, 250, 228, 0.05) 55%, transparent 62%);
+  background-size: 100% 100%, 240% 100%;
+  background-position: 0 0, 24% 0;
+  mix-blend-mode: soft-light;
+  transition: background-position var(--a-t-slow, 420ms) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card:not(.empty):hover::before {
+    background-position: 0 0, 76% 0;
+  }
+}
+
+/* 类型侧边色（energy / trainer / stadium），极轻的纸边染色。 */
+.card[data-kind='energy'] { --edge-2: #c9b46e; --edge-3: #77693e; }
+.card[data-kind='trainer'] { --edge-2: #a9abbd; --edge-3: #5d5f6e; }
+.card[data-kind='pokemon'] { --edge-2: #adb890; --edge-3: #66755a; }
+.card[data-kind='stadium'] { --edge-2: #c2a97a; --edge-3: #74663f; }
+
+.card:not(.selectable):not(.selected) {
+  transition:
+    transform var(--a-t, 240ms) var(--ease-out),
+    opacity var(--a-t, 240ms) var(--ease-out),
+    box-shadow var(--a-t, 240ms) var(--ease-out);
+}
+
+.card.empty::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* Empty hit areas remain intact; only the physical mat carries idle markings. */
+  border: 0;
+  background: transparent;
+  border-radius: 6cqw;
+  box-sizing: border-box;
+}
+
+.card.faceDown > *:not(.cardCounts) {
+  display: none;
+}
+
+.card.faceDown::after {
+  background-image: var(--cardback-url, url('/assets/duo-cardback.svg'));
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 3.5%;
+}
+
+.card.selectable {
+  cursor: pointer;
+  transform: scale(1.02);
+  z-index: 50;
+}
+
+.card.selectable::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1.5px solid var(--mint);
+  border-radius: 6cqw;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0.95;
+  box-shadow:
+    0 0 12px #d5b96b32;
+}
+
+.card.selected {
+  transform: scale(1.04);
+  z-index: 60;
+}
+
+.card.selected::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--coral);
+  border-radius: 6cqw;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0.95;
+  box-shadow:
+    0 0 14px #e9d29b40;
+}
+
+.card.attachTarget {
+  outline: 1.5px solid var(--coral);
+  outline-offset: 2px;
+  box-shadow:
+    0 0 14px #e9d29b40;
+  z-index: 45;
+}
+
+.card:not(.empty) {
+  cursor: pointer;
+}
+
+/* Hover lift is fine-pointer only — touch taps must not scale cards.
+   顶方卡牌在 .upsideDown 容器内，--card-lift-y 反向，视觉上仍向观察者抬起。 */
+@media (hover: hover) and (pointer: fine) {
+  .card:not(.empty):not(.selectable):not(.selected):hover {
+    transform: translateY(var(--card-lift-y, -4px)) scale(1.03);
+    z-index: 40;
+    box-shadow:
+      0 1px 0 var(--edge-1),
+      1px 3px 0 var(--edge-2),
+      3px 8px 0 var(--edge-3),
+      0 18px 30px rgba(0, 0, 0, 0.42);
+  }
+}
+
+.card.asleep {
+  transform: rotate(-90deg);
+}
+
+.card.confused {
+  transform: rotate(180deg);
+}
+
+.card.paralyzed {
+  transform: rotate(90deg);
+}
+
+.mainFace {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.mainFace img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 3.5%;
+}
+
+.energyRow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.energyIcon {
+  width: 30%;
+  top: 80%;
+  left: -11%;
+  z-index: 3;
+  position: absolute;
+  clip-path: circle(34%);
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.energyIcon:nth-child(2) {
+  left: calc(-11% + 13%);
+}
+.energyIcon:nth-child(3) {
+  left: calc(-11% + 26%);
+}
+.energyIcon:nth-child(4) {
+  left: calc(-11% + 39%);
+}
+.energyIcon:nth-child(5) {
+  left: calc(-11% + 52%);
+}
+.energyIcon:nth-child(6) {
+  left: calc(-11% + 65%);
+}
+.energyIcon:nth-child(7) {
+  left: calc(-11% + 78%);
+}
+.energyIcon:nth-child(8) {
+  left: calc(-11% + 91%);
+}
+
+.energyMore {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(-100%);
+  background: #252a20;
+  border: 1px solid #a58d52;
+  color: var(--ink);
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(51, 66, 77, 0.18);
+  z-index: 4;
+}
+
+.toolCards {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.toolIcon {
+  position: absolute;
+  left: -5px;
+  top: 20%;
+  width: 28%;
+  clip-path: inset(10% 55% 10% 0);
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.damage {
+  position: absolute;
+  top: -10%;
+  right: -10%;
+  z-index: 5;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 33% 25%, #e4b458b0, #ab5419dc 60%, #723615);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  border: 1px solid #efdba373;
+  color: #fff2c9;
+  font-weight: bold;
+  font-size: 10px;
+  text-shadow:
+    -0.5px -0.5px 0 #000,
+    0.5px -0.5px 0 #000,
+    -0.5px 0.5px 0 #000,
+    0.5px 0.5px 0 #000;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.abilityUsed {
+  position: absolute;
+  top: 6%;
+  left: 6%;
+  width: 23px;
+  height: 23px;
+  padding: 2px;
+  background: #252a20e8;
+  color: #ceb573;
+  border: 1px solid #a18c50;
+  border-radius: 50%;
+  z-index: 6;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.abilityUsed svg { width: 100%; height: 100%; }
+
+.cardCounts {
+  position: absolute;
+  bottom: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--ink);
+  padding: 3px 9px;
+  font-size: 9px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  z-index: 1;
+  white-space: nowrap;
+  background: #252a20;
+  border: 1px solid #a58d52;
+  border-radius: 999px;
+  box-shadow:
+    0 3px 8px #0006;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .card:not(.selectable):not(.selected) {
+    /* Keep color/opacity settling; drop card movement. */
+    transition: opacity var(--a-t, 240ms) var(--ease-out), box-shadow var(--a-t, 240ms) var(--ease-out);
+  }
+
+  .card:not(.empty)::before {
+    transition: none;
+  }
+}
+
+.marker {
+  position: absolute;
+  top: -5%;
+  right: -5%;
+  width: 25%;
+  aspect-ratio: 1;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 7;
+  pointer-events: none;
+}
+
+.marker + .marker {
+  top: 10%;
+}
+.marker + .marker + .marker {
+  top: 25%;
+}
+.marker + .marker + .marker + .marker {
+  top: 40%;
+}
+.marker + .marker + .marker + .marker + .marker {
+  top: 55%;
+}
+
+.poison {
+  background-image: url('/assets/status-conditions/poison-marker.webp');
+}
+.paralyzedMarker {
+  background-image: url('/assets/status-conditions/paralyzed-marker.webp');
+}
+.confusedMarker {
+  background-image: url('/assets/status-conditions/confused-marker.webp');
+}
+.asleepMarker {
+  background-image: url('/assets/status-conditions/asleep-marker.webp');
+}
+.burnedMarker {
+  background-image: url('/assets/status-conditions/burned-marker.webp');
+}
+.imprisonMarker {
+  background-image: url('/assets/status-conditions/imprison-marker.webp');
+}
+
+.breakCard {
+  width: 100%;
+  left: 50%;
+  top: -35%;
+  position: absolute;
+  transform: translateX(-50%) rotate(90deg);
+  z-index: 1;
+}
+
+.legendTopCard {
+  width: 100%;
+  left: 50%;
+  top: -28%;
+  position: absolute;
+  transform: translateX(-50%) rotate(90deg) scale(0.75);
+  z-index: 1;
+}
+
+.legendBottomCard {
+  width: 100%;
+  left: 50%;
+  top: 25%;
+  position: absolute;
+  transform: translateX(-50%) rotate(90deg) scale(0.75);
+  z-index: 1;
+}
+
+.dualStadium {
+  display: flex;
+  width: 200%;
+  gap: 2px;
+  position: absolute;
+  inset: 0;
+}
+
+.dualHalf {
+  flex: 1;
+  width: 50%;
+  height: 100%;
+}

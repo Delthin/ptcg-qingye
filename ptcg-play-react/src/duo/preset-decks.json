@@ -1,0 +1,490 @@
+[
+  {
+    "id": "dragapult",
+    "name": "冠军之路 · 多龙巴鲁托ex",
+    "subtitle": "伤害铺场 / 进化运营",
+    "description": "利用多龙奇补充手牌，幻影潜袭同时压制战斗场与备战区。熟悉后再尝试愿增猿的伤害转移。",
+    "cover": "Dragapult ex TWM",
+    "cards": [
+      {
+        "fullName": "Munkidori TWM",
+        "count": 2
+      },
+      {
+        "fullName": "Fezandipiti ex SFA",
+        "count": 1
+      },
+      {
+        "fullName": "Dreepy TWM",
+        "count": 4
+      },
+      {
+        "fullName": "Drakloak TWM",
+        "count": 4
+      },
+      {
+        "fullName": "Dragapult ex TWM",
+        "count": 3
+      },
+      {
+        "fullName": "Tatsugiri TWM",
+        "count": 1
+      },
+      {
+        "fullName": "Counter Catcher PAR",
+        "count": 2
+      },
+      {
+        "fullName": "Earthen Vessel PAR",
+        "count": 2
+      },
+      {
+        "fullName": "Buddy-Buddy Poffin TEF",
+        "count": 4
+      },
+      {
+        "fullName": "Nest Ball SVI",
+        "count": 2
+      },
+      {
+        "fullName": "Ultra Ball SVI",
+        "count": 4
+      },
+      {
+        "fullName": "Night Stretcher SFA",
+        "count": 2
+      },
+      {
+        "fullName": "Exp. Share SVI",
+        "count": 2
+      },
+      {
+        "fullName": "Rescue Board TEF",
+        "count": 2
+      },
+      {
+        "fullName": "Technical Machine: Evolution PAR",
+        "count": 2
+      },
+      {
+        "fullName": "Iono PAL",
+        "count": 4
+      },
+      {
+        "fullName": "Professor's Research SVI",
+        "count": 2
+      },
+      {
+        "fullName": "Arven SVI",
+        "count": 4
+      },
+      {
+        "fullName": "Boss's Orders PAL",
+        "count": 2
+      },
+      {
+        "fullName": "Artazon PAL",
+        "count": 2
+      },
+      {
+        "fullName": "Neo Upper Energy TEF",
+        "count": 1
+      },
+      {
+        "fullName": "Luminous Energy PAL",
+        "count": 4
+      },
+      {
+        "fullName": "Psychic Energy M6a",
+        "count": 2
+      },
+      {
+        "fullName": "Fire Energy M6a",
+        "count": 2
+      }
+    ],
+    "source": "https://wiki.52poke.com/wiki/大师战略卡组构筑套装_猛雷鼓ex_·_多龙巴鲁托ex_·_赛富豪ex（TCG）",
+    "kind": "大师战略原配方",
+    "color": "#8398bd"
+  },
+  {
+    "id": "gholdengo",
+    "name": "冠军之路 · 赛富豪ex",
+    "subtitle": "资源循环 / 爆发输出",
+    "description": "嘉奖硬币与土龙节节负责抽牌，超级能量回收循环资源，再用淘金潮打出高伤害。",
+    "cover": "Gholdengo ex PAR",
+    "cards": [
+      {
+        "fullName": "Mew ex MEW",
+        "count": 1
+      },
+      {
+        "fullName": "Gimmighoul SSP",
+        "count": 4
+      },
+      {
+        "fullName": "Fezandipiti ex SFA",
+        "count": 1
+      },
+      {
+        "fullName": "Gholdengo ex PAR",
+        "count": 4
+      },
+      {
+        "fullName": "Dunsparce PAL",
+        "count": 2
+      },
+      {
+        "fullName": "Dudunsparce TEF",
+        "count": 2
+      },
+      {
+        "fullName": "Superior Energy Retrieval PAL",
+        "count": 4
+      },
+      {
+        "fullName": "Earthen Vessel PAR",
+        "count": 2
+      },
+      {
+        "fullName": "Buddy-Buddy Poffin TEF",
+        "count": 4
+      },
+      {
+        "fullName": "Nest Ball SVI",
+        "count": 2
+      },
+      {
+        "fullName": "Ultra Ball SVI",
+        "count": 4
+      },
+      {
+        "fullName": "Prime Catcher TEF",
+        "count": 1
+      },
+      {
+        "fullName": "Night Stretcher SFA",
+        "count": 2
+      },
+      {
+        "fullName": "Technical Machine: Evolution PAR",
+        "count": 2
+      },
+      {
+        "fullName": "Ciphermaniac's Codebreaking TEF",
+        "count": 2
+      },
+      {
+        "fullName": "Iono PAL",
+        "count": 4
+      },
+      {
+        "fullName": "Arven SVI",
+        "count": 4
+      },
+      {
+        "fullName": "Boss's Orders PAL",
+        "count": 2
+      },
+      {
+        "fullName": "Artazon PAL",
+        "count": 2
+      },
+      {
+        "fullName": "Metal Energy M6a",
+        "count": 11
+      }
+    ],
+    "source": "https://wiki.52poke.com/wiki/大师战略卡组构筑套装_猛雷鼓ex_·_多龙巴鲁托ex_·_赛富豪ex（TCG）",
+    "kind": "大师战略原配方",
+    "color": "#d8b76a"
+  },
+  {
+    "id": "happy-pikachu",
+    "name": "嗨皮预组 · 皮卡丘ex",
+    "subtitle": "新手友好 / 雷系",
+    "description": "第一弹嗨皮预组原配方。用茸茸羊补充能量，皮卡丘ex负责强劲伏特。适合先熟悉贴能、进化和撤退。",
+    "cover": "Pikachu ex CSVH1C",
+    "cards": [
+      {
+        "fullName": "Pikachu ex CSVH1C",
+        "count": 2
+      },
+      {
+        "fullName": "Chinchou EVS",
+        "count": 2
+      },
+      {
+        "fullName": "Lanturn EVS",
+        "count": 2
+      },
+      {
+        "fullName": "Mareep EVS",
+        "count": 3
+      },
+      {
+        "fullName": "Flaaffy EVS",
+        "count": 2
+      },
+      {
+        "fullName": "Emolga EVS",
+        "count": 1
+      },
+      {
+        "fullName": "Zeraora FST 102",
+        "count": 1
+      },
+      {
+        "fullName": "Chatot CRZ 112",
+        "count": 1
+      },
+      {
+        "fullName": "Thundurus CRE",
+        "count": 1
+      },
+      {
+        "fullName": "Energy Search SVI",
+        "count": 1
+      },
+      {
+        "fullName": "Electric Generator SVI",
+        "count": 2
+      },
+      {
+        "fullName": "Trekking Shoes ASR",
+        "count": 2
+      },
+      {
+        "fullName": "Nest Ball SVI",
+        "count": 2
+      },
+      {
+        "fullName": "Ultra Ball SVI",
+        "count": 4
+      },
+      {
+        "fullName": "Switch SVI",
+        "count": 2
+      },
+      {
+        "fullName": "Pokemon Catcher SVI",
+        "count": 2
+      },
+      {
+        "fullName": "Vitality Band SVI",
+        "count": 2
+      },
+      {
+        "fullName": "Judge SVI",
+        "count": 1
+      },
+      {
+        "fullName": "Youngster SVI",
+        "count": 3
+      },
+      {
+        "fullName": "Nemona SVI",
+        "count": 4
+      },
+      {
+        "fullName": "Professor's Research SVI",
+        "count": 3
+      },
+      {
+        "fullName": "Zinnia's Resolve EVS",
+        "count": 2
+      },
+      {
+        "fullName": "Lightning Energy M6a",
+        "count": 15
+      }
+    ],
+    "source": "https://wiki.52poke.com/wiki/嗨皮组合_皮卡丘&皮皮&草苗龟&索财灵（TCG）",
+    "kind": "嗨皮原配方",
+    "color": "#dfbf6c"
+  },
+  {
+    "id": "happy-torterra",
+    "name": "嗨皮预组 · 草苗龟",
+    "subtitle": "新手友好 / 草系进化",
+    "description": "第一弹嗨皮预组原配方。树林龟寻找草系宝可梦，铺好进化线后让土台龟发动进化压制。",
+    "cover": "Torterra BRS",
+    "cards": [
+      {
+        "fullName": "Torterra BRS",
+        "count": 3
+      },
+      {
+        "fullName": "Turtwig BRS 6",
+        "count": 4
+      },
+      {
+        "fullName": "Grotle BRS",
+        "count": 3
+      },
+      {
+        "fullName": "Shroomish CSVH1C",
+        "count": 2
+      },
+      {
+        "fullName": "Breloom CSVH1C",
+        "count": 2
+      },
+      {
+        "fullName": "Zarude CRE",
+        "count": 1
+      },
+      {
+        "fullName": "Empoleon BRS",
+        "count": 1
+      },
+      {
+        "fullName": "Crushing Hammer SVI",
+        "count": 2
+      },
+      {
+        "fullName": "Super Rod PAL",
+        "count": 1
+      },
+      {
+        "fullName": "Nest Ball SVI",
+        "count": 3
+      },
+      {
+        "fullName": "Ultra Ball SVI",
+        "count": 4
+      },
+      {
+        "fullName": "Rare Candy SVI",
+        "count": 2
+      },
+      {
+        "fullName": "Switch SVI",
+        "count": 2
+      },
+      {
+        "fullName": "Pokemon Catcher SVI",
+        "count": 2
+      },
+      {
+        "fullName": "Exp. Share SVI",
+        "count": 1
+      },
+      {
+        "fullName": "Judge SVI",
+        "count": 1
+      },
+      {
+        "fullName": "Youngster SVI",
+        "count": 4
+      },
+      {
+        "fullName": "Gardenia's Vigor ASR",
+        "count": 2
+      },
+      {
+        "fullName": "Nemona SVI",
+        "count": 4
+      },
+      {
+        "fullName": "Professor's Research SVI",
+        "count": 2
+      },
+      {
+        "fullName": "Luminous Energy PAL",
+        "count": 2
+      },
+      {
+        "fullName": "Grass Energy M6a",
+        "count": 12
+      }
+    ],
+    "source": "https://wiki.52poke.com/wiki/嗨皮组合_皮卡丘&皮皮&草苗龟&索财灵（TCG）",
+    "kind": "嗨皮原配方",
+    "color": "#88b99a"
+  },
+  {
+    "id": "30th-mew",
+    "name": "30周年 · 梦幻ex",
+    "subtitle": "备战招式 / 伊布伙伴",
+    "description": "本站试配，非官方预组。以30周年梦幻ex借用备战招式，搭配超梦ex与伊布进化线，可复制后自由调整。",
+    "cover": "Mew ex 30C",
+    "cards": [
+      {
+        "fullName": "Mew ex 30C",
+        "count": 2
+      },
+      {
+        "fullName": "Mewtwo ex 30C",
+        "count": 2
+      },
+      {
+        "fullName": "Mewtwo 30C",
+        "count": 2
+      },
+      {
+        "fullName": "Espeon 30C",
+        "count": 2
+      },
+      {
+        "fullName": "Umbreon 30C",
+        "count": 2
+      },
+      {
+        "fullName": "Eevee SSP",
+        "count": 4
+      },
+      {
+        "fullName": "Buddy-Buddy Poffin TEF",
+        "count": 4
+      },
+      {
+        "fullName": "Nest Ball SVI",
+        "count": 4
+      },
+      {
+        "fullName": "Ultra Ball SVI",
+        "count": 4
+      },
+      {
+        "fullName": "Iono PAL",
+        "count": 4
+      },
+      {
+        "fullName": "Arven SVI",
+        "count": 2
+      },
+      {
+        "fullName": "Boss's Orders PAL",
+        "count": 2
+      },
+      {
+        "fullName": "Switch SVI",
+        "count": 2
+      },
+      {
+        "fullName": "Night Stretcher SFA",
+        "count": 2
+      },
+      {
+        "fullName": "Super Rod PAL",
+        "count": 2
+      },
+      {
+        "fullName": "Earthen Vessel PAR",
+        "count": 2
+      },
+      {
+        "fullName": "Psychic Energy M6a",
+        "count": 12
+      },
+      {
+        "fullName": "Darkness Energy M6a",
+        "count": 6
+      }
+    ],
+    "source": "https://www.pokemon.cn/tcg/",
+    "kind": "本站试配",
+    "color": "#ad95c0"
+  }
+]

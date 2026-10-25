@@ -1,0 +1,139 @@
+/* ============================================================
+   数量对话框：胡桃木匣 + 黄铜数字步进键
+   匣体覆在 DuoDialog 的深色底上，输入窗是嵌进木里的纸面。
+   ============================================================ */
+
+.panel.panel {
+  width: min(390px, calc(100vw - 30px));
+  border: 1px solid rgba(201, 162, 39, 0.45);
+  border-radius: 10px;
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(107, 74, 50, 0.55), transparent 60%),
+    linear-gradient(180deg, #4f3524 0%, var(--a-walnut) 52%, var(--a-walnut-dark) 100%);
+  box-shadow:
+    0 26px 60px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(232, 200, 90, 0.18);
+  color: var(--a-on-dark);
+}
+
+.panel h2 {
+  font-family: var(--a-font-display);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--a-on-dark);
+}
+
+.cardName {
+  font-size: 13px;
+  color: var(--a-on-dark-soft);
+  margin: 0 0 20px;
+}
+
+/* —— 步进排：实体圆钮夹住数字窗 —— */
+.stepperRow {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+}
+
+.stepBtn {
+  flex: none;
+  width: 52px;
+  border: 1px solid rgba(0, 0, 0, 0.38);
+  border-radius: 26px;
+  background: radial-gradient(circle at 32% 28%, var(--a-brass-lit), var(--a-brass) 58%, #96771a);
+  color: #241a06;
+  font: 700 24px/1 var(--a-font-ui);
+  cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    0 3px 0 #6d5710,
+    0 6px 12px rgba(0, 0, 0, 0.45);
+  transition:
+    transform var(--a-t-fast) var(--a-ease),
+    box-shadow var(--a-t-fast) var(--a-ease),
+    filter var(--a-t-fast) var(--a-ease);
+}
+
+.stepBtn:active {
+  transform: translateY(3px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 0 0 #6d5710,
+    0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.stepBtn:disabled {
+  opacity: 0.35;
+  cursor: default;
+  filter: grayscale(0.4);
+}
+
+.stepBtn:focus-visible {
+  outline: 2px solid var(--a-brass-lit);
+  outline-offset: 3px;
+}
+
+/* —— 数字窗：嵌进木里的纸面 —— */
+.field {
+  display: block;
+  flex: 1;
+  min-width: 0;
+}
+
+.input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--a-paper-edge);
+  border-radius: 6px;
+  background: linear-gradient(170deg, var(--a-paper), var(--a-paper-warm));
+  color: var(--a-ink);
+  padding: 10px 14px;
+  min-height: 62px;
+  font: 600 28px/1.4 var(--a-font-num);
+  text-align: center;
+  outline: none;
+  box-shadow: inset 0 3px 8px rgba(74, 50, 34, 0.22);
+  transition: border-color var(--a-t) var(--a-ease), box-shadow var(--a-t) var(--a-ease);
+}
+
+.input:focus {
+  border-color: var(--a-brass);
+  box-shadow:
+    inset 0 3px 8px rgba(74, 50, 34, 0.16),
+    0 0 0 3px rgba(201, 162, 39, 0.35);
+}
+
+.hint {
+  font-family: var(--a-font-num);
+  font-size: 11px;
+  color: var(--a-on-dark-soft);
+  text-align: center;
+  margin: 10px 0 0;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .stepBtn:not(:disabled):hover {
+    filter: brightness(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stepBtn {
+    transition: none;
+  }
+
+  .stepBtn:active {
+    transform: none;
+  }
+}

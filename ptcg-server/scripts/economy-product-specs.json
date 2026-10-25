@@ -1,0 +1,1913 @@
+{
+ "comment": "第二批商品规格。价格与每包张数取 pokemon.cn 官方商品页（记载在 52poke 商品页信息框），平/闪构成与合并稀有度配比取 52poke 商品页「概率及种类说明」表的 colspan 分组。weight = 配比百分数 × 100，等比权重，只影响组间比例。稀有度用数据集 rarityText：精灵球纹样 = C★/U★/R★，大师球纹样 = C★★/U★★/R★★。",
+ "boosters": [
+  {
+   "id": "csv1-5",
+   "set": "CSV1C",
+   "name": "亘古开来 · 5张装",
+   "release": "2025-01-17",
+   "priceMinor": 1000,
+   "cardsPerPack": 5,
+   "flatSlots": 4,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "foilSlots": 1,
+   "foilGroups": [
+    {
+     "share": 14.53,
+     "rarities": [
+      "C★",
+      "U★",
+      "R★",
+      "R"
+     ],
+     "count": 128
+    },
+    {
+     "share": 4.74,
+     "rarities": [
+      "RR",
+      "AR",
+      "C★★",
+      "U★★",
+      "R★★"
+     ],
+     "count": 135
+    },
+    {
+     "share": 0.73,
+     "rarities": [
+      "SR",
+      "SAR",
+      "UR"
+     ],
+     "count": 32
+    }
+   ],
+   "ratioNote": "4 平 + 1 闪；四组配比 80.00% / 14.53% / 4.74% / 0.73%。",
+   "source": "https://www.pokemon.cn/tcg/product/2024122201.html",
+   "wiki": "https://wiki.52poke.com/wiki/亘古开来（TCG）",
+   "flatCount": 98
+  },
+  {
+   "id": "csv1-20",
+   "set": "CSV1C",
+   "name": "亘古开来 · 20张装",
+   "release": "2025-01-17",
+   "priceMinor": 5000,
+   "cardsPerPack": 20,
+   "flatSlots": 14,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "foilSlots": 6,
+   "foilGroups": [
+    {
+     "share": 22.99,
+     "rarities": [
+      "C★",
+      "U★",
+      "R★",
+      "R"
+     ],
+     "count": 128
+    },
+    {
+     "share": 6.01,
+     "rarities": [
+      "RR",
+      "AR",
+      "C★★",
+      "U★★",
+      "R★★"
+     ],
+     "count": 135
+    },
+    {
+     "share": 1.0,
+     "rarities": [
+      "SR",
+      "SAR",
+      "UR"
+     ],
+     "count": 32
+    }
+   ],
+   "ratioNote": "14 平 + 6 闪；四组配比 70.00% / 22.99% / 6.01% / 1.00%。",
+   "source": "https://www.pokemon.cn/tcg/product/2024122201.html",
+   "wiki": "https://wiki.52poke.com/wiki/亘古开来（TCG）",
+   "flatCount": 98
+  },
+  {
+   "id": "gem-1",
+   "set": "CBB1C",
+   "name": "宝石包 VOL.1 · 4张装",
+   "release": "2025-01-17",
+   "priceMinor": 1000,
+   "cardsPerPack": 4,
+   "foilSlots": 4,
+   "foilGroups": [
+    {
+     "share": 50.0,
+     "rarities": [
+      "●"
+     ],
+     "count": 32
+    },
+    {
+     "share": 25.0,
+     "rarities": [
+      "◆"
+     ],
+     "count": 23
+    },
+    {
+     "share": 17.9,
+     "rarities": [
+      "★"
+     ],
+     "count": 23
+    },
+    {
+     "share": 4.93,
+     "rarities": [
+      "★★"
+     ],
+     "count": 19
+    },
+    {
+     "share": 2.17,
+     "rarities": [
+      "★★★"
+     ],
+     "count": 18
+    }
+   ],
+   "ratioNote": "全闪卡；● / ◆ / ★ / ★★ / ★★★ 配比 50.00% / 25.00% / 17.90% / 4.93% / 2.17%。",
+   "source": "https://www.pokemon.cn/tcg/product/2024122205.html",
+   "wiki": "https://wiki.52poke.com/wiki/宝石包_第一弹（TCG）"
+  },
+  {
+   "id": "gem-2",
+   "set": "CBB2C",
+   "name": "宝石包 VOL.2 · 4张装",
+   "release": "2025-05-16",
+   "priceMinor": 1000,
+   "cardsPerPack": 4,
+   "foilSlots": 4,
+   "foilGroups": [
+    {
+     "share": 50.0,
+     "rarities": [
+      "●"
+     ],
+     "count": 36
+    },
+    {
+     "share": 25.0,
+     "rarities": [
+      "◆"
+     ],
+     "count": 36
+    },
+    {
+     "share": 18.13,
+     "rarities": [
+      "★"
+     ],
+     "count": 27
+    },
+    {
+     "share": 4.7,
+     "rarities": [
+      "★★"
+     ],
+     "count": 21
+    },
+    {
+     "share": 2.17,
+     "rarities": [
+      "★★★"
+     ],
+     "count": 20
+    }
+   ],
+   "ratioNote": "全闪卡；● / ◆ / ★ / ★★ / ★★★ 配比 50.00% / 25.00% / 18.13% / 4.70% / 2.17%。",
+   "source": "https://www.pokemon.cn/tcg/product/2025041102.html",
+   "wiki": "https://wiki.52poke.com/wiki/宝石包_第二弹（TCG）",
+   "rulesNote": "按简中公开生产配比表的合并稀有度组模拟（百科转录）；组内各印刷等权、各包独立，不代表官方单卡概率或盒级保底。剑盾系列（E/F 标记）不属于简中标准环境 G/H/I/J，仅供收藏与自由对战（后续会开放无规则环境）；未实现效果的卡保留收藏。"
+  },
+  {
+   "id": "csv2-5",
+   "set": "CSV2C",
+   "name": "奇迹启程 · 5张装",
+   "release": "2025-03-21",
+   "priceMinor": 1000,
+   "cardsPerPack": 5,
+   "flatSlots": 4,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "foilSlots": 1,
+   "foilGroups": [
+    {
+     "share": 14.53,
+     "rarities": [
+      "C★",
+      "U★",
+      "R★",
+      "R"
+     ],
+     "count": 126
+    },
+    {
+     "share": 4.74,
+     "rarities": [
+      "RR",
+      "AR",
+      "C★★",
+      "U★★",
+      "R★★"
+     ],
+     "count": 136
+    },
+    {
+     "share": 0.73,
+     "rarities": [
+      "SR",
+      "SAR",
+      "UR"
+     ],
+     "count": 27
+    }
+   ],
+   "ratioNote": "4 平 + 1 闪；四组配比 80.00% / 14.53% / 4.74% / 0.73%。",
+   "source": "https://www.pokemon.cn/tcg/product/2025022102.html",
+   "wiki": "https://wiki.52poke.com/wiki/奇迹启程（TCG）",
+   "flatCount": 104
+  },
+  {
+   "id": "csv2-20",
+   "set": "CSV2C",
+   "name": "奇迹启程 · 20张装",
+   "release": "2025-03-21",
+   "priceMinor": 5000,
+   "cardsPerPack": 20,
+   "flatSlots": 14,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "foilSlots": 6,
+   "foilGroups": [
+    {
+     "share": 22.99,
+     "rarities": [
+      "C★",
+      "U★",
+      "R★",
+      "R"
+     ],
+     "count": 126
+    },
+    {
+     "share": 6.01,
+     "rarities": [
+      "RR",
+      "AR",
+      "C★★",
+      "U★★",
+      "R★★"
+     ],
+     "count": 136
+    },
+    {
+     "share": 1.0,
+     "rarities": [
+      "SR",
+      "SAR",
+      "UR"
+     ],
+     "count": 27
+    }
+   ],
+   "ratioNote": "14 平 + 6 闪；四组配比 70.00% / 22.99% / 6.01% / 1.00%。",
+   "source": "https://www.pokemon.cn/tcg/product/2025022102.html",
+   "wiki": "https://wiki.52poke.com/wiki/奇迹启程（TCG）",
+   "flatCount": 104
+  },
+  {
+   "id": "csv3-5",
+   "set": "CSV3C",
+   "name": "无畏太晶 · 5张装",
+   "release": "2025-05-16",
+   "priceMinor": 1000,
+   "cardsPerPack": 5,
+   "flatSlots": 4,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "foilSlots": 1,
+   "foilGroups": [
+    {
+     "share": 14.53,
+     "rarities": [
+      "C★",
+      "U★",
+      "R★",
+      "R"
+     ],
+     "count": 129
+    },
+    {
+     "share": 4.74,
+     "rarities": [
+      "RR",
+      "AR",
+      "C★★",
+      "U★★",
+      "R★★"
+     ],
+     "count": 138
+    },
+    {
+     "share": 0.73,
+     "rarities": [
+      "SR",
+      "SAR",
+      "UR"
+     ],
+     "count": 27
+    }
+   ],
+   "ratioNote": "4 平 + 1 闪；四组配比 80.00% / 14.53% / 4.74% / 0.73%。",
+   "source": "https://www.pokemon.cn/tcg/product/2025041101.html",
+   "wiki": "https://wiki.52poke.com/wiki/无畏太晶（TCG）",
+   "flatCount": 103
+  },
+  {
+   "id": "csv3-20",
+   "set": "CSV3C",
+   "name": "无畏太晶 · 20张装",
+   "release": "2025-05-16",
+   "priceMinor": 5000,
+   "cardsPerPack": 20,
+   "flatSlots": 14,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "foilSlots": 6,
+   "foilGroups": [
+    {
+     "share": 22.99,
+     "rarities": [
+      "C★",
+      "U★",
+      "R★",
+      "R"
+     ],
+     "count": 129
+    },
+    {
+     "share": 6.01,
+     "rarities": [
+      "RR",
+      "AR",
+      "C★★",
+      "U★★",
+      "R★★"
+     ],
+     "count": 138
+    },
+    {
+     "share": 1.0,
+     "rarities": [
+      "SR",
+      "SAR",
+      "UR"
+     ],
+     "count": 27
+    }
+   ],
+   "ratioNote": "14 平 + 6 闪；四组配比 70.00% / 22.99% / 6.01% / 1.00%。",
+   "source": "https://www.pokemon.cn/tcg/product/2025041101.html",
+   "wiki": "https://wiki.52poke.com/wiki/无畏太晶（TCG）",
+   "flatCount": 103
+  },
+  {
+   "id": "csv4-5",
+   "set": "CSV4C",
+   "name": "嘉奖回合 · 5张装",
+   "release": "2025-07-18",
+   "priceMinor": 1000,
+   "cardsPerPack": 5,
+   "flatSlots": 4,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "foilSlots": 1,
+   "foilGroups": [
+    {
+     "share": 14.53,
+     "rarities": [
+      "C★",
+      "U★",
+      "R★",
+      "R"
+     ],
+     "count": 129
+    },
+    {
+     "share": 4.74,
+     "rarities": [
+      "RR",
+      "AR",
+      "C★★",
+      "U★★",
+      "R★★"
+     ],
+     "count": 137
+    },
+    {
+     "share": 0.73,
+     "rarities": [
+      "SR",
+      "SAR",
+      "UR"
+     ],
+     "count": 28
+    }
+   ],
+   "ratioNote": "4 平 + 1 闪；四组配比 80.00% / 14.53% / 4.74% / 0.73%。",
+   "source": "https://www.pokemon.cn/tcg/product/2025060802.html",
+   "wiki": "https://wiki.52poke.com/wiki/嘉奖回合（TCG）",
+   "flatCount": 101
+  },
+  {
+   "id": "csv4-20",
+   "set": "CSV4C",
+   "name": "嘉奖回合 · 20张装",
+   "release": "2025-07-18",
+   "priceMinor": 5000,
+   "cardsPerPack": 20,
+   "flatSlots": 14,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "foilSlots": 6,
+   "foilGroups": [
+    {
+     "share": 22.99,
+     "rarities": [
+      "C★",
+      "U★",
+      "R★",
+      "R"
+     ],
+     "count": 129
+    },
+    {
+     "share": 6.01,
+     "rarities": [
+      "RR",
+      "AR",
+      "C★★",
+      "U★★",
+      "R★★"
+     ],
+     "count": 137
+    },
+    {
+     "share": 1.0,
+     "rarities": [
+      "SR",
+      "SAR",
+      "UR"
+     ],
+     "count": 28
+    }
+   ],
+   "ratioNote": "14 平 + 6 闪；四组配比 70.00% / 22.99% / 6.01% / 1.00%。",
+   "source": "https://www.pokemon.cn/tcg/product/2025060802.html",
+   "wiki": "https://wiki.52poke.com/wiki/嘉奖回合（TCG）",
+   "flatCount": 101
+  },
+  {
+   "id": "csv5-5",
+   "set": "CSV5C",
+   "name": "黑晶炽诚 · 5张装",
+   "release": "2025-09-12",
+   "priceMinor": 1000,
+   "cardsPerPack": 5,
+   "flatSlots": 4,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "foilSlots": 1,
+   "foilGroups": [
+    {
+     "share": 14.53,
+     "rarities": [
+      "C★",
+      "U★",
+      "R★",
+      "R"
+     ],
+     "count": 128
+    },
+    {
+     "share": 4.74,
+     "rarities": [
+      "RR",
+      "AR",
+      "C★★",
+      "U★★",
+      "R★★"
+     ],
+     "count": 137
+    },
+    {
+     "share": 0.73,
+     "rarities": [
+      "SR",
+      "SAR",
+      "UR"
+     ],
+     "count": 27
+    }
+   ],
+   "ratioNote": "4 平 + 1 闪；四组配比 80.00% / 14.53% / 4.74% / 0.73%。",
+   "source": "https://www.pokemon.cn/tcg/product/2025072701.html",
+   "wiki": "https://wiki.52poke.com/wiki/黑晶炽诚（TCG）",
+   "flatCount": 102
+  },
+  {
+   "id": "csv5-20",
+   "set": "CSV5C",
+   "name": "黑晶炽诚 · 20张装",
+   "release": "2025-09-12",
+   "priceMinor": 5000,
+   "cardsPerPack": 20,
+   "flatSlots": 14,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "foilSlots": 6,
+   "foilGroups": [
+    {
+     "share": 22.99,
+     "rarities": [
+      "C★",
+      "U★",
+      "R★",
+      "R"
+     ],
+     "count": 128
+    },
+    {
+     "share": 6.01,
+     "rarities": [
+      "RR",
+      "AR",
+      "C★★",
+      "U★★",
+      "R★★"
+     ],
+     "count": 137
+    },
+    {
+     "share": 1.0,
+     "rarities": [
+      "SR",
+      "SAR",
+      "UR"
+     ],
+     "count": 27
+    }
+   ],
+   "ratioNote": "14 平 + 6 闪；四组配比 70.00% / 22.99% / 6.01% / 1.00%。",
+   "source": "https://www.pokemon.cn/tcg/product/2025072701.html",
+   "wiki": "https://wiki.52poke.com/wiki/黑晶炽诚（TCG）",
+   "flatCount": 102
+  },
+  {
+   "id": "gem-3",
+   "set": "CBB3C",
+   "name": "宝石包 VOL.3 · 4张装",
+   "release": "2025-09-26",
+   "priceMinor": 1000,
+   "cardsPerPack": 4,
+   "foilSlots": 4,
+   "foilGroups": [
+    {
+     "share": 50.0,
+     "rarities": [
+      "●"
+     ],
+     "count": 36
+    },
+    {
+     "share": 25.0,
+     "rarities": [
+      "◆"
+     ],
+     "count": 36
+    },
+    {
+     "share": 18.42,
+     "rarities": [
+      "★"
+     ],
+     "count": 27
+    },
+    {
+     "share": 4.77,
+     "rarities": [
+      "★★"
+     ],
+     "count": 21
+    },
+    {
+     "share": 1.81,
+     "rarities": [
+      "★★★"
+     ],
+     "count": 16
+    }
+   ],
+   "ratioNote": "全闪卡；● / ◆ / ★ / ★★ / ★★★ 配比 50.00% / 25.00% / 18.42% / 4.77% / 1.81%。",
+   "source": "https://www.pokemon.cn/tcg/product/2025082903.html",
+   "wiki": "https://wiki.52poke.com/wiki/宝石包_第三弹（TCG）"
+  },
+  {
+   "id": "csv6-5",
+   "set": "CSV6C",
+   "name": "真实玄虚 · 5张装",
+   "release": "2025-11-07",
+   "priceMinor": 1000,
+   "cardsPerPack": 5,
+   "flatSlots": 4,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "foilSlots": 1,
+   "foilGroups": [
+    {
+     "share": 14.53,
+     "rarities": [
+      "C★",
+      "U★",
+      "R★",
+      "R"
+     ],
+     "count": 128
+    },
+    {
+     "share": 4.74,
+     "rarities": [
+      "RR",
+      "AR",
+      "C★★",
+      "U★★",
+      "R★★"
+     ],
+     "count": 136
+    },
+    {
+     "share": 0.73,
+     "rarities": [
+      "SR",
+      "SAR",
+      "UR"
+     ],
+     "count": 27
+    }
+   ],
+   "ratioNote": "4 平 + 1 闪；四组配比 80.00% / 14.53% / 4.74% / 0.73%。",
+   "source": "https://www.pokemon.cn/tcg/product/2025101901.html",
+   "wiki": "https://wiki.52poke.com/wiki/真实玄虚（TCG）",
+   "flatCount": 102
+  },
+  {
+   "id": "csv6-20",
+   "set": "CSV6C",
+   "name": "真实玄虚 · 20张装",
+   "release": "2025-11-07",
+   "priceMinor": 5000,
+   "cardsPerPack": 20,
+   "flatSlots": 14,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "foilSlots": 6,
+   "foilGroups": [
+    {
+     "share": 22.99,
+     "rarities": [
+      "C★",
+      "U★",
+      "R★",
+      "R"
+     ],
+     "count": 128
+    },
+    {
+     "share": 6.01,
+     "rarities": [
+      "RR",
+      "AR",
+      "C★★",
+      "U★★",
+      "R★★"
+     ],
+     "count": 136
+    },
+    {
+     "share": 1.0,
+     "rarities": [
+      "SR",
+      "SAR",
+      "UR"
+     ],
+     "count": 27
+    }
+   ],
+   "ratioNote": "14 平 + 6 闪；四组配比 70.00% / 22.99% / 6.01% / 1.00%。",
+   "source": "https://www.pokemon.cn/tcg/product/2025101901.html",
+   "wiki": "https://wiki.52poke.com/wiki/真实玄虚（TCG）",
+   "flatCount": 102
+  },
+  {
+   "id": "csv7-5",
+   "set": "CSV7C",
+   "name": "利刃猛醒 · 5张装",
+   "release": "2026-01-16",
+   "priceMinor": 1000,
+   "cardsPerPack": 5,
+   "flatSlots": 4,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "foilSlots": 1,
+   "foilGroups": [
+    {
+     "share": 13.82,
+     "rarities": [
+      "C★",
+      "U★",
+      "R★",
+      "R"
+     ],
+     "count": 193
+    },
+    {
+     "share": 5.45,
+     "rarities": [
+      "RR",
+      "AR",
+      "ACE",
+      "C★★",
+      "U★★",
+      "R★★"
+     ],
+     "count": 210
+    },
+    {
+     "share": 0.73,
+     "rarities": [
+      "SR",
+      "SAR",
+      "UR"
+     ],
+     "count": 49
+    }
+   ],
+   "ratioNote": "4 平 + 1 闪；四组配比 80.00% / 13.82% / 5.45% / 0.73%。",
+   "source": "https://www.pokemon.cn/tcg/product/19812.html",
+   "wiki": "https://wiki.52poke.com/wiki/利刃猛醒（TCG）",
+   "flatCount": 153
+  },
+  {
+   "id": "csv7-20",
+   "set": "CSV7C",
+   "name": "利刃猛醒 · 20张装",
+   "release": "2026-01-16",
+   "priceMinor": 5000,
+   "cardsPerPack": 20,
+   "flatSlots": 14,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "foilSlots": 6,
+   "foilGroups": [
+    {
+     "share": 22.11,
+     "rarities": [
+      "C★",
+      "U★",
+      "R★",
+      "R"
+     ],
+     "count": 193
+    },
+    {
+     "share": 6.89,
+     "rarities": [
+      "RR",
+      "AR",
+      "ACE",
+      "C★★",
+      "U★★",
+      "R★★"
+     ],
+     "count": 210
+    },
+    {
+     "share": 1.0,
+     "rarities": [
+      "SR",
+      "SAR",
+      "UR"
+     ],
+     "count": 49
+    }
+   ],
+   "ratioNote": "14 平 + 6 闪；四组配比 70.00% / 22.11% / 6.89% / 1.00%。",
+   "source": "https://www.pokemon.cn/tcg/product/19812.html",
+   "wiki": "https://wiki.52poke.com/wiki/利刃猛醒（TCG）",
+   "flatCount": 153
+  },
+  {
+   "id": "gem-4",
+   "set": "CBB4C",
+   "name": "宝石包 VOL.4 · 4张装",
+   "release": "2026-02-06",
+   "priceMinor": 1000,
+   "cardsPerPack": 4,
+   "foilSlots": 4,
+   "foilGroups": [
+    {
+     "share": 50.0,
+     "rarities": [
+      "●"
+     ],
+     "count": 56
+    },
+    {
+     "share": 25.0,
+     "rarities": [
+      "◆"
+     ],
+     "count": 56
+    },
+    {
+     "share": 17.39,
+     "rarities": [
+      "★"
+     ],
+     "count": 28
+    },
+    {
+     "share": 5.8,
+     "rarities": [
+      "★★"
+     ],
+     "count": 28
+    },
+    {
+     "share": 1.81,
+     "rarities": [
+      "★★★"
+     ],
+     "count": 28
+    }
+   ],
+   "ratioNote": "全闪卡；● / ◆ / ★ / ★★ / ★★★ 配比 50.00% / 25.00% / 17.39% / 5.80% / 1.81%。",
+   "source": "https://www.pokemon.cn/tcg/product/20382.html",
+   "wiki": "https://wiki.52poke.com/wiki/宝石包_第四弹（TCG）"
+  },
+  {
+   "id": "csv8-5",
+   "set": "CSV8C",
+   "name": "璀璨诡幻 · 5张装",
+   "release": "2026-03-13",
+   "priceMinor": 1000,
+   "cardsPerPack": 5,
+   "flatSlots": 4,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "foilSlots": 1,
+   "foilGroups": [
+    {
+     "share": 13.82,
+     "rarities": [
+      "C★",
+      "U★",
+      "R★",
+      "R"
+     ],
+     "count": 198
+    },
+    {
+     "share": 5.45,
+     "rarities": [
+      "RR",
+      "AR",
+      "ACE",
+      "C★★",
+      "U★★",
+      "R★★"
+     ],
+     "count": 213
+    },
+    {
+     "share": 0.73,
+     "rarities": [
+      "SR",
+      "SAR",
+      "UR"
+     ],
+     "count": 51
+    }
+   ],
+   "ratioNote": "4 平 + 1 闪；四组配比 80.00% / 13.82% / 5.45% / 0.73%。",
+   "source": "https://www.pokemon.cn/tcg/product/20627.html",
+   "wiki": "https://wiki.52poke.com/wiki/璀璨诡幻（TCG）",
+   "flatCount": 154
+  },
+  {
+   "id": "csv8-20",
+   "set": "CSV8C",
+   "name": "璀璨诡幻 · 20张装",
+   "release": "2026-03-13",
+   "priceMinor": 5000,
+   "cardsPerPack": 20,
+   "flatSlots": 14,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "foilSlots": 6,
+   "foilGroups": [
+    {
+     "share": 22.11,
+     "rarities": [
+      "C★",
+      "U★",
+      "R★",
+      "R"
+     ],
+     "count": 198
+    },
+    {
+     "share": 6.89,
+     "rarities": [
+      "RR",
+      "AR",
+      "ACE",
+      "C★★",
+      "U★★",
+      "R★★"
+     ],
+     "count": 213
+    },
+    {
+     "share": 1.0,
+     "rarities": [
+      "SR",
+      "SAR",
+      "UR"
+     ],
+     "count": 51
+    }
+   ],
+   "ratioNote": "14 平 + 6 闪；四组配比 70.00% / 22.11% / 6.89% / 1.00%。",
+   "source": "https://www.pokemon.cn/tcg/product/20627.html",
+   "wiki": "https://wiki.52poke.com/wiki/璀璨诡幻（TCG）",
+   "flatCount": 154
+  },
+  {
+   "id": "csv9-5",
+   "set": "CSV9C",
+   "name": "星彩晶璃 · 5张装",
+   "release": "2026-05-15",
+   "priceMinor": 1000,
+   "cardsPerPack": 5,
+   "flatSlots": 4,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "foilSlots": 1,
+   "foilGroups": [
+    {
+     "share": 13.82,
+     "rarities": [
+      "C★",
+      "U★",
+      "R★",
+      "R"
+     ],
+     "count": 197
+    },
+    {
+     "share": 5.45,
+     "rarities": [
+      "RR",
+      "AR",
+      "ACE",
+      "C★★",
+      "U★★",
+      "R★★"
+     ],
+     "count": 214
+    },
+    {
+     "share": 0.73,
+     "rarities": [
+      "SR",
+      "SAR",
+      "UR"
+     ],
+     "count": 52
+    }
+   ],
+   "ratioNote": "4 平 + 1 闪；四组配比 80.00% / 13.82% / 5.45% / 0.73%。",
+   "source": "https://www.pokemon.cn/tcg/product/21383.html",
+   "wiki": "https://wiki.52poke.com/wiki/星彩晶璃（TCG）",
+   "flatCount": 157
+  },
+  {
+   "id": "csv9-20",
+   "set": "CSV9C",
+   "name": "星彩晶璃 · 20张装",
+   "release": "2026-05-15",
+   "priceMinor": 5000,
+   "cardsPerPack": 20,
+   "flatSlots": 14,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "foilSlots": 6,
+   "foilGroups": [
+    {
+     "share": 22.11,
+     "rarities": [
+      "C★",
+      "U★",
+      "R★",
+      "R"
+     ],
+     "count": 197
+    },
+    {
+     "share": 6.89,
+     "rarities": [
+      "RR",
+      "AR",
+      "ACE",
+      "C★★",
+      "U★★",
+      "R★★"
+     ],
+     "count": 214
+    },
+    {
+     "share": 1.0,
+     "rarities": [
+      "SR",
+      "SAR",
+      "UR"
+     ],
+     "count": 52
+    }
+   ],
+   "ratioNote": "14 平 + 6 闪；四组配比 70.00% / 22.11% / 6.89% / 1.00%。",
+   "source": "https://www.pokemon.cn/tcg/product/21383.html",
+   "wiki": "https://wiki.52poke.com/wiki/星彩晶璃（TCG）",
+   "flatCount": 157
+  },
+  {
+   "id": "cs3a-5",
+   "set": "CS3aC",
+   "name": "洪荒演武 茂 · 5张装",
+   "release": "2023-11-17",
+   "priceMinor": 1000,
+   "cardsPerPack": 5,
+   "flatSlots": 4,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "flatCount": 92,
+   "foilSlots": 1,
+   "foilGroups": [
+    {
+     "share": 13.55,
+     "rarities": [
+      "R",
+      "C★",
+      "R★",
+      "U★"
+     ],
+     "count": 120
+    },
+    {
+     "share": 5.78,
+     "rarities": [
+      "RR",
+      "RRR",
+      "CHR"
+     ],
+     "count": 23
+    },
+    {
+     "share": 0.67,
+     "rarities": [
+      "CSR",
+      "SR",
+      "HR",
+      "UR"
+     ],
+     "count": 55
+    }
+   ],
+   "ratioNote": "4 平 + 1 闪；四组配比 80.00%% / 13.55%% / 5.78%% / 0.67%%。",
+   "source": "https://wiki.52poke.com/wiki/洪荒演武 茂（TCG）",
+   "wiki": "https://wiki.52poke.com/wiki/洪荒演武 茂（TCG）",
+   "rulesNote": "按简中公开生产配比表的合并稀有度组模拟（百科转录）；组内各印刷等权、各包独立，不代表官方单卡概率或盒级保底。剑盾系列（E/F 标记）不属于简中标准环境 G/H/I/J，仅供收藏与自由对战（后续会开放无规则环境）；未实现效果的卡保留收藏。"
+  },
+  {
+   "id": "cs3a-25",
+   "set": "CS3aC",
+   "name": "洪荒演武 茂 · 25张装",
+   "release": "2023-11-17",
+   "priceMinor": 5000,
+   "cardsPerPack": 25,
+   "flatSlots": 20,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "flatCount": 92,
+   "foilSlots": 5,
+   "foilGroups": [
+    {
+     "share": 13.55,
+     "rarities": [
+      "R",
+      "C★",
+      "R★",
+      "U★"
+     ],
+     "count": 120
+    },
+    {
+     "share": 5.78,
+     "rarities": [
+      "RR",
+      "RRR",
+      "CHR"
+     ],
+     "count": 23
+    },
+    {
+     "share": 0.67,
+     "rarities": [
+      "CSR",
+      "SR",
+      "HR",
+      "UR"
+     ],
+     "count": 55
+    }
+   ],
+   "ratioNote": "20 平 + 5 闪；四组配比 80.00%% / 13.55%% / 5.78%% / 0.67%%。",
+   "source": "https://wiki.52poke.com/wiki/洪荒演武 茂（TCG）",
+   "wiki": "https://wiki.52poke.com/wiki/洪荒演武 茂（TCG）",
+   "rulesNote": "按简中公开生产配比表的合并稀有度组模拟（百科转录）；组内各印刷等权、各包独立，不代表官方单卡概率或盒级保底。剑盾系列（E/F 标记）不属于简中标准环境 G/H/I/J，仅供收藏与自由对战（后续会开放无规则环境）；未实现效果的卡保留收藏。"
+  },
+  {
+   "id": "cs3b-5",
+   "set": "CS3bC",
+   "name": "洪荒演武 激 · 5张装",
+   "release": "2023-11-17",
+   "priceMinor": 1000,
+   "cardsPerPack": 5,
+   "flatSlots": 4,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "flatCount": 90,
+   "foilSlots": 1,
+   "foilGroups": [
+    {
+     "share": 13.55,
+     "rarities": [
+      "R",
+      "C★",
+      "R★",
+      "U★"
+     ],
+     "count": 118
+    },
+    {
+     "share": 5.78,
+     "rarities": [
+      "RR",
+      "RRR",
+      "CHR"
+     ],
+     "count": 22
+    },
+    {
+     "share": 0.67,
+     "rarities": [
+      "CSR",
+      "SR",
+      "HR",
+      "UR"
+     ],
+     "count": 53
+    }
+   ],
+   "ratioNote": "4 平 + 1 闪；四组配比 80.00%% / 13.55%% / 5.78%% / 0.67%%。",
+   "source": "https://wiki.52poke.com/wiki/洪荒演武 激（TCG）",
+   "wiki": "https://wiki.52poke.com/wiki/洪荒演武 激（TCG）",
+   "rulesNote": "按简中公开生产配比表的合并稀有度组模拟（百科转录）；组内各印刷等权、各包独立，不代表官方单卡概率或盒级保底。剑盾系列（E/F 标记）不属于简中标准环境 G/H/I/J，仅供收藏与自由对战（后续会开放无规则环境）；未实现效果的卡保留收藏。"
+  },
+  {
+   "id": "cs3b-25",
+   "set": "CS3bC",
+   "name": "洪荒演武 激 · 25张装",
+   "release": "2023-11-17",
+   "priceMinor": 5000,
+   "cardsPerPack": 25,
+   "flatSlots": 20,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "flatCount": 90,
+   "foilSlots": 5,
+   "foilGroups": [
+    {
+     "share": 13.55,
+     "rarities": [
+      "R",
+      "C★",
+      "R★",
+      "U★"
+     ],
+     "count": 118
+    },
+    {
+     "share": 5.78,
+     "rarities": [
+      "RR",
+      "RRR",
+      "CHR"
+     ],
+     "count": 22
+    },
+    {
+     "share": 0.67,
+     "rarities": [
+      "CSR",
+      "SR",
+      "HR",
+      "UR"
+     ],
+     "count": 53
+    }
+   ],
+   "ratioNote": "20 平 + 5 闪；四组配比 80.00%% / 13.55%% / 5.78%% / 0.67%%。",
+   "source": "https://wiki.52poke.com/wiki/洪荒演武 激（TCG）",
+   "wiki": "https://wiki.52poke.com/wiki/洪荒演武 激（TCG）",
+   "rulesNote": "按简中公开生产配比表的合并稀有度组模拟（百科转录）；组内各印刷等权、各包独立，不代表官方单卡概率或盒级保底。剑盾系列（E/F 标记）不属于简中标准环境 G/H/I/J，仅供收藏与自由对战（后续会开放无规则环境）；未实现效果的卡保留收藏。"
+  },
+  {
+   "id": "cs4a-5",
+   "set": "CS4aC",
+   "name": "九彩汇聚 朋 · 5张装",
+   "release": "2024-03-01",
+   "priceMinor": 1000,
+   "cardsPerPack": 5,
+   "flatSlots": 4,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "flatCount": 98,
+   "foilSlots": 1,
+   "foilGroups": [
+    {
+     "share": 14.0,
+     "rarities": [
+      "R",
+      "C★",
+      "R★",
+      "U★"
+     ],
+     "count": 124
+    },
+    {
+     "share": 5.33,
+     "rarities": [
+      "RR",
+      "RRR"
+     ],
+     "count": 21
+    },
+    {
+     "share": 0.67,
+     "rarities": [
+      "SR",
+      "CSR",
+      "HR",
+      "UR"
+     ],
+     "count": 52
+    }
+   ],
+   "ratioNote": "4 平 + 1 闪；四组配比 80.00%% / 14.00%% / 5.33%% / 0.67%%。",
+   "source": "https://wiki.52poke.com/wiki/九彩汇聚 朋（TCG）",
+   "wiki": "https://wiki.52poke.com/wiki/九彩汇聚 朋（TCG）",
+   "rulesNote": "按简中公开生产配比表的合并稀有度组模拟（百科转录）；组内各印刷等权、各包独立，不代表官方单卡概率或盒级保底。剑盾系列（E/F 标记）不属于简中标准环境 G/H/I/J，仅供收藏与自由对战（后续会开放无规则环境）；未实现效果的卡保留收藏。"
+  },
+  {
+   "id": "cs4a-25",
+   "set": "CS4aC",
+   "name": "九彩汇聚 朋 · 25张装",
+   "release": "2024-03-01",
+   "priceMinor": 5000,
+   "cardsPerPack": 25,
+   "flatSlots": 20,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "flatCount": 98,
+   "foilSlots": 5,
+   "foilGroups": [
+    {
+     "share": 14.0,
+     "rarities": [
+      "R",
+      "C★",
+      "R★",
+      "U★"
+     ],
+     "count": 124
+    },
+    {
+     "share": 5.33,
+     "rarities": [
+      "RR",
+      "RRR"
+     ],
+     "count": 21
+    },
+    {
+     "share": 0.67,
+     "rarities": [
+      "SR",
+      "CSR",
+      "HR",
+      "UR"
+     ],
+     "count": 52
+    }
+   ],
+   "ratioNote": "20 平 + 5 闪；四组配比 80.00%% / 14.00%% / 5.33%% / 0.67%%。",
+   "source": "https://wiki.52poke.com/wiki/九彩汇聚 朋（TCG）",
+   "wiki": "https://wiki.52poke.com/wiki/九彩汇聚 朋（TCG）",
+   "rulesNote": "按简中公开生产配比表的合并稀有度组模拟（百科转录）；组内各印刷等权、各包独立，不代表官方单卡概率或盒级保底。剑盾系列（E/F 标记）不属于简中标准环境 G/H/I/J，仅供收藏与自由对战（后续会开放无规则环境）；未实现效果的卡保留收藏。"
+  },
+  {
+   "id": "cs4b-5",
+   "set": "CS4bC",
+   "name": "九彩汇聚 源 · 5张装",
+   "release": "2024-03-01",
+   "priceMinor": 1000,
+   "cardsPerPack": 5,
+   "flatSlots": 4,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "flatCount": 100,
+   "foilSlots": 1,
+   "foilGroups": [
+    {
+     "share": 14.0,
+     "rarities": [
+      "R",
+      "C★",
+      "R★",
+      "U★"
+     ],
+     "count": 122
+    },
+    {
+     "share": 5.33,
+     "rarities": [
+      "RR",
+      "RRR"
+     ],
+     "count": 21
+    },
+    {
+     "share": 0.67,
+     "rarities": [
+      "SR",
+      "CSR",
+      "HR",
+      "UR"
+     ],
+     "count": 45
+    }
+   ],
+   "ratioNote": "4 平 + 1 闪；四组配比 80.00%% / 14.00%% / 5.33%% / 0.67%%。",
+   "source": "https://wiki.52poke.com/wiki/九彩汇聚 源（TCG）",
+   "wiki": "https://wiki.52poke.com/wiki/九彩汇聚 源（TCG）",
+   "rulesNote": "按简中公开生产配比表的合并稀有度组模拟（百科转录）；组内各印刷等权、各包独立，不代表官方单卡概率或盒级保底。剑盾系列（E/F 标记）不属于简中标准环境 G/H/I/J，仅供收藏与自由对战（后续会开放无规则环境）；未实现效果的卡保留收藏。"
+  },
+  {
+   "id": "cs4b-25",
+   "set": "CS4bC",
+   "name": "九彩汇聚 源 · 25张装",
+   "release": "2024-03-01",
+   "priceMinor": 5000,
+   "cardsPerPack": 25,
+   "flatSlots": 20,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "flatCount": 100,
+   "foilSlots": 5,
+   "foilGroups": [
+    {
+     "share": 14.0,
+     "rarities": [
+      "R",
+      "C★",
+      "R★",
+      "U★"
+     ],
+     "count": 122
+    },
+    {
+     "share": 5.33,
+     "rarities": [
+      "RR",
+      "RRR"
+     ],
+     "count": 21
+    },
+    {
+     "share": 0.67,
+     "rarities": [
+      "SR",
+      "CSR",
+      "HR",
+      "UR"
+     ],
+     "count": 45
+    }
+   ],
+   "ratioNote": "20 平 + 5 闪；四组配比 80.00%% / 14.00%% / 5.33%% / 0.67%%。",
+   "source": "https://wiki.52poke.com/wiki/九彩汇聚 源（TCG）",
+   "wiki": "https://wiki.52poke.com/wiki/九彩汇聚 源（TCG）",
+   "rulesNote": "按简中公开生产配比表的合并稀有度组模拟（百科转录）；组内各印刷等权、各包独立，不代表官方单卡概率或盒级保底。剑盾系列（E/F 标记）不属于简中标准环境 G/H/I/J，仅供收藏与自由对战（后续会开放无规则环境）；未实现效果的卡保留收藏。"
+  },
+  {
+   "id": "cs5a-5",
+   "set": "CS5aC",
+   "name": "勇魅群星 魅 · 5张装",
+   "release": "2024-06-18",
+   "priceMinor": 1000,
+   "cardsPerPack": 5,
+   "flatSlots": 4,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "flatCount": 85,
+   "foilSlots": 1,
+   "foilGroups": [
+    {
+     "share": 13.73,
+     "rarities": [
+      "R",
+      "C★",
+      "R★",
+      "U★"
+     ],
+     "count": 113
+    },
+    {
+     "share": 5.51,
+     "rarities": [
+      "RR",
+      "RRR",
+      "K",
+      "AR"
+     ],
+     "count": 31
+    },
+    {
+     "share": 0.76,
+     "rarities": [
+      "SR",
+      "HR",
+      "SAR",
+      "UR"
+     ],
+     "count": 46
+    }
+   ],
+   "ratioNote": "4 平 + 1 闪；四组配比 80.00%% / 13.73%% / 5.51%% / 0.76%%。",
+   "source": "https://wiki.52poke.com/wiki/勇魅群星 魅（TCG）",
+   "wiki": "https://wiki.52poke.com/wiki/勇魅群星 魅（TCG）",
+   "rulesNote": "按简中公开生产配比表的合并稀有度组模拟（百科转录）；组内各印刷等权、各包独立，不代表官方单卡概率或盒级保底。剑盾系列（E/F 标记）不属于简中标准环境 G/H/I/J，仅供收藏与自由对战（后续会开放无规则环境）；未实现效果的卡保留收藏。"
+  },
+  {
+   "id": "cs5a-25",
+   "set": "CS5aC",
+   "name": "勇魅群星 魅 · 25张装",
+   "release": "2024-06-18",
+   "priceMinor": 5000,
+   "cardsPerPack": 25,
+   "flatSlots": 20,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "flatCount": 85,
+   "foilSlots": 5,
+   "foilGroups": [
+    {
+     "share": 13.71,
+     "rarities": [
+      "R",
+      "C★",
+      "R★",
+      "U★"
+     ],
+     "count": 113
+    },
+    {
+     "share": 5.53,
+     "rarities": [
+      "RR",
+      "RRR",
+      "K",
+      "AR"
+     ],
+     "count": 31
+    },
+    {
+     "share": 0.76,
+     "rarities": [
+      "SR",
+      "HR",
+      "SAR",
+      "UR"
+     ],
+     "count": 46
+    }
+   ],
+   "ratioNote": "20 平 + 5 闪；四组配比 80.00%% / 13.71%% / 5.53%% / 0.76%%。",
+   "source": "https://wiki.52poke.com/wiki/勇魅群星 魅（TCG）",
+   "wiki": "https://wiki.52poke.com/wiki/勇魅群星 魅（TCG）",
+   "rulesNote": "按简中公开生产配比表的合并稀有度组模拟（百科转录）；组内各印刷等权、各包独立，不代表官方单卡概率或盒级保底。剑盾系列（E/F 标记）不属于简中标准环境 G/H/I/J，仅供收藏与自由对战（后续会开放无规则环境）；未实现效果的卡保留收藏。"
+  },
+  {
+   "id": "cs5b-5",
+   "set": "CS5bC",
+   "name": "勇魅群星 勇 · 5张装",
+   "release": "2024-06-18",
+   "priceMinor": 1000,
+   "cardsPerPack": 5,
+   "flatSlots": 4,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "flatCount": 88,
+   "foilSlots": 1,
+   "foilGroups": [
+    {
+     "share": 13.73,
+     "rarities": [
+      "R",
+      "C★",
+      "R★",
+      "U★"
+     ],
+     "count": 116
+    },
+    {
+     "share": 5.51,
+     "rarities": [
+      "RR",
+      "RRR",
+      "K",
+      "AR"
+     ],
+     "count": 30
+    },
+    {
+     "share": 0.76,
+     "rarities": [
+      "SR",
+      "HR",
+      "SAR",
+      "UR"
+     ],
+     "count": 46
+    }
+   ],
+   "ratioNote": "4 平 + 1 闪；四组配比 80.00%% / 13.73%% / 5.51%% / 0.76%%。",
+   "source": "https://wiki.52poke.com/wiki/勇魅群星 勇（TCG）",
+   "wiki": "https://wiki.52poke.com/wiki/勇魅群星 勇（TCG）",
+   "rulesNote": "按简中公开生产配比表的合并稀有度组模拟（百科转录）；组内各印刷等权、各包独立，不代表官方单卡概率或盒级保底。剑盾系列（E/F 标记）不属于简中标准环境 G/H/I/J，仅供收藏与自由对战（后续会开放无规则环境）；未实现效果的卡保留收藏。"
+  },
+  {
+   "id": "cs5b-25",
+   "set": "CS5bC",
+   "name": "勇魅群星 勇 · 25张装",
+   "release": "2024-06-18",
+   "priceMinor": 5000,
+   "cardsPerPack": 25,
+   "flatSlots": 20,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "flatCount": 88,
+   "foilSlots": 5,
+   "foilGroups": [
+    {
+     "share": 13.71,
+     "rarities": [
+      "R",
+      "C★",
+      "R★",
+      "U★"
+     ],
+     "count": 116
+    },
+    {
+     "share": 5.53,
+     "rarities": [
+      "RR",
+      "RRR",
+      "K",
+      "AR"
+     ],
+     "count": 30
+    },
+    {
+     "share": 0.76,
+     "rarities": [
+      "SR",
+      "HR",
+      "SAR",
+      "UR"
+     ],
+     "count": 46
+    }
+   ],
+   "ratioNote": "20 平 + 5 闪；四组配比 80.00%% / 13.71%% / 5.53%% / 0.76%%。",
+   "source": "https://wiki.52poke.com/wiki/勇魅群星 勇（TCG）",
+   "wiki": "https://wiki.52poke.com/wiki/勇魅群星 勇（TCG）",
+   "rulesNote": "按简中公开生产配比表的合并稀有度组模拟（百科转录）；组内各印刷等权、各包独立，不代表官方单卡概率或盒级保底。剑盾系列（E/F 标记）不属于简中标准环境 G/H/I/J，仅供收藏与自由对战（后续会开放无规则环境）；未实现效果的卡保留收藏。"
+  },
+  {
+   "id": "cs6a-5",
+   "set": "CS6aC",
+   "name": "碧海暗影 啸 · 5张装",
+   "release": "2024-09-20",
+   "priceMinor": 1000,
+   "cardsPerPack": 5,
+   "flatSlots": 4,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "flatCount": 95,
+   "foilSlots": 1,
+   "foilGroups": [
+    {
+     "share": 13.75,
+     "rarities": [
+      "R",
+      "C★",
+      "R★",
+      "U★"
+     ],
+     "count": 121
+    },
+    {
+     "share": 5.5,
+     "rarities": [
+      "RR",
+      "RRR",
+      "K",
+      "AR"
+     ],
+     "count": 26
+    },
+    {
+     "share": 0.75,
+     "rarities": [
+      "SR",
+      "HR",
+      "SAR",
+      "UR"
+     ],
+     "count": 35
+    }
+   ],
+   "ratioNote": "4 平 + 1 闪；四组配比 80%% / 13.75%% / 5.50%% / 0.75%%。",
+   "source": "https://wiki.52poke.com/wiki/碧海暗影 啸（TCG）",
+   "wiki": "https://wiki.52poke.com/wiki/碧海暗影 啸（TCG）",
+   "rulesNote": "按简中公开生产配比表的合并稀有度组模拟（百科转录）；组内各印刷等权、各包独立，不代表官方单卡概率或盒级保底。剑盾系列（E/F 标记）不属于简中标准环境 G/H/I/J，仅供收藏与自由对战（后续会开放无规则环境）；未实现效果的卡保留收藏。"
+  },
+  {
+   "id": "cs6a-25",
+   "set": "CS6aC",
+   "name": "碧海暗影 啸 · 25张装",
+   "release": "2024-09-20",
+   "priceMinor": 5000,
+   "cardsPerPack": 25,
+   "flatSlots": 20,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "flatCount": 95,
+   "foilSlots": 5,
+   "foilGroups": [
+    {
+     "share": 13.71,
+     "rarities": [
+      "R",
+      "C★",
+      "R★",
+      "U★"
+     ],
+     "count": 121
+    },
+    {
+     "share": 5.53,
+     "rarities": [
+      "RR",
+      "RRR",
+      "K",
+      "AR"
+     ],
+     "count": 26
+    },
+    {
+     "share": 0.76,
+     "rarities": [
+      "SR",
+      "HR",
+      "SAR",
+      "UR"
+     ],
+     "count": 35
+    }
+   ],
+   "ratioNote": "20 平 + 5 闪；四组配比 80%% / 13.71%% / 5.53%% / 0.76%%。",
+   "source": "https://wiki.52poke.com/wiki/碧海暗影 啸（TCG）",
+   "wiki": "https://wiki.52poke.com/wiki/碧海暗影 啸（TCG）",
+   "rulesNote": "按简中公开生产配比表的合并稀有度组模拟（百科转录）；组内各印刷等权、各包独立，不代表官方单卡概率或盒级保底。剑盾系列（E/F 标记）不属于简中标准环境 G/H/I/J，仅供收藏与自由对战（后续会开放无规则环境）；未实现效果的卡保留收藏。"
+  },
+  {
+   "id": "cs6b-5",
+   "set": "CS6bC",
+   "name": "碧海暗影 逐 · 5张装",
+   "release": "2024-09-20",
+   "priceMinor": 1000,
+   "cardsPerPack": 5,
+   "flatSlots": 4,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "flatCount": 94,
+   "foilSlots": 1,
+   "foilGroups": [
+    {
+     "share": 13.75,
+     "rarities": [
+      "R",
+      "C★",
+      "R★",
+      "U★"
+     ],
+     "count": 126
+    },
+    {
+     "share": 5.5,
+     "rarities": [
+      "RR",
+      "RRR",
+      "K",
+      "AR"
+     ],
+     "count": 26
+    },
+    {
+     "share": 0.75,
+     "rarities": [
+      "SR",
+      "HR",
+      "SAR",
+      "UR"
+     ],
+     "count": 36
+    }
+   ],
+   "ratioNote": "4 平 + 1 闪；四组配比 80%% / 13.75%% / 5.50%% / 0.75%%。",
+   "source": "https://wiki.52poke.com/wiki/碧海暗影 逐（TCG）",
+   "wiki": "https://wiki.52poke.com/wiki/碧海暗影 逐（TCG）",
+   "rulesNote": "按简中公开生产配比表的合并稀有度组模拟（百科转录）；组内各印刷等权、各包独立，不代表官方单卡概率或盒级保底。剑盾系列（E/F 标记）不属于简中标准环境 G/H/I/J，仅供收藏与自由对战（后续会开放无规则环境）；未实现效果的卡保留收藏。"
+  },
+  {
+   "id": "cs6b-25",
+   "set": "CS6bC",
+   "name": "碧海暗影 逐 · 25张装",
+   "release": "2024-09-20",
+   "priceMinor": 5000,
+   "cardsPerPack": 25,
+   "flatSlots": 20,
+   "flatRarities": [
+    "C",
+    "U"
+   ],
+   "flatCount": 94,
+   "foilSlots": 5,
+   "foilGroups": [
+    {
+     "share": 13.71,
+     "rarities": [
+      "R",
+      "C★",
+      "R★",
+      "U★"
+     ],
+     "count": 126
+    },
+    {
+     "share": 5.53,
+     "rarities": [
+      "RR",
+      "RRR",
+      "K",
+      "AR"
+     ],
+     "count": 26
+    },
+    {
+     "share": 0.76,
+     "rarities": [
+      "SR",
+      "HR",
+      "SAR",
+      "UR"
+     ],
+     "count": 36
+    }
+   ],
+   "ratioNote": "20 平 + 5 闪；四组配比 80%% / 13.71%% / 5.53%% / 0.76%%。",
+   "source": "https://wiki.52poke.com/wiki/碧海暗影 逐（TCG）",
+   "wiki": "https://wiki.52poke.com/wiki/碧海暗影 逐（TCG）",
+   "rulesNote": "按简中公开生产配比表的合并稀有度组模拟（百科转录）；组内各印刷等权、各包独立，不代表官方单卡概率或盒级保底。剑盾系列（E/F 标记）不属于简中标准环境 G/H/I/J，仅供收藏与自由对战（后续会开放无规则环境）；未实现效果的卡保留收藏。"
+  }
+ ],
+ "excluded": []
+}

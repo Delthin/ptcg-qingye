@@ -1,0 +1,119 @@
+/*
+ * HoverHighlight — 对局中可操作段落（招式 / 特性 / 训练家 / 撤退）。
+ * 纸面上的黄铜压印框：可点击时铜边 + 左侧铜条 + 铜印箭头；
+ * 不可用时灰印 + 锁形记号。enabled / onClick / 键盘逻辑在 TSX，未动。
+ */
+
+.root {
+  position: relative;
+  border-radius: 8px;
+}
+
+.enabled {
+  cursor: pointer;
+}
+
+.action {
+  margin: 12px 0 0;
+  padding: 12px 48px 12px 14px;
+  min-height: 50px;
+  box-sizing: border-box;
+  border: 1px solid rgba(74, 50, 34, 0.2);
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(255, 253, 246, 0.85), rgba(246, 239, 221, 0.7));
+  color: var(--a-ink-soft);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    0 1px 2px rgba(20, 12, 6, 0.1);
+  transition:
+    transform 140ms var(--a-ease),
+    border-color 140ms var(--a-ease),
+    box-shadow 140ms var(--a-ease);
+}
+
+.action > div {
+  padding: 0;
+  margin: 0;
+}
+
+/* 可用：黄铜包边 + 左侧铜条，与正文墨色明确区分 */
+.action[data-action-enabled] {
+  color: var(--a-ink);
+  border-color: rgba(201, 162, 39, 0.7);
+  background: linear-gradient(120deg, rgba(201, 162, 39, 0.13), rgba(255, 253, 246, 0.92) 55%);
+  box-shadow:
+    inset 3px 0 0 var(--a-brass),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 2px 6px rgba(20, 12, 6, 0.14);
+}
+
+.actionMark {
+  position: absolute;
+  right: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  padding: 5px;
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: rgba(92, 74, 56, 0.55);
+  background: rgba(74, 50, 34, 0.08);
+  box-shadow: inset 0 1px 2px rgba(74, 50, 34, 0.22);
+}
+
+.actionMark svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* 铜印箭头：可用时为压好的黄铜章 */
+.action[data-action-enabled] > .actionMark {
+  color: #241a06;
+  background: linear-gradient(145deg, var(--a-brass-lit), var(--a-brass));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    0 1px 4px rgba(20, 12, 6, 0.3);
+}
+
+/* 撤退：行内小键 */
+.action[data-action-kind='retreat'] {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin: 0;
+  padding: 6px 42px 6px 10px;
+  min-height: 40px;
+}
+
+.root:focus-visible {
+  outline: 2px solid var(--a-brass);
+  outline-offset: 2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .action.enabled:hover {
+    transform: translateY(-1px);
+    border-color: var(--a-brass-lit);
+    box-shadow:
+      inset 3px 0 0 var(--a-brass-lit),
+      inset 0 1px 0 rgba(255, 255, 255, 0.7),
+      0 4px 10px rgba(20, 12, 6, 0.2);
+  }
+
+  .root.enabled:not(.action):hover {
+    background: rgba(201, 162, 39, 0.06);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .action {
+    transition: none;
+  }
+
+  .action.enabled:hover {
+    transform: none;
+  }
+}

@@ -1,0 +1,235 @@
+/*
+ * CardInfoListPopup — 牌区列表：胡桃木抽屉托盘。
+ * 绒面内衬 + 逐卡凹槽；点击逻辑 / aria / 排序逻辑在 TSX，未动。
+ */
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 12000;
+  background: rgba(10, 6, 3, 0.68);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: trayBackdropIn 150ms var(--a-ease-out);
+}
+
+@keyframes trayBackdropIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.panel {
+  width: min(1000px, calc(100vw - 32px));
+  max-height: calc(100dvh - 48px);
+  overflow: auto;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  color: var(--a-on-dark);
+  font-family: var(--a-font-ui);
+  background:
+    radial-gradient(ellipse 130% 60% at 28% -12%, rgba(255, 226, 168, 0.14), transparent 58%),
+    repeating-linear-gradient(
+      92deg,
+      rgba(255, 255, 255, 0.026) 0 2px,
+      transparent 2px 7px,
+      rgba(0, 0, 0, 0.055) 7px 9px,
+      transparent 9px 19px
+    ),
+    linear-gradient(180deg, var(--a-walnut-lit) 0%, var(--a-walnut) 46%, var(--a-walnut-dark) 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(232, 200, 90, 0.2),
+    var(--a-lift-4);
+  animation: trayIn 220ms var(--a-ease-out);
+}
+
+@keyframes trayIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.title {
+  margin: 0 0 14px;
+  font-family: var(--a-font-display);
+  font-weight: 400;
+  font-size: 21px;
+  letter-spacing: 0.03em;
+  color: var(--a-on-dark);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.title small {
+  margin-left: 10px;
+  padding: 3px 9px;
+  font-family: var(--a-font-num);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  vertical-align: 0.14em;
+  border-radius: 3px;
+  color: #241a06;
+  background: linear-gradient(180deg, var(--a-brass-lit), var(--a-brass));
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.sortRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 16px;
+  font-size: 13px;
+  color: var(--a-on-dark-soft);
+}
+
+.reveal {
+  margin-left: auto;
+}
+
+/* 绒面内衬的卡槽阵列 */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 14px;
+  margin-bottom: 16px;
+  padding: 14px;
+  border-radius: 8px;
+  background:
+    radial-gradient(ellipse 120% 70% at 50% 0%, rgba(42, 122, 77, 0.35), transparent 72%),
+    linear-gradient(170deg, var(--a-felt) 0%, var(--a-felt-dark) 100%);
+  border: 1px solid rgba(9, 24, 14, 0.62);
+  box-shadow: var(--a-inset-felt);
+}
+
+.cardBtn {
+  width: 100%;
+  padding: 7px;
+  border: 1px solid rgba(8, 22, 13, 0.6);
+  border-radius: 7px;
+  background: rgba(0, 0, 0, 0.24);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition:
+    transform 140ms var(--a-ease),
+    border-color 140ms var(--a-ease);
+}
+
+.cardThumb {
+  width: 100%;
+  aspect-ratio: 2.5 / 3.5;
+  transition: transform 140ms var(--a-ease);
+}
+
+.cardBtn:focus-visible {
+  outline: 2px solid var(--a-brass-lit);
+  outline-offset: 3px;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* 圆形黄铜扣关闭键 */
+.closeBtn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 11px;
+  border: 1px solid rgba(201, 162, 39, 0.55);
+  border-radius: 50%;
+  background: linear-gradient(180deg, var(--a-walnut-lit), var(--a-walnut-dark));
+  color: var(--a-brass-lit);
+  cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    var(--a-lift-2);
+  transition:
+    border-color var(--a-t-fast) var(--a-ease),
+    transform var(--a-t-fast) var(--a-ease);
+}
+
+.closeBtn svg {
+  width: 100%;
+  height: 100%;
+}
+
+.closeBtn:focus-visible {
+  outline: 2px solid var(--a-brass-lit);
+  outline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cardBtn:hover {
+    transform: translateY(-2px);
+    border-color: rgba(201, 162, 39, 0.6);
+  }
+
+  .cardBtn:hover .cardThumb {
+    transform: translateY(-2px);
+  }
+
+  .closeBtn:hover {
+    border-color: var(--a-brass-lit);
+    transform: translateY(-1px);
+  }
+}
+
+.cardBtn:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 600px) {
+  .panel {
+    padding: 14px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    padding: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop {
+    animation: trayBackdropIn 120ms ease-out;
+  }
+
+  .panel {
+    animation: trayFade 120ms ease-out;
+  }
+
+  .cardBtn,
+  .cardThumb,
+  .closeBtn {
+    transition: none;
+  }
+}
+
+@keyframes trayFade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

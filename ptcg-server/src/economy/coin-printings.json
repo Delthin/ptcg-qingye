@@ -1,0 +1,110 @@
+[
+  {
+    "printingId": "chs:21267",
+    "engineFullName": "Leafeon PRE",
+    "name": "叶伊布",
+    "set": "CSV9.5C_Coin",
+    "number": "005/208",
+    "rarity": "U",
+    "image": "/scans/duo/21267.png",
+    "basicEnergy": false,
+    "regulationMark": "H",
+    "finish": "闪卡"
+  },
+  {
+    "printingId": "chs:21268",
+    "engineFullName": "Flareon PRE",
+    "name": "火伊布",
+    "set": "CSV9.5C_Coin",
+    "number": "022/208",
+    "rarity": "R",
+    "image": "/scans/duo/21268.png",
+    "basicEnergy": false,
+    "regulationMark": "G",
+    "finish": "闪卡"
+  },
+  {
+    "printingId": "chs:21269",
+    "engineFullName": "Vaporeon PRE",
+    "name": "水伊布",
+    "set": "CSV9.5C_Coin",
+    "number": "035/208",
+    "rarity": "R",
+    "image": "/scans/duo/21269.png",
+    "basicEnergy": false,
+    "regulationMark": "G",
+    "finish": "闪卡"
+  },
+  {
+    "printingId": "chs:21270",
+    "engineFullName": "Glaceon TWM",
+    "name": "冰伊布",
+    "set": "CSV9.5C_Coin",
+    "number": "046/208",
+    "rarity": "U",
+    "image": "/scans/duo/21270.png",
+    "basicEnergy": false,
+    "regulationMark": "H",
+    "finish": "闪卡"
+  },
+  {
+    "printingId": "chs:21271",
+    "engineFullName": "Jolteon MEW",
+    "name": "雷伊布",
+    "set": "CSV9.5C_Coin",
+    "number": "057/208",
+    "rarity": "R",
+    "image": "/scans/duo/21271.png",
+    "basicEnergy": false,
+    "regulationMark": "G",
+    "finish": "闪卡"
+  },
+  {
+    "printingId": "chs:21272",
+    "engineFullName": "Espeon OBF",
+    "name": "太阳伊布",
+    "set": "CSV9.5C_Coin",
+    "number": "067/208",
+    "rarity": "U",
+    "image": "/scans/duo/21272.png",
+    "basicEnergy": false,
+    "regulationMark": "G",
+    "finish": "闪卡"
+  },
+  {
+    "printingId": "chs:21273",
+    "engineFullName": "Sylveon SFA",
+    "name": "仙子伊布",
+    "set": "CSV9.5C_Coin",
+    "number": "075/208",
+    "rarity": "U",
+    "image": "/scans/duo/21273.png",
+    "basicEnergy": false,
+    "regulationMark": "H",
+    "finish": "闪卡"
+  },
+  {
+    "printingId": "chs:21274",
+    "engineFullName": "Umbreon OBF",
+    "name": "月亮伊布",
+    "set": "CSV9.5C_Coin",
+    "number": "103/208",
+    "rarity": "U",
+    "image": "/scans/duo/21274.png",
+    "basicEnergy": false,
+    "regulationMark": "G",
+    "finish": "闪卡"
+  },
+  {
+    "printingId": "chs:21275",
+    "engineFullName": "Eevee SSP",
+    "name": "伊布",
+    "set": "CSV9.5C_Coin",
+    "number": "139/208",
+    "rarity": "C",
+    "image": "/scans/duo/21275.png",
+    "basicEnergy": false,
+    "regulationMark": "H",
+    "finish": "闪卡"
+  }
+]

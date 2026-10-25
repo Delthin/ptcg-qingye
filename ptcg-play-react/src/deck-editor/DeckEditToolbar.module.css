@@ -1,0 +1,633 @@
+/* ============================================================
+   工具条：台体顶部的操作横档（胡桃木面上的一排黄铜件）
+   ============================================================ */
+
+.toolbar {
+  flex: none;
+  color: var(--a-on-dark);
+}
+
+/* 黄铜细线：与下方仪表条分界 */
+.toolbar::after {
+  content: '';
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(201, 162, 39, 0.55) 0%, rgba(201, 162, 39, 0.18) 55%, transparent 92%);
+  pointer-events: none;
+}
+
+/* —— 顶行：返回 · 卡组名 · 更多 · 保存 —— */
+.topRow {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 68px;
+  padding: 10px 20px;
+}
+
+.back {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  color: var(--a-on-dark-soft);
+  text-decoration: none;
+  font-size: 19px;
+  flex: none;
+  border-right: 1px solid rgba(201, 162, 39, 0.25);
+  padding-right: 18px;
+  transition: color var(--a-t) var(--a-ease);
+}
+
+.back > span {
+  font-size: 12px;
+  letter-spacing: 0.02em;
+}
+
+.title {
+  min-width: 0;
+  flex: 1;
+}
+
+.title h1 {
+  font-family: var(--a-font-display);
+  font-weight: 400;
+  font-size: 26px;
+  letter-spacing: 0.03em;
+  line-height: 1.15;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--a-on-dark);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.counts { flex: none; margin-left: auto; }
+
+/* 保存状态灯：未保存时黄铜灯呼吸 */
+.saveState {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--a-font-num);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  color: var(--a-on-dark-soft);
+  margin-top: 6px;
+}
+
+.saveState::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #6f8a5c;
+  box-shadow: 0 0 6px rgba(111, 138, 92, 0.6);
+  flex: none;
+}
+
+.saveState[data-dirty='true'] {
+  color: var(--a-brass-lit);
+}
+
+.saveState[data-dirty='true']::before {
+  background: var(--a-brass-lit);
+  box-shadow: 0 0 9px rgba(232, 200, 90, 0.85);
+  animation: dirtyPulse 1.7s var(--a-ease) infinite;
+}
+
+@keyframes dirtyPulse {
+  50% {
+    opacity: 0.4;
+  }
+}
+
+/* —— 更多操作：黄铜圈 Dark 钮 + 纸面菜单 —— */
+.more {
+  position: relative;
+  flex: none;
+}
+
+.more summary {
+  list-style: none;
+  display: grid;
+  place-items: center;
+  min-width: 44px;
+  min-height: 44px;
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.26);
+  color: var(--a-brass-lit);
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: background var(--a-t) var(--a-ease), border-color var(--a-t) var(--a-ease);
+}
+
+.more summary::-webkit-details-marker {
+  display: none;
+}
+
+.more > div {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  min-width: 164px;
+  padding: 6px;
+  border: 1px solid var(--a-paper-edge);
+  border-radius: 6px;
+  background: linear-gradient(170deg, var(--a-paper), var(--a-paper-warm));
+  box-shadow: var(--a-lift-3), var(--a-inset-paper);
+  z-index: 1;
+  max-height: calc(100dvh - 180px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.more button {
+  display: block;
+  flex: none;
+  border: 0;
+  background: none;
+  color: var(--a-ink);
+  text-align: left;
+  font: inherit;
+  font-size: 12px;
+  padding: 10px 12px;
+  min-height: 42px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.more button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* —— 保存键：a-btn 实体黄铜键 —— */
+.saveButton {
+  flex: none;
+  min-height: 42px;
+  min-width: 104px;
+  font-size: 13.5px;
+}
+
+/* ============================================================
+   筛选行：搜索凹槽 + 黄铜标签页 + 铭牌开关
+   ============================================================ */
+.filterRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 6px 20px 10px;
+}
+
+.browseScope {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 100%;
+}
+
+.browseScope > span {
+  color: var(--a-on-dark-soft);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.inventoryStatus {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  padding: 0 20px 8px;
+  color: var(--a-brass-lit);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.inventoryStatus[data-ready='true'] {
+  color: var(--a-on-dark-soft);
+}
+
+.inventoryStatus button {
+  min-height: 36px;
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  border-radius: 4px;
+  padding: 5px 10px;
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--a-brass-lit);
+  font: inherit;
+  cursor: pointer;
+}
+
+.inventoryStatus button:disabled {
+  cursor: default;
+  color: var(--a-on-dark-soft);
+}
+
+.search {
+  flex: 1;
+  min-width: 170px;
+  max-width: 330px;
+}
+
+.searchInput {
+  width: 100%;
+  min-height: 40px;
+  border: 1px solid rgba(74, 50, 34, 0.3);
+  border-radius: 4px;
+  background: var(--a-paper);
+  color: var(--a-ink);
+  font: inherit;
+  font-size: 13px;
+  outline: none;
+  padding: 9px 13px;
+  box-shadow: inset 0 2px 5px rgba(74, 50, 34, 0.16);
+  transition: border-color var(--a-t) var(--a-ease), box-shadow var(--a-t) var(--a-ease);
+}
+
+.searchInput:focus {
+  border-color: var(--a-brass);
+  box-shadow:
+    inset 0 2px 5px rgba(74, 50, 34, 0.12),
+    0 0 0 3px rgba(201, 162, 39, 0.3);
+}
+
+/* 类型标签页：实体黄铜铭牌，激活亮起 */
+.categories {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  flex: none;
+  padding: 3px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.28);
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.35);
+}
+
+.categories button {
+  min-height: 34px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  background: none;
+  color: var(--a-on-dark-soft);
+  font: inherit;
+  font-size: 11.5px;
+  padding: 7px 13px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color var(--a-t-fast) var(--a-ease), background var(--a-t-fast) var(--a-ease), box-shadow var(--a-t-fast) var(--a-ease);
+}
+
+.categories button[aria-pressed='true'] {
+  color: #241a06;
+  font-weight: 700;
+  background: linear-gradient(180deg, var(--a-brass-lit) 0%, var(--a-brass) 55%, #a8831c 100%);
+  border-color: rgba(0, 0, 0, 0.3);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    0 2px 5px rgba(0, 0, 0, 0.35),
+    0 0 12px rgba(201, 162, 39, 0.22);
+}
+
+.categories button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* 稀有度下拉：嵌木凹槽 */
+.rarity {
+  min-width: 125px;
+}
+
+.rarity select,
+.advanced select {
+  width: 100%;
+  color: var(--a-on-dark);
+  border: 1px solid rgba(201, 162, 39, 0.28);
+  border-radius: 5px;
+  min-height: 40px;
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: rgba(0, 0, 0, 0.26);
+  background-image: var(--a-select-arrow);
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px 8px;
+  padding: 8px 32px 8px 10px;
+  font: inherit;
+  font-size: 11px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.rarity select option,
+.advanced select option {
+  background: #2e1e14;
+  color: var(--a-on-dark);
+}
+
+.rarity select:focus,
+.advanced select:focus {
+  outline: none;
+  border-color: var(--a-brass);
+  box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.25);
+}
+
+/* 仅看持有 / 筛选：木面刻字钮 */
+.owned,
+.filterToggle {
+  min-height: 40px;
+  border-radius: 5px;
+  border: 1px solid rgba(243, 234, 214, 0.2);
+  background: rgba(243, 234, 214, 0.05);
+  color: var(--a-on-dark-soft);
+  font: inherit;
+  font-size: 11px;
+  padding: 8px 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: color var(--a-t-fast) var(--a-ease), background var(--a-t-fast) var(--a-ease), border-color var(--a-t-fast) var(--a-ease);
+}
+
+.owned[aria-pressed='true'] {
+  color: #241a06;
+  font-weight: 700;
+  background: linear-gradient(180deg, var(--a-brass-lit), var(--a-brass) 60%, #a8831c);
+  border-color: rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.owned:disabled,
+.filterToggle:disabled {
+  opacity: 0.42;
+  cursor: default;
+}
+
+.filterToggle {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.filterToggle > span {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  background: rgba(201, 162, 39, 0.24);
+  border-radius: 50%;
+  font-family: var(--a-font-num);
+  font-size: 10px;
+  color: var(--a-brass-lit);
+}
+
+.clear {
+  border: 0;
+  background: none;
+  color: var(--a-brass-lit);
+  font: inherit;
+  font-size: 11px;
+  min-height: 40px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.clear:hover {
+  color: var(--a-on-dark);
+}
+
+/* —— 高级筛选对话框（DuoDialog 深色匣内）—— */
+.advanced {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.advanced label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--a-on-dark-soft);
+}
+
+.choiceField { margin: 0; padding: 0; border: 0; min-width: 0; }
+.choiceField legend { margin-bottom: 8px; font-size: 12px; color: var(--a-on-dark-soft); }
+.choices { display: flex; flex-wrap: wrap; gap: 8px; }
+.choice {
+  min-height: 36px;
+  padding: 7px 12px;
+  border: 1px solid rgba(201, 162, 39, 0.3);
+  border-radius: 5px;
+  background: rgba(20, 12, 6, 0.22);
+  color: var(--a-on-dark-soft);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 rgba(255, 253, 246, 0.04);
+}
+.choice[aria-pressed='true'] {
+  background: linear-gradient(160deg, var(--a-brass-lit), var(--a-brass));
+  color: var(--a-ink);
+  border-color: var(--a-brass-dark);
+  box-shadow: inset 0 1px 0 rgba(255, 253, 246, 0.55), 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+.choice:hover:not(:disabled) { border-color: var(--a-brass-lit); }
+.choice:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* —— 焦点可见 —— */
+.toolbar button:focus-visible,
+.back:focus-visible,
+.more summary:focus-visible {
+  outline: 2px solid var(--a-brass-lit);
+  outline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .back:hover {
+    color: var(--a-brass-lit);
+  }
+
+  .more summary:hover {
+    background: rgba(201, 162, 39, 0.14);
+    border-color: rgba(201, 162, 39, 0.6);
+  }
+
+  .more button:hover {
+    background: rgba(74, 50, 34, 0.07);
+  }
+
+  .categories button:not([aria-pressed='true']):not(:disabled):hover {
+    color: var(--a-on-dark);
+    background: rgba(243, 234, 214, 0.07);
+  }
+
+  .owned:not([aria-pressed='true']):not(:disabled):hover,
+  .filterToggle:not(:disabled):hover {
+    color: var(--a-on-dark);
+    border-color: rgba(201, 162, 39, 0.5);
+    background: rgba(243, 234, 214, 0.09);
+  }
+}
+
+/* ============================================================
+   响应式
+   ============================================================ */
+@media (max-width: 1150px) {
+  .filterRow {
+    gap: 8px;
+  }
+
+  .search {
+    max-width: none;
+    min-width: 170px;
+  }
+
+  .topRow {
+    gap: 14px;
+  }
+
+}
+
+@media (min-width: 701px) and (max-width: 1050px) {
+  .counts { max-width: 300px; }
+  .back > span { display: none; }
+}
+
+@media (max-width: 700px) {
+  .topRow {
+    min-height: 68px;
+    padding: 10px 14px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .counts { order: 5; flex-basis: 100%; }
+
+  .back {
+    width: 26px;
+    justify-content: flex-start;
+    padding-right: 0;
+    border: 0;
+  }
+
+  .back > span {
+    display: none;
+  }
+
+  .title h1 {
+    font-size: 20px;
+  }
+
+  .saveButton {
+    min-width: 68px;
+    padding: 0 14px;
+  }
+
+  .saveState {
+    font-size: 9.5px;
+  }
+
+  .more summary {
+    min-width: 38px;
+  }
+
+  .more {
+    margin-left: auto;
+  }
+
+  .inventoryStatus {
+    padding: 0 14px 6px;
+  }
+
+  .filterRow {
+    padding: 9px 14px 11px;
+    gap: 8px;
+  }
+
+  .search {
+    min-width: 0;
+    flex: 1 1 65%;
+  }
+
+  .filterToggle {
+    order: 1;
+    min-width: 54px;
+    padding: 8px 11px;
+  }
+
+  .categories {
+    order: 2;
+    flex: 1 1 100%;
+    width: 100%;
+    min-width: 0;
+    gap: 2px;
+    overflow: auto;
+    scrollbar-width: none;
+  }
+
+  .categories button {
+    padding: 7px 12px;
+    flex: 1;
+    min-height: 36px;
+  }
+
+  .rarity {
+    display: none;
+  }
+
+  .rarity.energyEdition {
+    display: block;
+    order: 3;
+  }
+
+  .clear {
+    order: 3;
+    font-size: 10px;
+  }
+}
+
+@media (min-width: 900px) and (max-height: 700px) {
+  .topRow {
+    min-height: 60px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+
+  .filterRow {
+    padding-top: 4px;
+    padding-bottom: 6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .saveState[data-dirty='true']::before {
+    animation: none;
+  }
+
+  .back,
+  .categories button,
+  .owned,
+  .filterToggle,
+  .more summary {
+    transition: none;
+  }
+}

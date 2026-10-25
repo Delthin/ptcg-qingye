@@ -1,0 +1,2916 @@
+{
+ "comment": "官方嗨皮组合预组卡表：H1–H5逐张转录自B站Soel索艾尔预组卡表视频，并与52poke完整卡组表交叉核对；H6逐项转录自用户提供的小程序「卡牌60张」完整截图，原始数量见economy-happy6-screenshots.json。每盒4套60张；官方单品20元随机1套，整盒88元含4套及9个附包。卡片条目的engineFullName只在精确核对卡面效果后使用。含未实现效果的套牌不进商品，见pending。",
+ "sourceNote": "H1–H5：逐套全卡图视频及52poke表；H6：用户提供的四套小程序完整卡表截图。",
+ "basicEnergyNote": "基本能量按同名已核实印刷归类（同效果、仅卡图不同）。",
+ "boxes": {
+  "CSVH1C": {
+   "name": "嗨皮组合 皮卡丘&皮皮&草苗龟&索财灵",
+   "release": "2025-01-17",
+   "source": "https://wiki.52poke.com/wiki/嗨皮组合_皮卡丘%26皮皮%26草苗龟%26索财灵（TCG）",
+   "sourceTable": "https://www.bilibili.com/video/BV1CdPmeyEZg",
+   "decks": [
+    {
+     "name": "皮卡丘卡组",
+     "cards": [
+      {
+       "number": "008/059",
+       "name": "皮卡丘ex",
+       "count": 2
+      },
+      {
+       "number": "009/059",
+       "name": "灯笼鱼",
+       "count": 2
+      },
+      {
+       "number": "010/059",
+       "name": "电灯怪",
+       "count": 2
+      },
+      {
+       "number": "011/059",
+       "name": "咩利羊",
+       "count": 3
+      },
+      {
+       "number": "012/059",
+       "name": "茸茸羊",
+       "count": 2
+      },
+      {
+       "number": "013/059",
+       "name": "电飞鼠",
+       "count": 1
+      },
+      {
+       "number": "014/059",
+       "name": "雷电云",
+       "count": 1
+      },
+      {
+       "number": "015/059",
+       "name": "捷拉奥拉",
+       "count": 1
+      },
+      {
+       "number": "032/059",
+       "name": "聒噪鸟",
+       "count": 1
+      },
+      {
+       "number": "035/059",
+       "name": "能量输送",
+       "count": 1
+      },
+      {
+       "number": "037/059",
+       "name": "电气发生器",
+       "count": 2
+      },
+      {
+       "number": "042/059",
+       "name": "健行鞋",
+       "count": 2
+      },
+      {
+       "number": "043/059",
+       "name": "巢穴球",
+       "count": 2
+      },
+      {
+       "number": "044/059",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "046/059",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "047/059",
+       "name": "宝可梦捕捉器",
+       "count": 2
+      },
+      {
+       "number": "050/059",
+       "name": "活力头带",
+       "count": 2
+      },
+      {
+       "number": "051/059",
+       "name": "裁判",
+       "count": 1
+      },
+      {
+       "number": "053/059",
+       "name": "短裤小子",
+       "count": 3
+      },
+      {
+       "number": "055/059",
+       "name": "妮莫",
+       "count": 4
+      },
+      {
+       "number": "056/059",
+       "name": "博士的研究",
+       "count": 3
+      },
+      {
+       "number": "057/059",
+       "name": "希嘉娜的决心",
+       "count": 2
+      },
+      {
+       "number": "LIG",
+       "name": "基本雷能量",
+       "count": 15
+      }
+     ],
+     "coverNumber": "008/059",
+     "coverEngineFullName": "Pikachu ex PAL"
+    },
+    {
+     "name": "皮皮卡组",
+     "cards": [
+      {
+       "number": "016/059",
+       "name": "皮皮",
+       "count": 4
+      },
+      {
+       "number": "017/059",
+       "name": "皮可西",
+       "count": 1
+      },
+      {
+       "number": "018/059",
+       "name": "皮可西ex",
+       "count": 2,
+       "engineFullName": "Clefable ex OBF",
+       "engineNote": "皮可西ex：HP 260、特性「月面领域」＋招式「月之奇迹」170，与引擎 Clefable ex OBF（OBF #82）一致；判定表未映射。"
+      },
+      {
+       "number": "019/059",
+       "name": "蛋蛋",
+       "count": 2
+      },
+      {
+       "number": "020/059",
+       "name": "椰蛋树",
+       "count": 2
+      },
+      {
+       "number": "021/059",
+       "name": "超梦",
+       "count": 1
+      },
+      {
+       "number": "022/059",
+       "name": "大嘴娃",
+       "count": 1
+      },
+      {
+       "number": "023/059",
+       "name": "卡璞・蝶蝶",
+       "count": 1
+      },
+      {
+       "number": "033/059",
+       "name": "谢米",
+       "count": 1
+      },
+      {
+       "number": "034/059",
+       "name": "能量回收",
+       "count": 1
+      },
+      {
+       "number": "038/059",
+       "name": "伤药",
+       "count": 2
+      },
+      {
+       "number": "039/059",
+       "name": "雾之水晶",
+       "count": 2
+      },
+      {
+       "number": "043/059",
+       "name": "巢穴球",
+       "count": 2
+      },
+      {
+       "number": "044/059",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "046/059",
+       "name": "宝可梦交替",
+       "count": 4
+      },
+      {
+       "number": "047/059",
+       "name": "宝可梦捕捉器",
+       "count": 2
+      },
+      {
+       "number": "051/059",
+       "name": "裁判",
+       "count": 1
+      },
+      {
+       "number": "052/059",
+       "name": "竹兰的霸气",
+       "count": 2
+      },
+      {
+       "number": "053/059",
+       "name": "短裤小子",
+       "count": 3
+      },
+      {
+       "number": "055/059",
+       "name": "妮莫",
+       "count": 4
+      },
+      {
+       "number": "056/059",
+       "name": "博士的研究",
+       "count": 2
+      },
+      {
+       "number": "PSY",
+       "name": "基本超能量",
+       "count": 16,
+       "basicEnergyName": "基本超能量"
+      }
+     ],
+     "coverNumber": "018/059",
+     "coverEngineFullName": "Clefable ex OBF"
+    },
+    {
+     "name": "草苗龟卡组",
+     "cards": [
+      {
+       "number": "001/059",
+       "name": "蘑蘑菇",
+       "count": 2
+      },
+      {
+       "number": "002/059",
+       "name": "斗笠菇",
+       "count": 2
+      },
+      {
+       "number": "003/059",
+       "name": "草苗龟",
+       "count": 4
+      },
+      {
+       "number": "004/059",
+       "name": "树林龟",
+       "count": 3
+      },
+      {
+       "number": "005/059",
+       "name": "土台龟",
+       "count": 3
+      },
+      {
+       "number": "006/059",
+       "name": "萨戮德",
+       "count": 1
+      },
+      {
+       "number": "007/059",
+       "name": "帝王拿波",
+       "count": 1
+      },
+      {
+       "number": "040/059",
+       "name": "粉碎之锤",
+       "count": 2
+      },
+      {
+       "number": "041/059",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "043/059",
+       "name": "巢穴球",
+       "count": 3
+      },
+      {
+       "number": "044/059",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "045/059",
+       "name": "神奇糖果",
+       "count": 2
+      },
+      {
+       "number": "046/059",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "047/059",
+       "name": "宝可梦捕捉器",
+       "count": 2
+      },
+      {
+       "number": "048/059",
+       "name": "学习装置",
+       "count": 1
+      },
+      {
+       "number": "051/059",
+       "name": "裁判",
+       "count": 1
+      },
+      {
+       "number": "053/059",
+       "name": "短裤小子",
+       "count": 4
+      },
+      {
+       "number": "054/059",
+       "name": "菜种的活力",
+       "count": 2
+      },
+      {
+       "number": "055/059",
+       "name": "妮莫",
+       "count": 4
+      },
+      {
+       "number": "056/059",
+       "name": "博士的研究",
+       "count": 2
+      },
+      {
+       "number": "059/059",
+       "name": "夜光能量",
+       "count": 2
+      },
+      {
+       "number": "GRA",
+       "name": "基本草能量",
+       "count": 12
+      }
+     ],
+     "coverNumber": "005/059",
+     "coverEngineFullName": "Torterra BRS"
+    },
+    {
+     "name": "索财灵卡组",
+     "cards": [
+      {
+       "number": "024/059",
+       "name": "索财灵",
+       "count": 4
+      },
+      {
+       "number": "025/059",
+       "name": "小磁怪",
+       "count": 3
+      },
+      {
+       "number": "026/059",
+       "name": "三合一磁怪",
+       "count": 2
+      },
+      {
+       "number": "027/059",
+       "name": "自爆磁怪",
+       "count": 2
+      },
+      {
+       "number": "028/059",
+       "name": "勾帕路翁",
+       "count": 1
+      },
+      {
+       "number": "029/059",
+       "name": "赛富豪",
+       "count": 3
+      },
+      {
+       "number": "030/059",
+       "name": "大葱鸭",
+       "count": 1
+      },
+      {
+       "number": "031/059",
+       "name": "肯泰罗",
+       "count": 1
+      },
+      {
+       "number": "036/059",
+       "name": "能量再利用",
+       "count": 1
+      },
+      {
+       "number": "041/059",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "043/059",
+       "name": "巢穴球",
+       "count": 2
+      },
+      {
+       "number": "044/059",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "046/059",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "047/059",
+       "name": "宝可梦捕捉器",
+       "count": 2
+      },
+      {
+       "number": "049/059",
+       "name": "打空保险",
+       "count": 1
+      },
+      {
+       "number": "051/059",
+       "name": "裁判",
+       "count": 1
+      },
+      {
+       "number": "052/059",
+       "name": "竹兰的霸气",
+       "count": 2
+      },
+      {
+       "number": "053/059",
+       "name": "短裤小子",
+       "count": 4
+      },
+      {
+       "number": "055/059",
+       "name": "妮莫",
+       "count": 4
+      },
+      {
+       "number": "056/059",
+       "name": "博士的研究",
+       "count": 2
+      },
+      {
+       "number": "058/059",
+       "name": "火夏",
+       "count": 1
+      },
+      {
+       "number": "MET",
+       "name": "基本钢能量",
+       "count": 16
+      }
+     ],
+     "coverNumber": "029/059",
+     "coverEngineFullName": "Gholdengo PAF"
+    }
+   ]
+  },
+  "CSVH2C": {
+   "name": "嗨皮卡组 路卡利欧&甲贺忍蛙&藏玛然特&獒教父",
+   "release": "2025-05-16",
+   "source": "https://wiki.52poke.com/wiki/嗨皮组合_路卡利欧%26甲贺忍蛙%26藏玛然特%26獒教父（TCG）",
+   "sourceTable": "https://www.bilibili.com/video/BV1okjMzCEL5",
+   "decks": [
+    {
+     "name": "路卡利欧卡组",
+     "cards": [
+      {
+       "number": "001/058",
+       "name": "飞天螳螂",
+       "count": 2
+      },
+      {
+       "number": "012/058",
+       "name": "利欧路",
+       "count": 4
+      },
+      {
+       "number": "013/058",
+       "name": "路卡利欧",
+       "count": 3
+      },
+      {
+       "number": "014/058",
+       "name": "代拉基翁",
+       "count": 1
+      },
+      {
+       "number": "015/058",
+       "name": "投掷猴",
+       "count": 1
+      },
+      {
+       "number": "016/058",
+       "name": "劈斧螳螂",
+       "count": 2
+      },
+      {
+       "number": "032/058",
+       "name": "大葱鸭",
+       "count": 1
+      },
+      {
+       "number": "037/058",
+       "name": "摔角鹰人",
+       "count": 1
+      },
+      {
+       "number": "038/058",
+       "name": "能量转移",
+       "count": 2
+      },
+      {
+       "number": "039/058",
+       "name": "能量再利用",
+       "count": 1
+      },
+      {
+       "number": "040/058",
+       "name": "伤药",
+       "count": 2
+      },
+      {
+       "number": "041/058",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "043/058",
+       "name": "巢穴球",
+       "count": 4
+      },
+      {
+       "number": "044/058",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "046/058",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "047/058",
+       "name": "宝可梦捕捉器",
+       "count": 2
+      },
+      {
+       "number": "051/058",
+       "name": "凰檗",
+       "count": 2
+      },
+      {
+       "number": "052/058",
+       "name": "裁判",
+       "count": 1
+      },
+      {
+       "number": "054/058",
+       "name": "短裤小子",
+       "count": 3
+      },
+      {
+       "number": "055/058",
+       "name": "妮莫",
+       "count": 4
+      },
+      {
+       "number": "056/058",
+       "name": "博士的研究",
+       "count": 2
+      },
+      {
+       "number": "FIG",
+       "name": "基本斗能量",
+       "count": 15
+      }
+     ],
+     "coverNumber": "013/058",
+     "coverEngineFullName": "Lucario BRS"
+    },
+    {
+     "name": "甲贺忍蛙卡组",
+     "cards": [
+      {
+       "number": "002/058",
+       "name": "海星星",
+       "count": 3
+      },
+      {
+       "number": "003/058",
+       "name": "宝石海星",
+       "count": 3
+      },
+      {
+       "number": "004/058",
+       "name": "拉普拉斯",
+       "count": 1
+      },
+      {
+       "number": "005/058",
+       "name": "信使鸟",
+       "count": 1
+      },
+      {
+       "number": "006/058",
+       "name": "凯路迪欧",
+       "count": 1
+      },
+      {
+       "number": "007/058",
+       "name": "呱呱泡蛙",
+       "count": 3
+      },
+      {
+       "number": "008/058",
+       "name": "呱头蛙",
+       "count": 2
+      },
+      {
+       "number": "009/058",
+       "name": "甲贺忍蛙ex",
+       "count": 2
+      },
+      {
+       "number": "010/058",
+       "name": "雪暴马",
+       "count": 1
+      },
+      {
+       "number": "011/058",
+       "name": "米立龙",
+       "count": 1
+      },
+      {
+       "number": "041/058",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "043/058",
+       "name": "巢穴球",
+       "count": 4
+      },
+      {
+       "number": "044/058",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "045/058",
+       "name": "神奇糖果",
+       "count": 2
+      },
+      {
+       "number": "046/058",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "047/058",
+       "name": "宝可梦捕捉器",
+       "count": 2
+      },
+      {
+       "number": "052/058",
+       "name": "裁判",
+       "count": 1
+      },
+      {
+       "number": "053/058",
+       "name": "小菘",
+       "count": 2
+      },
+      {
+       "number": "054/058",
+       "name": "短裤小子",
+       "count": 3
+      },
+      {
+       "number": "055/058",
+       "name": "妮莫",
+       "count": 4
+      },
+      {
+       "number": "056/058",
+       "name": "博士的研究",
+       "count": 2
+      },
+      {
+       "number": "WAT",
+       "name": "基本水能量",
+       "count": 15
+      }
+     ],
+     "coverNumber": "009/058",
+     "coverEngineFullName": "Greninja ex SVP"
+    },
+    {
+     "name": "藏玛然特卡组",
+     "cards": [
+      {
+       "number": "023/058",
+       "name": "盔甲鸟",
+       "count": 1
+      },
+      {
+       "number": "024/058",
+       "name": "铜镜怪",
+       "count": 3
+      },
+      {
+       "number": "025/058",
+       "name": "青铜钟",
+       "count": 2,
+       "engineFullName": "Bronzong BST",
+       "engineNote": "青铜钟 025/058：HP 110、特性「金属转移」、招式「意念头锤」70，与引擎 Bronzong BST（Battle Styles 102）完全一致；数据集的简中映射表尚未收录该印刷。"
+      },
+      {
+       "number": "026/058",
+       "name": "帝牙卢卡",
+       "count": 1
+      },
+      {
+       "number": "027/058",
+       "name": "勾帕路翁",
+       "count": 1
+      },
+      {
+       "number": "028/058",
+       "name": "钥圈儿",
+       "count": 1
+      },
+      {
+       "number": "029/058",
+       "name": "苍响",
+       "count": 2
+      },
+      {
+       "number": "030/058",
+       "name": "藏玛然特",
+       "count": 2
+      },
+      {
+       "number": "031/058",
+       "name": "拖拖蚓",
+       "count": 1
+      },
+      {
+       "number": "035/058",
+       "name": "图图犬",
+       "count": 2
+      },
+      {
+       "number": "041/058",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "043/058",
+       "name": "巢穴球",
+       "count": 3
+      },
+      {
+       "number": "044/058",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "046/058",
+       "name": "宝可梦交替",
+       "count": 4
+      },
+      {
+       "number": "047/058",
+       "name": "宝可梦捕捉器",
+       "count": 2
+      },
+      {
+       "number": "048/058",
+       "name": "学习装置",
+       "count": 1
+      },
+      {
+       "number": "050/058",
+       "name": "活力头带",
+       "count": 2
+      },
+      {
+       "number": "052/058",
+       "name": "裁判",
+       "count": 1
+      },
+      {
+       "number": "054/058",
+       "name": "短裤小子",
+       "count": 3
+      },
+      {
+       "number": "055/058",
+       "name": "妮莫",
+       "count": 4
+      },
+      {
+       "number": "056/058",
+       "name": "博士的研究",
+       "count": 2
+      },
+      {
+       "number": "058/058",
+       "name": "玛俐的骄傲",
+       "count": 2
+      },
+      {
+       "number": "MET",
+       "name": "基本钢能量",
+       "count": 15
+      }
+     ],
+     "coverNumber": "030/058",
+     "coverEngineFullName": "Zamazenta CRZ"
+    },
+    {
+     "name": "獒教父卡组",
+     "cards": [
+      {
+       "number": "017/058",
+       "name": "饭匙蛇",
+       "count": 1
+      },
+      {
+       "number": "018/058",
+       "name": "阿勃梭鲁",
+       "count": 1
+      },
+      {
+       "number": "019/058",
+       "name": "达克莱伊",
+       "count": 1
+      },
+      {
+       "number": "020/058",
+       "name": "莫鲁贝可",
+       "count": 1
+      },
+      {
+       "number": "021/058",
+       "name": "偶叫獒",
+       "count": 3
+      },
+      {
+       "number": "022/058",
+       "name": "獒教父ex",
+       "count": 2
+      },
+      {
+       "number": "033/058",
+       "name": "嘟嘟",
+       "count": 3
+      },
+      {
+       "number": "034/058",
+       "name": "嘟嘟利",
+       "count": 2
+      },
+      {
+       "number": "036/058",
+       "name": "聒噪鸟",
+       "count": 1
+      },
+      {
+       "number": "041/058",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "042/058",
+       "name": "暗黑补丁",
+       "count": 2
+      },
+      {
+       "number": "043/058",
+       "name": "巢穴球",
+       "count": 4
+      },
+      {
+       "number": "044/058",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "046/058",
+       "name": "宝可梦交替",
+       "count": 3
+      },
+      {
+       "number": "047/058",
+       "name": "宝可梦捕捉器",
+       "count": 2
+      },
+      {
+       "number": "049/058",
+       "name": "坚硬束带",
+       "count": 2
+      },
+      {
+       "number": "052/058",
+       "name": "裁判",
+       "count": 1
+      },
+      {
+       "number": "054/058",
+       "name": "短裤小子",
+       "count": 3
+      },
+      {
+       "number": "055/058",
+       "name": "妮莫",
+       "count": 4
+      },
+      {
+       "number": "056/058",
+       "name": "博士的研究",
+       "count": 2
+      },
+      {
+       "number": "057/058",
+       "name": "派帕",
+       "count": 2
+      },
+      {
+       "number": "DAR",
+       "name": "基本恶能量",
+       "count": 15
+      }
+     ],
+     "coverNumber": "022/058",
+     "coverEngineFullName": "Mabosstiff ex SVP"
+    }
+   ]
+  },
+  "CSVH3C": {
+   "name": "嗨皮卡组 七夕青鸟&拉帝欧斯&烈焰猴&一家鼠",
+   "release": "2025-09-12",
+   "source": "https://wiki.52poke.com/wiki/嗨皮组合_七夕青鸟%26拉帝欧斯%26烈焰猴%26一家鼠（TCG）",
+   "sourceTable": "https://www.bilibili.com/video/BV18y43zKExq",
+   "decks": [
+    {
+     "name": "七夕青鸟卡组",
+     "cards": [
+      {
+       "number": "007/064",
+       "name": "走鲸",
+       "count": 2
+      },
+      {
+       "number": "008/064",
+       "name": "浩大鲸",
+       "count": 2
+      },
+      {
+       "number": "019/064",
+       "name": "七夕青鸟ex",
+       "count": 2
+      },
+      {
+       "number": "020/064",
+       "name": "老翁龙",
+       "count": 2
+      },
+      {
+       "number": "021/064",
+       "name": "米立龙",
+       "count": 1
+      },
+      {
+       "number": "025/064",
+       "name": "大奶罐",
+       "count": 1
+      },
+      {
+       "number": "026/064",
+       "name": "青绵鸟",
+       "count": 3
+      },
+      {
+       "number": "027/064",
+       "name": "飘浮泡泡",
+       "count": 1
+      },
+      {
+       "number": "028/064",
+       "name": "摔角鹰人",
+       "count": 1
+      },
+      {
+       "number": "038/064",
+       "name": "能量输送",
+       "count": 2
+      },
+      {
+       "number": "040/064",
+       "name": "伤药",
+       "count": 2
+      },
+      {
+       "number": "041/064",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "042/064",
+       "name": "巢穴球",
+       "count": 4
+      },
+      {
+       "number": "044/064",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "046/064",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "047/064",
+       "name": "宝可梦捕捉器",
+       "count": 2
+      },
+      {
+       "number": "052/064",
+       "name": "西餐厨师",
+       "count": 1
+      },
+      {
+       "number": "053/064",
+       "name": "裁判",
+       "count": 1
+      },
+      {
+       "number": "054/064",
+       "name": "短裤小子",
+       "count": 3
+      },
+      {
+       "number": "055/064",
+       "name": "妮莫",
+       "count": 4
+      },
+      {
+       "number": "056/064",
+       "name": "博士的研究",
+       "count": 2
+      },
+      {
+       "number": "058/064",
+       "name": "贝里菈",
+       "count": 2
+      },
+      {
+       "number": "MET",
+       "name": "基本钢能量",
+       "count": 7
+      },
+      {
+       "number": "WAT",
+       "name": "基本水能量",
+       "count": 8
+      }
+     ],
+     "coverNumber": "019/064",
+     "coverEngineFullName": "Altaria ex PAR"
+    },
+    {
+     "name": "拉帝欧斯卡组",
+     "cards": [
+      {
+       "number": "009/064",
+       "name": "天然雀",
+       "count": 3
+      },
+      {
+       "number": "010/064",
+       "name": "天然鸟",
+       "count": 2
+      },
+      {
+       "number": "011/064",
+       "name": "月石",
+       "count": 1
+      },
+      {
+       "number": "012/064",
+       "name": "拉帝亚斯",
+       "count": 1
+      },
+      {
+       "number": "013/064",
+       "name": "拉帝欧斯",
+       "count": 2
+      },
+      {
+       "number": "014/064",
+       "name": "代欧奇希斯",
+       "count": 1
+      },
+      {
+       "number": "015/064",
+       "name": "克雷色利亚",
+       "count": 1
+      },
+      {
+       "number": "016/064",
+       "name": "咚咚鼠",
+       "count": 1
+      },
+      {
+       "number": "017/064",
+       "name": "墓仔狗",
+       "count": 2,
+       "engineFullName": "Greavard OBF 99",
+       "engineNote": "墓仔狗：HP 70、啃咬 10／幽魂射击 20，与引擎 Greavard OBF 99 一致；引擎 OBF 另有 #100 版本（HP 80）。"
+      },
+      {
+       "number": "018/064",
+       "name": "墓扬犬",
+       "count": 1
+      },
+      {
+       "number": "037/064",
+       "name": "能量回收",
+       "count": 1
+      },
+      {
+       "number": "042/064",
+       "name": "巢穴球",
+       "count": 3
+      },
+      {
+       "number": "044/064",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "046/064",
+       "name": "宝可梦交替",
+       "count": 4
+      },
+      {
+       "number": "047/064",
+       "name": "宝可梦捕捉器",
+       "count": 2
+      },
+      {
+       "number": "048/064",
+       "name": "不服输头带",
+       "count": 1
+      },
+      {
+       "number": "049/064",
+       "name": "勇气护符",
+       "count": 2
+      },
+      {
+       "number": "051/064",
+       "name": "克拉拉",
+       "count": 1
+      },
+      {
+       "number": "053/064",
+       "name": "裁判",
+       "count": 1
+      },
+      {
+       "number": "054/064",
+       "name": "短裤小子",
+       "count": 3
+      },
+      {
+       "number": "055/064",
+       "name": "妮莫",
+       "count": 4
+      },
+      {
+       "number": "056/064",
+       "name": "博士的研究",
+       "count": 2
+      },
+      {
+       "number": "057/064",
+       "name": "派帕",
+       "count": 2
+      },
+      {
+       "number": "PSY",
+       "name": "基本超能量",
+       "count": 15,
+       "basicEnergyName": "基本超能量"
+      }
+     ],
+     "coverNumber": "013/064",
+     "coverEngineFullName": "Latios PAR"
+    },
+    {
+     "name": "烈焰猴卡组",
+     "cards": [
+      {
+       "number": "001/064",
+       "name": "炎帝",
+       "count": 1
+      },
+      {
+       "number": "002/064",
+       "name": "小火焰猴",
+       "count": 4
+      },
+      {
+       "number": "003/064",
+       "name": "猛火猴",
+       "count": 3
+      },
+      {
+       "number": "004/064",
+       "name": "烈焰猴",
+       "count": 4
+      },
+      {
+       "number": "005/064",
+       "name": "加热洛托姆",
+       "count": 1
+      },
+      {
+       "number": "006/064",
+       "name": "古玉鱼",
+       "count": 1
+      },
+      {
+       "number": "034/064",
+       "name": "怒鹦哥",
+       "count": 1
+      },
+      {
+       "number": "039/064",
+       "name": "能量再利用",
+       "count": 2
+      },
+      {
+       "number": "041/064",
+       "name": "厉害钓竿",
+       "count": 2
+      },
+      {
+       "number": "042/064",
+       "name": "巢穴球",
+       "count": 4
+      },
+      {
+       "number": "044/064",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "045/064",
+       "name": "神奇糖果",
+       "count": 2
+      },
+      {
+       "number": "046/064",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "047/064",
+       "name": "宝可梦捕捉器",
+       "count": 2
+      },
+      {
+       "number": "053/064",
+       "name": "裁判",
+       "count": 1
+      },
+      {
+       "number": "054/064",
+       "name": "短裤小子",
+       "count": 3
+      },
+      {
+       "number": "055/064",
+       "name": "妮莫",
+       "count": 4
+      },
+      {
+       "number": "056/064",
+       "name": "博士的研究",
+       "count": 2
+      },
+      {
+       "number": "060/064",
+       "name": "梅洛可",
+       "count": 2
+      },
+      {
+       "number": "FIR",
+       "name": "基本火能量",
+       "count": 15
+      }
+     ],
+     "coverNumber": "004/064",
+     "coverEngineFullName": "Infernape BRS"
+    },
+    {
+     "name": "一家鼠卡组",
+     "cards": [
+      {
+       "number": "022/064",
+       "name": "长尾怪手",
+       "count": 2
+      },
+      {
+       "number": "023/064",
+       "name": "双尾怪手",
+       "count": 2
+      },
+      {
+       "number": "024/064",
+       "name": "惊角鹿",
+       "count": 1
+      },
+      {
+       "number": "029/064",
+       "name": "贪心栗鼠",
+       "count": 2
+      },
+      {
+       "number": "030/064",
+       "name": "藏饱栗鼠",
+       "count": 1
+      },
+      {
+       "number": "031/064",
+       "name": "爱管侍",
+       "count": 1
+      },
+      {
+       "number": "032/064",
+       "name": "一对鼠",
+       "count": 3
+      },
+      {
+       "number": "033/064",
+       "name": "一家鼠ex",
+       "count": 2
+      },
+      {
+       "number": "035/064",
+       "name": "缠红鹤",
+       "count": 1
+      },
+      {
+       "number": "036/064",
+       "name": "能量签",
+       "count": 2
+      },
+      {
+       "number": "041/064",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "042/064",
+       "name": "巢穴球",
+       "count": 4
+      },
+      {
+       "number": "043/064",
+       "name": "妮莫的背包",
+       "count": 2
+      },
+      {
+       "number": "044/064",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "046/064",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "047/064",
+       "name": "宝可梦捕捉器",
+       "count": 2
+      },
+      {
+       "number": "050/064",
+       "name": "嘉德丽雅",
+       "count": 2
+      },
+      {
+       "number": "053/064",
+       "name": "裁判",
+       "count": 1
+      },
+      {
+       "number": "054/064",
+       "name": "短裤小子",
+       "count": 3
+      },
+      {
+       "number": "055/064",
+       "name": "妮莫",
+       "count": 4
+      },
+      {
+       "number": "056/064",
+       "name": "博士的研究",
+       "count": 2
+      },
+      {
+       "number": "059/064",
+       "name": "波琵",
+       "count": 1
+      },
+      {
+       "number": "061/064",
+       "name": "喷射能量",
+       "count": 3
+      },
+      {
+       "number": "062/064",
+       "name": "双重涡轮能量",
+       "count": 4
+      },
+      {
+       "number": "063/064",
+       "name": "宝藏能量",
+       "count": 4
+      },
+      {
+       "number": "064/064",
+       "name": "幸运能量",
+       "count": 4
+      }
+     ],
+     "coverNumber": "033/064",
+     "coverEngineFullName": "Maushold ex PAR"
+    }
+   ]
+  },
+  "CSVH4C": {
+   "name": "嗨皮卡组 狙射树枭&美录梅塔&故勒顿&密勒顿",
+   "release": "2026-04-10",
+   "source": "https://wiki.52poke.com/wiki/嗨皮组合_狙射树枭%26美录梅塔%26故勒顿%26密勒顿（TCG）",
+   "sourceTable": "https://www.bilibili.com/video/BV1Bpo9BxEFP",
+   "decks": [
+    {
+     "name": "狙射树枭卡组",
+     "cards": [
+      {
+       "number": "001/059",
+       "name": "木木枭",
+       "count": 4
+      },
+      {
+       "number": "002/059",
+       "name": "投羽枭",
+       "count": 3
+      },
+      {
+       "number": "003/059",
+       "name": "狙射树枭",
+       "count": 4
+      },
+      {
+       "number": "004/059",
+       "name": "厄诡椪 碧草面具",
+       "count": 1
+      },
+      {
+       "number": "025/059",
+       "name": "大葱鸭",
+       "count": 1
+      },
+      {
+       "number": "027/059",
+       "name": "差不多娃娃",
+       "count": 1
+      },
+      {
+       "number": "033/059",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "036/059",
+       "name": "巢穴球",
+       "count": 4
+      },
+      {
+       "number": "037/059",
+       "name": "高级球",
+       "count": 3
+      },
+      {
+       "number": "038/059",
+       "name": "神奇糖果",
+       "count": 2
+      },
+      {
+       "number": "039/059",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "040/059",
+       "name": "宝可梦捕捉器",
+       "count": 2
+      },
+      {
+       "number": "041/059",
+       "name": "捕虫套装",
+       "count": 2
+      },
+      {
+       "number": "045/059",
+       "name": "不服输头带",
+       "count": 1
+      },
+      {
+       "number": "048/059",
+       "name": "裁判",
+       "count": 1
+      },
+      {
+       "number": "049/059",
+       "name": "水莲的照顾",
+       "count": 2
+      },
+      {
+       "number": "050/059",
+       "name": "短裤小子",
+       "count": 3
+      },
+      {
+       "number": "052/059",
+       "name": "妮莫",
+       "count": 4
+      },
+      {
+       "number": "054/059",
+       "name": "博士的研究",
+       "count": 2
+      },
+      {
+       "number": "056/059",
+       "name": "火夏",
+       "count": 1
+      },
+      {
+       "number": "GRA",
+       "name": "基本草能量",
+       "count": 16
+      }
+     ],
+     "coverNumber": "003/059",
+     "coverEngineFullName": "Decidueye SFA"
+    },
+    {
+     "name": "美录梅塔卡组",
+     "cards": [
+      {
+       "number": "015/059",
+       "name": "大嘴娃",
+       "count": 1
+      },
+      {
+       "number": "016/059",
+       "name": "铁哑铃",
+       "count": 2
+      },
+      {
+       "number": "017/059",
+       "name": "金属怪",
+       "count": 1
+      },
+      {
+       "number": "018/059",
+       "name": "托戈德玛尔",
+       "count": 1
+      },
+      {
+       "number": "019/059",
+       "name": "美录坦",
+       "count": 3
+      },
+      {
+       "number": "020/059",
+       "name": "美录梅塔ex",
+       "count": 2
+      },
+      {
+       "number": "021/059",
+       "name": "苍响",
+       "count": 2
+      },
+      {
+       "number": "026/059",
+       "name": "聒噪鸟",
+       "count": 1
+      },
+      {
+       "number": "029/059",
+       "name": "怒鹦哥",
+       "count": 1
+      },
+      {
+       "number": "032/059",
+       "name": "超级球",
+       "count": 2
+      },
+      {
+       "number": "033/059",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "036/059",
+       "name": "巢穴球",
+       "count": 4
+      },
+      {
+       "number": "037/059",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "039/059",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "040/059",
+       "name": "宝可梦捕捉器",
+       "count": 2
+      },
+      {
+       "number": "042/059",
+       "name": "活力头带",
+       "count": 2
+      },
+      {
+       "number": "047/059",
+       "name": "凰檗",
+       "count": 2
+      },
+      {
+       "number": "048/059",
+       "name": "裁判",
+       "count": 1
+      },
+      {
+       "number": "050/059",
+       "name": "短裤小子",
+       "count": 3
+      },
+      {
+       "number": "052/059",
+       "name": "妮莫",
+       "count": 4
+      },
+      {
+       "number": "054/059",
+       "name": "博士的研究",
+       "count": 2
+      },
+      {
+       "number": "058/059",
+       "name": "正辉的传输",
+       "count": 1
+      },
+      {
+       "number": "MET",
+       "name": "基本钢能量",
+       "count": 16
+      }
+     ],
+     "coverNumber": "020/059",
+     "coverEngineFullName": "Melmetal ex OBF"
+    },
+    {
+     "name": "故勒顿卡组",
+     "cards": [
+      {
+       "number": "005/059",
+       "name": "破空焰",
+       "count": 2
+      },
+      {
+       "number": "009/059",
+       "name": "吼叫尾",
+       "count": 2
+      },
+      {
+       "number": "012/059",
+       "name": "树才怪",
+       "count": 1
+      },
+      {
+       "number": "013/059",
+       "name": "雄伟牙",
+       "count": 2
+      },
+      {
+       "number": "014/059",
+       "name": "沙铁皮",
+       "count": 2
+      },
+      {
+       "number": "022/059",
+       "name": "故勒顿",
+       "count": 4
+      },
+      {
+       "number": "028/059",
+       "name": "摔角鹰人",
+       "count": 1
+      },
+      {
+       "number": "033/059",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "034/059",
+       "name": "大地容器",
+       "count": 2
+      },
+      {
+       "number": "036/059",
+       "name": "巢穴球",
+       "count": 4
+      },
+      {
+       "number": "037/059",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "039/059",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "040/059",
+       "name": "宝可梦捕捉器",
+       "count": 2
+      },
+      {
+       "number": "043/059",
+       "name": "驱劲能量 古代",
+       "count": 2
+      },
+      {
+       "number": "046/059",
+       "name": "奥琳博士的气魄",
+       "count": 2
+      },
+      {
+       "number": "048/059",
+       "name": "裁判",
+       "count": 1
+      },
+      {
+       "number": "050/059",
+       "name": "短裤小子",
+       "count": 3
+      },
+      {
+       "number": "052/059",
+       "name": "妮莫",
+       "count": 4
+      },
+      {
+       "number": "054/059",
+       "name": "博士的研究",
+       "count": 2
+      },
+      {
+       "number": "059/059",
+       "name": "松叶的信心",
+       "count": 1
+      },
+      {
+       "number": "FIG",
+       "name": "基本斗能量",
+       "count": 10
+      },
+      {
+       "number": "FIR",
+       "name": "基本火能量",
+       "count": 6
+      }
+     ],
+     "coverNumber": "022/059",
+     "coverEngineFullName": "Koraidon TEF"
+    },
+    {
+     "name": "密勒顿卡组",
+     "cards": [
+      {
+       "number": "006/059",
+       "name": "铁臂膀",
+       "count": 2
+      },
+      {
+       "number": "007/059",
+       "name": "麒麟奇",
+       "count": 1
+      },
+      {
+       "number": "008/059",
+       "name": "拉帝亚斯",
+       "count": 1
+      },
+      {
+       "number": "010/059",
+       "name": "铁武者",
+       "count": 3,
+       "engineFullName": "Iron Valiant TEF 79",
+       "engineNote": "铁武者：HP 130、双子镭射 20／意念之刃 120，与引擎 Iron Valiant TEF 79 一致；引擎 TEF 另有 #80 版本。"
+      },
+      {
+       "number": "011/059",
+       "name": "铁磐岩",
+       "count": 1
+      },
+      {
+       "number": "023/059",
+       "name": "密勒顿",
+       "count": 2
+      },
+      {
+       "number": "024/059",
+       "name": "密勒顿ex",
+       "count": 2
+      },
+      {
+       "number": "030/059",
+       "name": "铁脖颈",
+       "count": 2
+      },
+      {
+       "number": "031/059",
+       "name": "能量输送",
+       "count": 2
+      },
+      {
+       "number": "033/059",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "035/059",
+       "name": "高科技雷达",
+       "count": 2
+      },
+      {
+       "number": "036/059",
+       "name": "巢穴球",
+       "count": 4
+      },
+      {
+       "number": "037/059",
+       "name": "高级球",
+       "count": 2
+      },
+      {
+       "number": "039/059",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "040/059",
+       "name": "宝可梦捕捉器",
+       "count": 2
+      },
+      {
+       "number": "044/059",
+       "name": "驱劲能量 未来",
+       "count": 2
+      },
+      {
+       "number": "048/059",
+       "name": "裁判",
+       "count": 1
+      },
+      {
+       "number": "050/059",
+       "name": "短裤小子",
+       "count": 3
+      },
+      {
+       "number": "051/059",
+       "name": "辛俐",
+       "count": 2
+      },
+      {
+       "number": "053/059",
+       "name": "妮莫",
+       "count": 4
+      },
+      {
+       "number": "055/059",
+       "name": "博士的研究",
+       "count": 2
+      },
+      {
+       "number": "057/059",
+       "name": "弗图博士的剧本",
+       "count": 1
+      },
+      {
+       "number": "LIG",
+       "name": "基本雷能量",
+       "count": 8,
+       "basicEnergyName": "基本雷能量"
+      },
+      {
+       "number": "PSY",
+       "name": "基本超能量",
+       "count": 8,
+       "basicEnergyName": "基本超能量"
+      }
+     ],
+     "coverNumber": "024/059",
+     "coverEngineFullName": "Miraidon ex TEF"
+    }
+   ]
+  },
+  "CSVH5C": {
+   "name": "嗨皮组合 快龙&超梦&喷火驼&来悲粗茶",
+   "release": "2026-07-16",
+   "source": "https://wiki.52poke.com/wiki/嗨皮组合_快龙%26超梦%26喷火驼%26来悲粗茶（TCG）",
+   "sourceTable": "https://www.bilibili.com/video/BV1msgv6uETV",
+   "decks": [
+    {
+     "name": "快龙卡组",
+     "cards": [
+      {
+       "number": "010/058",
+       "name": "帕底亚 肯泰罗",
+       "count": 1,
+       "engineFullName": "Paldean Tauros PAF",
+       "engineNote": "帕底亚 肯泰罗（水）：HP 130、愤怒之角 20+／水之俯冲 120，与引擎 Paldean Tauros PAF（PAF #120）一致；引擎 PAL 是火属性版。"
+      },
+      {
+       "number": "011/058",
+       "name": "信使鸟",
+       "count": 1
+      },
+      {
+       "number": "013/058",
+       "name": "捷拉奥拉",
+       "count": 1
+      },
+      {
+       "number": "021/058",
+       "name": "迷你龙",
+       "count": 4
+      },
+      {
+       "number": "022/058",
+       "name": "哈克龙",
+       "count": 3
+      },
+      {
+       "number": "023/058",
+       "name": "快龙ex",
+       "count": 2
+      },
+      {
+       "number": "024/058",
+       "name": "米立龙",
+       "count": 1
+      },
+      {
+       "number": "029/058",
+       "name": "猫鼬斩",
+       "count": 1
+      },
+      {
+       "number": "033/058",
+       "name": "缠红鹤",
+       "count": 1
+      },
+      {
+       "number": "036/058",
+       "name": "能量输送",
+       "count": 1
+      },
+      {
+       "number": "037/058",
+       "name": "伤药",
+       "count": 3
+      },
+      {
+       "number": "040/058",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "041/058",
+       "name": "巢穴球",
+       "count": 4
+      },
+      {
+       "number": "042/058",
+       "name": "高级球",
+       "count": 3
+      },
+      {
+       "number": "044/058",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "045/058",
+       "name": "宝可梦捕捉器",
+       "count": 2
+      },
+      {
+       "number": "047/058",
+       "name": "西餐厨师",
+       "count": 1
+      },
+      {
+       "number": "048/058",
+       "name": "冲浪手",
+       "count": 2
+      },
+      {
+       "number": "049/058",
+       "name": "裁判",
+       "count": 1
+      },
+      {
+       "number": "052/058",
+       "name": "短裤小子",
+       "count": 3
+      },
+      {
+       "number": "053/058",
+       "name": "妮莫",
+       "count": 4
+      },
+      {
+       "number": "054/058",
+       "name": "博士的研究",
+       "count": 2
+      },
+      {
+       "number": "LIG",
+       "name": "基本雷能量",
+       "count": 8,
+       "basicEnergyName": "基本雷能量"
+      },
+      {
+       "number": "WAT",
+       "name": "基本水能量",
+       "count": 8,
+       "basicEnergyName": "基本水能量"
+      }
+     ],
+     "coverNumber": "023/058",
+     "coverEngineFullName": "Dragonite ex OBF"
+    },
+    {
+     "name": "超梦卡组",
+     "cards": [
+      {
+       "number": "012/058",
+       "name": "超梦ex",
+       "count": 2
+      },
+      {
+       "number": "014/058",
+       "name": "天然雀",
+       "count": 3
+      },
+      {
+       "number": "015/058",
+       "name": "天然鸟",
+       "count": 2
+      },
+      {
+       "number": "016/058",
+       "name": "太阳伊布",
+       "count": 2
+      },
+      {
+       "number": "017/058",
+       "name": "大嘴娃",
+       "count": 1
+      },
+      {
+       "number": "018/058",
+       "name": "拉帝欧斯",
+       "count": 1
+      },
+      {
+       "number": "019/058",
+       "name": "哲尔尼亚斯",
+       "count": 1
+      },
+      {
+       "number": "020/058",
+       "name": "花舞鸟",
+       "count": 1
+      },
+      {
+       "number": "025/058",
+       "name": "伊布",
+       "count": 2
+      },
+      {
+       "number": "034/058",
+       "name": "能量回收",
+       "count": 2
+      },
+      {
+       "number": "035/058",
+       "name": "能量转移",
+       "count": 2
+      },
+      {
+       "number": "040/058",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "041/058",
+       "name": "巢穴球",
+       "count": 4
+      },
+      {
+       "number": "042/058",
+       "name": "高级球",
+       "count": 3
+      },
+      {
+       "number": "044/058",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "045/058",
+       "name": "宝可梦捕捉器",
+       "count": 2
+      },
+      {
+       "number": "049/058",
+       "name": "裁判",
+       "count": 1
+      },
+      {
+       "number": "052/058",
+       "name": "短裤小子",
+       "count": 3
+      },
+      {
+       "number": "053/058",
+       "name": "妮莫",
+       "count": 4
+      },
+      {
+       "number": "054/058",
+       "name": "博士的研究",
+       "count": 2
+      },
+      {
+       "number": "055/058",
+       "name": "瓢太",
+       "count": 2
+      },
+      {
+       "number": "058/058",
+       "name": "莉普",
+       "count": 1
+      },
+      {
+       "number": "PSY",
+       "name": "基本超能量",
+       "count": 16
+      }
+     ],
+     "coverNumber": "012/058",
+     "coverEngineFullName": "Mewtwo ex PAR"
+    },
+    {
+     "name": "喷火驼卡组",
+     "cards": [
+      {
+       "number": "004/058",
+       "name": "炎帝",
+       "count": 1
+      },
+      {
+       "number": "005/058",
+       "name": "呆火驼",
+       "count": 4
+      },
+      {
+       "number": "006/058",
+       "name": "喷火驼",
+       "count": 4
+      },
+      {
+       "number": "007/058",
+       "name": "炭小侍",
+       "count": 2
+      },
+      {
+       "number": "008/058",
+       "name": "红莲铠骑",
+       "count": 2
+      },
+      {
+       "number": "009/058",
+       "name": "古玉鱼",
+       "count": 1
+      },
+      {
+       "number": "032/058",
+       "name": "怒鹦哥",
+       "count": 1
+      },
+      {
+       "number": "039/058",
+       "name": "推理套装",
+       "count": 2
+      },
+      {
+       "number": "040/058",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "041/058",
+       "name": "巢穴球",
+       "count": 4
+      },
+      {
+       "number": "042/058",
+       "name": "高级球",
+       "count": 3
+      },
+      {
+       "number": "044/058",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "045/058",
+       "name": "宝可梦捕捉器",
+       "count": 2
+      },
+      {
+       "number": "046/058",
+       "name": "学习装置",
+       "count": 2
+      },
+      {
+       "number": "049/058",
+       "name": "裁判",
+       "count": 1
+      },
+      {
+       "number": "050/058",
+       "name": "天星队手下",
+       "count": 2
+      },
+      {
+       "number": "052/058",
+       "name": "短裤小子",
+       "count": 3
+      },
+      {
+       "number": "053/058",
+       "name": "妮莫",
+       "count": 4
+      },
+      {
+       "number": "054/058",
+       "name": "博士的研究",
+       "count": 2
+      },
+      {
+       "number": "057/058",
+       "name": "梅洛可",
+       "count": 1
+      },
+      {
+       "number": "FIR",
+       "name": "基本火能量",
+       "count": 16
+      }
+     ],
+     "coverNumber": "006/058",
+     "coverEngineFullName": "Camerupt OBF"
+    },
+    {
+     "name": "来悲粗茶卡组",
+     "cards": [
+      {
+       "number": "001/058",
+       "name": "斯魔茶",
+       "count": 3,
+       "engineFullName": "Poltchageist TWM 21",
+       "engineNote": "斯魔茶：HP 40、特性「上茶」＋偷袭 30，与引擎 Poltchageist TWM 21 一致；引擎 TWM 另有 #20 版本（HP 30）。"
+      },
+      {
+       "number": "002/058",
+       "name": "来悲粗茶",
+       "count": 3
+      },
+      {
+       "number": "003/058",
+       "name": "厄诡椪 碧草面具",
+       "count": 1
+      },
+      {
+       "number": "026/058",
+       "name": "多边兽",
+       "count": 2
+      },
+      {
+       "number": "027/058",
+       "name": "多边兽2型",
+       "count": 2
+      },
+      {
+       "number": "028/058",
+       "name": "多边兽乙型",
+       "count": 2
+      },
+      {
+       "number": "030/058",
+       "name": "热带龙",
+       "count": 1
+      },
+      {
+       "number": "031/058",
+       "name": "聒噪鸟",
+       "count": 1
+      },
+      {
+       "number": "038/058",
+       "name": "超级球",
+       "count": 2
+      },
+      {
+       "number": "040/058",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "041/058",
+       "name": "巢穴球",
+       "count": 4
+      },
+      {
+       "number": "042/058",
+       "name": "高级球",
+       "count": 3
+      },
+      {
+       "number": "043/058",
+       "name": "神奇糖果",
+       "count": 2
+      },
+      {
+       "number": "044/058",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "045/058",
+       "name": "宝可梦捕捉器",
+       "count": 2
+      },
+      {
+       "number": "049/058",
+       "name": "裁判",
+       "count": 1
+      },
+      {
+       "number": "051/058",
+       "name": "紫竽",
+       "count": 2
+      },
+      {
+       "number": "052/058",
+       "name": "短裤小子",
+       "count": 3
+      },
+      {
+       "number": "053/058",
+       "name": "妮莫",
+       "count": 4
+      },
+      {
+       "number": "054/058",
+       "name": "博士的研究",
+       "count": 2
+      },
+      {
+       "number": "056/058",
+       "name": "米莫莎",
+       "count": 1
+      },
+      {
+       "number": "GAR",
+       "name": "基本草能量",
+       "count": 16,
+       "basicEnergyName": "基本草能量"
+      }
+     ],
+     "coverNumber": "002/058",
+     "coverEngineFullName": "Sinistcha TWM"
+    }
+   ]
+  },
+  "CSVH6C": {
+   "name": "嗨皮组合 训练家的宝可梦",
+   "release": "2026-10-16",
+   "source": "https://www.pokemon.cn/tcg/product/23939.html",
+   "priceMinor": 8800,
+   "singlePriceMinor": 2000,
+   "sourceTable": "scripts/economy-happy6-screenshots.json（用户提供的小程序完整卡表截图）",
+   "decks": [
+    {
+     "name": "火箭队的超梦ex卡组",
+     "cards": [
+      {
+       "number": "016/054",
+       "name": "火箭队的超梦ex",
+       "count": 2
+      },
+      {
+       "number": "002/054",
+       "name": "火箭队的团珠蛛",
+       "count": 3
+      },
+      {
+       "number": "003/054",
+       "name": "火箭队的操陷蛛",
+       "count": 3
+      },
+      {
+       "number": "017/054",
+       "name": "火箭队的果然翁",
+       "count": 1
+      },
+      {
+       "number": "025/054",
+       "name": "火箭队的黑暗鸦",
+       "count": 1
+      },
+      {
+       "number": "026/054",
+       "name": "火箭队的狃拉",
+       "count": 1
+      },
+      {
+       "number": "028/054",
+       "name": "火箭队的小拉达",
+       "count": 2
+      },
+      {
+       "number": "029/054",
+       "name": "火箭队的拉达",
+       "count": 2
+      },
+      {
+       "number": "031/054",
+       "name": "能量转移",
+       "count": 2
+      },
+      {
+       "number": "032/054",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "035/054",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "036/054",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "037/054",
+       "name": "宝可梦捕捉器",
+       "count": 2
+      },
+      {
+       "number": "038/054",
+       "name": "火箭队的超级球",
+       "count": 4
+      },
+      {
+       "number": "039/054",
+       "name": "火箭队的接收器",
+       "count": 2
+      },
+      {
+       "number": "045/054",
+       "name": "妮莫",
+       "count": 4
+      },
+      {
+       "number": "052/054",
+       "name": "火箭队的拉姆达",
+       "count": 4
+      },
+      {
+       "number": "050/054",
+       "name": "火箭队的阿波罗",
+       "count": 1
+      },
+      {
+       "number": "051/054",
+       "name": "火箭队的坂木",
+       "count": 1
+      },
+      {
+       "number": "053/054",
+       "name": "火箭队的兰斯",
+       "count": 1
+      },
+      {
+       "number": "049/054",
+       "name": "火箭队的雅典娜",
+       "count": 2
+      },
+      {
+       "number": "PSY",
+       "name": "基本超能量",
+       "count": 4
+      },
+      {
+       "number": "GRA",
+       "name": "基本草能量",
+       "count": 7
+      },
+      {
+       "number": "054/054",
+       "name": "火箭队能量",
+       "count": 4
+      }
+     ],
+     "coverNumber": "016/054",
+     "coverEngineFullName": "Team Rocket's Mewtwo ex DRI"
+    },
+    {
+     "name": "竹兰的烈咬陆鲨ex卡组",
+     "cards": [
+      {
+       "number": "020/054",
+       "name": "竹兰的烈咬陆鲨ex",
+       "count": 2
+      },
+      {
+       "number": "019/054",
+       "name": "竹兰的尖牙陆鲨",
+       "count": 3
+      },
+      {
+       "number": "018/054",
+       "name": "竹兰的圆陆鲨",
+       "count": 3
+      },
+      {
+       "number": "021/054",
+       "name": "利欧路",
+       "count": 3
+      },
+      {
+       "number": "022/054",
+       "name": "路卡利欧",
+       "count": 2
+      },
+      {
+       "number": "023/054",
+       "name": "列阵兵",
+       "count": 1
+      },
+      {
+       "number": "024/054",
+       "name": "厄诡椪 础石面具",
+       "count": 1
+      },
+      {
+       "number": "027/054",
+       "name": "竹兰的花岩怪",
+       "count": 1
+      },
+      {
+       "number": "030/054",
+       "name": "能量贴纸",
+       "count": 2
+      },
+      {
+       "number": "032/054",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "034/054",
+       "name": "巢穴球",
+       "count": 4
+      },
+      {
+       "number": "035/054",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "036/054",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "037/054",
+       "name": "宝可梦捕捉器",
+       "count": 2
+      },
+      {
+       "number": "042/054",
+       "name": "裁判",
+       "count": 1
+      },
+      {
+       "number": "044/054",
+       "name": "短裤小子",
+       "count": 3
+      },
+      {
+       "number": "045/054",
+       "name": "妮莫",
+       "count": 4
+      },
+      {
+       "number": "046/054",
+       "name": "博士的研究",
+       "count": 2
+      },
+      {
+       "number": "048/054",
+       "name": "瓢太",
+       "count": 2
+      },
+      {
+       "number": "041/054",
+       "name": "竹兰的力量负重",
+       "count": 2
+      },
+      {
+       "number": "FIG",
+       "name": "基本斗能量",
+       "count": 15
+      }
+     ],
+     "coverNumber": "020/054",
+     "coverEngineFullName": "Cynthia's Garchomp ex DRI"
+    },
+    {
+     "name": "小霞的暴鲤龙卡组",
+     "cards": [
+      {
+       "number": "013/054",
+       "name": "小霞的暴鲤龙",
+       "count": 4
+      },
+      {
+       "number": "012/054",
+       "name": "小霞的鲤鱼王",
+       "count": 4
+      },
+      {
+       "number": "010/054",
+       "name": "小霞的海星星",
+       "count": 2
+      },
+      {
+       "number": "011/054",
+       "name": "小霞的宝石海星",
+       "count": 2
+      },
+      {
+       "number": "009/054",
+       "name": "小霞的可达鸭",
+       "count": 2
+      },
+      {
+       "number": "014/054",
+       "name": "小霞的拉普拉斯",
+       "count": 4
+      },
+      {
+       "number": "032/054",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "033/054",
+       "name": "圣灰",
+       "count": 3
+      },
+      {
+       "number": "034/054",
+       "name": "巢穴球",
+       "count": 4
+      },
+      {
+       "number": "035/054",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "036/054",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "037/054",
+       "name": "宝可梦捕捉器",
+       "count": 2
+      },
+      {
+       "number": "045/054",
+       "name": "妮莫",
+       "count": 4
+      },
+      {
+       "number": "042/054",
+       "name": "裁判",
+       "count": 1
+      },
+      {
+       "number": "043/054",
+       "name": "水莲的照顾",
+       "count": 2
+      },
+      {
+       "number": "044/054",
+       "name": "短裤小子",
+       "count": 3
+      },
+      {
+       "number": "046/054",
+       "name": "博士的研究",
+       "count": 2
+      },
+      {
+       "number": "WAT",
+       "name": "基本水能量",
+       "count": 14
+      }
+     ],
+     "coverNumber": "013/054",
+     "coverEngineFullName": "Misty's Gyarados DRI"
+    },
+    {
+     "name": "阿响的火暴兽卡组",
+     "cards": [
+      {
+       "number": "001/054",
+       "name": "阿响的凯罗斯",
+       "count": 1
+      },
+      {
+       "number": "004/054",
+       "name": "阿响的火球鼠",
+       "count": 4
+      },
+      {
+       "number": "007/054",
+       "name": "阿响的熔岩虫",
+       "count": 2
+      },
+      {
+       "number": "005/054",
+       "name": "阿响的火岩鼠",
+       "count": 4
+      },
+      {
+       "number": "008/054",
+       "name": "阿响的熔岩蜗牛",
+       "count": 2
+      },
+      {
+       "number": "006/054",
+       "name": "阿响的火暴兽",
+       "count": 4
+      },
+      {
+       "number": "015/054",
+       "name": "阿响的皮丘",
+       "count": 2
+      },
+      {
+       "number": "036/054",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "032/054",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "034/054",
+       "name": "巢穴球",
+       "count": 4
+      },
+      {
+       "number": "035/054",
+       "name": "高级球",
+       "count": 2
+      },
+      {
+       "number": "037/054",
+       "name": "宝可梦捕捉器",
+       "count": 2
+      },
+      {
+       "number": "042/054",
+       "name": "裁判",
+       "count": 1
+      },
+      {
+       "number": "040/054",
+       "name": "学习装置",
+       "count": 2
+      },
+      {
+       "number": "044/054",
+       "name": "短裤小子",
+       "count": 3
+      },
+      {
+       "number": "045/054",
+       "name": "妮莫",
+       "count": 4
+      },
+      {
+       "number": "046/054",
+       "name": "博士的研究",
+       "count": 2
+      },
+      {
+       "number": "047/054",
+       "name": "阿响的冒险",
+       "count": 4
+      },
+      {
+       "number": "FIR",
+       "name": "基本火能量",
+       "count": 14
+      }
+     ],
+     "coverNumber": "006/054",
+     "coverEngineFullName": "Ethan's Typhlosion DRI"
+    }
+   ]
+  }
+ },
+ "pending": [],
+ "pendingBoxes": {}
+}

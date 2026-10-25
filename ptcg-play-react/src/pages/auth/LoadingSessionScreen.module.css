@@ -1,0 +1,136 @@
+/*
+ * LoadingSessionScreen — 会话恢复时的过场。
+ *
+ * 沿用登录页的「宝可梦世界」材质：暮色天空 + 远山 + 草地，
+ * 一枚精灵球从天落下，落到牌桌上（与大厅的入场精灵球呼应）。
+ * 这一屏只是过场，不要误导性的进度条。
+ */
+
+.screen {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 34px;
+  overflow: hidden;
+  color: var(--a-on-dark, #f3ead6);
+  /* 暮色天空 → 桌面的过渡 */
+  background:
+    radial-gradient(120% 60% at 50% 88%, rgba(42, 122, 77, 0.34), transparent 62%),
+    radial-gradient(90% 50% at 50% 18%, rgba(255, 226, 168, 0.12), transparent 66%),
+    linear-gradient(180deg, #24425f 0%, #1d3448 34%, #2b2419 72%, var(--a-walnut-dark, #2e1e14) 100%);
+}
+
+/* 地平线的一层暖光，让精灵球落下时有落点感 */
+.screen::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 22%;
+  width: min(560px, 70vw);
+  height: 120px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at 50% 100%, rgba(232, 166, 96, 0.26), transparent 72%);
+  pointer-events: none;
+}
+
+.scene {
+  position: relative;
+  z-index: 1;
+  width: 180px;
+  height: 180px;
+  display: grid;
+  place-items: center;
+}
+
+/* 一张立着的卡背，作为落点的参照物 */
+.card {
+  position: absolute;
+  width: 76px;
+  height: 106px;
+  border-radius: 6px;
+  background:
+    linear-gradient(160deg, rgba(255, 226, 168, 0.16), transparent 46%),
+    repeating-linear-gradient(58deg, rgba(0, 0, 0, 0.14) 0 2px, transparent 2px 6px),
+    linear-gradient(170deg, #2f4a6b 0%, #1e3450 100%);
+  border: 1px solid rgba(201, 162, 39, 0.44);
+  box-shadow:
+    var(--a-lift-2, 0 4px 10px rgba(20, 12, 6, 0.26)),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transform: translateY(16px) rotate(-6deg);
+}
+
+/* 精灵球：上红、中缝黑、下白，中央白环黑心 */
+.ball {
+  position: relative;
+  z-index: 2;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #ee1515 0 42%, #2a2a2a 42% 52%, #ffffff 52% 100%);
+  border: 2px solid #1a1a1a;
+  box-shadow:
+    0 10px 20px rgba(0, 0, 0, 0.44),
+    inset 0 -4px 10px rgba(0, 0, 0, 0.24),
+    inset 0 4px 10px rgba(255, 255, 255, 0.22);
+  /* 落下 → 压扁弹起 → 停住并轻微呼吸 */
+  animation: ballDrop 1.6s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+}
+
+/* 中央按钮 */
+.ball::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 22px;
+  height: 22px;
+  box-sizing: border-box;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #ffffff;
+  border: 4px solid #2a2a2a;
+}
+
+@keyframes ballDrop {
+  0% {
+    transform: translateY(-84px) scale(1, 1);
+    opacity: 0;
+  }
+  18% {
+    opacity: 1;
+  }
+  46% {
+    transform: translateY(0) scale(1, 1);
+  }
+  /* 触地压扁 */
+  56% {
+    transform: translateY(-6px) scale(1.16, 0.82);
+  }
+  76% {
+    transform: translateY(0) scale(1, 1);
+  }
+  /* 停住后的呼吸，等接口回来 */
+  100% {
+    transform: translateY(-3px) scale(1, 1);
+  }
+}
+
+.status {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-family: var(--a-font-num, ui-monospace, monospace);
+  font-size: 12px;
+  letter-spacing: 0.24em;
+  color: var(--a-on-dark-soft, rgba(243, 234, 214, 0.66));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ball {
+    animation: none;
+  }
+}

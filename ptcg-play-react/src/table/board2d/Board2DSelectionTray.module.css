@@ -1,0 +1,31 @@
+.tray {
+  position: absolute;
+  z-index: 35;
+  left: 16px;
+  bottom: 154px;
+  width: min(280px, calc(24% - 16px));
+  box-sizing: border-box;
+  padding: 12px;
+  border: 1px dashed #c2a365;
+  border-radius: 12px;
+  background: #211b16f5;
+  color: #f2e8d5;
+  pointer-events: auto;
+}
+.switching { border-style: solid; }
+.over { background: #3b301b; border-style: solid; outline: 2px solid #efd99f; outline-offset: 3px; }
+.instructions { display: grid; gap: 4px; font-size: 14px; line-height: 1.5; }
+.instructions small { color: #d5c3a2; font-size: 12px; }
+.selected { display: flex; gap: 12px; margin-top: 10px; overflow-x: auto; padding: 6px 4px; scrollbar-width: thin; }
+.item { position: relative; flex: 0 0 46px; }
+.card { display: block; width: 46px; padding: 0; border: 0; background: transparent; cursor: pointer; }
+.card img { display: block; width: 100%; border-radius: 4px; }
+.remove { position: absolute; top: -6px; right: -8px; display: grid; place-items: center; width: 28px; height: 28px; padding: 4px; border: 1px solid #c2a365; border-radius: 50%; background: #211b16; color: #f2e8d5; cursor: pointer; }
+.remove svg { width: 16px; height: 16px; }
+.card:focus-visible, .remove:focus-visible { outline: 2px solid #efd99f; outline-offset: 3px; }
+@media (max-width: 600px) {
+  .tray { left: 8px; bottom: 176px; width: min(272px, calc(100% - 100px)); padding: 8px; }
+  :global(body:has([data-table-actions][data-cancellable])) .tray { width: min(272px, calc(100% - 152px)); }
+  .instructions { font-size: 12px; }
+  .instructions small { font-size: 11px; }
+}

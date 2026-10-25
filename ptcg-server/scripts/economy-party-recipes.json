@@ -1,0 +1,2334 @@
+{
+ "comment": "官方对战派对预组卡表：耀梦（上）9 套取自 B 站「【对战派对耀梦（上）】全卡组卡表分享（含隐藏）」置顶评论附图，并用卡图模板比对逐张识别、按徽章读数量，强制每套合计 60 张；耀梦（下）5 套按用户从官方小程序「卡组详情」发来的截图逐条转录，同样按 60 张核对。卡片条目的 engineFullName 只在判定表缺该印刷、且逐张核对 HP＋特性＋招式完全一致时才写；未实现的卡不进商品，见 pending。",
+ "sourceNote": "官方小程序卡组详情截图：https://www.bilibili.com/video/BV1eaenzDEjs （置顶评论附图，9 张）",
+ "basicEnergyNote": "对战派对系列本身不含基本能量印刷，配方里的 basicEnergyName 按同名已在别的系列核实过的印刷取图。",
+ "boxes": {
+  "CSVE2C1": {
+   "name": "对战派对 耀梦 上",
+   "release": "2025-07-18",
+   "source": "https://wiki.52poke.com/wiki/对战派对_耀梦（TCG）",
+   "decks": [
+    {
+     "name": "高温燃烧",
+     "source": "用户提供的官方小程序「卡组详情」截图",
+     "cards": [
+      {
+       "number": "011/207",
+       "name": "小火马",
+       "count": 3
+      },
+      {
+       "number": "012/207",
+       "name": "烈焰马",
+       "count": 3
+      },
+      {
+       "number": "016/207",
+       "name": "火焰鸟",
+       "count": 2
+      },
+      {
+       "number": "017/207",
+       "name": "炎帝V",
+       "count": 2
+      },
+      {
+       "number": "018/207",
+       "name": "凤王",
+       "count": 1
+      },
+      {
+       "number": "021/207",
+       "name": "熔蚁兽",
+       "count": 1
+      },
+      {
+       "number": "022/207",
+       "name": "波尔凯尼恩",
+       "count": 1
+      },
+      {
+       "number": "128/207",
+       "name": "谢米",
+       "count": 1
+      },
+      {
+       "number": "137/207",
+       "name": "能量回收",
+       "count": 3
+      },
+      {
+       "number": "146/207",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "153/207",
+       "name": "巢穴球",
+       "count": 4
+      },
+      {
+       "number": "154/207",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "160/207",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "170/207",
+       "name": "勇气护符",
+       "count": 2
+      },
+      {
+       "number": "176/207",
+       "name": "营火专家",
+       "count": 2
+      },
+      {
+       "number": "183/207",
+       "name": "短裤小子",
+       "count": 3
+      },
+      {
+       "number": "188/207",
+       "name": "奇树",
+       "count": 2
+      },
+      {
+       "number": "190/207",
+       "name": "博士的研究",
+       "count": 4
+      },
+      {
+       "number": "192/207",
+       "name": "老大的指令",
+       "count": 2
+      },
+      {
+       "number": "201/207",
+       "name": "熔岩瀑布之渊",
+       "count": 2
+      },
+      {
+       "number": "FIR",
+       "name": "基本火能量",
+       "count": 15,
+       "basicEnergyName": "基本火能量"
+      }
+     ],
+     "coverNumber": "017/207",
+     "coverEngineFullName": "Entei V BRS"
+    },
+    {
+     "name": "金属爆破",
+     "source": "yaomeng-shang-2.png",
+     "cards": [
+      {
+       "number": "099/207",
+       "name": "小磁怪",
+       "count": 3
+      },
+      {
+       "number": "100/207",
+       "name": "三合一磁怪",
+       "count": 2
+      },
+      {
+       "number": "101/207",
+       "name": "自爆磁怪",
+       "count": 3
+      },
+      {
+       "number": "102/207",
+       "name": "起源帝牙卢卡V",
+       "count": 2
+      },
+      {
+       "number": "103/207",
+       "name": "起源帝牙卢卡VSTAR",
+       "count": 2,
+       "engineFullName": "Origin Forme Dialga VSTAR ASR",
+       "engineNote": "起源帝牙卢卡VSTAR：HP 280、招式「金属爆破」40+（每附着 1 个钢能量 +40）＋VSTAR 之力「星耀时刻」220，与引擎 Origin Forme Dialga VSTAR ASR 一致；判定表标为 mismatch 属误判。"
+      },
+      {
+       "number": "107/207",
+       "name": "铁蚁",
+       "count": 1
+      },
+      {
+       "number": "112/207",
+       "name": "苍响",
+       "count": 1
+      },
+      {
+       "number": "114/207",
+       "name": "藏玛然特V",
+       "count": 1
+      },
+      {
+       "number": "140/207",
+       "name": "能量再利用",
+       "count": 1
+      },
+      {
+       "number": "146/207",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "153/207",
+       "name": "巢穴球",
+       "count": 4
+      },
+      {
+       "number": "154/207",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "156/207",
+       "name": "对战会员通行证",
+       "count": 2
+      },
+      {
+       "number": "158/207",
+       "name": "神奇糖果",
+       "count": 2
+      },
+      {
+       "number": "160/207",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "182/207",
+       "name": "刚石",
+       "count": 2
+      },
+      {
+       "number": "183/207",
+       "name": "短裤小子",
+       "count": 3
+      },
+      {
+       "number": "188/207",
+       "name": "奇树",
+       "count": 1
+      },
+      {
+       "number": "190/207",
+       "name": "博士的研究",
+       "count": 4
+      },
+      {
+       "number": "192/207",
+       "name": "老大的指令",
+       "count": 2
+      },
+      {
+       "number": "198/207",
+       "name": "结晶洞窟",
+       "count": 2
+      },
+      {
+       "number": "208/207",
+       "name": "奇树",
+       "count": 1
+      },
+      {
+       "number": "MET",
+       "name": "基本钢能量",
+       "count": 14,
+       "basicEnergyName": "基本钢能量"
+      }
+     ],
+     "coverNumber": "103/207",
+     "coverEngineFullName": "Origin Forme Dialga VSTAR ASR"
+    },
+    {
+     "name": "预知未来",
+     "source": "yaomeng-shang-3.png",
+     "cards": [
+      {
+       "number": "088/207",
+       "name": "伽勒尔 火焰鸟",
+       "count": 1
+      },
+      {
+       "number": "091/207",
+       "name": "阿勃梭鲁ex",
+       "count": 2,
+       "engineFullName": "Absol ex OBF",
+       "engineNote": "阿勃梭鲁ex：HP 210、招式「预知未来」（看自己或对手牌库上方 3 张重排）＋「怨恨猛击」100+（对手手牌 ≤3 时 +100），与引擎 Absol ex OBF 一致；判定表原桥接错误指向 Dialga-GX。"
+      },
+      {
+       "number": "095/207",
+       "name": "黑眼鳄",
+       "count": 3,
+       "engineFullName": "Sandile UNB 114",
+       "engineNote": "黑眼鳄：HP 70、「咬住」30，与引擎 Sandile UNB 114（HP 70、30 伤害）同一张卡；判定表原桥接错误指向 Sandile SIT 111。"
+      },
+      {
+       "number": "096/207",
+       "name": "混混鳄",
+       "count": 2
+      },
+      {
+       "number": "097/207",
+       "name": "流氓鳄",
+       "count": 2
+      },
+      {
+       "number": "098/207",
+       "name": "下石鸟",
+       "count": 1
+      },
+      {
+       "number": "132/207",
+       "name": "摩托蜥",
+       "count": 1
+      },
+      {
+       "number": "146/207",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "147/207",
+       "name": "强夺机械臂",
+       "count": 2
+      },
+      {
+       "number": "149/207",
+       "name": "暗黑补丁",
+       "count": 4
+      },
+      {
+       "number": "153/207",
+       "name": "巢穴球",
+       "count": 4
+      },
+      {
+       "number": "154/207",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "160/207",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "168/207",
+       "name": "咒术掸子",
+       "count": 3
+      },
+      {
+       "number": "179/207",
+       "name": "裁判",
+       "count": 3
+      },
+      {
+       "number": "183/207",
+       "name": "短裤小子",
+       "count": 3
+      },
+      {
+       "number": "188/207",
+       "name": "奇树",
+       "count": 2
+      },
+      {
+       "number": "190/207",
+       "name": "博士的研究",
+       "count": 4
+      },
+      {
+       "number": "192/207",
+       "name": "老大的指令",
+       "count": 2
+      },
+      {
+       "number": "205/207",
+       "name": "双重涡轮能量",
+       "count": 2
+      },
+      {
+       "number": "DAR",
+       "name": "基本恶能量",
+       "count": 12,
+       "basicEnergyName": "基本恶能量"
+      }
+     ],
+     "coverNumber": "091/207",
+     "coverEngineFullName": "Absol ex OBF"
+    },
+    {
+     "name": "奇袭玫瑰",
+     "source": "用户提供的官方小程序「卡组详情」截图",
+     "cards": [
+      {
+       "number": "001/207",
+       "name": "妙蛙种子",
+       "count": 3,
+       "engineFullName": "Bulbasaur PGO",
+       "engineNote": "妙蛙种子：HP 70、藤鞭 10／飞叶快刀 20，与引擎 Bulbasaur PGO（PGO #1）一致；判定表未映射。"
+      },
+      {
+       "number": "002/207",
+       "name": "妙蛙草",
+       "count": 2
+      },
+      {
+       "number": "003/207",
+       "name": "妙蛙花",
+       "count": 2,
+       "engineFullName": "Venusaur PGO",
+       "engineNote": "妙蛙花：HP 180、特性「眩晕捕捉」＋日光束 130，与引擎 Venusaur PGO（PGO #3）一致；判定表未映射。"
+      },
+      {
+       "number": "004/207",
+       "name": "毒蔷薇",
+       "count": 2
+      },
+      {
+       "number": "005/207",
+       "name": "罗丝雷朵",
+       "count": 2
+      },
+      {
+       "number": "006/207",
+       "name": "热带龙",
+       "count": 1
+      },
+      {
+       "number": "007/207",
+       "name": "洗翠 裙儿小姐V",
+       "count": 2
+      },
+      {
+       "number": "008/207",
+       "name": "洗翠 裙儿小姐VSTAR",
+       "count": 2,
+       "engineFullName": "Hisuian Lilligant VSTAR ASR 18",
+       "engineNote": "洗翠 裙儿小姐VSTAR：HP 260、招式「平行旋转」＋VSTAR 之力「星耀时刻」，与引擎 Hisuian Lilligant VSTAR ASR 18 一致；判定表未映射。"
+      },
+      {
+       "number": "010/207",
+       "name": "萨戮德",
+       "count": 1
+      },
+      {
+       "number": "131/207",
+       "name": "怒鹦哥",
+       "count": 1
+      },
+      {
+       "number": "138/207",
+       "name": "能量转移",
+       "count": 2
+      },
+      {
+       "number": "146/207",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "153/207",
+       "name": "巢穴球",
+       "count": 4
+      },
+      {
+       "number": "154/207",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "160/207",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "187/207",
+       "name": "菜种的活力",
+       "count": 4
+      },
+      {
+       "number": "183/207",
+       "name": "短裤小子",
+       "count": 3
+      },
+      {
+       "number": "188/207",
+       "name": "奇树",
+       "count": 2
+      },
+      {
+       "number": "190/207",
+       "name": "博士的研究",
+       "count": 4
+      },
+      {
+       "number": "192/207",
+       "name": "老大的指令",
+       "count": 2
+      },
+      {
+       "number": "GRA",
+       "name": "基本草能量",
+       "count": 14,
+       "basicEnergyName": "基本草能量"
+      }
+     ],
+     "coverNumber": "008/207",
+     "coverEngineFullName": "Hisuian Lilligant VSTAR ASR 18"
+    },
+    {
+     "name": "愤怒之拳",
+     "source": "yaomeng-shang-5.png",
+     "cards": [
+      {
+       "number": "072/207",
+       "name": "猴怪",
+       "count": 4
+      },
+      {
+       "number": "073/207",
+       "name": "火暴猴",
+       "count": 2
+      },
+      {
+       "number": "074/207",
+       "name": "弃世猴",
+       "count": 2
+      },
+      {
+       "number": "075/207",
+       "name": "弃世猴ex",
+       "count": 2,
+       "engineFullName": "Annihilape ex SVP",
+       "engineNote": "弃世猴ex：HP 320、招式「愤怒之拳」＋「地球上投」，与引擎 Annihilape ex SVP 一致；判定表桥接到了 Dialga-GX，属误判。"
+      },
+      {
+       "number": "076/207",
+       "name": "帕底亚 肯泰罗",
+       "count": 1,
+       "engineFullName": "Paldean Tauros PAL 108",
+       "engineNote": "帕底亚 肯泰罗（斗）：HP 130、愤怒之角 20+／战斗冲撞 130（自伤 30），与引擎 Paldean Tauros PAL 108 一致；引擎 PAL 另有 #28 火属性版。"
+      },
+      {
+       "number": "082/207",
+       "name": "摔角鹰人",
+       "count": 1
+      },
+      {
+       "number": "085/207",
+       "name": "投掷猴",
+       "count": 1
+      },
+      {
+       "number": "142/207",
+       "name": "坚毅铁镐",
+       "count": 4
+      },
+      {
+       "number": "146/207",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "153/207",
+       "name": "巢穴球",
+       "count": 4
+      },
+      {
+       "number": "154/207",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "158/207",
+       "name": "神奇糖果",
+       "count": 3
+      },
+      {
+       "number": "160/207",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "162/207",
+       "name": "等级球",
+       "count": 2
+      },
+      {
+       "number": "169/207",
+       "name": "不服输头带",
+       "count": 2
+      },
+      {
+       "number": "178/207",
+       "name": "查克洛",
+       "count": 1
+      },
+      {
+       "number": "183/207",
+       "name": "短裤小子",
+       "count": 4
+      },
+      {
+       "number": "185/207",
+       "name": "杜娟",
+       "count": 1
+      },
+      {
+       "number": "188/207",
+       "name": "奇树",
+       "count": 2
+      },
+      {
+       "number": "190/207",
+       "name": "博士的研究",
+       "count": 3
+      },
+      {
+       "number": "192/207",
+       "name": "老大的指令",
+       "count": 2
+      },
+      {
+       "number": "FIG",
+       "name": "基本斗能量",
+       "count": 12,
+       "basicEnergyName": "基本斗能量"
+      }
+     ],
+     "coverNumber": "075/207",
+     "coverEngineFullName": "Annihilape ex SVP"
+    },
+    {
+     "name": "极寒低温",
+     "source": "yaomeng-shang-6.png",
+     "cards": [
+      {
+       "number": "032/207",
+       "name": "拉普拉斯",
+       "count": 1
+      },
+      {
+       "number": "034/207",
+       "name": "盖欧卡",
+       "count": 1
+      },
+      {
+       "number": "035/207",
+       "name": "帕路奇亚",
+       "count": 1
+      },
+      {
+       "number": "044/207",
+       "name": "凉脊龙",
+       "count": 3
+      },
+      {
+       "number": "045/207",
+       "name": "冻脊龙",
+       "count": 2
+      },
+      {
+       "number": "046/207",
+       "name": "戟脊龙",
+       "count": 3
+      },
+      {
+       "number": "062/207",
+       "name": "皮宝宝",
+       "count": 1
+      },
+      {
+       "number": "115/207",
+       "name": "酋雷姆",
+       "count": 2
+      },
+      {
+       "number": "145/207",
+       "name": "超级能量回收",
+       "count": 3
+      },
+      {
+       "number": "146/207",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "153/207",
+       "name": "巢穴球",
+       "count": 4
+      },
+      {
+       "number": "154/207",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "155/207",
+       "name": "鼓励信",
+       "count": 1
+      },
+      {
+       "number": "158/207",
+       "name": "神奇糖果",
+       "count": 2
+      },
+      {
+       "number": "160/207",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "173/207",
+       "name": "珠贝",
+       "count": 2
+      },
+      {
+       "number": "180/207",
+       "name": "竹兰的霸气",
+       "count": 4
+      },
+      {
+       "number": "183/207",
+       "name": "短裤小子",
+       "count": 3
+      },
+      {
+       "number": "188/207",
+       "name": "奇树",
+       "count": 2
+      },
+      {
+       "number": "192/207",
+       "name": "老大的指令",
+       "count": 2
+      },
+      {
+       "number": "199/207",
+       "name": "滑板手的公园",
+       "count": 2
+      },
+      {
+       "number": "MET",
+       "name": "基本钢能量",
+       "count": 2,
+       "basicEnergyName": "基本钢能量"
+      },
+      {
+       "number": "WAT",
+       "name": "基本水能量",
+       "count": 12,
+       "basicEnergyName": "基本水能量"
+      }
+     ],
+     "coverNumber": "046/207",
+     "coverEngineFullName": "Baxcalibur PAL"
+    },
+    {
+     "name": "水流爆破",
+     "source": "yaomeng-shang-7.png",
+     "cards": [
+      {
+       "number": "023/207",
+       "name": "杰尼龟",
+       "count": 3,
+       "engineFullName": "Squirtle PGO",
+       "engineNote": "杰尼龟：HP 70、水枪 20，与引擎 Squirtle PGO（PGO #15）一致；判定表未映射。"
+      },
+      {
+       "number": "024/207",
+       "name": "卡咪龟",
+       "count": 1
+      },
+      {
+       "number": "025/207",
+       "name": "水箭龟",
+       "count": 2,
+       "engineFullName": "Blastoise PGO",
+       "engineNote": "水箭龟：HP 170、特性「活力泉」（从牌库最多 6 张能量附着，使用后回合结束）＋水炮 90+，与引擎 Blastoise PGO 一致；判定表未映射。"
+      },
+      {
+       "number": "026/207",
+       "name": "墨海马",
+       "count": 4
+      },
+      {
+       "number": "027/207",
+       "name": "海刺龙",
+       "count": 2
+      },
+      {
+       "number": "028/207",
+       "name": "刺龙王",
+       "count": 4
+      },
+      {
+       "number": "033/207",
+       "name": "急冻鸟",
+       "count": 1
+      },
+      {
+       "number": "038/207",
+       "name": "玛纳霏",
+       "count": 2
+      },
+      {
+       "number": "146/207",
+       "name": "厉害钓竿",
+       "count": 2
+      },
+      {
+       "number": "154/207",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "158/207",
+       "name": "神奇糖果",
+       "count": 4
+      },
+      {
+       "number": "160/207",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "162/207",
+       "name": "等级球",
+       "count": 4
+      },
+      {
+       "number": "173/207",
+       "name": "珠贝",
+       "count": 4
+      },
+      {
+       "number": "180/207",
+       "name": "竹兰的霸气",
+       "count": 3
+      },
+      {
+       "number": "183/207",
+       "name": "短裤小子",
+       "count": 2
+      },
+      {
+       "number": "188/207",
+       "name": "奇树",
+       "count": 2
+      },
+      {
+       "number": "192/207",
+       "name": "老大的指令",
+       "count": 2
+      },
+      {
+       "number": "202/207",
+       "name": "馈赠能量",
+       "count": 2
+      },
+      {
+       "number": "207/207",
+       "name": "逆转能量",
+       "count": 2
+      },
+      {
+       "number": "WAT",
+       "name": "基本水能量",
+       "count": 8,
+       "basicEnergyName": "基本水能量"
+      }
+     ],
+     "coverNumber": "028/207",
+     "coverEngineFullName": "Kingdra BST"
+    },
+    {
+     "name": "同心协力",
+     "source": "yaomeng-shang-8.png",
+     "cards": [
+      {
+       "number": "009/207",
+       "name": "毕力吉翁",
+       "count": 4
+      },
+      {
+       "number": "041/207",
+       "name": "凯路迪欧",
+       "count": 3
+      },
+      {
+       "number": "081/207",
+       "name": "代拉基翁",
+       "count": 2
+      },
+      {
+       "number": "108/207",
+       "name": "勾帕路翁",
+       "count": 3
+      },
+      {
+       "number": "118/207",
+       "name": "大葱鸭",
+       "count": 1
+      },
+      {
+       "number": "136/207",
+       "name": "能量签",
+       "count": 2
+      },
+      {
+       "number": "146/207",
+       "name": "厉害钓竿",
+       "count": 2
+      },
+      {
+       "number": "153/207",
+       "name": "巢穴球",
+       "count": 3
+      },
+      {
+       "number": "154/207",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "160/207",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "170/207",
+       "name": "勇气护符",
+       "count": 2
+      },
+      {
+       "number": "175/207",
+       "name": "奇巴纳",
+       "count": 2
+      },
+      {
+       "number": "180/207",
+       "name": "竹兰的霸气",
+       "count": 4
+      },
+      {
+       "number": "183/207",
+       "name": "短裤小子",
+       "count": 2
+      },
+      {
+       "number": "188/207",
+       "name": "奇树",
+       "count": 2
+      },
+      {
+       "number": "190/207",
+       "name": "博士的研究",
+       "count": 4
+      },
+      {
+       "number": "192/207",
+       "name": "老大的指令",
+       "count": 2
+      },
+      {
+       "number": "200/207",
+       "name": "深钵镇",
+       "count": 2
+      },
+      {
+       "number": "205/207",
+       "name": "双重涡轮能量",
+       "count": 4
+      },
+      {
+       "number": "FIG",
+       "name": "基本斗能量",
+       "count": 3,
+       "basicEnergyName": "基本斗能量"
+      },
+      {
+       "number": "WAT",
+       "name": "基本水能量",
+       "count": 7,
+       "basicEnergyName": "基本水能量"
+      }
+     ],
+     "coverNumber": "009/207",
+     "coverEngineFullName": "Virizion SIT 14"
+    },
+    {
+     "name": "另一维度",
+     "source": "yaomeng-shang-9.png",
+     "cards": [
+      {
+       "number": "059/207",
+       "name": "凯西",
+       "count": 3
+      },
+      {
+       "number": "060/207",
+       "name": "勇基拉",
+       "count": 2
+      },
+      {
+       "number": "061/207",
+       "name": "胡地ex",
+       "count": 2
+      },
+      {
+       "number": "063/207",
+       "name": "梦妖",
+       "count": 3
+      },
+      {
+       "number": "064/207",
+       "name": "梦妖魔",
+       "count": 3
+      },
+      {
+       "number": "068/207",
+       "name": "谜拟丘",
+       "count": 1
+      },
+      {
+       "number": "071/207",
+       "name": "灵幽马",
+       "count": 1
+      },
+      {
+       "number": "126/207",
+       "name": "飘浮泡泡",
+       "count": 1
+      },
+      {
+       "number": "143/207",
+       "name": "雾之水晶",
+       "count": 2
+      },
+      {
+       "number": "146/207",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "154/207",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "158/207",
+       "name": "神奇糖果",
+       "count": 2
+      },
+      {
+       "number": "160/207",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "162/207",
+       "name": "等级球",
+       "count": 4
+      },
+      {
+       "number": "171/207",
+       "name": "复仇拳箱",
+       "count": 2
+      },
+      {
+       "number": "180/207",
+       "name": "竹兰的霸气",
+       "count": 2
+      },
+      {
+       "number": "183/207",
+       "name": "短裤小子",
+       "count": 4
+      },
+      {
+       "number": "188/207",
+       "name": "奇树",
+       "count": 2
+      },
+      {
+       "number": "190/207",
+       "name": "博士的研究",
+       "count": 3
+      },
+      {
+       "number": "191/207",
+       "name": "派帕",
+       "count": 2
+      },
+      {
+       "number": "192/207",
+       "name": "老大的指令",
+       "count": 2
+      },
+      {
+       "number": "PSY",
+       "name": "基本超能量",
+       "count": 12,
+       "basicEnergyName": "基本超能量"
+      }
+     ],
+     "coverNumber": "061/207",
+     "coverEngineFullName": "Alakazam ex MEW"
+    }
+   ]
+  },
+  "CSVE2C2": {
+   "name": "对战派对 耀梦 下",
+   "release": "2025-10-14",
+   "source": "用户提供的官方小程序「卡组详情」截图（耀梦 下 5 副；惊风骇浪因冰砌鹅未实现暂未上架）",
+   "decks": [
+    {
+     "name": "残忍之刃",
+     "source": "用户提供的官方小程序卡组详情截图",
+     "cards": [
+      {
+       "number": "082/207",
+       "name": "摔角鹰人",
+       "count": 1
+      },
+      {
+       "number": "086/207",
+       "name": "瓦斯弹",
+       "count": 2
+      },
+      {
+       "number": "090/207",
+       "name": "饭匙蛇",
+       "count": 1
+      },
+      {
+       "number": "092/207",
+       "name": "达克莱伊",
+       "count": 1
+      },
+      {
+       "number": "093/207",
+       "name": "洗翠 大剑鬼V",
+       "count": 2
+      },
+      {
+       "number": "087/207",
+       "name": "双弹瓦斯",
+       "count": 2
+      },
+      {
+       "number": "094/207",
+       "name": "洗翠 大剑鬼VSTAR",
+       "count": 2
+      },
+      {
+       "number": "127/207",
+       "name": "聒噪鸟",
+       "count": 1
+      },
+      {
+       "number": "146/207",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "149/207",
+       "name": "暗黑补丁",
+       "count": 4
+      },
+      {
+       "number": "153/207",
+       "name": "巢穴球",
+       "count": 4
+      },
+      {
+       "number": "154/207",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "160/207",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "162/207",
+       "name": "等级球",
+       "count": 2
+      },
+      {
+       "number": "139/207",
+       "name": "能量输送",
+       "count": 1
+      },
+      {
+       "number": "183/207",
+       "name": "短裤小子",
+       "count": 3
+      },
+      {
+       "number": "188/207",
+       "name": "奇树",
+       "count": 2
+      },
+      {
+       "number": "190/207",
+       "name": "博士的研究",
+       "count": 4
+      },
+      {
+       "number": "191/207",
+       "name": "派帕",
+       "count": 2
+      },
+      {
+       "number": "192/207",
+       "name": "老大的指令",
+       "count": 2
+      },
+      {
+       "number": "174/207",
+       "name": "菊子",
+       "count": 1
+      },
+      {
+       "number": "167/207",
+       "name": "凸凸头盔",
+       "count": 2
+      },
+      {
+       "number": "DAR",
+       "name": "基本恶能量",
+       "count": 14,
+       "basicEnergyName": "基本恶能量"
+      }
+     ],
+     "coverNumber": "094/207",
+     "coverEngineFullName": "Hisuian Samurott VSTAR ASR"
+    },
+    {
+     "name": "爆裂喷火",
+     "source": "用户提供的官方小程序卡组详情截图",
+     "cards": [
+      {
+       "number": "016/207",
+       "name": "火焰鸟",
+       "count": 1
+      },
+      {
+       "number": "013/207",
+       "name": "帕底亚 肯泰罗",
+       "count": 1
+      },
+      {
+       "number": "014/207",
+       "name": "火伊布V",
+       "count": 2
+      },
+      {
+       "number": "019/207",
+       "name": "呆火驼",
+       "count": 2
+      },
+      {
+       "number": "020/207",
+       "name": "喷火驼",
+       "count": 2
+      },
+      {
+       "number": "015/207",
+       "name": "火伊布VMAX",
+       "count": 2
+      },
+      {
+       "number": "133/207",
+       "name": "摩托蜥",
+       "count": 1
+      },
+      {
+       "number": "140/207",
+       "name": "能量再利用",
+       "count": 2
+      },
+      {
+       "number": "146/207",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "153/207",
+       "name": "巢穴球",
+       "count": 4
+      },
+      {
+       "number": "154/207",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "160/207",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "148/207",
+       "name": "掉包杯",
+       "count": 2
+      },
+      {
+       "number": "183/207",
+       "name": "短裤小子",
+       "count": 4
+      },
+      {
+       "number": "188/207",
+       "name": "奇树",
+       "count": 2
+      },
+      {
+       "number": "190/207",
+       "name": "博士的研究",
+       "count": 3
+      },
+      {
+       "number": "192/207",
+       "name": "老大的指令",
+       "count": 2
+      },
+      {
+       "number": "195/207",
+       "name": "蕾荷",
+       "count": 2
+      },
+      {
+       "number": "201/207",
+       "name": "熔岩瀑布之渊",
+       "count": 2
+      },
+      {
+       "number": "164/207",
+       "name": "元素徽章",
+       "count": 1
+      },
+      {
+       "number": "FIR",
+       "name": "基本火能量",
+       "count": 18,
+       "basicEnergyName": "基本火能量"
+      }
+     ],
+     "coverNumber": "015/207",
+     "coverEngineFullName": "Flareon VMAX EVS"
+    },
+    {
+     "name": "快乐朋胀",
+     "source": "用户提供的官方小程序卡组详情截图",
+     "cards": [
+      {
+       "number": "058/207",
+       "name": "胖可丁",
+       "count": 2
+      },
+      {
+       "number": "116/207",
+       "name": "胖丁",
+       "count": 4
+      },
+      {
+       "number": "119/207",
+       "name": "大葱鸭",
+       "count": 1
+      },
+      {
+       "number": "122/207",
+       "name": "卡比兽",
+       "count": 2
+      },
+      {
+       "number": "124/207",
+       "name": "洛奇亚",
+       "count": 1
+      },
+      {
+       "number": "129/207",
+       "name": "谢米",
+       "count": 1
+      },
+      {
+       "number": "117/207",
+       "name": "胖可丁ex",
+       "count": 2
+      },
+      {
+       "number": "136/207",
+       "name": "能量签",
+       "count": 2
+      },
+      {
+       "number": "146/207",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "153/207",
+       "name": "巢穴球",
+       "count": 4
+      },
+      {
+       "number": "154/207",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "160/207",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "151/207",
+       "name": "朋友手册",
+       "count": 1
+      },
+      {
+       "number": "159/207",
+       "name": "宝可装置3.0",
+       "count": 2
+      },
+      {
+       "number": "183/207",
+       "name": "短裤小子",
+       "count": 3
+      },
+      {
+       "number": "188/207",
+       "name": "奇树",
+       "count": 2
+      },
+      {
+       "number": "190/207",
+       "name": "博士的研究",
+       "count": 4
+      },
+      {
+       "number": "191/207",
+       "name": "派帕",
+       "count": 2
+      },
+      {
+       "number": "192/207",
+       "name": "老大的指令",
+       "count": 2
+      },
+      {
+       "number": "184/207",
+       "name": "黑连的关照",
+       "count": 2
+      },
+      {
+       "number": "166/207",
+       "name": "坚硬束带",
+       "count": 2
+      },
+      {
+       "number": "205/207",
+       "name": "双重涡轮能量",
+       "count": 4
+      },
+      {
+       "number": "203/207",
+       "name": "喷射能量",
+       "count": 2
+      },
+      {
+       "number": "204/207",
+       "name": "治疗能量",
+       "count": 4
+      },
+      {
+       "number": "206/207",
+       "name": "幸运能量",
+       "count": 4
+      }
+     ],
+     "coverNumber": "117/207",
+     "coverEngineFullName": "Wigglytuff ex MEW"
+    },
+    {
+     "name": "复仇拳斗",
+     "source": "用户提供的官方小程序卡组详情截图",
+     "cards": [
+      {
+       "number": "077/207",
+       "name": "战舞郎",
+       "count": 1
+      },
+      {
+       "number": "078/207",
+       "name": "利欧路",
+       "count": 2
+      },
+      {
+       "number": "080/207",
+       "name": "打击鬼",
+       "count": 1
+      },
+      {
+       "number": "083/207",
+       "name": "岩狗狗",
+       "count": 4
+      },
+      {
+       "number": "079/207",
+       "name": "路卡利欧",
+       "count": 2
+      },
+      {
+       "number": "084/207",
+       "name": "鬃岩狼人",
+       "count": 3
+      },
+      {
+       "number": "130/207",
+       "name": "龙卷云",
+       "count": 1
+      },
+      {
+       "number": "146/207",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "153/207",
+       "name": "巢穴球",
+       "count": 4
+      },
+      {
+       "number": "154/207",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "160/207",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "144/207",
+       "name": "粉碎之锤",
+       "count": 4
+      },
+      {
+       "number": "159/207",
+       "name": "宝可装置3.0",
+       "count": 2
+      },
+      {
+       "number": "180/207",
+       "name": "竹兰的霸气",
+       "count": 4
+      },
+      {
+       "number": "188/207",
+       "name": "奇树",
+       "count": 2
+      },
+      {
+       "number": "190/207",
+       "name": "博士的研究",
+       "count": 4
+      },
+      {
+       "number": "192/207",
+       "name": "老大的指令",
+       "count": 2
+      },
+      {
+       "number": "177/207",
+       "name": "坂木的领导力",
+       "count": 1
+      },
+      {
+       "number": "181/207",
+       "name": "天星队手下",
+       "count": 2
+      },
+      {
+       "number": "163/207",
+       "name": "粗硬头盔",
+       "count": 2
+      },
+      {
+       "number": "FIG",
+       "name": "基本斗能量",
+       "count": 12,
+       "basicEnergyName": "基本斗能量"
+      }
+     ],
+     "coverNumber": "084/207",
+     "coverEngineFullName": "Lycanroc CRZ 74"
+    },
+    {
+     "name": "愤恨积怨",
+     "source": "用户提供的官方小程序卡组详情截图",
+     "cards": [
+      {
+       "number": "072/207",
+       "name": "猴怪",
+       "count": 4
+      },
+      {
+       "number": "076/207",
+       "name": "帕底亚 肯泰罗",
+       "count": 1
+      },
+      {
+       "number": "082/207",
+       "name": "摔角鹰人",
+       "count": 1
+      },
+      {
+       "number": "085/207",
+       "name": "投掷猴",
+       "count": 1
+      },
+      {
+       "number": "073/207",
+       "name": "火暴猴",
+       "count": 2
+      },
+      {
+       "number": "074/207",
+       "name": "弃世猴",
+       "count": 2
+      },
+      {
+       "number": "075/207",
+       "name": "弃世猴ex",
+       "count": 2
+      },
+      {
+       "number": "158/207",
+       "name": "神奇糖果",
+       "count": 3
+      },
+      {
+       "number": "142/207",
+       "name": "坚毅铁镐",
+       "count": 4
+      },
+      {
+       "number": "146/207",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "153/207",
+       "name": "巢穴球",
+       "count": 4
+      },
+      {
+       "number": "154/207",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "160/207",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "162/207",
+       "name": "等级球",
+       "count": 2
+      },
+      {
+       "number": "178/207",
+       "name": "查克洛",
+       "count": 1
+      },
+      {
+       "number": "183/207",
+       "name": "短裤小子",
+       "count": 4
+      },
+      {
+       "number": "185/207",
+       "name": "杜娟",
+       "count": 1
+      },
+      {
+       "number": "188/207",
+       "name": "奇树",
+       "count": 2
+      },
+      {
+       "number": "190/207",
+       "name": "博士的研究",
+       "count": 3
+      },
+      {
+       "number": "192/207",
+       "name": "老大的指令",
+       "count": 2
+      },
+      {
+       "number": "169/207",
+       "name": "不服输头带",
+       "count": 2
+      },
+      {
+       "number": "FIG",
+       "name": "基本斗能量",
+       "count": 12,
+       "basicEnergyName": "基本斗能量"
+      }
+     ],
+     "coverNumber": "075/207",
+     "coverEngineFullName": "Annihilape ex SVP"
+    },
+    {
+     "name": "团结之翼",
+     "source": "用户提供的官方小程序「卡组详情」截图（第二批）",
+     "cards": [
+      {
+       "number": "055/207",
+       "name": "电海燕",
+       "count": 4
+      },
+      {
+       "number": "056/207",
+       "name": "大电海燕",
+       "count": 1
+      },
+      {
+       "number": "089/207",
+       "name": "黑暗鸦",
+       "count": 4
+      },
+      {
+       "number": "121/207",
+       "name": "百变怪",
+       "count": 3
+      },
+      {
+       "number": "134/207",
+       "name": "缠红鹤",
+       "count": 4
+      },
+      {
+       "number": "146/207",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "154/207",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "162/207",
+       "name": "等级球",
+       "count": 4
+      },
+      {
+       "number": "152/207",
+       "name": "健行鞋",
+       "count": 4
+      },
+      {
+       "number": "157/207",
+       "name": "洗翠的沉重球",
+       "count": 2
+      },
+      {
+       "number": "161/207",
+       "name": "救援行李箱",
+       "count": 2
+      },
+      {
+       "number": "180/207",
+       "name": "竹兰的霸气",
+       "count": 2
+      },
+      {
+       "number": "188/207",
+       "name": "奇树",
+       "count": 2
+      },
+      {
+       "number": "190/207",
+       "name": "博士的研究",
+       "count": 4
+      },
+      {
+       "number": "192/207",
+       "name": "老大的指令",
+       "count": 2
+      },
+      {
+       "number": "186/207",
+       "name": "马加木",
+       "count": 4
+      },
+      {
+       "number": "189/207",
+       "name": "捩木",
+       "count": 1
+      },
+      {
+       "number": "DAR",
+       "name": "基本恶能量",
+       "count": 10,
+       "basicEnergyName": "基本恶能量"
+      },
+      {
+       "number": "205/207",
+       "name": "双重涡轮能量",
+       "count": 2
+      }
+     ],
+     "coverNumber": "134/207",
+     "coverEngineFullName": "Flamigo PAL"
+    },
+    {
+     "name": "坚硬身躯",
+     "source": "用户提供的官方小程序「卡组详情」截图（第二批）",
+     "cards": [
+      {
+       "number": "104/207",
+       "name": "种子铁球",
+       "count": 2
+      },
+      {
+       "number": "106/207",
+       "name": "伽勒尔 泥巴鱼",
+       "count": 1
+      },
+      {
+       "number": "109/207",
+       "name": "钥圈儿",
+       "count": 1
+      },
+      {
+       "number": "110/207",
+       "name": "铜象",
+       "count": 3
+      },
+      {
+       "number": "113/207",
+       "name": "苍响",
+       "count": 1
+      },
+      {
+       "number": "105/207",
+       "name": "坚果哑铃",
+       "count": 2
+      },
+      {
+       "number": "111/207",
+       "name": "大王铜象ex",
+       "count": 2
+      },
+      {
+       "number": "120/207",
+       "name": "肯泰罗",
+       "count": 1
+      },
+      {
+       "number": "146/207",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "153/207",
+       "name": "巢穴球",
+       "count": 4
+      },
+      {
+       "number": "154/207",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "160/207",
+       "name": "宝可梦交替",
+       "count": 4
+      },
+      {
+       "number": "150/207",
+       "name": "伤害水泵",
+       "count": 2
+      },
+      {
+       "number": "183/207",
+       "name": "短裤小子",
+       "count": 3
+      },
+      {
+       "number": "188/207",
+       "name": "奇树",
+       "count": 2
+      },
+      {
+       "number": "190/207",
+       "name": "博士的研究",
+       "count": 4
+      },
+      {
+       "number": "191/207",
+       "name": "派帕",
+       "count": 2
+      },
+      {
+       "number": "192/207",
+       "name": "老大的指令",
+       "count": 2
+      },
+      {
+       "number": "172/207",
+       "name": "也慈",
+       "count": 2
+      },
+      {
+       "number": "165/207",
+       "name": "学习装置",
+       "count": 2
+      },
+      {
+       "number": "MET",
+       "name": "基本钢能量",
+       "count": 15,
+       "basicEnergyName": "基本钢能量"
+      }
+     ],
+     "coverNumber": "111/207",
+     "coverEngineFullName": "Copperajah ex PAL"
+    },
+    {
+     "name": "毫不停息的雷霆",
+     "source": "用户提供的官方小程序「卡组详情」截图（第二批）",
+     "cards": [
+      {
+       "number": "047/207",
+       "name": "帕奇利兹",
+       "count": 2
+      },
+      {
+       "number": "048/207",
+       "name": "洛托姆",
+       "count": 1
+      },
+      {
+       "number": "049/207",
+       "name": "雷电云",
+       "count": 2
+      },
+      {
+       "number": "050/207",
+       "name": "捷拉奥拉",
+       "count": 1
+      },
+      {
+       "number": "051/207",
+       "name": "啪嚓海胆",
+       "count": 1
+      },
+      {
+       "number": "052/207",
+       "name": "雷吉艾勒奇",
+       "count": 1
+      },
+      {
+       "number": "053/207",
+       "name": "雷吉艾勒奇V",
+       "count": 2
+      },
+      {
+       "number": "057/207",
+       "name": "密勒顿",
+       "count": 1
+      },
+      {
+       "number": "054/207",
+       "name": "雷吉艾勒奇VMAX",
+       "count": 2
+      },
+      {
+       "number": "146/207",
+       "name": "厉害钓竿",
+       "count": 2
+      },
+      {
+       "number": "153/207",
+       "name": "巢穴球",
+       "count": 4
+      },
+      {
+       "number": "154/207",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "160/207",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "135/207",
+       "name": "交替推车",
+       "count": 2
+      },
+      {
+       "number": "141/207",
+       "name": "电气发生器",
+       "count": 4
+      },
+      {
+       "number": "180/207",
+       "name": "竹兰的霸气",
+       "count": 3
+      },
+      {
+       "number": "183/207",
+       "name": "短裤小子",
+       "count": 2
+      },
+      {
+       "number": "188/207",
+       "name": "奇树",
+       "count": 2
+      },
+      {
+       "number": "190/207",
+       "name": "博士的研究",
+       "count": 4
+      },
+      {
+       "number": "192/207",
+       "name": "老大的指令",
+       "count": 2
+      },
+      {
+       "number": "196/207",
+       "name": "风暴山脉",
+       "count": 2
+      },
+      {
+       "number": "LIG",
+       "name": "基本雷能量",
+       "count": 14,
+       "basicEnergyName": "基本雷能量"
+      }
+     ],
+     "coverNumber": "054/207",
+     "coverEngineFullName": "Regieleki VMAX SIT"
+    },
+    {
+     "name": "彩虹燃烧",
+     "source": "用户提供的官方小程序「卡组详情」截图（第二批）",
+     "cards": [
+      {
+       "number": "065/207",
+       "name": "拉鲁拉丝",
+       "count": 2
+      },
+      {
+       "number": "067/207",
+       "name": "蒂安希",
+       "count": 1
+      },
+      {
+       "number": "069/207",
+       "name": "小仙奶",
+       "count": 4
+      },
+      {
+       "number": "066/207",
+       "name": "奇鲁莉安",
+       "count": 2
+      },
+      {
+       "number": "070/207",
+       "name": "霜奶仙",
+       "count": 3
+      },
+      {
+       "number": "123/207",
+       "name": "图图犬",
+       "count": 1
+      },
+      {
+       "number": "125/207",
+       "name": "凤王V",
+       "count": 2
+      },
+      {
+       "number": "143/207",
+       "name": "雾之水晶",
+       "count": 2
+      },
+      {
+       "number": "146/207",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "154/207",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "160/207",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "162/207",
+       "name": "等级球",
+       "count": 4
+      },
+      {
+       "number": "161/207",
+       "name": "救援行李箱",
+       "count": 1
+      },
+      {
+       "number": "183/207",
+       "name": "短裤小子",
+       "count": 3
+      },
+      {
+       "number": "188/207",
+       "name": "奇树",
+       "count": 2
+      },
+      {
+       "number": "190/207",
+       "name": "博士的研究",
+       "count": 4
+      },
+      {
+       "number": "192/207",
+       "name": "老大的指令",
+       "count": 2
+      },
+      {
+       "number": "193/207",
+       "name": "老板",
+       "count": 2
+      },
+      {
+       "number": "165/207",
+       "name": "学习装置",
+       "count": 2
+      },
+      {
+       "number": "GRA",
+       "name": "基本草能量",
+       "count": 2,
+       "basicEnergyName": "基本草能量"
+      },
+      {
+       "number": "FIR",
+       "name": "基本火能量",
+       "count": 2,
+       "basicEnergyName": "基本火能量"
+      },
+      {
+       "number": "WAT",
+       "name": "基本水能量",
+       "count": 2,
+       "basicEnergyName": "基本水能量"
+      },
+      {
+       "number": "LIG",
+       "name": "基本雷能量",
+       "count": 2,
+       "basicEnergyName": "基本雷能量"
+      },
+      {
+       "number": "PSY",
+       "name": "基本超能量",
+       "count": 2,
+       "basicEnergyName": "基本超能量"
+      },
+      {
+       "number": "FIG",
+       "name": "基本斗能量",
+       "count": 2,
+       "basicEnergyName": "基本斗能量"
+      },
+      {
+       "number": "DAR",
+       "name": "基本恶能量",
+       "count": 2,
+       "basicEnergyName": "基本恶能量"
+      },
+      {
+       "number": "MET",
+       "name": "基本钢能量",
+       "count": 2,
+       "basicEnergyName": "基本钢能量"
+      }
+     ],
+     "coverNumber": "125/207",
+     "coverEngineFullName": "Ho-Oh V SIT"
+    },
+    {
+     "name": "惊风骇浪",
+     "source": "用户提供的官方小程序「卡组详情」截图（第二批）",
+     "cards": [
+      {
+       "number": "041/207",
+       "name": "凯路迪欧",
+       "count": 1
+      },
+      {
+       "number": "029/207",
+       "name": "宝石海星V",
+       "count": 1
+      },
+      {
+       "number": "030/207",
+       "name": "帕底亚 肯泰罗",
+       "count": 1
+      },
+      {
+       "number": "031/207",
+       "name": "拉普拉斯",
+       "count": 1
+      },
+      {
+       "number": "036/207",
+       "name": "起源帕路奇亚V",
+       "count": 2
+      },
+      {
+       "number": "039/207",
+       "name": "洗翠 野蛮鲈鱼",
+       "count": 2
+      },
+      {
+       "number": "042/207",
+       "name": "冰砌鹅",
+       "count": 1,
+       "engineFullName": "Eiscue S-P 203",
+       "engineNote": "冰砌鹅：简中特典卡 203/S-P（耀梦 下 042/207 同卡），HP 120、冰之奖励（弃 1 张手牌水能量抽 3 张）／鲁莽头击 100。官方没有英文卡，按简中原文实现，fullName 用卡面印的 S-P 编号。"
+      },
+      {
+       "number": "043/207",
+       "name": "雪暴马",
+       "count": 1
+      },
+      {
+       "number": "040/207",
+       "name": "洗翠 幽尾玄鱼",
+       "count": 2
+      },
+      {
+       "number": "037/207",
+       "name": "起源帕路奇亚VSTAR",
+       "count": 2
+      },
+      {
+       "number": "146/207",
+       "name": "厉害钓竿",
+       "count": 1
+      },
+      {
+       "number": "153/207",
+       "name": "巢穴球",
+       "count": 4
+      },
+      {
+       "number": "154/207",
+       "name": "高级球",
+       "count": 4
+      },
+      {
+       "number": "156/207",
+       "name": "对战会员通行证",
+       "count": 2
+      },
+      {
+       "number": "160/207",
+       "name": "宝可梦交替",
+       "count": 2
+      },
+      {
+       "number": "139/207",
+       "name": "能量输送",
+       "count": 1
+      },
+      {
+       "number": "173/207",
+       "name": "珠贝",
+       "count": 4
+      },
+      {
+       "number": "183/207",
+       "name": "短裤小子",
+       "count": 2
+      },
+      {
+       "number": "188/207",
+       "name": "奇树",
+       "count": 2
+      },
+      {
+       "number": "190/207",
+       "name": "博士的研究",
+       "count": 4
+      },
+      {
+       "number": "192/207",
+       "name": "老大的指令",
+       "count": 2
+      },
+      {
+       "number": "194/207",
+       "name": "美蓉",
+       "count": 2
+      },
+      {
+       "number": "197/207",
+       "name": "睿智湖",
+       "count": 2
+      },
+      {
+       "number": "WAT",
+       "name": "基本水能量",
+       "count": 14,
+       "basicEnergyName": "基本水能量"
+      }
+     ],
+     "coverNumber": "037/207",
+     "coverEngineFullName": "Origin Forme Palkia VSTAR ASR"
+    }
+   ],
+   "extraSets": [
+    "CSVE2C1"
+   ]
+  }
+ },
+ "pending": [
+  "CSVE2C2 的 18 款里还剩若干款没见到卡表（小程序列表里编号 1/6/12/14/17/18 里的）。「彩虹燃烧」这个名字是我按凤王V 的招式读的，截图顶部被状态栏挡住，麻烦核对。"
+ ],
+ "resolvedMappings": {
+  "CSVE2C 095/207": {
+   "engineFullName": "Sandile UNB 114",
+   "note": "黑眼鳄：HP 70、招式「咬住」30，与引擎 Sandile UNB 114（HP 70、30 伤害）同一张卡；判定表原桥接错误指向 Sandile SIT 111，故判为 mismatch。"
+  }
+ }
+}

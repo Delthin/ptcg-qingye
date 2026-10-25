@@ -1,0 +1,31 @@
+.stage { --coin-size: 92px; --coin-landing: 1080deg; --coin-before-landing: 980deg; display: grid; justify-items: center; gap: 16px; pointer-events: none; }
+.stage[data-result='tails'] { --coin-landing: 1260deg; --coin-before-landing: 1160deg; }
+.surface { position: relative; width: calc(var(--coin-size) + 24px); height: var(--coin-size); perspective: 700px; }
+.flight { position: absolute; left: 12px; width: var(--coin-size); height: var(--coin-size); transform-style: preserve-3d; animation: toss 1100ms linear both; }
+.tilt { width: 100%; height: 100%; transform-style: preserve-3d; transform: rotateX(18deg); }
+.coin { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transform: rotateX(var(--coin-landing)); animation: spin 1100ms linear both; }
+.front, .back, .edge { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 50%; }
+.front, .back { object-fit: contain; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.front { transform: translateZ(2px); }
+.back { transform: rotateX(180deg) translateZ(2px); }
+.edge { background: repeating-conic-gradient(#ad995e 0deg 2deg, #50442c 2deg 4deg); box-shadow: inset 0 0 0 1px #e6d5a1; }
+.edge:nth-child(1) { transform: translateZ(-1px); }
+.edge:nth-child(2) { transform: translateZ(0); }
+.edge:nth-child(3) { transform: translateZ(1px); }
+.shadow { position: absolute; left: 12%; right: 12%; bottom: -5px; height: 15px; border-radius: 50%; background: radial-gradient(closest-side, #0009, transparent); animation: shadow 1100ms linear both; }
+.caption { display: grid; justify-items: center; gap: 5px; padding: 9px 18px; color: #f5ecd7; background: #14271fea; border: 1px solid #a58b4d99; border-radius: 8px; box-shadow: 0 7px 20px #0004; }
+.caption span { font-size: 12px; line-height: 1.4; }
+.caption strong { min-width: 5em; text-align: center; font-size: 18px; letter-spacing: .12em; }
+@keyframes toss {
+  0% { transform: translateY(0); animation-timing-function: cubic-bezier(.18,.7,.35,1); }
+  30% { transform: translateY(-122px); animation-timing-function: cubic-bezier(.65,0,.82,.3); }
+  68% { transform: translateY(0); animation-timing-function: ease-out; }
+  78% { transform: translateY(-21px); animation-timing-function: ease-in; }
+  87% { transform: translateY(0); animation-timing-function: ease-out; }
+  93% { transform: translateY(-5px); animation-timing-function: ease-in; }
+  100% { transform: translateY(0); }
+}
+@keyframes spin { 0% { transform: rotateX(0) rotateY(-16deg); } 68% { transform: rotateX(var(--coin-before-landing)) rotateY(8deg); } 90%, 100% { transform: rotateX(var(--coin-landing)) rotateY(0); } }
+@keyframes shadow { 0%, 68%, 87%, 100% { transform: scale(1); opacity: .85; } 30% { transform: scale(.45); opacity: .2; } 78% { transform: scale(.8); opacity: .55; } 93% { transform: scale(.94); opacity: .7; } }
+@media (max-width: 849px) { .stage { --coin-size: 76px; } }
+@media (prefers-reduced-motion: reduce) { .flight, .coin, .shadow { animation: none; } }

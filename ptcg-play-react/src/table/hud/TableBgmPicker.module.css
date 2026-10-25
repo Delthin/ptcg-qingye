@@ -1,0 +1,386 @@
+/*
+ * TableBgmPicker — 对战音乐浮层。
+ * 与桌布选择器同族：黄铜圆键触发、胡桃木浮层、对角包角。
+ * 差别在于内容是“文字列表 + 开关 + 音量”，所以面板更宽、行更高。
+ */
+
+.trigger {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  border-radius: 50%;
+  background: linear-gradient(145deg, var(--a-walnut) 0%, var(--a-walnut-dark) 100%);
+  color: #cdb987;
+  box-shadow:
+    0 2px 0 #120c06,
+    0 4px 10px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 244, 214, 0.08);
+  cursor: pointer;
+  transition: color 140ms var(--a-ease), border-color 140ms var(--a-ease), transform 140ms var(--a-ease-out), box-shadow 140ms var(--a-ease);
+}
+
+.trigger svg { width: 21px; height: 21px; }
+
+.trigger:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 0 #120c06, 0 2px 5px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 244, 214, 0.06);
+}
+
+/* 静音态：整键压暗，斜杠已经说明状态，不再叠加颜色 */
+.trigger[data-muted='true'] {
+  color: #7d7059;
+}
+
+.trigger:focus-visible,
+.theme:focus-visible {
+  outline: 2px solid #e4d190;
+  outline-offset: 4px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .trigger:hover {
+    color: #f2dfa6;
+    border-color: rgba(201, 162, 39, 0.65);
+  }
+}
+
+.panel {
+  position: fixed;
+  inset: 66px 16px auto auto;
+  margin: 0;
+  width: min(330px, calc(100vw - 32px));
+  max-height: calc(100vh - 96px);
+  max-height: calc(100dvh - 96px);
+  padding: 14px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1px solid rgba(201, 162, 39, 0.36);
+  border-radius: 12px;
+  color: var(--a-on-dark);
+  background:
+    linear-gradient(178deg, rgba(255, 226, 168, 0.06), transparent 32%),
+    linear-gradient(170deg, rgba(74, 50, 34, 0.97), rgba(27, 18, 10, 0.97));
+  box-shadow:
+    0 10px 35px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 244, 214, 0.08);
+  transition:
+    opacity 180ms var(--a-ease-out),
+    transform 180ms var(--a-ease-out),
+    display 180ms allow-discrete,
+    overlay 180ms allow-discrete;
+}
+
+@starting-style {
+  .panel {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+  }
+}
+
+.panel::before,
+.panel::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border: 1px solid rgba(232, 200, 90, 0.6);
+  pointer-events: none;
+}
+
+.panel::before { top: 5px; left: 5px; border-right: 0; border-bottom: 0; }
+.panel::after { bottom: 5px; right: 5px; border-left: 0; border-top: 0; }
+
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 0 2px 10px;
+  border-bottom: 1px solid rgba(201, 162, 39, 0.24);
+}
+
+.title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.nowPlaying {
+  min-width: 0;
+  overflow: hidden;
+  font-size: 11px;
+  color: var(--a-brass-lit);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.themes {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 6px 0 2px;
+}
+
+.sectionLabel {
+  margin: 10px 0 0;
+  padding: 0 2px;
+  font-family: var(--a-font-num);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--a-brass);
+}
+
+/* 曲目列表：固定高度可滚，免得主题多的时候浮层超出萤幕 */
+/* 曲目列表：高度交给整个浮层去滚，避免嵌套滚动区 */
+.tracks {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 5px;
+}
+
+.track {
+  display: flex;
+  flex: none;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px 9px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: rgba(20, 12, 6, 0.22);
+  color: var(--a-on-dark);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 140ms var(--a-ease), background 140ms var(--a-ease);
+}
+
+.track[aria-pressed='true'] {
+  border-color: var(--a-brass-lit);
+  background: rgba(201, 162, 39, 0.18);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .track:hover { border-color: rgba(232, 200, 90, 0.55); }
+}
+
+.track:focus-visible { outline: 2px solid #e4d190; outline-offset: 2px; }
+
+.trackTitle {
+  min-width: 0;
+  overflow: hidden;
+  font-size: 12.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.trackNote {
+  flex: none;
+  font-size: 10.5px;
+  color: var(--a-on-dark-soft);
+}
+
+.theme {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: 'label count' 'note count';
+  align-items: center;
+  gap: 1px 10px;
+  padding: 8px 11px;
+  border: 1px solid rgba(255, 244, 214, 0.12);
+  border-radius: 8px;
+  background: rgba(20, 12, 6, 0.35);
+  color: var(--a-on-dark);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 150ms var(--a-ease), background 150ms var(--a-ease);
+}
+
+.theme[data-active='true'] {
+  border-color: var(--a-brass-lit);
+  background: rgba(201, 162, 39, 0.16);
+  box-shadow: inset 0 0 12px rgba(232, 200, 90, 0.14);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .theme:hover { border-color: rgba(232, 200, 90, 0.6); }
+}
+
+.themeLabel {
+  grid-area: label;
+  font-size: 13.5px;
+  font-weight: 700;
+}
+
+.themeNote {
+  grid-area: note;
+  font-size: 11px;
+  color: var(--a-on-dark-soft);
+}
+
+.themeCount {
+  grid-area: count;
+  align-self: center;
+  font-family: var(--a-font-num);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--a-brass);
+}
+
+.row,
+.volume {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 8px 2px;
+  border-top: 1px solid rgba(255, 244, 214, 0.1);
+}
+
+.row { justify-content: space-between; cursor: pointer; }
+
+.rowLabel {
+  flex: none;
+  font-size: 12.5px;
+  color: var(--a-on-dark-soft);
+}
+
+.volume .rowLabel { width: 34px; }
+
+.volumeValue {
+  flex: none;
+  min-width: 30px;
+  font-family: var(--a-font-num);
+  font-size: 12px;
+  font-weight: 700;
+  text-align: right;
+  color: var(--a-brass-lit);
+}
+
+.volumeValue::after {
+  content: '%';
+  margin-left: 1px;
+  font-size: 9px;
+  opacity: 0.7;
+}
+
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: 1;
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(201, 162, 39, 0.75) 0%, rgba(201, 162, 39, 0.18) 100%);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.55);
+  cursor: pointer;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: linear-gradient(160deg, #f4e6bb 0%, var(--a-brass-lit) 40%, var(--a-brass) 72%, var(--a-brass-dark) 100%);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border: 0;
+  border-radius: 50%;
+  background: linear-gradient(160deg, #f4e6bb 0%, var(--a-brass-lit) 40%, var(--a-brass) 72%, var(--a-brass-dark) 100%);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.slider:focus-visible { outline: 2px solid var(--a-brass-lit); outline-offset: 5px; }
+
+/* 开关：与设置页同一套黄铜拨片，只是小一号 */
+.switch {
+  position: relative;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.switch input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.switchTrack {
+  position: relative;
+  display: block;
+  width: 44px;
+  height: 24px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #16241c 0%, #1f3a2a 100%);
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6), inset 0 -1px 0 rgba(255, 255, 255, 0.06);
+  transition: background 180ms var(--a-ease), box-shadow 180ms var(--a-ease);
+}
+
+.switchKnob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: linear-gradient(160deg, #f4e6bb 0%, var(--a-brass-lit) 34%, var(--a-brass) 68%, var(--a-brass-dark) 100%);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  transition: transform 180ms var(--a-ease-spring);
+}
+
+.switch input:checked + .switchTrack {
+  background: linear-gradient(180deg, #8a6f14 0%, var(--a-brass) 100%);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.34), 0 0 10px rgba(201, 162, 39, 0.5);
+}
+
+.switch input:checked + .switchTrack .switchKnob { transform: translateX(20px); }
+
+.switch input:focus-visible + .switchTrack { outline: 2px solid var(--a-brass-lit); outline-offset: 3px; }
+
+@media (max-aspect-ratio: 17/20) {
+  .trigger {
+    position: absolute;
+    top: 52px;
+    right: 44px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .panel {
+    top: 104px;
+    right: 8px;
+    max-height: calc(100vh - 120px);
+    max-height: calc(100dvh - 120px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trigger,
+  .theme,
+  .track,
+  .switchTrack,
+  .switchKnob {
+    transition: none;
+  }
+
+  .panel { transition: none; }
+}

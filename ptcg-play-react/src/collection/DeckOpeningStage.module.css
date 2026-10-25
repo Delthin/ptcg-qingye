@@ -1,0 +1,391 @@
+/*
+ * DeckOpeningStage — 拆开封套的仪式
+ *
+ * 与 PackOpeningStage 同源材质：绒面工作台（.dialog 内部继续保留弹窗外壳的标题结构和关闭钮）
+ *   sealed  一盒贴着黄铜封条的预组盒，撕封条前看不出是哪一套
+ *   reveal  封面卡灯池 + 卡组名 + 这份卡组的全部卡（带张数与稀有度）
+ */
+
+.dialog.dialog {
+  --deck-wood: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.011 0.19' numOctaves='4' seed='31' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='180' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  --deck-felt-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23f)' opacity='0.05'/%3E%3C/svg%3E");
+
+  width: min(860px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  padding: 0;
+  border: 1px solid #0c1710;
+  border-radius: 18px;
+  color: var(--a-on-dark);
+  font-family: var(--a-font-ui);
+  overflow: auto;
+  background:
+    var(--deck-felt-noise) 0 0 / 140px 140px,
+    radial-gradient(ellipse 120% 84% at 50% -12%, rgba(255, 232, 180, 0.1), transparent 55%),
+    radial-gradient(ellipse 88% 62% at 50% 42%, rgba(42, 122, 77, 0.38), transparent 72%),
+    linear-gradient(168deg, #1d4a2f 0%, var(--a-felt-dark) 52%, #102a1b 100%);
+  box-shadow:
+    var(--a-lift-4),
+    inset 0 0 0 1px rgba(201, 162, 39, 0.28),
+    inset 0 0 90px rgba(4, 8, 5, 0.6);
+}
+
+.dialog.dialog::backdrop {
+  background: rgba(6, 10, 7, 0.78);
+}
+
+.dialog.dialog > header {
+  margin: 0;
+  padding: 16px 26px 12px;
+  border-bottom: 1px solid;
+  border-image: linear-gradient(90deg, rgba(201, 162, 39, 0.75), rgba(201, 162, 39, 0.14) 58%, transparent) 1;
+}
+
+.dialog.dialog > header h2 {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  font-family: var(--a-font-display);
+  font-size: 19px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  color: var(--a-on-dark);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.dialog.dialog > header h2::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  margin-right: 11px;
+  background: var(--a-brass);
+  transform: rotate(45deg);
+  box-shadow: 0 0 8px rgba(201, 162, 39, 0.6);
+}
+
+.dialog.dialog > header > button {
+  min-height: 36px;
+  min-width: 36px;
+}
+
+/* ---------------- 顶部一行状态 ---------------- */
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 12px 26px 0;
+  font-family: var(--a-font-num);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--a-on-dark-soft);
+}
+
+.badge {
+  flex: none;
+  padding: 4px 11px;
+  border-radius: 3px;
+  border: 1px solid rgba(201, 162, 39, 0.5);
+  background: rgba(0, 0, 0, 0.28);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  color: var(--a-brass-lit);
+}
+
+.badge[data-open] {
+  border-color: rgba(143, 199, 158, 0.55);
+  color: #b9e3c4;
+}
+
+/* ---------------- 未开封：封着条子的盒子 ---------------- */
+
+.boxScene {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  padding: clamp(22px, 4vh, 40px) 26px clamp(24px, 4vh, 38px);
+  perspective: 900px;
+}
+
+.aura {
+  position: absolute;
+  pointer-events: none;
+  top: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(420px, 70%);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 226, 160, 0.12), transparent 62%);
+  filter: blur(2px);
+}
+
+.box {
+  position: relative;
+  width: min(300px, 62vw);
+  aspect-ratio: 10 / 11;
+  border-radius: 8px;
+  transform-style: preserve-3d;
+  transform: rotateY(-16deg) rotateX(4deg);
+  background:
+    var(--deck-wood) 0 0 / 260px 160px,
+    linear-gradient(165deg, #5d4227, #33220f 74%, #1d1308);
+  box-shadow:
+    0 22px 40px -16px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 228, 175, 0.25),
+    inset 0 -3px 10px rgba(0, 0, 0, 0.55);
+  transition: transform var(--a-t) var(--a-ease-out);
+}
+
+.boxScene:hover .box {
+  transform: rotateY(-8deg) rotateX(2deg) translateY(-6px);
+}
+
+.boxFace {
+  position: absolute;
+  inset: 10px;
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
+  border-radius: 5px;
+  object-fit: cover;
+  opacity: 0.92;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.5);
+}
+
+/* 黄铜封条：横过盒面的那条带子，印着 SEALED DECK */
+.boxSeal {
+  position: absolute;
+  left: -12px;
+  right: -12px;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  height: 42px;
+  transform: translateY(-50%) translateZ(14px);
+  background: linear-gradient(180deg, var(--a-brass-lit) 0%, var(--a-brass) 52%, #96731a 100%);
+  border-top: 1px solid rgba(255, 245, 210, 0.55);
+  border-bottom: 1px solid rgba(60, 40, 0, 0.6);
+  font-family: var(--a-font-num);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  color: #33250a;
+  text-shadow: 0 1px 0 rgba(255, 246, 214, 0.5);
+  box-shadow: 0 6px 14px -6px rgba(0, 0, 0, 0.7);
+}
+
+.boxGloss {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  pointer-events: none;
+  background: linear-gradient(118deg, transparent 30%, rgba(255, 255, 255, 0.16) 44%, transparent 58%);
+}
+
+.hint {
+  margin: 0;
+  text-align: center;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--a-on-dark);
+}
+
+.hintFine {
+  margin: 0;
+  text-align: center;
+  font-family: var(--a-font-num);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  color: var(--a-on-dark-soft);
+}
+
+.tear {
+  min-width: 168px;
+  font-size: 13px;
+}
+
+/* ---------------- 拆开：封面卡 + 卡组名 + 全卡清单 ---------------- */
+
+.revealScene {
+  display: grid;
+  gap: clamp(14px, 2vh, 22px);
+  padding: clamp(18px, 3vh, 28px) 26px clamp(18px, 3vh, 26px);
+  outline: none;
+}
+
+.spotlight {
+  display: grid;
+  place-items: center;
+}
+
+.spotlightCard {
+  position: relative;
+  width: min(212px, 44vw);
+  aspect-ratio: 7 / 10;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow:
+    0 24px 44px -18px rgba(0, 0, 0, 0.75),
+    0 0 0 1px rgba(201, 162, 39, 0.4),
+    0 0 70px rgba(255, 226, 160, 0.14);
+  animation: cardDrop 620ms cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+.spotlightCard[data-tier='prism'],
+.spotlightCard[data-tier='crown'] {
+  box-shadow:
+    0 24px 44px -18px rgba(0, 0, 0, 0.75),
+    0 0 0 1px rgba(255, 226, 160, 0.6),
+    0 0 90px rgba(255, 214, 120, 0.3);
+}
+
+.spotlightCard img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.spotlightSheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(120deg, transparent 34%, rgba(255, 255, 255, 0.28) 48%, transparent 62%);
+  mix-blend-mode: screen;
+  animation: sheenOver 900ms var(--a-ease) 240ms both;
+}
+
+@keyframes cardDrop {
+  from { opacity: 0; transform: translateY(24px) rotate(-8deg) scale(0.86); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes sheenOver {
+  from { opacity: 0; transform: translateX(-30%); }
+  60% { opacity: 0.9; }
+  to { opacity: 0; transform: translateX(30%); }
+}
+
+.verdict {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  text-align: center;
+}
+
+.eyebrow {
+  font-family: var(--a-font-num);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  color: var(--a-on-dark-soft);
+}
+
+.deckName {
+  margin: 0;
+  font-family: var(--a-font-display);
+  font-weight: 400;
+  font-size: clamp(21px, 3.4vw, 28px);
+  letter-spacing: 0.05em;
+  color: var(--a-brass-lit);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55);
+}
+
+.deckFacts {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--a-on-dark-soft);
+}
+
+/* 卡组清单：绒面上的两列铜边小条，太长时自己滚 */
+.cardList {
+  margin: 0;
+  padding: 8px;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 5px 10px;
+  max-height: min(30vh, 260px);
+  overflow: auto;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.24);
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.cardRow {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 6px;
+  border-radius: 5px;
+  font-size: 11.5px;
+}
+
+.cardRow:nth-child(odd) {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.cardThumb {
+  width: 26px;
+  height: 36px;
+  border-radius: 3px;
+  object-fit: cover;
+  background: #16241b;
+}
+
+.cardName {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--a-on-dark);
+}
+
+.cardRarity {
+  font-family: var(--a-font-num);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--a-on-dark-soft);
+}
+
+.cardCount {
+  font-family: var(--a-font-num);
+  font-size: 11px;
+  color: var(--a-brass);
+}
+
+.done {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding-top: 4px;
+}
+
+@media (max-width: 560px) {
+  .cardList {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .meta,
+  .revealScene,
+  .boxScene {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .done :global(.a-btn),
+  .done :global(.a-btn-ghost) {
+    flex: 1 1 auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spotlightCard,
+  .spotlightSheen {
+    animation: none;
+  }
+}

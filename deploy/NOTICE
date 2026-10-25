@@ -1,0 +1,36 @@
+Source and license declaration
+
+Public upstream: twinleaf.gg — https://github.com/ploober/twinleafgg
+Upstream README attribution:
+  Foundation: Keeshii + TheEPSD
+  Based on: https://github.com/keeshii/ryuu-play
+  License: MIT
+
+The upstream source available to this delivery has no tracked standalone
+LICENSE or COPYING. The upstream main/LICENSE raw URL returned HTTP 404
+in the integrating maintainer's verification; the foundation project's
+license could not be retrieved. No original copyright year or additional
+rights holder has been invented here.
+
+LICENSE contains the complete standard MIT permission, condition and
+warranty text based on the upstream README's declaration, not a verified
+copy of a separately supplied original upstream license notice. The legal
+permission chain has not been independently audited. Retain all existing
+source copyright notices; if an original upstream notice is obtained,
+preserve it verbatim alongside these provenance details.
+
+This branch is a modified self-hosted source edition, not an official
+Pokémon service and not an endorsement by the upstream contributors.
+Pokémon names, card art, trademarks, third-party images, text/data collections
+and external reference URLs have separate rights and terms. MIT does not
+grant their redistribution rights. Large third-party media are excluded
+from Git and restored from their listed sources. Reviewed project SVGs
+and the Fusion Poke Pixel WOFF2 font are included; the font retains its
+OFL-1.1 license and attribution under ptcg-play-react/public/fonts/.
+
+Download provenance for card art, coin artwork, PokéWalls / MapleRose
+wallpapers, sound effects and optional music is retained in DATA_SOURCES.md
+and the public manifests. Source availability is not a grant of rights.
+Inclusion of public card text, mappings and recipe JSON is not a
+rights-clearance claim. Redistributors must review each source and dataset's
+applicable permissions.

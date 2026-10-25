@@ -1,0 +1,438 @@
+/*
+ * TutorialRewardScene.module.css — 新手礼包到账场景
+ * 材质与动效完全沿用 arena.css 的 token（胡桃木 / 绿绒 / 黄铜、--a-ease-out、--a-t/--a-t-fast）。
+ * 入场只动 transform/opacity，不引起重排；prefers-reduced-motion 下全部直接呈现最终状态。
+ * 首次时间线：英雄区起(0) → 礼包落桌(120 + i*70) → 封签熄(470) 金带开启(490)
+ *            → 名称揭示(730) 掠光(770) → 到账提示(980)，全程约 1.3s，一次性不循环。
+ */
+
+.scene {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  color: var(--a-on-dark, #f3ead6);
+  font-family: var(--a-font-ui, system-ui, sans-serif);
+  background:
+    radial-gradient(90% 46% at 50% 6%, rgba(232, 200, 90, 0.1), transparent 70%),
+    linear-gradient(180deg, #1c2f42 0%, #231c12 46%, var(--a-walnut-dark, #2e1e14) 100%);
+}
+
+/* —— 内部滚动区：短屏（320×568 等）可滚，底部 CTA 固定不裁 —— */
+.scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  display: flex;
+}
+
+.inner {
+  box-sizing: border-box;
+  min-width: 0;
+  margin: auto; /* auto 边距在溢出时退化为 0，不会裁掉顶部内容 */
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(18px, 3.2dvh, 30px);
+  padding: clamp(18px, 4dvh, 36px) 16px 30px;
+}
+
+/* —— 英雄区 —— */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.tag {
+  margin: 0;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--a-font-display, sans-serif);
+  font-size: clamp(26px, 5.6vw, 40px);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: 0.03em;
+  color: transparent;
+  background: linear-gradient(180deg, #fdf3d8 0%, var(--a-brass-lit, #e8c85a) 46%, var(--a-brass, #c9a227) 74%, #9a7d1c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.55));
+}
+
+.sub {
+  margin: 0;
+  max-width: 34em;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--a-on-dark-soft, rgba(243, 234, 214, 0.66));
+}
+
+/* —— 礼包列：聚光在包后，包浮在光上 —— */
+.giftRow {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 420px;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 6px 4px 14px;
+}
+
+.giftRow::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: 130%;
+  height: 120%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(closest-side, rgba(232, 200, 90, 0.16), rgba(232, 200, 90, 0.05) 55%, transparent 75%);
+  pointer-events: none;
+}
+
+.gift {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  width: min(176px, calc((100% - 16px) / 2));
+  min-width: 0;
+}
+.gift:only-child { width: clamp(122px, 42vw, 176px); }
+
+/* —— 封装预组：错位卡叠厚度 + 封面 + 金带封签 —— */
+.pack {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 5 / 7;
+  filter: drop-shadow(0 16px 24px rgba(0, 0, 0, 0.42));
+}
+
+.leaf {
+  position: absolute;
+  inset: 0;
+  border-radius: 9px;
+  background: linear-gradient(170deg, var(--a-paper, #fffdf6), var(--a-paper-warm, #f6efdd));
+  border: 1px solid var(--a-paper-edge, rgba(74, 50, 34, 0.22));
+  box-shadow: 0 1px 2px rgba(20, 12, 6, 0.25);
+}
+
+.leafA { transform: translate(4px, 5px) rotate(1deg); }
+.leafB { transform: translate(8px, 9px) rotate(-0.7deg); }
+
+.face {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #16241b;
+  box-shadow: inset 0 0 0 1px rgba(201, 162, 39, 0.25);
+}
+
+.art,
+.artImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.artImg { object-fit: contain; }
+
+/* 金带：竖向黄铜封带，开启时向中线收拢（scaleX 从 1 到 0.04，永不为 0） */
+.band {
+  position: absolute;
+  top: -1.5%;
+  bottom: -1.5%;
+  left: 50%;
+  width: 16%;
+  min-width: 14px;
+  border-radius: 3px;
+  background: linear-gradient(90deg,
+    var(--a-brass-dark, #8a6f14) 0%, #d9b977 22%, var(--a-brass-lit, #e8c85a) 42%,
+    var(--a-brass, #c9a227) 62%, var(--a-brass-dark, #8a6f14) 100%);
+  box-shadow: 0 2px 6px rgba(20, 12, 6, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+  transform-origin: center;
+  transform: translateX(-50%) scaleX(0.04);
+  opacity: 0;
+}
+
+/* 封签：黄铜菱形火漆，先于金带熄灭 */
+.seal {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 50%;
+  width: clamp(18px, 16%, 26px);
+  aspect-ratio: 1;
+  border-radius: 3px;
+  background: linear-gradient(135deg, var(--a-brass-lit, #e8c85a), var(--a-brass-dark, #8a6f14));
+  box-shadow: 0 2px 5px rgba(20, 12, 6, 0.55), inset 0 0 0 1.5px rgba(46, 30, 20, 0.45), inset 0 0 0 4px rgba(232, 200, 90, 0.35);
+  transform: translate(-50%, -50%) rotate(45deg) scale(0.4);
+  opacity: 0;
+}
+
+.seal::after {
+  content: '';
+  position: absolute;
+  inset: 26%;
+  border-radius: 2px;
+  background: #2e1e14;
+  box-shadow: inset 0 0 0 1px rgba(232, 200, 90, 0.4);
+}
+
+/* 掠光：首次开启后一道黄铜光扫过，仅一次 */
+.sheen {
+  position: absolute;
+  top: -4%;
+  bottom: -4%;
+  left: 0;
+  width: 32%;
+  opacity: 0;
+  background: linear-gradient(100deg, transparent 8%, rgba(255, 246, 220, 0.55) 50%, transparent 92%);
+}
+
+/* —— 名称区：长名折行，不重排周边 —— */
+.giftInfo {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  text-align: center;
+}
+
+.giftName {
+  font-size: clamp(13.5px, 2vw, 15px);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--a-on-dark, #f3ead6);
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.giftProduct {
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--a-on-dark-soft, rgba(243, 234, 214, 0.6));
+}
+
+.giftMeta {
+  font-family: var(--a-font-num, ui-monospace, monospace);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  color: var(--a-brass-lit, #e8c85a);
+}
+
+/* —— 非 ready 状态的占位卡（不显示假礼包） —— */
+.statusCard {
+  width: min(420px, 100%);
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 28px 22px;
+  text-align: center;
+  border: 1px dashed rgba(201, 162, 39, 0.38);
+  border-radius: 10px;
+  background: radial-gradient(80% 70% at 50% 30%, rgba(42, 122, 77, 0.16), transparent 75%);
+}
+
+.statusText {
+  margin: 0;
+  max-width: 36em;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--a-on-dark-soft, rgba(243, 234, 214, 0.66));
+}
+
+.errorDetail {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #ffba9a;
+  overflow-wrap: anywhere;
+}
+
+/* —— 到账提示（aria-live polite，内容随状态变化播报） —— */
+.notice {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 10px 18px;
+  border: 1px solid rgba(201, 162, 39, 0.3);
+  border-radius: 14px;
+  background: rgba(20, 14, 8, 0.4);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  font-size: 13px;
+  line-height: 1.7;
+  text-align: center;
+  color: var(--a-on-dark, #f3ead6);
+}
+
+.noticeDiamond {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  background: var(--a-brass, #c9a227);
+  transform: rotate(45deg);
+  box-shadow: 0 0 8px rgba(201, 162, 39, 0.7);
+}
+
+/* —— 底部行动区：固定不滚动、不入场、不等动画 —— */
+.footer {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px calc(14px + env(safe-area-inset-bottom, 0px));
+  background: linear-gradient(180deg, rgba(14, 10, 6, 0), rgba(14, 10, 6, 0.55) 30%);
+  border-top: 1px solid rgba(201, 162, 39, 0.22);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+@media (max-width: 480px) {
+  .actions {
+    width: 100%;
+    max-width: 340px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .actions > * { width: 100%; }
+  .actions > :nth-child(3) { grid-column: 1 / -1; }
+}
+
+.restart {
+  font-size: 12px;
+  opacity: 0.78;
+}
+
+/* ============================================================
+   首次入场时间线（.play 挂在 .inner 上；--d = i*70ms 顺次）
+   ============================================================ */
+
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(12px); }
+}
+
+@keyframes packLand {
+  from { opacity: 0; transform: translateY(18px) scale(0.96); }
+}
+
+@keyframes bandOpen {
+  from { opacity: 1; transform: translateX(-50%) scaleX(1); }
+  to { opacity: 0; transform: translateX(-50%) scaleX(0.04); }
+}
+
+@keyframes sealPop {
+  from { opacity: 1; transform: translate(-50%, -50%) rotate(45deg) scale(1); }
+  to { opacity: 0; transform: translate(-50%, -50%) rotate(45deg) scale(0.4); }
+}
+
+@keyframes sheenSweep {
+  0% { opacity: 0; transform: translateX(-160%) skewX(-14deg); }
+  18% { opacity: 0.5; }
+  100% { opacity: 0; transform: translateX(320%) skewX(-14deg); }
+}
+
+@keyframes glowIn {
+  from { opacity: 0; }
+}
+
+.play .hero {
+  animation: riseIn var(--a-t, 240ms) var(--a-ease-out, ease-out) backwards;
+}
+
+.play .giftRow::before {
+  animation: glowIn var(--a-t, 240ms) var(--a-ease-out, ease-out) 160ms backwards;
+}
+
+.play .pack {
+  animation: packLand var(--a-t, 240ms) var(--a-ease-out, ease-out) calc(120ms + var(--d, 0ms)) backwards;
+}
+
+.play .seal {
+  animation: sealPop var(--a-t-fast, 140ms) var(--a-ease-out, ease-out) calc(470ms + var(--d, 0ms)) backwards;
+}
+
+.play .band {
+  animation: bandOpen var(--a-t, 240ms) var(--a-ease-out, ease-out) calc(490ms + var(--d, 0ms)) backwards;
+}
+
+.play .giftInfo {
+  animation: riseIn var(--a-t, 240ms) var(--a-ease-out, ease-out) calc(730ms + var(--d, 0ms)) backwards;
+}
+
+.play .sheen {
+  animation: sheenSweep var(--a-t, 240ms) linear calc(770ms + var(--d, 0ms)) backwards;
+}
+
+.play .notice {
+  animation: riseIn var(--a-t, 240ms) var(--a-ease-out, ease-out) 980ms backwards;
+}
+
+/* ============================================================
+   悬停（仅精确指针）：轻抬一档
+   ============================================================ */
+
+@media (hover: hover) and (pointer: fine) {
+  .gift {
+    transition: transform var(--a-t-fast, 140ms) var(--a-ease-out, ease-out);
+  }
+
+  .gift:hover {
+    transform: translateY(-4px);
+  }
+}
+
+/* ============================================================
+   减少动态：全部直接呈现最终状态，到账信息完整可读
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .play .hero,
+  .play .giftRow::before,
+  .play .pack,
+  .play .seal,
+  .play .band,
+  .play .giftInfo,
+  .play .sheen,
+  .play .notice {
+    animation: none;
+  }
+
+  .gift {
+    transition: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) and (hover: hover) and (pointer: fine) {
+  .gift:hover {
+    transform: none;
+  }
+}

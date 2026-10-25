@@ -1,0 +1,181 @@
+/* 与大厅同族的暮色、胡桃木、绿绒和黄铜入口。 */
+.container {
+  position: relative;
+  isolation: isolate;
+  min-height: 100dvh;
+  padding: 32px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: var(--a-on-dark);
+  font-family: var(--a-font-ui);
+  background:
+    radial-gradient(ellipse at 26% 12%, #e8c85a18, transparent 54%),
+    radial-gradient(ellipse at 74% 64%, #2a7a4d26, transparent 62%),
+    linear-gradient(180deg, #192d35 0%, #17291f 54%, var(--a-walnut-dark) 100%);
+}
+.bgScene { position: absolute; inset: 0; pointer-events: none; }
+.bgSky { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 26%, #c9a22710, transparent 58%); }
+.bgClouds { display: none; }
+.cloud { display: none; }
+.bgMountain {
+  position: absolute;
+  inset: auto -4% 10%;
+  height: 42%;
+  opacity: .45;
+  background: linear-gradient(180deg, #143d26, #0d2119);
+  clip-path: polygon(0 100%, 0 64%, 15% 46%, 25% 54%, 36% 39%, 47% 45%, 58% 30%, 68% 38%, 80% 32%, 91% 47%, 100% 40%, 100% 100%);
+}
+.bgGrass {
+  position: absolute;
+  inset: auto 0 0;
+  height: 16%;
+  background:
+    repeating-linear-gradient(94deg, #ffffff02 0 2px, transparent 2px 7px, #140c0614 7px 9px, transparent 9px 22px),
+    linear-gradient(180deg, var(--a-walnut), var(--a-walnut-dark));
+  border-top: 1px solid #c9a22730;
+  box-shadow: inset 0 2px 0 #e8c85a12;
+}
+.pokeballs { position: absolute; inset: 0; pointer-events: none; }
+.pokeball {
+  position: absolute;
+  width: 88px;
+  height: 88px;
+  opacity: .06;
+  border: 3px solid var(--a-ink);
+  border-radius: 50%;
+  background: linear-gradient(180deg, #b93228 0 47%, var(--a-ink) 47% 53%, var(--a-paper) 53% 100%);
+  box-shadow: inset 0 1px 4px #ffffff55, inset -8px -6px 16px #140c0644;
+  animation: ballFloat 18s ease-in-out infinite;
+  animation-delay: calc(var(--index, 0) * -4s);
+}
+.pokeball::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 25px;
+  height: 25px;
+  transform: translate(-50%, -50%);
+  border: 4px solid var(--a-ink);
+  border-radius: 50%;
+  background: var(--a-paper);
+}
+.pokeball:nth-child(1) { top: 14%; left: 12%; }
+.pokeball:nth-child(2) { top: 54%; right: 12%; }
+.pokeball:nth-child(3) { bottom: 18%; left: 24%; width: 62px; height: 62px; }
+.content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 460px;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  animation: contentRise 420ms var(--a-ease-out) both;
+}
+.logoSection { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.logoRing {
+  display: grid;
+  place-items: center;
+  width: 96px;
+  height: 96px;
+  border: 1px solid var(--a-brass-dark);
+  border-radius: 50%;
+  background: linear-gradient(145deg, var(--a-brass-lit), var(--a-brass) 56%, var(--a-brass-dark));
+  box-shadow: inset 0 2px 1px #fff8, inset 0 -3px 5px #140c0666, var(--a-lift-3);
+}
+.logoCenter {
+  display: grid;
+  place-items: center;
+  width: 80px;
+  height: 80px;
+  border: 1px solid var(--a-brass-dark);
+  border-radius: 50%;
+  background: linear-gradient(155deg, var(--a-paper), var(--a-paper-warm));
+  box-shadow: inset 0 2px 5px #140c0626;
+}
+.logoSvg { display: block; width: 70px; height: 70px; filter: drop-shadow(0 2px 2px #140c0633); }
+.logoText { display: flex; flex-direction: column; align-items: center; gap: 6px; margin: 0; }
+.logoMain {
+  font-family: var(--a-font-brand);
+  /* 像素字：52 = 4×13，关掉抗锯齿保持方块边缘 */
+  font-size: 52px;
+  line-height: 1.1;
+  font-weight: 400;
+  letter-spacing: 0;
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+  color: transparent;
+  background: linear-gradient(180deg, var(--a-paper), var(--a-brass-lit) 48%, var(--a-brass));
+  background-clip: text;
+  -webkit-background-clip: text;
+  filter: drop-shadow(0 3px 4px #140c0666);
+}
+.logoSub { font-size: 10px; line-height: 1.4; font-weight: 600; letter-spacing: .18em; color: var(--a-on-dark-soft); }
+.formCard {
+  padding: 6px;
+  border: 1px solid var(--a-brass-dark);
+  border-radius: 8px;
+  background: linear-gradient(150deg, var(--a-walnut-lit), var(--a-walnut-dark));
+  box-shadow: inset 0 1px 0 #e8c85a55, var(--a-lift-4);
+}
+.formTabs { display: flex; border-bottom: 1px solid var(--a-brass-dark); background: var(--a-felt-dark); border-radius: 3px 3px 0 0; }
+.formTab { position: relative; flex: 1; min-height: 46px; padding: 12px; border: 0; background: none; color: var(--a-on-dark-soft); font-size: 14px; font-weight: 600; }
+.formTabActive { color: var(--a-brass-lit); background: #c9a22712; }
+.formTabActive::after { content: ''; position: absolute; height: 2px; left: 18px; right: 18px; bottom: 0; background: var(--a-brass); }
+.form { display: flex; flex-direction: column; gap: 20px; padding: 26px 28px 20px; background: var(--a-paper-warm); color: var(--a-ink); }
+.formField { display: flex; flex-direction: column; gap: 8px; }
+.formLabel { font-size: 13px; font-weight: 600; color: var(--a-ink-soft); }
+.formInput {
+  display: block;
+  width: 100%;
+  min-height: 46px;
+  padding: 11px 14px;
+  border: 1px solid var(--a-paper-edge);
+  border-radius: 4px;
+  background: var(--a-paper);
+  color: var(--a-ink);
+  font-size: 14px;
+  box-shadow: inset 0 2px 4px #140c0614;
+  transition: border-color var(--a-t-fast), box-shadow var(--a-t-fast);
+}
+.formInput::placeholder { color: #887967; }
+.formInput:focus { outline: none; border-color: var(--a-brass); box-shadow: inset 0 2px 4px #140c0614, 0 0 0 3px #c9a22726; }
+.formInput:disabled { opacity: .55; }
+.formInput:-webkit-autofill { -webkit-text-fill-color: var(--a-ink); box-shadow: inset 0 0 0 100px var(--a-paper); }
+.error { display: flex; align-items: flex-start; gap: 8px; padding: 10px 12px; border: 1px solid #ad45384d; border-left: 3px solid #a4382d; border-radius: 3px; color: #912f24; background: #a4382d0a; font-size: 12px; line-height: 1.6; animation: errorShake 240ms ease-out; }
+.errorIcon { flex-shrink: 0; width: 16px; height: 16px; margin-top: 2px; }
+.submitBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 12px 20px;
+  border: 1px solid var(--a-brass-dark);
+  border-radius: 5px;
+  color: var(--a-ink);
+  background: linear-gradient(155deg, var(--a-brass-lit), var(--a-brass));
+  box-shadow: inset 0 1px 0 #fff8, 0 3px 0 var(--a-brass-dark), var(--a-lift-1);
+  font-size: 14px;
+  font-weight: 700;
+  transition: transform var(--a-t-fast) var(--a-ease-out), filter var(--a-t-fast);
+}
+.submitBtn:active:not(:disabled) { transform: translateY(2px); box-shadow: inset 0 2px 3px #140c0633; }
+.submitBtn:disabled { opacity: .55; box-shadow: none; }
+.formTab:focus-visible, .submitBtn:focus-visible { outline: 2px solid var(--a-brass-lit); outline-offset: 3px; }
+.spinner { display: block; width: 16px; height: 16px; border: 2px solid #2a1f1444; border-top-color: var(--a-ink); border-radius: 50%; animation: spin 700ms linear infinite; }
+.formFooter { padding: 0 24px 18px; border-radius: 0 0 3px 3px; background: var(--a-paper-warm); }
+.formHint { color: var(--a-ink-soft); text-align: center; font-size: 11px; line-height: 1.6; }
+.footer, .footerPattern { display: none; }
+@keyframes ballFloat { 50% { transform: translateY(-14px); } }
+@keyframes contentRise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes errorShake { 25%, 75% { transform: translateX(-3px); } 50% { transform: translateX(3px); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (hover: hover) and (pointer: fine) { .formTab:hover { color: var(--a-brass-lit); } .submitBtn:hover:not(:disabled) { filter: brightness(1.06); } }
+@media (max-height: 720px) { .container { padding: 20px 0; } .content { gap: 18px; } .logoRing { width: 76px; height: 76px; } .logoCenter { width: 64px; height: 64px; } .logoSvg { width: 56px; height: 56px; } .logoMain { font-size: 39px; } .form { padding: 20px 24px 18px; gap: 16px; } }
+@media (max-width: 480px) { .content { padding: 0 18px; } .logoMain { font-size: 39px; } .form { padding-inline: 20px; } .pokeball:nth-child(2) { right: -30px; } }
+@media (prefers-reduced-motion: reduce) { .content, .pokeball, .error, .spinner { animation: none; } .formInput, .submitBtn { transition: none; } .submitBtn:active:not(:disabled) { transform: none; } }

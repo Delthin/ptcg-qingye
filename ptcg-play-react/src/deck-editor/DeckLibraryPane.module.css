@@ -1,0 +1,406 @@
+/* ============================================================
+   卡池：台面左边的绿绒卡架
+   卡片躺在带稀有度描边的凹槽里，悬停抬起、覆膜反光。
+   ============================================================ */
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1;
+  position: relative;
+  border-radius: 9px;
+  overflow: hidden;
+  color: var(--a-on-dark);
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(42, 122, 77, 0.3), transparent 62%),
+    linear-gradient(180deg, #245738 0%, var(--a-felt) 45%, var(--a-felt-dark) 100%);
+  border: 1px solid rgba(201, 162, 39, 0.28);
+  box-shadow:
+    inset 0 2px 14px rgba(0, 0, 0, 0.55),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.scroll {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  position: relative;
+  padding: 14px 12px 30px;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201, 162, 39, 0.35) rgba(0, 0, 0, 0.25);
+}
+
+.scroll::-webkit-scrollbar {
+  width: 10px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background: rgba(201, 162, 39, 0.32);
+  border-radius: 5px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.scroll::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.gridInner {
+  position: relative;
+  width: 100%;
+}
+
+/* ============================================================
+   卡槽：稀有度描边 + 外发光
+   ============================================================ */
+
+.thumb {
+  --r-c: var(--a-r-common);
+  --r-glow: rgba(139, 131, 120, 0.4);
+  position: relative;
+  flex: none;
+}
+
+.thumb[data-r='uncommon'] {
+  --r-c: var(--a-r-uncommon);
+  --r-glow: rgba(79, 154, 94, 0.5);
+}
+
+.thumb[data-r='rare'] {
+  --r-c: var(--a-r-rare);
+  --r-glow: rgba(63, 127, 208, 0.55);
+}
+
+.thumb[data-r='holo'] {
+  --r-c: var(--a-r-holo);
+  --r-glow: rgba(155, 108, 224, 0.6);
+}
+
+.thumb[data-r='ultra'] {
+  --r-c: var(--a-r-ultra);
+  --r-glow: rgba(224, 85, 154, 0.6);
+}
+
+.thumb[data-r='secret'] {
+  --r-c: var(--a-r-secret);
+  --r-glow: rgba(217, 165, 32, 0.6);
+}
+
+/* 卡槽：卡位凹槽，卡放进去时露出稀有度色的边 */
+.thumb::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 9px;
+  background: rgba(6, 14, 9, 0.38);
+  box-shadow:
+    inset 0 0 0 1px var(--r-c),
+    inset 0 2px 6px rgba(0, 0, 0, 0.5),
+    0 0 10px -3px var(--r-glow);
+  transition: box-shadow var(--a-t) var(--a-ease-out);
+  pointer-events: none;
+}
+
+.cardFace {
+  position: relative;
+  width: 100%;
+  border-radius: 8px;
+}
+
+/* 覆膜高光：斜向一道光泽，悬停时滑过 */
+.cardFace::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: 8px;
+  pointer-events: none;
+  background: linear-gradient(115deg,
+    transparent 32%,
+    rgba(255, 255, 255, 0.13) 44%,
+    rgba(255, 255, 255, 0.2) 48%,
+    rgba(255, 255, 255, 0.1) 54%,
+    transparent 66%);
+  background-size: 240% 100%;
+  background-position: 72% 0;
+  opacity: 0.7;
+  transition: background-position 700ms var(--a-ease-out);
+}
+
+/* 全息/闪卡：彩虹叠层 */
+.thumb[data-r='holo'] .cardFace::after,
+.thumb[data-r='ultra'] .cardFace::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: 8px;
+  pointer-events: none;
+  background: linear-gradient(115deg,
+    rgba(255, 110, 190, 0.14) 8%,
+    rgba(120, 230, 255, 0.12) 26%,
+    rgba(180, 255, 140, 0.1) 44%,
+    rgba(255, 230, 110, 0.14) 62%,
+    rgba(160, 130, 255, 0.12) 80%);
+  mix-blend-mode: color-dodge;
+}
+
+.infoButton {
+  display: block;
+  width: 100%;
+  background: none;
+  border: 0;
+  padding: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.45));
+  transition: transform 170ms var(--a-ease-out), filter 170ms var(--a-ease-out);
+}
+
+/* Only the card face/slot is muted; ownership text and controls stay legible. */
+.thumb[data-unavailable='true'] .infoButton,
+.thumb[data-unavailable='true'] .infoButton:hover {
+  filter: grayscale(1) brightness(0.68);
+}
+
+.thumb[data-unavailable='true']::before {
+  --r-c: #8b8378;
+  --r-glow: transparent;
+}
+
+.thumb[data-unavailable='true'] .cardFace::before,
+.thumb[data-unavailable='true'] .cardFace::after {
+  opacity: 0;
+}
+
+.infoButton:focus-visible {
+  outline: 2px solid var(--a-brass-lit);
+  outline-offset: 4px;
+}
+
+/* —— 在卡组里的数量：小铜牌 —— */
+.countCircle {
+  display: grid;
+  place-items: center;
+  position: absolute;
+  top: -7px;
+  left: -7px;
+  width: 38px;
+  height: 26px;
+  border: 1px solid var(--a-brass-dark);
+  border-radius: 13px;
+  background: linear-gradient(180deg, var(--a-brass-lit) 0%, var(--a-brass) 55%, #a8831c 100%);
+  color: #241a06;
+  font: 700 12px/1 var(--a-font-num);
+  cursor: pointer;
+  padding: 0;
+  z-index: 5;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    0 2px 5px rgba(0, 0, 0, 0.5);
+  transition: transform var(--a-t-fast) var(--a-ease);
+}
+
+.countCircle:active {
+  transform: scale(0.94);
+}
+
+.countCircle:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+/* —— 圆钮：黄铜加卡 / 青铜减卡 —— */
+.circleBtn {
+  display: grid;
+  place-items: center;
+  position: absolute;
+  bottom: 5px;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(0, 0, 0, 0.38);
+  border-radius: 21px;
+  background: radial-gradient(circle at 32% 28%, var(--a-brass-lit), var(--a-brass) 58%, #96771a);
+  color: #241a06;
+  font: 700 19px/1 var(--a-font-ui);
+  cursor: pointer;
+  padding: 0;
+  z-index: 5;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    0 3px 0 #6d5710,
+    0 6px 12px rgba(0, 0, 0, 0.45);
+  transition:
+    transform var(--a-t-fast) var(--a-ease),
+    box-shadow var(--a-t-fast) var(--a-ease),
+    filter var(--a-t-fast) var(--a-ease);
+}
+
+/* 按压：厚度归零，键真的陷下去 */
+.circleBtn:active {
+  transform: translateY(3px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 0 0 #6d5710,
+    0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.circleBtn:disabled {
+  color: var(--a-on-dark);
+  background: #4a503e;
+  cursor: default;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 2px 3px rgba(0, 0, 0, 0.35);
+}
+
+.circleBtnRemove {
+  left: 0;
+  background: radial-gradient(circle at 32% 28%, #6f5238, #45301f 62%, #2b1c12);
+  color: var(--a-on-dark);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 3px 0 #170f09,
+    0 6px 12px rgba(0, 0, 0, 0.45);
+}
+
+.circleBtnRemove:active {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 0 #170f09,
+    0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.circleBtnAdd {
+  right: 0;
+}
+
+/* —— 卡下信息行 —— */
+.metadata {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 26px;
+  padding: 6px 2px 0;
+  font-size: 9.5px;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  color: var(--a-on-dark-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.metadata i {
+  font-style: normal;
+  color: var(--a-brass-lit);
+  margin-left: 6px;
+  font-size: 9px;
+}
+
+.metadata[data-limited='true'] {
+  color: #eba385;
+}
+
+/* 管理员类型角标 */
+.typeBadge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 15px;
+  height: 15px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* —— 空卡架 —— */
+.empty {
+  margin: 36px 18px;
+  padding: 46px 20px;
+  border: 1px dashed rgba(201, 162, 39, 0.4);
+  border-radius: 8px;
+  background: radial-gradient(ellipse at 50% 40%, rgba(42, 122, 77, 0.22), transparent 72%);
+  font-size: 12.5px;
+  line-height: 1.8;
+  color: var(--a-on-dark-soft);
+  text-align: center;
+}
+
+.circleBtn:focus-visible,
+.countCircle:focus-visible {
+  outline: 2px solid var(--a-brass-lit);
+  outline-offset: 2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .infoButton:hover {
+    transform: translateY(-4px);
+    filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.5));
+  }
+
+  .thumb:hover::before {
+    box-shadow:
+      inset 0 0 0 1px var(--r-c),
+      inset 0 2px 6px rgba(0, 0, 0, 0.5),
+      0 0 16px -2px var(--r-glow);
+  }
+
+  .thumb:hover .cardFace::before {
+    background-position: 8% 0;
+  }
+
+  .circleBtn:not(:disabled):hover {
+    filter: brightness(1.08);
+  }
+
+  .countCircle:not(:disabled):hover {
+    filter: brightness(1.08);
+  }
+}
+
+@media (max-width: 899px) {
+  .countCircle {
+    top: -4px;
+    left: -4px;
+    width: 42px;
+    height: 30px;
+    font-size: 13px;
+  }
+
+  .circleBtn {
+    width: 46px;
+    height: 46px;
+    font-size: 21px;
+  }
+
+  .metadata {
+    font-size: 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .infoButton,
+  .circleBtn,
+  .countCircle,
+  .thumb::before {
+    transition: none;
+  }
+
+  .infoButton:hover {
+    transform: none;
+  }
+
+  .circleBtn:active,
+  .countCircle:active {
+    transform: none;
+  }
+
+  .cardFace::before {
+    transition: none;
+  }
+}

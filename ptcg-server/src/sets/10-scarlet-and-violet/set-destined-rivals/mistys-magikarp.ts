@@ -1,0 +1,42 @@
+import { AbstractAttackEffect } from '../../../game/store/effects/attack-effects';
+import { PokemonCard } from '../../../game/store/card/pokemon-card';
+import { Stage, CardType, CardTag } from '../../../game/store/card/card-types';
+import { StoreLike, State, PowerType, StateUtils } from '../../../game';
+import { Effect } from '../../../game/store/effects/effect';
+import { IS_ABILITY_BLOCKED } from '../../../game/store/prefabs/prefabs';
+
+export class MistysMagikarp extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  protected _tags = [CardTag.MISTYS];
+  public cardType: CardType[] = [W];
+  public hp: number = 30;
+  public weakness = [{ type: L }];
+  public retreat = [C];
+
+  public powers = [
+    {
+      name: 'Storehouse Hideaway',
+      powerType: PowerType.ABILITY,
+      text:
+        'As long as this Pokémon is on your Bench, prevent all damage from and effects of attacks ' +
+        "from your opponent's Pokémon done to this Pokémon.",
+    },
+  ];
+
+  public attacks = [{ name: 'Splash', cost: [W], damage: 10, text: '' }];
+
+  public set: string = 'DRI';
+  public name: string = "Misty's Magikarp";
+  public fullName: string = "Misty's Magikarp DRI";
+  public regulationMark = 'I';
+  public cardImage: string = 'assets/cardback.png';
+  public setNumber: string = '48';
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (!(effect instanceof AbstractAttackEffect) || effect.target.getPokemonCard() !== this) return state;
+    const owner = StateUtils.findOwner(state, effect.target);
+    if (owner === effect.player || effect.target === owner.active || IS_ABILITY_BLOCKED(store, state, owner, this)) return state;
+    effect.preventDefault = true;
+    return state;
+  }
+}

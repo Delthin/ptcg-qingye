@@ -1,0 +1,458 @@
+/* ────────────────────────────────────────────────────────────────────────────
+   game-shell — 桌面材质外观，服务于所有非牌桌页面。
+   规则全部限定在 `.duo-shell:not(.duo-shell-table)`，牌桌及其覆盖层不受影响。
+
+   调色板与 src/styles/arena.css 对齐：胡桃木 / 绿绒 / 黄铜 / 奶油纸卡。
+   这里保留 --duo-* 这个名字（大量旧模块仍按此名引用），但取值改为新材质，
+   这样牌桌外壳、卡组编辑器、管理页、加载屏会一起跟上，无需逐文件重写。
+   ──────────────────────────────────────────────────────────────────────────── */
+
+.duo-shell:not(.duo-shell-table) {
+  --duo-bg: #2e1e14;         /* 桌面底：深胡桃木 */
+  --duo-panel: #fffdf6;      /* 奶油纸卡，保留 */
+  --duo-line: rgba(74, 50, 34, 0.24);
+  --duo-ink: #2a1f14;        /* 纸上墨色 */
+  --duo-muted: #5c4a38;
+  --duo-gold: #8a6f14;       /* 文字用的可读黄铜深色 */
+  --duo-red: #c03318;
+  --shell-edge: rgba(74, 50, 34, 0.3);
+  --pika: #e8c85a;           /* 亮铜，作填充与小标记 */
+  --pika-deep: #c9a227;
+  --poke-red: #cf2e10;
+  --ink-shadow: rgba(20, 12, 6, 0.34);
+  background:
+    radial-gradient(120% 70% at 50% -12%, rgba(255, 226, 168, 0.16), transparent 58%),
+    radial-gradient(70% 45% at 88% -16%, rgba(201, 162, 39, 0.14), transparent 62%),
+    radial-gradient(80% 55% at -8% 112%, rgba(42, 122, 77, 0.18), transparent 66%),
+    linear-gradient(180deg, #24425f 0%, #1d3448 24%, #2b2419 58%, #2e1e14 100%);
+  color: var(--duo-ink);
+}
+
+/* ── Top bar ─────────────────────────────────────────────────────────────── */
+
+.duo-shell:not(.duo-shell-table) .duo-nav {
+  flex: 0 0 auto;
+  min-height: 64px;
+  padding: 0 clamp(18px, 3vw, 44px);
+  gap: clamp(18px, 3.2vw, 42px);
+  border-bottom: 1px solid rgba(74, 50, 34, 0.24);
+  background: linear-gradient(180deg, rgba(255, 253, 246, 0.97) 0%, rgba(246, 239, 221, 0.95) 100%);
+  box-shadow: 0 1px 0 rgba(201, 162, 39, 0.5), 0 4px 16px rgba(20, 12, 6, 0.14);
+  backdrop-filter: blur(10px) saturate(130%);
+}
+
+.duo-shell:not(.duo-shell-table) .duo-brand {
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--duo-ink);
+}
+
+/* Classic Pokéball mark: brass ring, walnut band, cream underside. */
+.duo-shell:not(.duo-shell-table) .duo-ball {
+  border-color: #8a6f14;
+  background: linear-gradient(#cf2e10 0 46%, #8a6f14 46% 54%, transparent 54%);
+}
+
+.duo-shell:not(.duo-shell-table) .duo-ball::after {
+  background: #fffdf6;
+  border-color: #8a6f14;
+}
+
+.duo-shell:not(.duo-shell-table) .duo-nav nav {
+  gap: clamp(2px, 1.4vw, 18px);
+}
+
+.duo-shell:not(.duo-shell-table) .duo-nav nav a {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 64px;
+  padding: 0 13px;
+  font-size: 13px;
+  font-weight: 650;
+  letter-spacing: 0.05em;
+  color: var(--duo-muted);
+}
+
+.duo-shell:not(.duo-shell-table) .duo-nav nav a svg {
+  display: block;
+  opacity: 0.8;
+}
+
+/* Sliding highlight: grows from the left edge on hover, locks when active. */
+.duo-shell:not(.duo-shell-table) .duo-nav nav a::after {
+  content: '';
+  position: absolute;
+  left: 13px;
+  right: 13px;
+  bottom: 0;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: var(--pika);
+  opacity: 0.45;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 180ms var(--ease-out), opacity 180ms var(--ease-out);
+}
+
+.duo-shell:not(.duo-shell-table) .duo-nav nav a.active {
+  color: var(--duo-ink);
+}
+
+.duo-shell:not(.duo-shell-table) .duo-nav nav a.active svg {
+  color: var(--duo-gold);
+  opacity: 1;
+}
+
+.duo-shell:not(.duo-shell-table) .duo-nav nav a.active::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.duo-shell:not(.duo-shell-table) .duo-caret {
+  transform: rotate(90deg);
+  color: var(--duo-muted);
+}
+
+/* Presence: green = free, Pokéball red = in battle. */
+.duo-shell:not(.duo-shell-table) .duo-presence { background: #b0bccd; }
+.duo-shell:not(.duo-shell-table) .duo-presence.is-online { background: #2f9e5f; box-shadow: 0 0 0 3px rgba(47, 158, 95, 0.16); }
+.duo-shell:not(.duo-shell-table) .duo-presence.is-busy { background: var(--poke-red); box-shadow: 0 0 0 3px rgba(227, 53, 13, 0.14); }
+
+.duo-shell:not(.duo-shell-table) .duo-user-menu summary {
+  gap: 8px;
+  min-height: 44px;
+  padding: 4px 9px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  transition: background-color 140ms var(--ease-out), border-color 140ms var(--ease-out);
+}
+
+.duo-shell:not(.duo-shell-table) .duo-user-menu > div {
+  min-width: 168px;
+  background: #fffdf6;
+  border: 1px solid rgba(36, 64, 110, 0.16);
+  border-radius: 4px;
+  box-shadow: 0 18px 44px var(--ink-shadow);
+}
+
+.duo-shell:not(.duo-shell-table) .duo-user-menu > div a,
+.duo-shell:not(.duo-shell-table) .duo-user-menu > div button {
+  border-radius: 3px;
+}
+
+.duo-shell:not(.duo-shell-table) .duo-user-menu > div a:hover,
+.duo-shell:not(.duo-shell-table) .duo-user-menu > div button:hover {
+  background: rgba(255, 210, 31, 0.24);
+}
+
+/* ── Shared controls ─────────────────────────────────────────────────────── */
+
+.duo-shell:not(.duo-shell-table) .duo-button {
+  min-height: 44px;
+  padding: 9px 18px;
+  border: 1px solid var(--shell-edge);
+  border-radius: 4px;
+  background: #ffffff;
+  color: var(--duo-ink);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  gap: 9px;
+  box-shadow: 0 1px 2px rgba(31, 58, 102, 0.12), inset 0 1px 0 #ffffff;
+  transition: border-color 140ms var(--ease-out), background-color 140ms var(--ease-out),
+    transform 120ms var(--ease-out), box-shadow 140ms var(--ease-out);
+}
+
+.duo-shell:not(.duo-shell-table) .duo-button:not(:disabled):active {
+  transform: translateY(1px);
+  box-shadow: inset 0 2px 4px rgba(31, 58, 102, 0.14);
+}
+
+.duo-shell:not(.duo-shell-table) .duo-button:disabled {
+  background: #f1f3f7;
+  border-color: #dbe1e9;
+  color: #8d99ad;
+  box-shadow: none;
+  opacity: 1;
+}
+
+.duo-shell:not(.duo-shell-table) .duo-button-primary {
+  border-color: var(--pika-deep);
+  background: var(--pika);
+  color: #23324e;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), inset 0 -2px 0 rgba(217, 168, 0, 0.55),
+    0 4px 14px rgba(255, 210, 31, 0.45);
+}
+
+.duo-shell:not(.duo-shell-table) .duo-button-primary:disabled {
+  background: #f1f3f7;
+  border-color: #dbe1e9;
+  color: #8d99ad;
+  box-shadow: none;
+}
+
+.duo-shell:not(.duo-shell-table) .duo-icon-button {
+  width: 40px;
+  min-height: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--shell-edge);
+  border-radius: 4px;
+  background: #ffffff;
+  color: var(--duo-ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 2px rgba(31, 58, 102, 0.1);
+  transition: border-color 140ms var(--ease-out), background-color 140ms var(--ease-out);
+}
+
+.duo-shell:not(.duo-shell-table) .duo-text-link {
+  color: var(--duo-gold);
+  font-weight: 550;
+  transition: color 140ms var(--ease-out);
+}
+
+/* ── Surfaces ────────────────────────────────────────────────────────────── */
+
+.duo-shell:not(.duo-shell-table) .duo-panel {
+  border: 1px solid var(--duo-line);
+  border-radius: 4px;
+  background: var(--duo-panel);
+  box-shadow: 0 10px 26px rgba(31, 58, 102, 0.1);
+}
+
+.duo-shell:not(.duo-shell-table) .duo-eyebrow {
+  color: var(--duo-gold);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+}
+
+.duo-shell:not(.duo-shell-table) .duo-field input,
+.duo-shell:not(.duo-shell-table) .duo-field select {
+  border-color: var(--shell-edge);
+  border-radius: 4px;
+  background: #ffffff;
+  color: var(--duo-ink);
+}
+
+.duo-shell:not(.duo-shell-table) .duo-field input::placeholder,
+.duo-shell:not(.duo-shell-table) .duo-field select::placeholder {
+  color: var(--duo-muted);
+}
+
+.duo-shell:not(.duo-shell-table) .duo-field input:focus,
+.duo-shell:not(.duo-shell-table) .duo-field select:focus {
+  border-color: var(--pika-deep);
+  box-shadow: 0 0 0 3px rgba(255, 210, 31, 0.35);
+}
+
+.duo-shell:not(.duo-shell-table) .duo-field select option { background: #fffdf6; color: var(--duo-ink); }
+
+.duo-shell:not(.duo-shell-table) .duo-error {
+  border-color: rgba(199, 47, 16, 0.32);
+  border-radius: 4px;
+  background: rgba(227, 53, 13, 0.07);
+  color: #b7280c;
+}
+
+.duo-shell:not(.duo-shell-table) .duo-empty {
+  border: 1px dashed rgba(36, 64, 110, 0.28);
+  border-radius: 4px;
+  color: var(--duo-muted);
+}
+
+.duo-shell:not(.duo-shell-table) .duo-field,
+.duo-shell:not(.duo-shell-table) .duo-empty strong {
+  color: var(--duo-ink);
+}
+
+/* Native dialog chrome — kept at :where specificity so pack-opening's own
+   `.dialog.dialog` styles always win. Top layer keeps DOM position, so the
+   scope still excludes the table. */
+:where(.duo-shell:not(.duo-shell-table)) .duo-dialog {
+  border: 1px solid rgba(36, 64, 110, 0.2);
+  border-radius: 7px;
+  background: #fffdf6;
+  box-shadow: 0 24px 60px rgba(31, 58, 102, 0.3), inset 0 1px 0 #ffffff;
+}
+
+:where(.duo-shell:not(.duo-shell-table)) .duo-dialog::backdrop {
+  background: rgba(31, 58, 102, 0.38);
+  backdrop-filter: blur(4px);
+}
+
+.duo-shell:not(.duo-shell-table) .duo-dialog > header > h2 {
+  position: relative;
+  padding-left: 13px;
+}
+
+.duo-shell:not(.duo-shell-table) .duo-dialog > header > h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--poke-red);
+}
+
+/* ── Match list / records ────────────────────────────────────────────────── */
+
+.duo-shell:not(.duo-shell-table) .duo-match-list {
+  border: 1px solid var(--duo-line);
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--duo-panel);
+}
+
+.duo-shell:not(.duo-shell-table) .duo-match-row {
+  padding: 15px 20px;
+  background: var(--duo-panel);
+  border-bottom: 1px solid var(--duo-line);
+}
+
+.duo-shell:not(.duo-shell-table) .duo-match-row:last-child { border-bottom: 0; }
+
+.duo-shell:not(.duo-shell-table) .duo-result.won { background: rgba(47, 158, 95, 0.12); color: #1f7a45; }
+.duo-shell:not(.duo-shell-table) .duo-result.lost { background: rgba(227, 53, 13, 0.09); color: #c03318; }
+.duo-shell:not(.duo-shell-table) .duo-result.draw { background: rgba(93, 113, 145, 0.12); color: #52627e; }
+
+/* ── Focus ───────────────────────────────────────────────────────────────── */
+
+.duo-shell:not(.duo-shell-table) button:focus-visible,
+.duo-shell:not(.duo-shell-table) a:focus-visible,
+.duo-shell:not(.duo-shell-table) summary:focus-visible,
+.duo-shell:not(.duo-shell-table) input:focus-visible,
+.duo-shell:not(.duo-shell-table) select:focus-visible {
+  outline: 2px solid var(--duo-gold);
+  outline-offset: 3px;
+}
+
+/* ── Pointer-gated hover ─────────────────────────────────────────────────── */
+
+@media (hover: hover) and (pointer: fine) {
+  .duo-shell:not(.duo-shell-table) .duo-nav nav a:not(.active):hover {
+    color: var(--duo-ink);
+  }
+
+  .duo-shell:not(.duo-shell-table) .duo-nav nav a:not(.active):hover::after {
+    transform: scaleX(1);
+  }
+
+  .duo-shell:not(.duo-shell-table) .duo-user-menu summary:hover {
+    background: rgba(36, 64, 110, 0.06);
+  }
+
+  .duo-shell:not(.duo-shell-table) .duo-button:not(:disabled):not(.duo-button-primary):hover {
+    border-color: var(--pika-deep);
+    background: #fffef9;
+  }
+
+  .duo-shell:not(.duo-shell-table) .duo-button-primary:not(:disabled):hover {
+    background: #ffd94d;
+    border-color: var(--pika-deep);
+  }
+
+  .duo-shell:not(.duo-shell-table) .duo-icon-button:hover {
+    border-color: var(--pika-deep);
+    background: #fffef9;
+  }
+
+  .duo-shell:not(.duo-shell-table) .duo-text-link:hover,
+  .duo-shell:not(.duo-shell-table) .duo-nav-subtle:hover {
+    color: #8f6108;
+  }
+
+  .duo-shell:not(.duo-shell-table) .duo-match-row:hover {
+    background: #fffffc;
+  }
+}
+
+/* ── Responsive top bar ──────────────────────────────────────────────────── */
+
+@media (max-width: 950px) {
+  .duo-shell:not(.duo-shell-table) .duo-nav { gap: 16px; }
+  .duo-shell:not(.duo-shell-table) .duo-brand { font-size: 15px; }
+}
+
+@media (max-width: 800px) {
+  .duo-shell:not(.duo-shell-table) .duo-nav {
+    flex-wrap: wrap;
+    flex-basis: auto;
+    min-height: 0;
+    padding: 10px 16px 0;
+    gap: 6px 14px;
+  }
+
+  .duo-shell:not(.duo-shell-table) .duo-nav nav {
+    order: 3;
+    width: 100%;
+    height: 46px;
+    gap: 2px;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .duo-shell:not(.duo-shell-table) .duo-nav nav::-webkit-scrollbar { display: none; }
+
+  .duo-shell:not(.duo-shell-table) .duo-nav nav a {
+    flex: none;
+    min-height: 46px;
+    padding: 0 12px;
+  }
+
+  .duo-shell:not(.duo-shell-table) .duo-nav nav a::after {
+    bottom: 6px;
+  }
+
+  .duo-shell:not(.duo-shell-table) .duo-user-menu summary {
+    gap: 6px;
+    padding: 3px 8px;
+  }
+
+  .duo-shell:not(.duo-shell-table) .duo-user-menu summary > span:not(:last-child) {
+    max-width: 64px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .duo-shell:not(.duo-shell-table) .duo-nav nav a { padding: 0 10px; gap: 6px; }
+  .duo-shell:not(.duo-shell-table) .duo-nav nav a::after { left: 10px; right: 10px; }
+}
+
+@media (max-width: 420px) {
+  .duo-shell:not(.duo-shell-table) .duo-nav { padding: 10px 12px 0; }
+  .duo-shell:not(.duo-shell-table) .duo-brand { font-size: 14px; gap: 8px; }
+  .duo-shell:not(.duo-shell-table) .duo-brand .duo-ball { width: 24px; height: 24px; }
+  .duo-shell:not(.duo-shell-table) .duo-user-menu summary > span { display: none; }
+}
+
+/* ── Preference fallbacks ────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .duo-shell:not(.duo-shell-table) .duo-nav nav a::after {
+    transition: opacity 120ms ease;
+  }
+
+  .duo-shell:not(.duo-shell-table) .duo-button {
+    transition: border-color 100ms ease, background-color 100ms ease;
+  }
+
+  .duo-shell:not(.duo-shell-table) .duo-button:not(:disabled):active {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .duo-shell:not(.duo-shell-table) .duo-nav { background: #fffdf6; backdrop-filter: none; }
+  .duo-shell:not(.duo-shell-table) .duo-dialog::backdrop { background: rgba(31, 58, 102, 0.5); backdrop-filter: none; }
+}

@@ -1,0 +1,111 @@
+/* ============================================================
+   黄铜拨片开关 —— 嵌在绒面上的滑槽：关=暗铜凹槽，开=黄铜亮槽
+   ============================================================ */
+
+.paper {
+  --duo-control-ink: var(--a-ink);
+  --duo-control-muted: var(--a-ink-soft);
+}
+
+.switch {
+  position: relative;
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-family: var(--a-font-ui);
+  font-size: 13px;
+  color: var(--duo-control-ink, var(--a-on-dark));
+  user-select: none;
+}
+
+.input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: inherit;
+}
+
+.track {
+  position: relative;
+  flex: none;
+  box-sizing: border-box;
+  pointer-events: none;
+  width: 52px;
+  height: 28px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #16241c, #1f3a2a);
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.55),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  transition: background var(--a-t) var(--a-ease), border-color var(--a-t) var(--a-ease), box-shadow var(--a-t) var(--a-ease);
+}
+
+.knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  box-sizing: border-box;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(160deg, #f4e6bb, var(--a-brass-lit) 34%, var(--a-brass) 68%, var(--a-brass-dark));
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.7), inset 0 -1px 0 rgba(0, 0, 0, 0.24);
+  transition: transform var(--a-t) var(--a-ease-out), background var(--a-t) var(--a-ease);
+}
+
+.input:checked + .track {
+  background: linear-gradient(180deg, #a8831c, #7d6212);
+  border-color: rgba(232, 200, 90, 0.55);
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.3),
+    0 0 10px rgba(201, 162, 39, 0.22);
+}
+
+/* 全局 box-sizing 不一定是 border-box：显式算好滑程，避免滑钮出槽 */
+.input:checked + .track .knob {
+  transform: translateX(24px);
+  background: linear-gradient(160deg, #fffbe8, var(--a-brass-lit) 40%, var(--a-brass));
+}
+
+.input:focus-visible + .track {
+  outline: 2px solid var(--a-brass-lit);
+  outline-offset: 3px;
+}
+
+.switch:hover .track {
+  border-color: rgba(232, 200, 90, 0.5);
+}
+
+.input:disabled + .track {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.switch:has(.input:disabled) {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.label {
+  line-height: 1.5;
+}
+
+.hint {
+  margin: 4px 0 0 62px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--duo-control-muted, var(--a-on-dark-soft));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track,
+  .knob {
+    transition: none;
+  }
+}

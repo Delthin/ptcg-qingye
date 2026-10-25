@@ -1,0 +1,89 @@
+/*
+ * MatchResultsSplash — 终局第一拍：印章式大字闪现（900ms 后交给 GameOverOverlay）。
+ * 与 GameOverOverlay 同气质：深色绒遮罩 + 暗角 + 顶部黄铜桌沿细线 + 金字宣告。
+ */
+
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 1700;
+  display: grid;
+  place-items: center;
+  /* 深色绒 + 绿绒透光 + 四角暗角，绝不纯黑 */
+  background:
+    radial-gradient(ellipse 95% 75% at 50% 42%, rgba(31, 92, 58, 0.26), transparent 62%),
+    radial-gradient(ellipse 130% 100% at 50% 50%, transparent 42%, rgba(4, 3, 2, 0.72) 100%),
+    linear-gradient(180deg, #14100a 0%, #0e0b07 55%, #0a0805 100%);
+  animation: splashDim 220ms ease-out both;
+  pointer-events: none;
+}
+
+@keyframes splashDim {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 顶部黄铜细线：与 GameOverOverlay 同一条「桌沿」 */
+.splash::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 162, 39, 0.7) 18%, rgba(232, 200, 90, 0.9) 50%, rgba(201, 162, 39, 0.7) 82%, transparent);
+}
+
+.stamp {
+  font-family: var(--a-font-display);
+  font-weight: 400;
+  font-size: clamp(56px, 12vw, 128px);
+  letter-spacing: 0.14em;
+  text-indent: 0.14em;
+  line-height: 1.1;
+  color: rgba(243, 234, 214, 0.9);
+  text-shadow: 0 6px 28px rgba(0, 0, 0, 0.7);
+  animation: stampIn 460ms cubic-bezier(0.34, 1.4, 0.5, 1) 60ms both;
+}
+
+/* 胜利：黄铜渐变金字 + 光晕 */
+.splash[data-mood='win'] .stamp {
+  color: transparent;
+  background: linear-gradient(180deg, #fdf3d8 0%, var(--a-brass-lit) 46%, var(--a-brass) 74%, #9a7d1c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 0 26px rgba(232, 200, 90, 0.45)) drop-shadow(0 6px 18px rgba(0, 0, 0, 0.7));
+}
+
+/* 落败：安静压暗 */
+.splash[data-mood='lose'] .stamp {
+  color: rgba(206, 195, 172, 0.78);
+}
+
+/* 平局 / 中止：中性象牙 */
+.splash[data-mood='draw'] .stamp,
+.splash[data-mood='abort'] .stamp {
+  color: rgba(226, 216, 193, 0.85);
+}
+
+@keyframes stampIn {
+  0% {
+    opacity: 0;
+    transform: scale(1.5) rotate(-2deg);
+  }
+  55% {
+    opacity: 1;
+    transform: scale(0.97) rotate(0.4deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .splash,
+  .stamp {
+    animation: none;
+  }
+}

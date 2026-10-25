@@ -1,0 +1,1046 @@
+{
+ "source": "https://wiki.52poke.com/wiki/CSVM1a（第一弹喷火龙ex/沙奈朵ex/密勒顿ex 的卡组与改造包表）、https://wiki.52poke.com/wiki/CSVM2a（第二弹猛雷鼓ex/多龙巴鲁托ex/赛富豪ex）；官方商品页 https://www.pokemon.cn/tcg/product/19759.html 与 .../20828.html 核对张数",
+ "recipes": {
+  "CSVM2aC": {
+   "deck": [
+    {
+     "number": "001/031",
+     "name": "厄诡椪 碧草面具ex",
+     "count": 3
+    },
+    {
+     "number": "006/031",
+     "name": "吉雉鸡ex",
+     "count": 1
+    },
+    {
+     "number": "008/031",
+     "name": "猛雷鼓ex",
+     "count": 3
+    },
+    {
+     "number": "010/031",
+     "name": "咕咕",
+     "count": 3
+    },
+    {
+     "number": "011/031",
+     "name": "猫头夜鹰",
+     "count": 3
+    },
+    {
+     "number": "012/031",
+     "name": "旋转洛托姆",
+     "count": 2
+    },
+    {
+     "number": "013/031",
+     "name": "能量回收",
+     "count": 2
+    },
+    {
+     "number": "017/031",
+     "name": "大地容器",
+     "count": 4
+    },
+    {
+     "number": "018/031",
+     "name": "巢穴球",
+     "count": 4
+    },
+    {
+     "number": "019/031",
+     "name": "高级球",
+     "count": 4
+    },
+    {
+     "number": "021/031",
+     "name": "顶尖捕捉器",
+     "count": 1
+    },
+    {
+     "number": "022/031",
+     "name": "宝可梦交替",
+     "count": 2
+    },
+    {
+     "number": "023/031",
+     "name": "夜间担架",
+     "count": 2
+    },
+    {
+     "number": "025/031",
+     "name": "赤松",
+     "count": 2
+    },
+    {
+     "number": "026/031",
+     "name": "奥琳博士的气魄",
+     "count": 4
+    },
+    {
+     "number": "028/031",
+     "name": "奇树",
+     "count": 4
+    },
+    {
+     "number": "029/031",
+     "name": "老大的指令 魁奇思",
+     "count": 2
+    },
+    {
+     "number": "031/031",
+     "name": "零之大空洞",
+     "count": 2
+    },
+    {
+     "number": "GRA",
+     "name": "基本草能量",
+     "count": 6
+    },
+    {
+     "number": "FIG",
+     "name": "基本斗能量",
+     "count": 3
+    },
+    {
+     "number": "LIG",
+     "name": "基本雷能量",
+     "count": 3
+    }
+   ],
+   "upgrade": [
+    {
+     "number": "002/031",
+     "name": "铁包袱",
+     "count": 1
+    },
+    {
+     "number": "003/031",
+     "name": "古剑豹",
+     "count": 1
+    },
+    {
+     "number": "004/031",
+     "name": "爬地翅",
+     "count": 1
+    },
+    {
+     "number": "005/031",
+     "name": "故勒顿",
+     "count": 1
+    },
+    {
+     "number": "007/031",
+     "name": "猛雷鼓",
+     "count": 1
+    },
+    {
+     "number": "009/031",
+     "name": "百变怪",
+     "count": 1
+    },
+    {
+     "number": "014/031",
+     "name": "能量转移",
+     "count": 1
+    },
+    {
+     "number": "015/031",
+     "name": "反击捕捉器",
+     "count": 1
+    },
+    {
+     "number": "016/031",
+     "name": "超级能量回收",
+     "count": 1
+    },
+    {
+     "number": "020/031",
+     "name": "野餐篮",
+     "count": 1
+    },
+    {
+     "number": "024/031",
+     "name": "勇气护符",
+     "count": 2
+    },
+    {
+     "number": "027/031",
+     "name": "裁判",
+     "count": 2
+    },
+    {
+     "number": "030/031",
+     "name": "阻碍之塔",
+     "count": 1
+    }
+   ]
+  },
+  "CSVM2bC": {
+   "deck": [
+    {
+     "number": "002/034",
+     "name": "愿增猿",
+     "count": 2
+    },
+    {
+     "number": "004/034",
+     "name": "吉雉鸡ex",
+     "count": 1
+    },
+    {
+     "number": "005/034",
+     "name": "多龙梅西亚",
+     "count": 4
+    },
+    {
+     "number": "006/034",
+     "name": "多龙奇",
+     "count": 4
+    },
+    {
+     "number": "007/034",
+     "name": "多龙巴鲁托ex",
+     "count": 3
+    },
+    {
+     "number": "008/034",
+     "name": "米立龙",
+     "count": 1
+    },
+    {
+     "number": "011/034",
+     "name": "反击捕捉器",
+     "count": 2
+    },
+    {
+     "number": "012/034",
+     "name": "大地容器",
+     "count": 2
+    },
+    {
+     "number": "013/034",
+     "name": "友好宝芬",
+     "count": 4
+    },
+    {
+     "number": "014/034",
+     "name": "巢穴球",
+     "count": 2
+    },
+    {
+     "number": "015/034",
+     "name": "高级球",
+     "count": 4
+    },
+    {
+     "number": "018/034",
+     "name": "夜间担架",
+     "count": 2
+    },
+    {
+     "number": "019/034",
+     "name": "学习装置",
+     "count": 2
+    },
+    {
+     "number": "020/034",
+     "name": "紧急滑板",
+     "count": 2
+    },
+    {
+     "number": "022/034",
+     "name": "招式学习器 进化",
+     "count": 2
+    },
+    {
+     "number": "026/034",
+     "name": "奇树",
+     "count": 4
+    },
+    {
+     "number": "027/034",
+     "name": "博士的研究 奥琳博士",
+     "count": 2
+    },
+    {
+     "number": "029/034",
+     "name": "派帕",
+     "count": 4
+    },
+    {
+     "number": "030/034",
+     "name": "老大的指令 魁奇思",
+     "count": 2
+    },
+    {
+     "number": "031/034",
+     "name": "深钵镇",
+     "count": 2
+    },
+    {
+     "number": "033/034",
+     "name": "新冲天能量",
+     "count": 1
+    },
+    {
+     "number": "034/034",
+     "name": "夜光能量",
+     "count": 4
+    },
+    {
+     "number": "PSY",
+     "name": "基本超能量",
+     "count": 2
+    },
+    {
+     "number": "FIR",
+     "name": "基本火能量",
+     "count": 2
+    }
+   ],
+   "upgrade": [
+    {
+     "number": "001/034",
+     "name": "含羞苞",
+     "count": 1
+    },
+    {
+     "number": "003/034",
+     "name": "摔角鹰人",
+     "count": 1
+    },
+    {
+     "number": "009/034",
+     "name": "月月熊 赫月ex",
+     "count": 1
+    },
+    {
+     "number": "010/034",
+     "name": "不公印章",
+     "count": 1
+    },
+    {
+     "number": "016/034",
+     "name": "神奇糖果",
+     "count": 2
+    },
+    {
+     "number": "017/034",
+     "name": "宝可梦交替",
+     "count": 2
+    },
+    {
+     "number": "021/034",
+     "name": "不服输头带",
+     "count": 1
+    },
+    {
+     "number": "023/034",
+     "name": "招式学习器 退化",
+     "count": 1
+    },
+    {
+     "number": "024/034",
+     "name": "吉尼亚",
+     "count": 1
+    },
+    {
+     "number": "025/034",
+     "name": "小刚的发掘",
+     "count": 2
+    },
+    {
+     "number": "028/034",
+     "name": "弗图博士的剧本",
+     "count": 1
+    },
+    {
+     "number": "032/034",
+     "name": "宝可梦联盟总部",
+     "count": 1
+    }
+   ]
+  },
+  "CSVM2cC": {
+   "deck": [
+    {
+     "number": "003/032",
+     "name": "梦幻ex",
+     "count": 1
+    },
+    {
+     "number": "004/032",
+     "name": "索财灵",
+     "count": 4
+    },
+    {
+     "number": "006/032",
+     "name": "吉雉鸡ex",
+     "count": 1
+    },
+    {
+     "number": "007/032",
+     "name": "赛富豪ex",
+     "count": 4
+    },
+    {
+     "number": "008/032",
+     "name": "土龙弟弟",
+     "count": 2
+    },
+    {
+     "number": "009/032",
+     "name": "土龙节节",
+     "count": 2
+    },
+    {
+     "number": "012/032",
+     "name": "超级能量回收",
+     "count": 4
+    },
+    {
+     "number": "013/032",
+     "name": "大地容器",
+     "count": 2
+    },
+    {
+     "number": "014/032",
+     "name": "友好宝芬",
+     "count": 4
+    },
+    {
+     "number": "015/032",
+     "name": "巢穴球",
+     "count": 2
+    },
+    {
+     "number": "016/032",
+     "name": "高级球",
+     "count": 4
+    },
+    {
+     "number": "018/032",
+     "name": "顶尖捕捉器",
+     "count": 1
+    },
+    {
+     "number": "021/032",
+     "name": "夜间担架",
+     "count": 2
+    },
+    {
+     "number": "023/032",
+     "name": "招式学习器 进化",
+     "count": 2
+    },
+    {
+     "number": "024/032",
+     "name": "暗码迷的解读",
+     "count": 2
+    },
+    {
+     "number": "026/032",
+     "name": "奇树",
+     "count": 4
+    },
+    {
+     "number": "028/032",
+     "name": "派帕",
+     "count": 4
+    },
+    {
+     "number": "026/032",
+     "name": "老大的指令 魁奇思",
+     "count": 2
+    },
+    {
+     "number": "031/032",
+     "name": "深钵镇",
+     "count": 2
+    },
+    {
+     "number": "MET",
+     "name": "基本钢能量",
+     "count": 11
+    }
+   ],
+   "upgrade": [
+    {
+     "number": "001/032",
+     "name": "谢米",
+     "count": 1
+    },
+    {
+     "number": "002/032",
+     "name": "铁包袱",
+     "count": 1
+    },
+    {
+     "number": "005/032",
+     "name": "愿增猿",
+     "count": 1
+    },
+    {
+     "number": "010/032",
+     "name": "能量回收",
+     "count": 1
+    },
+    {
+     "number": "011/032",
+     "name": "反击捕捉器",
+     "count": 1
+    },
+    {
+     "number": "017/032",
+     "name": "野餐篮",
+     "count": 1
+    },
+    {
+     "number": "019/032",
+     "name": "宝可装置3.0",
+     "count": 2
+    },
+    {
+     "number": "020/032",
+     "name": "宝可梦交替",
+     "count": 1
+    },
+    {
+     "number": "022/032",
+     "name": "坚硬束带",
+     "count": 1
+    },
+    {
+     "number": "025/032",
+     "name": "水莲的照顾",
+     "count": 1
+    },
+    {
+     "number": "027/032",
+     "name": "弗图博士的剧本",
+     "count": 1
+    },
+    {
+     "number": "030/032",
+     "name": "阻碍之塔",
+     "count": 1
+    },
+    {
+     "number": "032/032",
+     "name": "灾祸雪山",
+     "count": 1
+    },
+    {
+     "number": "DAR",
+     "name": "基本恶能量",
+     "count": 1
+    }
+   ]
+  },
+  "CSVM1aC": {
+   "deck": [
+    {
+     "number": "001/033",
+     "name": "小火龙",
+     "count": 4
+    },
+    {
+     "number": "002/033",
+     "name": "火恐龙",
+     "count": 2
+    },
+    {
+     "number": "003/033",
+     "name": "光辉喷火龙",
+     "count": 1
+    },
+    {
+     "number": "006/033",
+     "name": "喷火龙ex",
+     "count": 3
+    },
+    {
+     "number": "008/033",
+     "name": "波波",
+     "count": 2
+    },
+    {
+     "number": "009/033",
+     "name": "比比鸟",
+     "count": 1
+    },
+    {
+     "number": "010/033",
+     "name": "大比鸟ex",
+     "count": 2
+    },
+    {
+     "number": "011/033",
+     "name": "反击捕捉器",
+     "count": 2
+    },
+    {
+     "number": "012/033",
+     "name": "厉害钓竿",
+     "count": 2
+    },
+    {
+     "number": "013/033",
+     "name": "友好宝芬",
+     "count": 2
+    },
+    {
+     "number": "014/033",
+     "name": "巢穴球",
+     "count": 4
+    },
+    {
+     "number": "015/033",
+     "name": "高级球",
+     "count": 4
+    },
+    {
+     "number": "016/033",
+     "name": "神奇糖果",
+     "count": 4
+    },
+    {
+     "number": "017/033",
+     "name": "宝可梦交替",
+     "count": 2
+    },
+    {
+     "number": "019/033",
+     "name": "活力头带",
+     "count": 2
+    },
+    {
+     "number": "021/033",
+     "name": "不服输头带",
+     "count": 1
+    },
+    {
+     "number": "025/033",
+     "name": "奇树",
+     "count": 4
+    },
+    {
+     "number": "026/033",
+     "name": "博士的研究",
+     "count": 2
+    },
+    {
+     "number": "028/033",
+     "name": "派帕",
+     "count": 4
+    },
+    {
+     "number": "029/033",
+     "name": "老大的指令",
+     "count": 2
+    },
+    {
+     "number": "032/033",
+     "name": "深钵镇",
+     "count": 2
+    },
+    {
+     "number": "FIR",
+     "name": "基本火能量",
+     "count": 8
+    }
+   ],
+   "upgrade": [
+    {
+     "number": "004/033",
+     "name": "玛纳霏",
+     "count": 1
+    },
+    {
+     "number": "005/033",
+     "name": "洛托姆V",
+     "count": 1
+    },
+    {
+     "number": "007/033",
+     "name": "基拉祈",
+     "count": 1
+    },
+    {
+     "number": "018/033",
+     "name": "放逐吸尘器",
+     "count": 1
+    },
+    {
+     "number": "020/033",
+     "name": "讲究腰带",
+     "count": 1
+    },
+    {
+     "number": "022/033",
+     "name": "森林封印石",
+     "count": 2
+    },
+    {
+     "number": "023/033",
+     "name": "复仇拳箱",
+     "count": 1
+    },
+    {
+     "number": "024/033",
+     "name": "招式学习器 退化",
+     "count": 2
+    },
+    {
+     "number": "027/033",
+     "name": "弗图博士的剧本",
+     "count": 2
+    },
+    {
+     "number": "030/033",
+     "name": "崩塌的竞技场",
+     "count": 1
+    },
+    {
+     "number": "031/033",
+     "name": "城镇百货",
+     "count": 1
+    },
+    {
+     "number": "033/033",
+     "name": "薄雾能量",
+     "count": 1
+    }
+   ]
+  },
+  "CSVM1bC": {
+   "deck": [
+    {
+     "number": "003/033",
+     "name": "光辉甲贺忍蛙",
+     "count": 1
+    },
+    {
+     "number": "005/033",
+     "name": "拉鲁拉丝",
+     "count": 4
+    },
+    {
+     "number": "006/033",
+     "name": "奇鲁莉安",
+     "count": 4
+    },
+    {
+     "number": "007/033",
+     "name": "沙奈朵ex",
+     "count": 3
+    },
+    {
+     "number": "008/033",
+     "name": "飘飘球",
+     "count": 2
+    },
+    {
+     "number": "011/033",
+     "name": "吼叫尾",
+     "count": 1
+    },
+    {
+     "number": "012/033",
+     "name": "振翼发",
+     "count": 1
+    },
+    {
+     "number": "015/033",
+     "name": "反击捕捉器",
+     "count": 2
+    },
+    {
+     "number": "016/033",
+     "name": "厉害钓竿",
+     "count": 2
+    },
+    {
+     "number": "017/033",
+     "name": "大地容器",
+     "count": 2
+    },
+    {
+     "number": "018/033",
+     "name": "友好宝芬",
+     "count": 2
+    },
+    {
+     "number": "019/033",
+     "name": "巢穴球",
+     "count": 4
+    },
+    {
+     "number": "020/033",
+     "name": "高级球",
+     "count": 4
+    },
+    {
+     "number": "024/033",
+     "name": "勇气护符",
+     "count": 3
+    },
+    {
+     "number": "025/033",
+     "name": "招式学习器 进化",
+     "count": 2
+    },
+    {
+     "number": "026/033",
+     "name": "奇树",
+     "count": 4
+    },
+    {
+     "number": "027/033",
+     "name": "博士的研究",
+     "count": 2
+    },
+    {
+     "number": "029/033",
+     "name": "派帕",
+     "count": 4
+    },
+    {
+     "number": "030/033",
+     "name": "老大的指令",
+     "count": 2
+    },
+    {
+     "number": "033/033",
+     "name": "深钵镇",
+     "count": 2
+    },
+    {
+     "number": "PSY",
+     "name": "基本超能量",
+     "count": 9
+    }
+   ],
+   "upgrade": [
+    {
+     "number": "001/033",
+     "name": "霓虹鱼V",
+     "count": 1
+    },
+    {
+     "number": "002/033",
+     "name": "玛纳霏",
+     "count": 1
+    },
+    {
+     "number": "004/033",
+     "name": "梦幻ex",
+     "count": 1
+    },
+    {
+     "number": "009/033",
+     "name": "克雷色利亚",
+     "count": 1
+    },
+    {
+     "number": "010/033",
+     "name": "谜拟丘",
+     "count": 1
+    },
+    {
+     "number": "013/033",
+     "name": "基拉祈",
+     "count": 1
+    },
+    {
+     "number": "014/033",
+     "name": "怒鹦哥ex",
+     "count": 1
+    },
+    {
+     "number": "021/033",
+     "name": "神奇糖果",
+     "count": 2
+    },
+    {
+     "number": "022/033",
+     "name": "放逐吸尘器",
+     "count": 1
+    },
+    {
+     "number": "023/033",
+     "name": "豪华斗篷",
+     "count": 1
+    },
+    {
+     "number": "028/033",
+     "name": "弗图博士的剧本",
+     "count": 1
+    },
+    {
+     "number": "031/033",
+     "name": "崩塌的竞技场",
+     "count": 1
+    },
+    {
+     "number": "032/033",
+     "name": "月光之丘",
+     "count": 2
+    }
+   ]
+  },
+  "CSVM1cC": {
+   "deck": [
+    {
+     "number": "002/028",
+     "name": "雷丘V",
+     "count": 1
+    },
+    {
+     "number": "004/028",
+     "name": "雷公V",
+     "count": 1
+    },
+    {
+     "number": "005/028",
+     "name": "铁臂膀ex",
+     "count": 2
+    },
+    {
+     "number": "006/028",
+     "name": "密勒顿ex",
+     "count": 2
+    },
+    {
+     "number": "007/028",
+     "name": "怒鹦哥ex",
+     "count": 1
+    },
+    {
+     "number": "008/028",
+     "name": "交替推车",
+     "count": 4
+    },
+    {
+     "number": "010/028",
+     "name": "电气发生器",
+     "count": 4
+    },
+    {
+     "number": "011/028",
+     "name": "厉害钓竿",
+     "count": 2
+    },
+    {
+     "number": "012/028",
+     "name": "巢穴球",
+     "count": 4
+    },
+    {
+     "number": "013/028",
+     "name": "高级球",
+     "count": 2
+    },
+    {
+     "number": "017/028",
+     "name": "紧急滑板",
+     "count": 1
+    },
+    {
+     "number": "019/028",
+     "name": "沉重接力棒",
+     "count": 1
+    },
+    {
+     "number": "020/028",
+     "name": "森林封印石",
+     "count": 2
+    },
+    {
+     "number": "021/028",
+     "name": "勇气护符",
+     "count": 2
+    },
+    {
+     "number": "024/028",
+     "name": "博士的研究",
+     "count": 4
+    },
+    {
+     "number": "025/028",
+     "name": "派帕",
+     "count": 4
+    },
+    {
+     "number": "026/028",
+     "name": "老大的指令",
+     "count": 4
+    },
+    {
+     "number": "027/028",
+     "name": "城镇百货公司",
+     "count": 2
+    },
+    {
+     "number": "028/028",
+     "name": "双重涡轮能量",
+     "count": 2
+    },
+    {
+     "number": "LIG",
+     "name": "基本雷能量",
+     "count": 15
+    }
+   ],
+   "upgrade": [
+    {
+     "number": "001/028",
+     "name": "铁包袱",
+     "count": 1
+    },
+    {
+     "number": "003/028",
+     "name": "闪电鸟",
+     "count": 1
+    },
+    {
+     "number": "009/028",
+     "name": "能量贴纸",
+     "count": 3
+    },
+    {
+     "number": "014/028",
+     "name": "宝可梦捕捉器",
+     "count": 3
+    },
+    {
+     "number": "015/028",
+     "name": "放逐吸尘器",
+     "count": 1
+    },
+    {
+     "number": "016/028",
+     "name": "学习装置",
+     "count": 1
+    },
+    {
+     "number": "018/028",
+     "name": "驱劲能量 未来",
+     "count": 1
+    },
+    {
+     "number": "022/028",
+     "name": "裁判",
+     "count": 2
+    },
+    {
+     "number": "023/028",
+     "name": "奇树",
+     "count": 2
+    }
+   ]
+  }
+ }
+}

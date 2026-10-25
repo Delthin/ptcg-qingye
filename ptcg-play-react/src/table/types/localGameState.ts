@@ -1,0 +1,21 @@
+import type { GameState, PlayerStats, Replay, State, StateLog } from 'ptcg-server';
+import type { PlayerGameStats } from '../end-game/playerGameStats';
+
+/** Mirrors Angular `LocalGameState` in session.interface.ts */
+export interface LocalGameState extends Omit<GameState, 'playerStats'> {
+  localId: number;
+  deleted: boolean;
+  gameOver: boolean;
+  switchSide: boolean;
+  promptMinimized: boolean;
+  state: State;
+  logs: StateLog[];
+  replayPosition: number;
+  replay?: Replay;
+  playerStats?: PlayerStats[];
+  enhancedPlayerStats?: PlayerGameStats[];
+  /** Last full serialized state for applying live diffs. */
+  serializedBase?: string;
+  /** Sanitized view key from the server (`p123`, `spec`, …). */
+  viewKey?: string;
+}

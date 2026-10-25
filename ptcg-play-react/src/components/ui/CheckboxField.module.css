@@ -1,0 +1,48 @@
+.label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: inherit;
+  font-family: var(--a-font-ui);
+  user-select: none;
+}
+
+/* 原生交互保留，外观统一为暗铜凹槽和黄铜勾选片。 */
+.input {
+  appearance: none;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  border: 1px solid var(--a-brass-dark);
+  border-radius: 4px;
+  background: rgba(20, 12, 6, 0.24);
+  box-shadow: inset 0 1px 3px rgba(20, 12, 6, 0.4);
+  cursor: pointer;
+  transition: border-color var(--a-t-fast) var(--a-ease), box-shadow var(--a-t-fast) var(--a-ease);
+}
+
+.input:checked {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6 5 8.5 9.5 3.5' fill='none' stroke='%232a1f14' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 12px 12px no-repeat,
+    linear-gradient(160deg, var(--a-brass-lit), var(--a-brass));
+  box-shadow: inset 0 1px 0 rgba(255, 253, 246, 0.55), 0 1px 3px rgba(20, 12, 6, 0.25);
+}
+
+.input:hover:not(:disabled) { border-color: var(--a-brass-lit); }
+.input:focus-visible { outline: 2px solid var(--a-brass-lit); outline-offset: 3px; }
+.input:disabled { cursor: not-allowed; opacity: 0.5; }
+
+@media (forced-colors: active) {
+  .input, .input:checked { appearance: auto; -webkit-appearance: auto; background: none; box-shadow: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .input { transition: none; }
+}

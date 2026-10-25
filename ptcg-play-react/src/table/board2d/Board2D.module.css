@@ -1,0 +1,545 @@
+.root {
+  --design-w: 1280px; --design-h: 860px;
+  --card-w: 88px; --card-h: 123.2px;
+  --active-w: 104px; --active-h: 145.6px;
+  --zone-w: 78px; --zone-h: 109.2px;
+  --prize-cell-w: 46px; --prize-cell-h: 64.4px;
+  --ease-out: cubic-bezier(.23, 1, .32, 1);
+  --ease-in-out: cubic-bezier(.77, 0, .175, 1);
+  /* —— 凹槽刻线材质 token（slowpoke 浅色桌垫整体覆盖）—— */
+  --well-ink: rgba(0, 0, 0, .5);
+  --well-lip: rgba(255, 255, 255, .06);
+  --well-brass: rgba(201, 162, 39, .2);
+  --well-tick: rgba(214, 178, 96, .42);
+  --felt-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  position: relative; width: 100%; height: 100%; overflow: hidden;
+  color: var(--a-on-dark-soft, #ded0a1);
+  background:
+    radial-gradient(ellipse 120% 90% at 50% -14%, rgba(255, 226, 168, .08), transparent 55%),
+    radial-gradient(ellipse 80% 60% at 10% 112%, rgba(56, 86, 60, .14), transparent 62%),
+    radial-gradient(ellipse at 45% 42%, #34362f, #1b1e1b 52%, #101312);
+}
+.root::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background:
+    var(--felt-noise) 0 0 / 150px,
+    repeating-linear-gradient(101deg, rgba(255, 255, 255, .015) 0 1px, transparent 1px 6px),
+    repeating-linear-gradient(11deg, rgba(0, 0, 0, .05) 0 1px, transparent 1px 7px);
+}
+.handsAndBoard { position: relative; height: 100%; }
+.boardHost { position: absolute; inset: 12px 20px; display: flex; align-items: center; justify-content: center; perspective: 1600px; z-index: 6; }
+.boardHost.flat { perspective: none; }
+.boardCanvas { width: var(--design-w); height: var(--design-h); position: relative; flex-shrink: 0; transform-origin: center; transform-style: preserve-3d; pointer-events: none; }
+/* 桌垫本体：绒面 + 织纹 + 黑金木包边，嵌在桌面上 */
+.boardCanvas::before {
+  content: ''; position: absolute; inset: 65px 26px 175px; border-radius: 16px;
+  background:
+    var(--felt-noise) 0 0 / 150px,
+    repeating-linear-gradient(101deg, rgba(255, 255, 255, .02) 0 1px, transparent 1px 6px),
+    repeating-linear-gradient(11deg, rgba(0, 0, 0, .06) 0 1px, transparent 1px 7px),
+    radial-gradient(ellipse 85% 65% at 40% 16%, #22251d, #151714 58%, #0e100e);
+  background-blend-mode: overlay, normal, normal, normal;
+  box-shadow:
+    inset 0 1px 1px rgba(206, 190, 150, .28),
+    inset 0 0 0 1px rgba(255, 255, 255, .045),
+    inset 0 -16px 36px rgba(0, 0, 0, .3),
+    0 0 0 2px #120d08,
+    0 0 0 3.5px rgba(201, 162, 39, .5),
+    0 0 0 9px #3e2b19,
+    0 0 0 10.5px rgba(201, 162, 39, .3),
+    0 0 0 15px #2b1d0f,
+    0 0 0 16px rgba(0, 0, 0, .75),
+    0 22px 44px rgba(0, 0, 0, .5),
+    0 8px 16px rgba(0, 0, 0, .4);
+  pointer-events: none;
+}
+.boardCanvas::after { content: ''; position: absolute; inset: 72px 33px 182px; border: 1px dashed #7e806737; border-radius: 11px; background: repeating-linear-gradient(45deg, #ffffff02 0 1px, transparent 1px 3px); pointer-events: none; }
+/* 桌垫光照层：左上受光 + 边缘压暗，垫在卡槽与卡牌之下 */
+.matShade {
+  position: absolute; left: 26px; right: 26px; top: 65px; height: 620px;
+  border-radius: 16px; pointer-events: none;
+  background:
+    radial-gradient(ellipse 55% 38% at 36% 12%, rgba(255, 240, 205, .05), transparent 62%),
+    radial-gradient(ellipse 130% 105% at 50% 46%, transparent 56%, rgba(4, 7, 5, .4) 100%);
+}
+/* 场地卡中线：黄铜刻线装饰条，两端渐隐 */
+.midRail {
+  position: absolute; z-index: 0; left: 70px; right: 70px; top: calc(375px - 4px); height: 8px;
+  border-radius: 4px; pointer-events: none;
+  background: linear-gradient(180deg, rgba(232, 200, 90, .05), rgba(214, 178, 96, .3) 35%, rgba(138, 111, 20, .34) 72%, rgba(0, 0, 0, .22));
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .45), inset 0 1px 0 rgba(255, 240, 200, .22);
+  -webkit-mask: linear-gradient(90deg, transparent, #000 16%, #000 84%, transparent);
+  mask: linear-gradient(90deg, transparent, #000 16%, #000 84%, transparent);
+}
+.boardInner { position: absolute; top: 65px; left: 0; width: 100%; height: 620px; display: grid; grid-template-rows: 1fr 1fr; pointer-events: none; }
+.player { position: relative; width: 100%; height: 310px; pointer-events: none; }
+.player.upsideDown { transform: rotate(180deg); --card-lift-y: 4px; }
+.cell { position: absolute; display: flex; align-items: center; justify-content: center; pointer-events: auto; }
+.cellActive { left: 50%; top: 8px; transform: translateX(-50%); }
+.cellBench { left: 50%; transform: translateX(-50%); width: clamp(512px, 52%, 720px); top: 174px; justify-content: space-between; gap: 10px; }
+.cellPrizes { left: 38px; top: 34px; width: 108px; height: 250px; }
+.cellDeck { right: 38px; top: 30px; }
+.cellDiscard { right: 38px; top: 180px; }
+.cellStadium { left: calc(50% - 190px); top: 80px; }
+.cellSupporter { right: calc(50% - 190px); top: 80px; }
+/* —— 卡槽：绒面上压出的凹槽 —— */
+.slot {
+  --well-r: 8px;
+  position: relative; flex-shrink: 0; width: var(--zone-w); height: var(--zone-h);
+  border-radius: var(--well-r);
+}
+.slot::before {
+  content: ''; position: absolute; inset: 0; border-radius: var(--well-r);
+  background:
+    linear-gradient(var(--well-tick) 0 0) left 4px top 4px / 9px 1px no-repeat,
+    linear-gradient(var(--well-tick) 0 0) left 4px top 4px / 1px 9px no-repeat,
+    linear-gradient(var(--well-tick) 0 0) right 4px top 4px / 9px 1px no-repeat,
+    linear-gradient(var(--well-tick) 0 0) right 4px top 4px / 1px 9px no-repeat,
+    linear-gradient(var(--well-tick) 0 0) left 4px bottom 4px / 9px 1px no-repeat,
+    linear-gradient(var(--well-tick) 0 0) left 4px bottom 4px / 1px 9px no-repeat,
+    linear-gradient(var(--well-tick) 0 0) right 4px bottom 4px / 9px 1px no-repeat,
+    linear-gradient(var(--well-tick) 0 0) right 4px bottom 4px / 1px 9px no-repeat;
+  box-shadow:
+    inset 0 2px 6px var(--well-ink),
+    inset 0 0 0 1px var(--well-brass),
+    inset 0 1px 0 var(--well-lip);
+  pointer-events: none;
+}
+.slotActive { --well-r: 10px; --well-tick: rgba(232, 200, 90, .6); width: var(--active-w); height: var(--active-h); }
+.slotActive::before {
+  box-shadow:
+    inset 0 3px 8px rgba(0, 0, 0, .55),
+    inset 0 0 0 1.5px rgba(201, 162, 39, .5),
+    inset 0 1px 0 rgba(255, 255, 255, .09),
+    0 0 6px rgba(201, 162, 39, .22),
+    0 0 26px rgba(201, 162, 39, .16);
+}
+.slotBench { width: var(--card-w); height: var(--card-h); }
+.cellBench[data-bench-count='6'] .slotBench { width: 68px; height: 95.2px; }
+.cellBench[data-bench-count='7'] .slotBench { width: 58px; height: 81.2px; }
+.cellBench[data-bench-count='8'] .slotBench { width: 50px; height: 70px; }
+.stackContainer { position: relative; width: var(--zone-w); height: var(--zone-h); flex-shrink: 0; border-radius: 7px; }
+.stackContainer::before {
+  content: ''; position: absolute; inset: 0; border-radius: 7px;
+  box-shadow:
+    inset 0 2px 7px var(--well-ink),
+    inset 0 0 0 1px var(--well-brass),
+    inset 0 1px 0 var(--well-lip);
+  pointer-events: none;
+}
+.stackContainer::after {
+  content: ''; position: absolute; left: 4px; right: -6px; bottom: -7px; height: 12px;
+  border-radius: 50%; filter: blur(2px); pointer-events: none;
+  background: radial-gradient(closest-side, rgba(0, 0, 0, .48), transparent 72%);
+}
+.upsideDown .stackContainer::after { bottom: auto; top: -7px; }
+/* 一叠牌：多层递进偏移做出纸叠侧面 */
+.stackCard {
+  position: absolute; inset: 0; border-radius: 5px;
+  box-shadow:
+    1px 1px 0 #efe8cf,
+    2px 2.5px 0 #c9c0a4,
+    3px 4.5px 0 #9a9179,
+    3px 6px 0 #6c6758,
+    3px 8px 0 #4b4739,
+    0 10px 14px rgba(0, 0, 0, .4);
+}
+.cardCount {
+  position: absolute; z-index: 9; right: -10px; bottom: -10px; min-width: 25px; height: 25px; padding: 0 4px;
+  border-radius: 50%;
+  background: linear-gradient(150deg, #3a3f33, #161a15);
+  color: var(--a-brass-lit, #e2cc91);
+  border: 1px solid rgba(201, 162, 39, .75);
+  box-shadow: inset 0 1px 0 rgba(255, 248, 220, .18), 0 2px 4px rgba(0, 0, 0, .45);
+  display: grid; place-items: center;
+  font-family: var(--a-font-num, monospace);
+  font-size: 11px; font-weight: 650; font-variant-numeric: tabular-nums;
+  pointer-events: none;
+}
+.upsideDown .cardCount { transform: rotate(180deg); }
+.deckClickOverlay { position: absolute; inset: 0; z-index: 10; border: 0; padding: 0; background: transparent; cursor: pointer; }
+.deckClickOverlay:focus-visible { outline: 2px solid var(--a-brass-lit, #e4d190); outline-offset: 4px; border-radius: 6px; }
+/* —— 奖赏卡：6 个黄铜凹格 —— */
+.prizesGrid { display: grid; width: 100%; height: 100%; grid-template-columns: repeat(2, var(--prize-cell-w)); grid-template-rows: repeat(3, var(--prize-cell-h)); justify-content: space-between; align-content: space-between; }
+.prizeSlot { position: relative; width: var(--prize-cell-w); height: var(--prize-cell-h); border-radius: 5px; }
+.prizeSlot::before {
+  content: ''; position: absolute; inset: 0; border-radius: 5px;
+  background:
+    linear-gradient(var(--well-tick) 0 0) left 2px top 2px / 6px 1px no-repeat,
+    linear-gradient(var(--well-tick) 0 0) left 2px top 2px / 1px 6px no-repeat,
+    linear-gradient(var(--well-tick) 0 0) right 2px top 2px / 6px 1px no-repeat,
+    linear-gradient(var(--well-tick) 0 0) right 2px top 2px / 1px 6px no-repeat,
+    linear-gradient(var(--well-tick) 0 0) left 2px bottom 2px / 6px 1px no-repeat,
+    linear-gradient(var(--well-tick) 0 0) left 2px bottom 2px / 1px 6px no-repeat,
+    linear-gradient(var(--well-tick) 0 0) right 2px bottom 2px / 6px 1px no-repeat,
+    linear-gradient(var(--well-tick) 0 0) right 2px bottom 2px / 1px 6px no-repeat;
+  box-shadow:
+    inset 0 2px 5px var(--well-ink),
+    inset 0 0 0 1px var(--well-brass),
+    inset 0 1px 0 var(--well-lip);
+  pointer-events: none;
+}
+.prizeSlot:focus-visible { outline: 2px solid var(--a-brass-lit, #e8c85a); outline-offset: 2px; }
+.prizeSlot[data-empty='true']::after {
+  content: ''; position: absolute; top: 48%; left: 48%; width: 5px; height: 5px; border-radius: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  background: linear-gradient(135deg, rgba(232, 200, 90, .5), rgba(138, 111, 20, .35));
+  box-shadow: 0 0 6px rgba(201, 162, 39, .25);
+  pointer-events: none;
+}
+.stadiumMidline { position: absolute; z-index: 8; width: var(--zone-w); height: var(--zone-h); top: 375px; left: calc(50% - 210px); transform: translate(-50%, -50%); pointer-events: auto; border-radius: 8px; }
+.stadiumMidline::before {
+  content: ''; position: absolute; inset: -8px; border-radius: 7px;
+  border: 1px solid rgba(201, 162, 39, .3);
+  box-shadow: inset 0 1px 0 rgba(255, 240, 200, .1), 0 2px 6px rgba(0, 0, 0, .3);
+  pointer-events: none;
+}
+.supporterSlot, .lostZone, .lostZoneTop { width: 50px; height: 70px; }
+.cellSupporter [data-empty='true'], .cellStadium [data-empty='true'] { visibility: hidden; }
+.matPrint {
+  /* 印刷层配色：默认烫金，主题可覆盖（纸面桌垫用油墨色）。 */
+  --mat-print-1: #87693a; --mat-print-2: #e3cf8f; --mat-print-3: #b2924f;
+  --mat-print-4: #e6d192; --mat-print-5: #aa8f52;
+  --mat-print-opacity: .58; --mat-print-core: #151816;
+  position: absolute; top: 65px; left: 26px; width: calc(100% - 52px); height: 620px; opacity: .64; pointer-events: none; }
+/* —— 回合标记：黄铜罗盘，指针指当前回合方 —— */
+.turnMarker {
+  --tm-size: 22px;
+  position: absolute; top: calc(375px - var(--tm-size) / 2); left: calc(50% - var(--tm-size) / 2); z-index: 8;
+  width: var(--tm-size); height: var(--tm-size); border-radius: 50%;
+  background:
+    repeating-conic-gradient(from 8deg, rgba(64, 52, 26, .32) 0 6deg, transparent 6deg 15deg),
+    radial-gradient(circle at 34% 28%, #f9ebb8, var(--a-brass, #c9a227) 46%, var(--a-brass-dark, #8a6f14) 74%, #55440e);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 248, 220, .55),
+    inset 0 -2px 3px rgba(0, 0, 0, .38),
+    0 0 0 2px rgba(120, 96, 28, .9),
+    0 0 0 5px rgba(10, 13, 10, .6),
+    0 3px 8px rgba(0, 0, 0, .55);
+  pointer-events: none;
+}
+.turnMarker::before {
+  content: ''; position: absolute; inset: 4px;
+  background: linear-gradient(180deg, #fdf3d8 0 44%, #8a6f14 44% 56%, #55440e 56%);
+  clip-path: polygon(50% 0, 86% 50%, 50% 100%, 14% 50%);
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, .5));
+  transition: transform var(--a-t-slow, 420ms) var(--a-ease-spring, ease);
+}
+.turnMarker::after {
+  content: ''; position: absolute; left: 50%; top: 50%; width: 5px; height: 5px;
+  transform: translate(-50%, -50%); border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff8dc, #a98d4c 70%);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .6);
+}
+.root[data-turn='opponent'] .turnMarker::before { transform: rotate(180deg); }
+.root[data-turn='setup'] .turnMarker, .root[data-turn='finished'] .turnMarker { opacity: 0; }
+.turnOrbOpponent { position: absolute; left: 0; top: -8px; z-index: 20; width: 96px; height: 96px; }
+/* —— 拖放悬停：黄铜外发光 + 槽位微亮 —— */
+.dropHighlight {
+  border-radius: var(--well-r, 8px);
+  outline: 2px solid var(--a-brass-lit, #e0c779);
+  outline-offset: 4px;
+  box-shadow:
+    0 0 0 1px rgba(232, 200, 90, .35),
+    0 0 22px rgba(232, 200, 90, .38),
+    0 0 46px rgba(232, 200, 90, .18),
+    inset 0 0 18px rgba(232, 200, 90, .12);
+}
+.root[data-opening='choose'] .cellActive .slotActive::after {
+  content: ''; position: absolute; inset: 6px; border: 1px solid #d0b6758c; border-radius: 7px;
+  pointer-events: none; box-shadow: 0 0 20px #dfbe6820;
+}
+.srOnly { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.dropNotice { position: absolute; z-index: 50; bottom: 148px; left: 50%; transform: translateX(-50%); max-width: min(480px, calc(100% - 40px)); display: flex; align-items: center; gap: 10px; padding: 12px 18px; color: #ffe0af; background: linear-gradient(90deg, transparent, #131b16e8 15% 85%, transparent); font-size: 13px; text-align: center; text-shadow: 0 2px 5px #000; }
+.dropNotice svg { flex-shrink: 0; width: 22px; height: 22px; color: #d8b25e; }
+.handPlayNotice { position: absolute; z-index: 50; top: 12px; left: 16px; max-width: calc(100% - 160px); display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 8px 12px; border-radius: 8px; background: #211b16; color: #f2e8d5; font-size: 14px; }
+
+/* —— 掷硬币：实体黄铜币，抛起旋转、落地弹跳 —— */
+.turnOrderNotice { position: absolute; z-index: 45; top: 44%; left: 50%; transform: translate(-50%, -50%); display: grid; gap: 8px; width: min(420px, calc(100% - 32px)); box-sizing: border-box; padding: 18px 20px; border: 1px solid #9e824b; border-radius: 10px; background: #211b16f5; color: #f6ebcf; text-align: center; pointer-events: none; }
+.turnOrderNotice strong { font-size: 18px; font-weight: 600; }
+.turnOrderNotice span { color: #e3d3b4; font-size: 13px; line-height: 1.5; }
+
+.flipStage { position: absolute; z-index: 130; left: 50%; top: 44%; transform: translate(-50%, -50%); pointer-events: none; display: grid; justify-items: center; perspective: 720px; }
+
+/* —— 竖屏 —— */
+.portrait { --design-w: 400px; --design-h: 480px; --active-w: 92px; --active-h: 128.8px; --zone-w: 44px; --zone-h: 61.6px; --prize-cell-w: 26px; --prize-cell-h: 36.4px; }
+/* The hand stays at CSS-pixel size; only the compact mat scales to phone width. */
+.portrait .boardHost { inset: 12px 3px 168px; align-items: flex-start; overflow-x: hidden; overflow-y: auto; overscroll-behavior-y: contain; touch-action: pan-y; scrollbar-width: thin; }
+.portrait[data-effect-dense] .boardHost { top: 56px; touch-action: pan-x pan-y; }
+.portrait[data-effect-dense] .cellBench { overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain; touch-action: pan-x; scrollbar-width: thin; scrollbar-color: #ab8854 #302318; }
+.portrait[data-effect-dense] .cellBench .slotBench { width: 58px; height: 81.2px; flex: 0 0 58px; }
+.portrait[data-effect-dense] .cellBench:focus-visible { outline: 3px solid #fff0b2; outline-offset: -3px; }
+.portrait .boardCanvas { transform-origin: center top; margin-bottom: calc((var(--board-scale) - 1) * 480px); }
+.portrait .boardCanvas::before {
+  inset: 22px 10px 18px; border-radius: 12px;
+  box-shadow:
+    inset 0 1px 1px rgba(206, 190, 150, .28),
+    inset 0 0 0 1px rgba(255, 255, 255, .045),
+    inset 0 -12px 28px rgba(0, 0, 0, .28),
+    0 0 0 1.5px #120d08,
+    0 0 0 2.5px rgba(201, 162, 39, .5),
+    0 0 0 6px #3e2b19,
+    0 0 0 7.5px rgba(201, 162, 39, .3),
+    0 0 0 10px #2b1d0f,
+    0 14px 30px rgba(0, 0, 0, .5),
+    0 6px 12px rgba(0, 0, 0, .4);
+}
+.portrait .boardCanvas::after { inset: 29px 16px 25px; border-radius: 8px; }
+.portrait .matShade { left: 10px; right: 10px; top: 22px; height: 440px; border-radius: 12px; }
+.portrait .midRail { left: 22px; right: 22px; top: calc(232px - 3px); height: 6px; }
+.portrait .boardInner { top: 22px; height: 420px; }
+.portrait .player { height: 210px; }
+.portrait .cellActive { top: 6px; }
+.portrait .cellBench { left: 16px; width: 310px; top: 148px; gap: 5px; transform: none; }
+.portrait .upsideDown .cellBench { top: 132px; }
+.portrait .slotBench { width: 58px; height: 81.2px; }
+.portrait .cellBench[data-bench-count='6'] .slotBench { width: 48px; height: 67.2px; }
+.portrait .cellBench[data-bench-count='7'] .slotBench { width: 40px; height: 56px; }
+.portrait .cellBench[data-bench-count='8'] .slotBench { width: 34px; height: 47.6px; }
+.portrait .cellPrizes { left: 12px; top: 8px; width: 56px; height: 126px; }
+.portrait .cellDeck { right: 12px; top: 8px; }
+.portrait .cellDiscard { right: 12px; top: 87px; }
+.portrait .cardCount { min-width: 20px; height: 20px; right: -7px; bottom: -6px; font-size: 9px; }
+.portrait .cellStadium { left: 92px; top: 74px; }
+.portrait .cellSupporter { right: 92px; top: 74px; }
+.portrait .supporterSlot, .portrait .lostZone, .portrait .lostZoneTop { width: 34px; height: 47.6px; }
+.portrait .stadiumMidline { top: 232px; left: 100px; }
+.portrait .stadiumMidline::before { inset: -5px; }
+.portrait .matPrint { top: 22px; left: 10px; width: calc(100% - 20px); height: 440px; }
+.portrait .turnMarker { top: calc(232px - var(--tm-size) / 2); left: calc(200px - var(--tm-size) / 2); }
+.portrait .turnOrbOpponent { left: 5px; top: 4px; width: 44px; height: 44px; }
+.portrait .dropNotice { bottom: 168px; font-size: 12px; }
+.portrait .handPlayNotice { top: 8px; left: 8px; max-width: calc(100% - 136px); }
+.portrait .flipFace { font-size: 26px; }
+
+/* —— 角色插画桌垫家族（呆呆兽及同源呆萌角色）——
+   共用一套结构：左侧奶油底色承接卡位与手牌，右侧等比放下角色插画；
+   每个主题只提供一组颜色 token（取自插画自身的底色、描边与角色主色）。 */
+.root[data-mat-family='art'] {
+  --mat-drop: #e0846f;
+  --mat-slot-glow: rgba(224, 132, 111, .3);
+  --mat-slot-glow-soft: rgba(224, 132, 111, .22);
+  --well-ink: var(--mat-well-ink);
+  --well-lip: rgba(255, 255, 255, .55);
+  --well-brass: var(--mat-well-brass);
+  --well-tick: var(--mat-well-tick);
+  color: var(--mat-text);
+  background: radial-gradient(ellipse at 40% 25%, var(--mat-frame-glow), var(--mat-stage-mid) 65%, var(--mat-frame-edge));
+}
+.root[data-table-theme='slowpoke'] {
+  --mat-bg: #ff95aa; --mat-text: #62483b;
+  --mat-wash: rgba(255, 247, 230, .96); --mat-wash-2: rgba(255, 245, 227, .93); --mat-wash-3: rgba(255, 240, 221, .61);
+  --mat-wash-p1: rgba(255, 247, 230, .91); --mat-wash-p2: rgba(255, 245, 227, .68); --mat-wash-p3: rgba(255, 240, 221, .27);
+  --mat-frame-glow: #fbf0e2; --mat-stage-mid: #efdacb; --mat-frame-edge: #dcbfac;
+  --mat-hatch: rgba(130, 102, 85, .024); --mat-inset-line: rgba(174, 130, 119, .23);
+  --mat-ring: #b98d7a; --mat-ring-2: rgba(154, 106, 88, .5); --mat-ring-4: rgba(154, 106, 88, .35); --mat-ring-light: #e3c3ac; --mat-ring-5: #d3ac92;
+  --mat-shadow: rgba(103, 68, 43, .3); --mat-shadow-2: rgba(103, 68, 43, .25);
+  --mat-print-border: #a5756459; --mat-print-hatch: #895e4603;
+  --mat-shade-tint: rgba(150, 90, 70, .2); --mat-line-soft: #9a6a5847;
+  --mat-rail-mid: rgba(154, 106, 88, .32); --mat-rail-dark: rgba(120, 72, 58, .28); --mat-rail-shadow: rgba(120, 72, 58, .35);
+  --mat-well-ink: rgba(88, 50, 38, .26); --mat-well-brass: rgba(154, 106, 88, .35); --mat-well-tick: rgba(154, 106, 88, .55);
+  --mat-slot-glow: rgba(203, 110, 130, .3); --mat-slot-glow-soft: rgba(203, 110, 130, .22);
+  --mat-paper-1: #fffdf4; --mat-paper-2: #e8d9c4; --mat-paper-3: #c9a98f; --mat-paper-4: #a37e63; --mat-paper-5: #7c5a44;
+}
+.root[data-table-theme='psyduck'] {
+  --mat-bg: #ffd54b; --mat-text: #6b5920;
+  --mat-wash: rgba(255, 249, 230, 0.96); --mat-wash-2: rgba(255, 249, 230, 0.93); --mat-wash-3: rgba(255, 242, 199, 0.61);
+  --mat-wash-p1: rgba(255, 249, 230, 0.91); --mat-wash-p2: rgba(255, 249, 230, 0.68); --mat-wash-p3: rgba(255, 242, 199, 0.27);
+  --mat-frame-glow: #fffaea; --mat-stage-mid: #f6dc85; --mat-frame-edge: #edd06e;
+  --mat-hatch: rgba(219, 183, 64, 0.024); --mat-inset-line: rgba(219, 183, 64, 0.23);
+  --mat-ring: #dbb740; --mat-ring-2: rgba(219, 183, 64, 0.5); --mat-ring-4: rgba(219, 183, 64, 0.35); --mat-ring-light: #ffe89c; --mat-ring-5: #f7dd88;
+  --mat-shadow: rgba(120, 101, 35, 0.3); --mat-shadow-2: rgba(120, 101, 35, 0.25);
+  --mat-print-border: rgba(219, 183, 64, 0.35); --mat-print-hatch: rgba(219, 183, 64, 0.012);
+  --mat-shade-tint: rgba(153, 128, 45, 0.2); --mat-line-soft: rgba(219, 183, 64, 0.28);
+  --mat-rail-mid: rgba(219, 183, 64, 0.32); --mat-rail-dark: rgba(171, 143, 50, 0.28); --mat-rail-shadow: rgba(171, 143, 50, 0.35);
+  --mat-well-ink: rgba(105, 88, 31, 0.3); --mat-well-brass: rgba(219, 183, 64, 0.32); --mat-well-tick: rgba(219, 183, 64, 0.52);
+  --mat-paper-1: #fffefc; --mat-paper-2: #e0d9c5; --mat-paper-3: #c6ba96; --mat-paper-4: #ae9e6c; --mat-paper-5: #887128;
+}
+.root[data-table-theme='gengar'] {
+  --mat-bg: #826ab4; --mat-text: #372d4c;
+  --mat-wash: rgba(238, 234, 244, 0.96); --mat-wash-2: rgba(238, 234, 244, 0.93); --mat-wash-3: rgba(216, 208, 231, 0.61);
+  --mat-wash-p1: rgba(238, 234, 244, 0.91); --mat-wash-p2: rgba(238, 234, 244, 0.68); --mat-wash-p3: rgba(216, 208, 231, 0.27);
+  --mat-frame-glow: #f1edf6; --mat-stage-mid: #a898c7; --mat-frame-edge: #9584b8;
+  --mat-hatch: rgba(112, 91, 155, 0.024); --mat-inset-line: rgba(112, 91, 155, 0.23);
+  --mat-ring: #705b9b; --mat-ring-2: rgba(112, 91, 155, 0.5); --mat-ring-4: rgba(112, 91, 155, 0.35); --mat-ring-light: #baadd6; --mat-ring-5: #aa9bc9;
+  --mat-shadow: rgba(62, 50, 85, 0.3); --mat-shadow-2: rgba(62, 50, 85, 0.25);
+  --mat-print-border: rgba(112, 91, 155, 0.35); --mat-print-hatch: rgba(112, 91, 155, 0.012);
+  --mat-shade-tint: rgba(78, 64, 108, 0.2); --mat-line-soft: rgba(112, 91, 155, 0.28);
+  --mat-rail-mid: rgba(112, 91, 155, 0.32); --mat-rail-dark: rgba(87, 71, 121, 0.28); --mat-rail-shadow: rgba(87, 71, 121, 0.35);
+  --mat-well-ink: rgba(54, 44, 74, 0.3); --mat-well-brass: rgba(112, 91, 155, 0.32); --mat-well-tick: rgba(112, 91, 155, 0.52);
+  --mat-paper-1: #fdfcfe; --mat-paper-2: #cdc9d5; --mat-paper-3: #a59eb2; --mat-paper-4: #807793; --mat-paper-5: #453860;
+}
+.root[data-table-theme='snorlax'] {
+  --mat-bg: #538bac; --mat-text: #233a48;
+  --mat-wash: rgba(231, 239, 243, 0.96); --mat-wash-2: rgba(231, 239, 243, 0.93); --mat-wash-3: rgba(201, 219, 229, 0.61);
+  --mat-wash-p1: rgba(231, 239, 243, 0.91); --mat-wash-p2: rgba(231, 239, 243, 0.68); --mat-wash-p3: rgba(201, 219, 229, 0.27);
+  --mat-frame-glow: #ebf1f5; --mat-stage-mid: #8aadc2; --mat-frame-edge: #749cb2;
+  --mat-hatch: rgba(71, 120, 148, 0.024); --mat-inset-line: rgba(71, 120, 148, 0.23);
+  --mat-ring: #477894; --mat-ring-2: rgba(71, 120, 148, 0.5); --mat-ring-4: rgba(71, 120, 148, 0.35); --mat-ring-light: #a0bfd1; --mat-ring-5: #8cafc4;
+  --mat-shadow: rgba(39, 66, 81, 0.3); --mat-shadow-2: rgba(39, 66, 81, 0.25);
+  --mat-print-border: rgba(71, 120, 148, 0.35); --mat-print-hatch: rgba(71, 120, 148, 0.012);
+  --mat-shade-tint: rgba(50, 84, 104, 0.2); --mat-line-soft: rgba(71, 120, 148, 0.28);
+  --mat-rail-mid: rgba(71, 120, 148, 0.32); --mat-rail-dark: rgba(55, 94, 115, 0.28); --mat-rail-shadow: rgba(55, 94, 115, 0.35);
+  --mat-well-ink: rgba(34, 58, 71, 0.3); --mat-well-brass: rgba(71, 120, 148, 0.32); --mat-well-tick: rgba(71, 120, 148, 0.52);
+  --mat-paper-1: #fcfdfe; --mat-paper-2: #c6ced4; --mat-paper-3: #98a7b0; --mat-paper-4: #6f8390; --mat-paper-5: #2c4a5c;
+}
+.root[data-table-theme='quagsire'] {
+  --mat-bg: #82d5f5; --mat-text: #375967;
+  --mat-wash: rgba(238, 249, 254, 0.96); --mat-wash-2: rgba(238, 249, 254, 0.93); --mat-wash-3: rgba(216, 242, 252, 0.61);
+  --mat-wash-p1: rgba(238, 249, 254, 0.91); --mat-wash-p2: rgba(238, 249, 254, 0.68); --mat-wash-p3: rgba(216, 242, 252, 0.27);
+  --mat-frame-glow: #f1fafe; --mat-stage-mid: #a8dcf0; --mat-frame-edge: #95d0e6;
+  --mat-hatch: rgba(112, 183, 211, 0.024); --mat-inset-line: rgba(112, 183, 211, 0.23);
+  --mat-ring: #70b7d3; --mat-ring-2: rgba(112, 183, 211, 0.5); --mat-ring-4: rgba(112, 183, 211, 0.35); --mat-ring-light: #bae8fa; --mat-ring-5: #aaddf1;
+  --mat-shadow: rgba(62, 101, 116, 0.3); --mat-shadow-2: rgba(62, 101, 116, 0.25);
+  --mat-print-border: rgba(112, 183, 211, 0.35); --mat-print-hatch: rgba(112, 183, 211, 0.012);
+  --mat-shade-tint: rgba(78, 128, 148, 0.2); --mat-line-soft: rgba(112, 183, 211, 0.28);
+  --mat-rail-mid: rgba(112, 183, 211, 0.32); --mat-rail-dark: rgba(87, 143, 165, 0.28); --mat-rail-shadow: rgba(87, 143, 165, 0.35);
+  --mat-well-ink: rgba(54, 88, 101, 0.3); --mat-well-brass: rgba(112, 183, 211, 0.32); --mat-well-tick: rgba(112, 183, 211, 0.52);
+  --mat-paper-1: #fdfeff; --mat-paper-2: #cdd9df; --mat-paper-3: #a5bac3; --mat-paper-4: #809eab; --mat-paper-5: #457183;
+}
+.root[data-table-theme='wooper'] {
+  --mat-bg: #73bcff; --mat-text: #304f6b;
+  --mat-wash: rgba(235, 246, 255, 0.96); --mat-wash-2: rgba(235, 246, 255, 0.93); --mat-wash-3: rgba(211, 234, 255, 0.61);
+  --mat-wash-p1: rgba(235, 246, 255, 0.91); --mat-wash-p2: rgba(235, 246, 255, 0.68); --mat-wash-p3: rgba(211, 234, 255, 0.27);
+  --mat-frame-glow: #eef7ff; --mat-stage-mid: #9eccf6; --mat-frame-edge: #8abeed;
+  --mat-hatch: rgba(99, 162, 219, 0.024); --mat-inset-line: rgba(99, 162, 219, 0.23);
+  --mat-ring: #63a2db; --mat-ring-2: rgba(99, 162, 219, 0.5); --mat-ring-4: rgba(99, 162, 219, 0.35); --mat-ring-light: #b2daff; --mat-ring-5: #a1cef7;
+  --mat-shadow: rgba(54, 89, 120, 0.3); --mat-shadow-2: rgba(54, 89, 120, 0.25);
+  --mat-print-border: rgba(99, 162, 219, 0.35); --mat-print-hatch: rgba(99, 162, 219, 0.012);
+  --mat-shade-tint: rgba(69, 113, 153, 0.2); --mat-line-soft: rgba(99, 162, 219, 0.28);
+  --mat-rail-mid: rgba(99, 162, 219, 0.32); --mat-rail-dark: rgba(77, 126, 171, 0.28); --mat-rail-shadow: rgba(77, 126, 171, 0.35);
+  --mat-well-ink: rgba(48, 78, 105, 0.3); --mat-well-brass: rgba(99, 162, 219, 0.32); --mat-well-tick: rgba(99, 162, 219, 0.52);
+  --mat-paper-1: #fdfeff; --mat-paper-2: #cbd6e0; --mat-paper-3: #a1b4c6; --mat-paper-4: #7a95ae; --mat-paper-5: #3d6488;
+}
+.root[data-table-theme='wobbuffet'] {
+  --mat-bg: #49ace7; --mat-text: #1f4861;
+  --mat-wash: rgba(230, 243, 252, 0.96); --mat-wash-2: rgba(230, 243, 252, 0.93); --mat-wash-3: rgba(199, 229, 248, 0.61);
+  --mat-wash-p1: rgba(230, 243, 252, 0.91); --mat-wash-p2: rgba(230, 243, 252, 0.68); --mat-wash-p3: rgba(199, 229, 248, 0.27);
+  --mat-frame-glow: #eaf5fc; --mat-stage-mid: #84c2e7; --mat-frame-edge: #6db2dc;
+  --mat-hatch: rgba(63, 148, 199, 0.024); --mat-inset-line: rgba(63, 148, 199, 0.23);
+  --mat-ring: #3f94c7; --mat-ring-2: rgba(63, 148, 199, 0.5); --mat-ring-4: rgba(63, 148, 199, 0.35); --mat-ring-light: #9bd1f2; --mat-ring-5: #87c4e9;
+  --mat-shadow: rgba(35, 81, 109, 0.3); --mat-shadow-2: rgba(35, 81, 109, 0.25);
+  --mat-print-border: rgba(63, 148, 199, 0.35); --mat-print-hatch: rgba(63, 148, 199, 0.012);
+  --mat-shade-tint: rgba(44, 104, 139, 0.2); --mat-line-soft: rgba(63, 148, 199, 0.28);
+  --mat-rail-mid: rgba(63, 148, 199, 0.32); --mat-rail-dark: rgba(49, 115, 155, 0.28); --mat-rail-shadow: rgba(49, 115, 155, 0.35);
+  --mat-well-ink: rgba(30, 71, 96, 0.3); --mat-well-brass: rgba(63, 148, 199, 0.32); --mat-well-tick: rgba(63, 148, 199, 0.52);
+  --mat-paper-1: #fcfeff; --mat-paper-2: #c5d4dd; --mat-paper-3: #96b0c0; --mat-paper-4: #6b90a5; --mat-paper-5: #275c7b;
+}
+.root[data-mat-family='art']::before { background: repeating-linear-gradient(101deg, var(--mat-hatch) 0 1px, transparent 1px 6px); }
+.root[data-mat-family='art'] .boardCanvas::before {
+  background-color: var(--mat-bg);
+  background-blend-mode: normal;
+  background-image: linear-gradient(90deg, var(--mat-wash) 0%, var(--mat-wash-2) 38%, var(--mat-wash-3) 60%, transparent 82%), var(--playmat-art, none);
+  background-size: 100% 100%, contain;
+  background-position: center, right center;
+  background-repeat: no-repeat;
+  box-shadow:
+    inset 0 1px 2px #fff9, inset 0 0 0 1px var(--mat-inset-line),
+    0 0 0 2px var(--mat-ring),
+    0 0 0 3.5px var(--mat-ring-2),
+    0 0 0 9px var(--mat-ring-light),
+    0 0 0 10.5px var(--mat-ring-4),
+    0 0 0 15px var(--mat-ring-5),
+    0 22px 44px var(--mat-shadow),
+    0 8px 16px var(--mat-shadow-2);
+}
+.root[data-mat-family='art'] .boardCanvas::after { border-color: var(--mat-print-border); background: repeating-linear-gradient(45deg, var(--mat-print-hatch) 0 1px, transparent 1px 3px); }
+.root[data-mat-family='art'] .matShade {
+  background:
+    radial-gradient(ellipse 55% 38% at 36% 12%, rgba(255, 255, 255, .16), transparent 62%),
+    radial-gradient(ellipse 130% 105% at 50% 46%, transparent 60%, var(--mat-shade-tint) 100%);
+}
+.root[data-mat-family='art'] .midRail {
+  background: linear-gradient(180deg, rgba(255, 255, 255, .07), var(--mat-rail-mid) 35%, var(--mat-rail-dark) 72%, rgba(0, 0, 0, .1));
+  box-shadow: 0 1px 2px var(--mat-rail-shadow), inset 0 1px 0 rgba(255, 255, 255, .4);
+}
+.root[data-mat-family='art'] .slotActive::before {
+  box-shadow:
+    inset 0 2px 7px var(--mat-well-ink),
+    inset 0 0 0 1.5px var(--mat-well-tick),
+    inset 0 1px 0 var(--well-lip),
+    0 0 6px var(--mat-slot-glow),
+    0 0 26px var(--mat-slot-glow-soft);
+}
+.root[data-mat-family='art'] .stadiumMidline::before { border-color: var(--mat-line-soft); }
+.root[data-mat-family='art'] .prizeSlot[data-empty='true']::after { background: var(--mat-print-border); box-shadow: none; }
+.root[data-mat-family='art'] .dropHighlight {
+  outline-color: var(--mat-drop);
+  box-shadow: 0 0 0 1px rgba(224, 132, 111, .35), 0 0 22px rgba(224, 132, 111, .4), 0 0 46px rgba(224, 132, 111, .18), inset 0 0 18px rgba(255, 214, 200, .3);
+}
+.root[data-mat-family='art'] .stackCard {
+  box-shadow:
+    1px 1px 0 var(--mat-paper-1),
+    2px 2.5px 0 var(--mat-paper-2),
+    3px 4.5px 0 var(--mat-paper-3),
+    3px 6px 0 var(--mat-paper-4),
+    3px 8px 0 var(--mat-paper-5),
+    0 10px 14px var(--mat-shadow);
+}
+.root[data-mat-family='art'].portrait .boardCanvas::before {
+  background-image: linear-gradient(90deg, var(--mat-wash-p1) 0%, var(--mat-wash-p2) 38%, var(--mat-wash-p3) 62%, transparent 86%), var(--playmat-art, none);
+  box-shadow:
+    inset 0 1px 2px #fff9, inset 0 0 0 1px var(--mat-inset-line),
+    0 0 0 1.5px var(--mat-ring),
+    0 0 0 2.5px var(--mat-ring-2),
+    0 0 0 6px var(--mat-ring-light),
+    0 0 0 7.5px var(--mat-ring-4),
+    0 0 0 10px var(--mat-ring-5),
+    0 14px 30px var(--mat-shadow),
+    0 6px 12px var(--mat-shadow-2);
+}
+
+/* —— 整桌满版桌垫：共用木框、凹槽与印刷层，只换桌垫面料与配色 —— */
+.root[data-table-theme='paper'] {
+  --well-ink: rgba(84, 72, 50, .18);
+  --well-lip: rgba(255, 255, 255, .7);
+  --well-brass: rgba(126, 110, 78, .3);
+  --well-tick: rgba(126, 110, 78, .42);
+  --mat-print-1: #8a7f68; --mat-print-2: #4c4636; --mat-print-3: #6f6552;
+  --mat-print-4: #57503e; --mat-print-5: #7d735c;
+  --mat-print-opacity: .46; --mat-print-core: #3a3529;
+  color: #4b4536;
+}
+.root[data-table-theme='paper'] .boardCanvas::before {
+  background:
+    var(--felt-noise) 0 0 / 84px,
+    repeating-linear-gradient(0deg, rgba(176, 163, 130, .15) 0 1px, transparent 1px 27px),
+    repeating-linear-gradient(90deg, rgba(176, 163, 130, .12) 0 1px, transparent 1px 27px),
+    radial-gradient(ellipse 85% 65% at 40% 16%, #faf5e9, #f0e8d6 58%, #e4d9c0);
+  background-blend-mode: soft-light, normal, normal, normal;
+}
+.root[data-table-theme='paper'] .boardCanvas::after { border-color: rgba(122, 111, 84, .25); background: repeating-linear-gradient(45deg, rgba(122, 111, 84, .06) 0 1px, transparent 1px 3px); }
+.root[data-table-theme='paper'] .matShade {
+  background:
+    radial-gradient(ellipse 55% 38% at 36% 12%, rgba(255, 255, 255, .3), transparent 62%),
+    radial-gradient(ellipse 130% 105% at 50% 46%, transparent 62%, rgba(112, 94, 62, .16) 100%);
+}
+.root[data-table-theme='starlight'] .boardCanvas::before {
+  background:
+    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1000'%20height='700'%3E%3Cg%20fill='%23dfe7ff'%3E%3Ccircle%20cx='610.3'%20cy='135.4'%20r='1.3'%20opacity='0.7'/%3E%3Ccircle%20cx='97.0'%20cy='436.0'%20r='2.1'%20opacity='0.21'/%3E%3Ccircle%20cx='721.1'%20cy='165.9'%20r='2.1'%20opacity='0.22'/%3E%3Ccircle%20cx='221.2'%20cy='508.7'%20r='2.1'%20opacity='0.24'/%3E%3Ccircle%20cx='249.9'%20cy='90.2'%20r='1.6'%20opacity='0.44'/%3E%3Ccircle%20cx='153.1'%20cy='97.5'%20r='1.1'%20opacity='0.28'/%3E%3Ccircle%20cx='888.2'%20cy='522.0'%20r='1.6'%20opacity='0.41'/%3E%3Ccircle%20cx='672.7'%20cy='508.9'%20r='1.6'%20opacity='0.61'/%3E%3Ccircle%20cx='591.3'%20cy='332.4'%20r='1.6'%20opacity='0.43'/%3E%3Ccircle%20cx='891.9'%20cy='170.9'%20r='1.3'%20opacity='0.19'/%3E%3Ccircle%20cx='148.2'%20cy='293.1'%20r='1.1'%20opacity='0.24'/%3E%3Ccircle%20cx='644.0'%20cy='32.2'%20r='1.6'%20opacity='0.54'/%3E%3Ccircle%20cx='70.3'%20cy='690.7'%20r='1.6'%20opacity='0.26'/%3E%3Ccircle%20cx='528.7'%20cy='298.4'%20r='0.9'%20opacity='0.7'/%3E%3Ccircle%20cx='204.0'%20cy='138.0'%20r='1.1'%20opacity='0.2'/%3E%3Ccircle%20cx='997.5'%20cy='689.2'%20r='1.3'%20opacity='0.57'/%3E%3Ccircle%20cx='217.3'%20cy='108.6'%20r='1.6'%20opacity='0.57'/%3E%3Ccircle%20cx='803.5'%20cy='252.3'%20r='1.1'%20opacity='0.64'/%3E%3Ccircle%20cx='88.7'%20cy='377.5'%20r='2.1'%20opacity='0.51'/%3E%3Ccircle%20cx='641.9'%20cy='6.1'%20r='1.6'%20opacity='0.64'/%3E%3Ccircle%20cx='588.0'%20cy='322.5'%20r='0.9'%20opacity='0.47'/%3E%3Ccircle%20cx='591.8'%20cy='542.5'%20r='1.6'%20opacity='0.69'/%3E%3Ccircle%20cx='587.1'%20cy='197.3'%20r='2.1'%20opacity='0.49'/%3E%3Ccircle%20cx='464.8'%20cy='268.1'%20r='0.9'%20opacity='0.55'/%3E%3Ccircle%20cx='277.5'%20cy='500.8'%20r='1.1'%20opacity='0.38'/%3E%3Ccircle%20cx='823.6'%20cy='579.9'%20r='2.1'%20opacity='0.33'/%3E%3Ccircle%20cx='661.4'%20cy='183.0'%20r='1.1'%20opacity='0.49'/%3E%3Ccircle%20cx='998.8'%20cy='412.7'%20r='1.3'%20opacity='0.29'/%3E%3Ccircle%20cx='880.1'%20cy='413.3'%20r='1.1'%20opacity='0.29'/%3E%3Ccircle%20cx='833.8'%20cy='551.1'%20r='0.9'%20opacity='0.36'/%3E%3Ccircle%20cx='557.9'%20cy='615.9'%20r='1.6'%20opacity='0.39'/%3E%3Ccircle%20cx='545.6'%20cy='118.6'%20r='1.3'%20opacity='0.37'/%3E%3Ccircle%20cx='817.2'%20cy='466.2'%20r='1.3'%20opacity='0.4'/%3E%3Ccircle%20cx='800.8'%20cy='414.7'%20r='1.3'%20opacity='0.52'/%3E%3Ccircle%20cx='199.2'%20cy='267.0'%20r='1.3'%20opacity='0.55'/%3E%3Ccircle%20cx='941.5'%20cy='289.9'%20r='2.1'%20opacity='0.68'/%3E%3Ccircle%20cx='791.2'%20cy='386.9'%20r='1.3'%20opacity='0.26'/%3E%3Ccircle%20cx='640.4'%20cy='480.1'%20r='2.1'%20opacity='0.2'/%3E%3Ccircle%20cx='679.2'%20cy='573.6'%20r='0.9'%20opacity='0.51'/%3E%3Ccircle%20cx='867.0'%20cy='320.0'%20r='2.1'%20opacity='0.56'/%3E%3Ccircle%20cx='926.7'%20cy='379.4'%20r='1.1'%20opacity='0.28'/%3E%3Ccircle%20cx='688.7'%20cy='74.1'%20r='0.9'%20opacity='0.51'/%3E%3Ccircle%20cx='870.9'%20cy='281.1'%20r='1.3'%20opacity='0.27'/%3E%3Ccircle%20cx='240.2'%20cy='561.6'%20r='1.1'%20opacity='0.56'/%3E%3Ccircle%20cx='879.4'%20cy='451.0'%20r='1.6'%20opacity='0.47'/%3E%3Ccircle%20cx='29.5'%20cy='216.7'%20r='1.6'%20opacity='0.38'/%3E%3Ccircle%20cx='243.1'%20cy='43.9'%20r='1.6'%20opacity='0.34'/%3E%3Ccircle%20cx='994.5'%20cy='656.2'%20r='1.6'%20opacity='0.68'/%3E%3Ccircle%20cx='986.6'%20cy='590.4'%20r='0.9'%20opacity='0.2'/%3E%3Ccircle%20cx='532.5'%20cy='665.3'%20r='2.1'%20opacity='0.5'/%3E%3Ccircle%20cx='100.0'%20cy='24.4'%20r='0.9'%20opacity='0.19'/%3E%3Ccircle%20cx='568.7'%20cy='73.9'%20r='1.6'%20opacity='0.58'/%3E%3Ccircle%20cx='362.6'%20cy='542.2'%20r='1.1'%20opacity='0.53'/%3E%3Ccircle%20cx='549.7'%20cy='648.9'%20r='1.3'%20opacity='0.42'/%3E%3Ccircle%20cx='752.4'%20cy='264.0'%20r='1.6'%20opacity='0.68'/%3E%3Ccircle%20cx='282.5'%20cy='465.8'%20r='1.6'%20opacity='0.31'/%3E%3Ccircle%20cx='290.5'%20cy='128.5'%20r='1.3'%20opacity='0.32'/%3E%3Ccircle%20cx='326.5'%20cy='87.4'%20r='1.3'%20opacity='0.64'/%3E%3C/g%3E%3Cg%20fill='%23ffe9b0'%3E%3Cpath%20d='M210%20144L211.6%20148.4L216%20150L211.6%20151.6L210%20156L208.4%20151.6L204%20150L208.4%20148.4Z'%20opacity='.5'/%3E%3Cpath%20d='M770%20114L771.6%20118.4L776%20120L771.6%20121.6L770%20126L768.4%20121.6L764%20120L768.4%20118.4Z'%20opacity='.5'/%3E%3Cpath%20d='M500%20554L501.6%20558.4L506%20560L501.6%20561.6L500%20566L498.4%20561.6L494%20560L498.4%20558.4Z'%20opacity='.5'/%3E%3Cpath%20d='M880%20464L881.6%20468.4L886%20470L881.6%20471.6L880%20476L878.4%20471.6L874%20470L878.4%20468.4Z'%20opacity='.5'/%3E%3Cpath%20d='M120%20514L121.6%20518.4L126%20520L121.6%20521.6L120%20526L118.4%20521.6L114%20520L118.4%20518.4Z'%20opacity='.5'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 100% 100%,
+    var(--felt-noise) 0 0 / 150px,
+    radial-gradient(ellipse 72% 48% at 50% 10%, rgba(104, 128, 220, .38), transparent 68%),
+    radial-gradient(ellipse 85% 65% at 40% 16%, #22305a, #141d38 58%, #0a0f1e);
+  background-blend-mode: screen, overlay, normal, normal;
+}
+.root[data-table-theme='monogram-amber'] .boardCanvas::before {
+  background:
+    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='96'%20height='96'%3E%3Cg%20fill='none'%20stroke='%23f2c14e'%20stroke-width='1.15'%20opacity='.12'%3E%3Ccircle%20cx='28'%20cy='28'%20r='14.5'/%3E%3Cpath%20d='M13.5%2028h29'/%3E%3Ccircle%20cx='28'%20cy='28'%20r='4.6'/%3E%3Ccircle%20cx='76'%20cy='76'%20r='14.5'/%3E%3Cpath%20d='M61.5%2076h29'/%3E%3Ccircle%20cx='76'%20cy='76'%20r='4.6'/%3E%3Cpath%20d='M76%2016l5.4%205.4-5.4%205.4-5.4-5.4z'/%3E%3Cpath%20d='M20%2076l5.4%205.4-5.4%205.4-5.4-5.4z'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 96px,
+    var(--felt-noise) 0 0 / 150px,
+    repeating-linear-gradient(101deg, rgba(255, 255, 255, .02) 0 1px, transparent 1px 6px),
+    radial-gradient(ellipse 85% 65% at 40% 16%, #2c2415, #1a1510 58%, #0f0c08);
+  background-blend-mode: normal, overlay, normal, normal;
+}
+.root[data-table-theme='monogram-aqua'] .boardCanvas::before {
+  background:
+    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='96'%20height='96'%3E%3Cg%20fill='none'%20stroke='%2383dff0'%20stroke-width='1.15'%20opacity='.12'%3E%3Ccircle%20cx='28'%20cy='28'%20r='14.5'/%3E%3Cpath%20d='M13.5%2028h29'/%3E%3Ccircle%20cx='28'%20cy='28'%20r='4.6'/%3E%3Ccircle%20cx='76'%20cy='76'%20r='14.5'/%3E%3Cpath%20d='M61.5%2076h29'/%3E%3Ccircle%20cx='76'%20cy='76'%20r='4.6'/%3E%3Cpath%20d='M76%2016l5.4%205.4-5.4%205.4-5.4-5.4z'/%3E%3Cpath%20d='M20%2076l5.4%205.4-5.4%205.4-5.4-5.4z'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 96px,
+    var(--felt-noise) 0 0 / 150px,
+    repeating-linear-gradient(101deg, rgba(255, 255, 255, .02) 0 1px, transparent 1px 6px),
+    radial-gradient(ellipse 85% 65% at 40% 16%, #16363e, #0d1f26 58%, #071216);
+  background-blend-mode: normal, overlay, normal, normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boardCanvas { transition: none; }
+  .turnMarker::before { transition: none; }
+}

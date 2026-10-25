@@ -1,0 +1,394 @@
+/*
+ * MoveEnergy / DiscardEnergy / OrderCards 共用外观 —— 胡桃木面板 + 黄铜。
+ * Layout follows Angular move-energy; 材质对齐 arena.css。
+ */
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background:
+    radial-gradient(ellipse 135% 115% at 50% 40%,
+      rgba(10, 16, 11, 0.34) 0%,
+      rgba(7, 11, 8, 0.58) 62%,
+      rgba(4, 7, 5, 0.7) 100%);
+  backdrop-filter: blur(4px) saturate(0.88);
+  animation: promptBackdropEnter 200ms var(--a-ease-out);
+}
+
+.panel {
+  box-sizing: border-box;
+  width: min(1000px, calc(100vw - 48px));
+  max-width: calc(100% - 32px);
+  max-height: min(90vh, 880px);
+  padding: 24px;
+  border-radius: 10px;
+  border: 1px solid rgba(201, 162, 39, 0.5);
+  background:
+    repeating-linear-gradient(44deg,
+      rgba(255, 246, 220, 0.014) 0 1px,
+      transparent 1px 3px),
+    radial-gradient(ellipse 90% 30% at 50% 0%,
+      rgba(232, 200, 90, 0.08),
+      transparent 70%),
+    linear-gradient(172deg, #54371f 0%, #3c2716 48%, #2a1a10 100%);
+  box-shadow:
+    0 26px 54px rgba(8, 5, 2, 0.56),
+    0 8px 18px rgba(8, 5, 2, 0.4),
+    inset 0 1px 0 rgba(255, 236, 190, 0.14),
+    inset 0 0 0 1px rgba(9, 6, 3, 0.4);
+  color: var(--a-on-dark);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transform-origin: center center;
+  animation: promptPanelEnter 300ms var(--a-ease-out);
+}
+
+@keyframes promptBackdropEnter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes promptPanelEnter {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+.promptTitle {
+  display: flex;
+  align-items: center;
+  margin: 0 0 16px;
+  flex-shrink: 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid;
+  border-image: linear-gradient(90deg,
+    var(--a-brass) 0%,
+    rgba(201, 162, 39, 0.3) 42%,
+    transparent 92%) 1;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-family: var(--a-font-display);
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--a-on-dark);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  align-self: center;
+}
+
+.title::before {
+  content: '';
+  flex: none;
+  width: 7px;
+  height: 7px;
+  background: var(--a-brass);
+  transform: rotate(45deg);
+  box-shadow: 0 0 10px rgba(201, 162, 39, 0.7);
+}
+
+.promptContent {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: 65vh;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 -24px;
+  padding: 0 24px;
+}
+
+.message {
+  margin: 0 0 16px;
+  line-height: 1.5;
+  font-size: 0.92rem;
+  color: var(--a-on-dark-soft);
+}
+
+/* 宝可梦盘面：桌垫上的深绒凹槽 */
+.pokemonPane {
+  border-radius: 10px;
+  border: 1px solid rgba(201, 162, 39, 0.22);
+  background: rgba(12, 7, 3, 0.38);
+  box-shadow: inset 0 2px 10px rgba(9, 6, 3, 0.5);
+  padding: 8px;
+  margin-bottom: 16px;
+}
+
+.pokemonRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 16px 0;
+}
+
+.pokemonRowUpsideDown { transform: rotate(180deg); }
+
+.pokeCardWrap {
+  margin: 0 8px;
+  flex: 0 0 auto;
+}
+
+.sourceButton {
+  display: block;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 8px;
+  line-height: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.sourceButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.sourceButtonDisabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.sourceButton:focus-visible {
+  outline: 2px solid var(--a-brass-lit);
+  outline-offset: 3px;
+}
+
+/* 选中来源：黄铜外发光 + 微亮 */
+.sourceSelected {
+  border-radius: 8px;
+  box-shadow:
+    0 0 0 2px var(--a-brass-lit),
+    0 0 18px rgba(232, 200, 90, 0.3);
+}
+
+.energyViewport {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid rgba(201, 162, 39, 0.22);
+  background: rgba(12, 7, 3, 0.38);
+  box-shadow: inset 0 2px 10px rgba(9, 6, 3, 0.5);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.energyList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  min-height: 80px;
+}
+
+.energyHint {
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--a-on-dark-soft);
+}
+
+.cardPrompt {
+  width: 100px;
+  line-height: 0;
+  filter: drop-shadow(0 3px 0 rgba(120, 104, 76, 0.5))
+    drop-shadow(0 8px 14px rgba(9, 6, 3, 0.42));
+  transition: filter var(--a-t) var(--a-ease-out);
+}
+
+/* 属性色宝石：圆片 + 高光 + 属性辉光（--gem 由 TSX 按属性注入） */
+.energyGem {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 28%,
+      rgba(255, 255, 255, 0.85) 0 12%,
+      rgba(255, 255, 255, 0) 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(0, 0, 0, 0.28)),
+    var(--gem, var(--a-colorless));
+  box-shadow:
+    0 0 10px var(--gem, var(--a-colorless)),
+    0 2px 4px rgba(0, 0, 0, 0.55),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+  pointer-events: none;
+}
+
+.energyDraggable {
+  position: relative;
+  cursor: grab;
+  touch-action: none;
+  border-radius: 8px;
+  border: 2px solid rgba(201, 162, 39, 0.3);
+  transition:
+    border-color var(--a-t-fast) var(--a-ease),
+    box-shadow var(--a-t-fast) var(--a-ease),
+    opacity var(--a-t-fast) var(--a-ease),
+    transform var(--a-t-fast) var(--a-ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .energyDraggable:not(.energyDraggableDisabled):hover {
+    border-color: rgba(232, 200, 90, 0.75);
+    transform: translateY(-3px);
+  }
+}
+
+.energyDraggable:focus-visible { outline: 2px solid var(--a-brass-lit); outline-offset: 3px; }
+.energyDraggable:active { cursor: grabbing; }
+
+.energyDraggableDragging { opacity: 0.3; }
+
+.energyDraggableDisabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.dropSlot {
+  position: relative;
+  border-radius: 8px;
+  border: 2px dashed rgba(201, 162, 39, 0.3);
+  background: rgba(255, 246, 220, 0.03);
+  transition:
+    border-color var(--a-t-fast) var(--a-ease),
+    box-shadow var(--a-t-fast) var(--a-ease),
+    background var(--a-t-fast) var(--a-ease),
+    opacity var(--a-t-fast) var(--a-ease);
+}
+
+/* 悬停放置目标：黄铜亮边 + 微光 */
+.dropSlotOver {
+  border-color: rgba(232, 200, 90, 0.85);
+  border-style: solid;
+  background: rgba(201, 162, 39, 0.1);
+  box-shadow:
+    0 0 0 1px rgba(232, 200, 90, 0.4),
+    0 0 18px rgba(232, 200, 90, 0.18);
+}
+
+.dropSlotBlocked { opacity: 0.55; }
+
+.slotInner { line-height: 0; }
+
+.emptySlot {
+  width: 100px;
+  aspect-ratio: 63 / 88;
+  border-radius: 6px;
+  background: rgba(255, 246, 220, 0.04);
+  border: none;
+  box-sizing: border-box;
+}
+
+.promptActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 8px 0 0;
+  margin-top: 8px;
+  flex-shrink: 0;
+  min-height: 52px;
+}
+
+/* 次要按钮 → 黄铜描边实体键（直接子级，避开 portaled 确认球） */
+.promptActions > button {
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid rgba(243, 234, 214, 0.26);
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  color: var(--a-on-dark);
+  background: linear-gradient(180deg,
+    rgba(243, 234, 214, 0.08),
+    rgba(243, 234, 214, 0.03));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 2px 6px rgba(8, 5, 2, 0.35);
+  transition:
+    background var(--a-t-fast) var(--a-ease),
+    border-color var(--a-t-fast) var(--a-ease),
+    transform var(--a-t-fast) var(--a-ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .promptActions > button:hover:not(:disabled) {
+    background: linear-gradient(180deg,
+      rgba(243, 234, 214, 0.14),
+      rgba(243, 234, 214, 0.06));
+    border-color: rgba(201, 162, 39, 0.6);
+    transform: translateY(-1px);
+  }
+}
+
+.promptActions > button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.actionsGrow {
+  flex: 1;
+  min-width: 8px;
+}
+
+/* 拿起来的能量：更深的投影 + 轻微倾斜 */
+.dragOverlay { cursor: grabbing; }
+
+.dragOverlayCard {
+  position: relative;
+  cursor: grabbing;
+  border-color: rgba(232, 200, 90, 0.7);
+  transform: rotate(2.5deg) scale(1.03);
+  filter: drop-shadow(0 6px 0 rgba(52, 44, 32, 0.55))
+    drop-shadow(0 22px 34px rgba(9, 6, 3, 0.62));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop,
+  .panel {
+    animation: none;
+  }
+
+  .panel {
+    animation: promptBackdropEnter 0.15s ease-out;
+  }
+
+  .cardPrompt,
+  .energyDraggable,
+  .dropSlot,
+  .promptActions > button {
+    transition: none;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .energyDraggable:not(.energyDraggableDisabled):hover { transform: none; }
+    .promptActions > button:hover:not(:disabled) { transform: none; }
+  }
+
+  .dragOverlayCard { transform: none; }
+}

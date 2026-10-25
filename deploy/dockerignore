@@ -1,0 +1,22 @@
+.git
+**/node_modules
+**/output
+**/dist
+**/.env
+**/.env.*
+!**/.env.example
+**/*.sq3
+**/*.db
+**/*.sqlite
+**/*.sqlite3
+**/*-wal
+**/*-shm
+**/*-journal
+**/logs
+**/*.log
+**/screenshots
+**/.tooling
+**/.venv
+**/.cache
+exports
+# Legally prepared images are intentionally allowed into the build context.

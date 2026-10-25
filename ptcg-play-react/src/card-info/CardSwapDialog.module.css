@@ -1,0 +1,461 @@
+/*
+ * CardSwapDialog — 替换印刷版本：一册奶油纸的印刷版目录。
+ * 当前印刷卡带黄铜镶框，候选陈列格逐格排开；选择 / 收藏逻辑在 TSX，未动。
+ */
+
+/* No extra scrim: opened from CardInfoPopup, which already provides the dimmed backdrop. */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 13001;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+/* 目录册本体：奶油纸 + 胡桃木书脊感投影 */
+.panel {
+  display: flex;
+  flex-direction: column;
+  max-width: min(1200px, 92vw);
+  width: 100%;
+  max-height: 90vh;
+  overflow: hidden;
+  border-radius: 10px;
+  border: 1px solid var(--a-paper-edge);
+  color: var(--a-ink);
+  font-family: var(--a-font-ui);
+  background: linear-gradient(175deg, var(--a-paper) 0%, var(--a-paper-warm) 100%);
+  box-shadow: var(--a-lift-4), var(--a-inset-paper);
+  animation: catalogIn 220ms var(--a-ease-out);
+}
+
+@keyframes catalogIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.title {
+  margin: 0;
+  padding: 18px 22px 12px;
+  font-family: var(--a-font-display);
+  font-weight: 400;
+  font-size: 21px;
+  letter-spacing: 0.03em;
+  color: var(--a-ink);
+  border-bottom: 1px solid rgba(201, 162, 39, 0.45);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.content {
+  padding: 8px;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(138, 111, 20, 0.45) transparent;
+}
+
+.cardsContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 18px;
+  align-items: flex-start;
+  padding: 10px 8px 14px;
+  max-height: 70vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(138, 111, 20, 0.45) transparent;
+}
+
+/* —— 当前印刷卡：目录页首格，铜牌标注 —— */
+
+.currentCardItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  width: 184px;
+  padding: 12px 2px 10px;
+  border-radius: 8px;
+  background: rgba(201, 162, 39, 0.1);
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.cardLabel {
+  height: 22px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 3px 11px;
+  font-family: var(--a-font-num);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #241a06;
+  background: linear-gradient(180deg, var(--a-brass-lit), var(--a-brass));
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  border-radius: 3px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.cardWrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+/* 黄铜镶框的当前卡 */
+.swapCardLarge {
+  width: 180px;
+  display: block;
+  border-radius: 8px;
+  box-shadow:
+    0 0 0 2px var(--a-brass),
+    0 0 0 3px rgba(74, 50, 34, 0.35),
+    3px 4px 0 -1px #c6b998,
+    5px 7px 0 -2px #b0a385,
+    0 12px 20px rgba(20, 12, 6, 0.3);
+}
+
+/* —— 候选陈列格 —— */
+
+.alternativesSection {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  gap: 18px;
+  padding-top: 10px;
+}
+
+.alternativeGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.alternativeGroup + .alternativeGroup {
+  padding-top: 14px;
+  border-top: 1px solid rgba(201, 162, 39, 0.35);
+}
+
+.groupTitle {
+  margin: 0;
+  padding: 0 4px;
+  font-family: var(--a-font-num);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--a-ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 标题左侧的黄铜小菱形，与全站 a-section 同族 */
+.groupTitle::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--a-brass);
+  transform: rotate(45deg);
+  box-shadow: 0 0 8px rgba(201, 162, 39, 0.6);
+}
+
+.cardsRow {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.cardItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 136px;
+  padding: 10px 8px 8px;
+  border-radius: 6px;
+  background: rgba(74, 50, 34, 0.05);
+  border: 1px solid rgba(74, 50, 34, 0.14);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition:
+    border-color 140ms var(--a-ease),
+    background 140ms var(--a-ease),
+    transform 140ms var(--a-ease);
+}
+
+.swapCardSmall {
+  width: 120px;
+  display: block;
+  border-radius: 6px;
+  box-shadow:
+    2px 3px 0 -1px #cdc3a6,
+    4px 5px 0 -2px #b8ab8a,
+    0 6px 12px rgba(20, 12, 6, 0.24);
+  transition: transform 160ms var(--a-ease);
+}
+
+.cardItem:focus-visible {
+  outline: 2px solid var(--a-brass);
+  outline-offset: 2px;
+}
+
+.cardInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 8px;
+  min-height: 20px;
+}
+
+.setInfo {
+  font-family: var(--a-font-num);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  color: var(--a-ink-soft);
+}
+
+/* —— 悬浮出现的换版铜键 —— */
+
+.swapIconButton {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid rgba(0, 0, 0, 0.38);
+  border-radius: 50%;
+  color: #241a06;
+  background: linear-gradient(180deg, var(--a-brass-lit) 0%, var(--a-brass) 52%, #a8831c 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    0 2px 0 #6d5710,
+    0 6px 14px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  z-index: 10;
+  pointer-events: none;
+  cursor: pointer;
+  transition:
+    opacity 140ms var(--a-ease),
+    transform 140ms var(--a-ease);
+}
+
+.cardItem:hover .swapIconButton,
+.cardItem:focus-within .swapIconButton {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.swapIconButton:hover {
+  filter: brightness(1.07);
+}
+
+.swapIconButton:active {
+  transform: translate(-50%, -50%) translateY(2px);
+}
+
+/* —— 收藏：铜边纸圆扣 —— */
+
+.favoriteIconButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 32px;
+  height: 32px;
+  background: radial-gradient(circle at 32% 28%, #fffef8, var(--a-paper-warm));
+  color: #c0392b;
+  opacity: 0.94;
+  z-index: 10;
+  border: 1px solid rgba(201, 162, 39, 0.55);
+  border-radius: 50%;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 2px 6px rgba(20, 12, 6, 0.3);
+  cursor: pointer;
+  padding: 0;
+  transition:
+    opacity 140ms var(--a-ease),
+    transform 140ms var(--a-ease);
+}
+
+.favoriteIconButton:hover {
+  transform: scale(1.08);
+  opacity: 1;
+}
+
+.favoriteIconButton:focus-visible {
+  outline: 2px solid var(--a-brass);
+  outline-offset: 2px;
+}
+
+.favoriteIconButtonSmall {
+  width: 28px;
+  height: 28px;
+}
+
+.noAlternatives {
+  text-align: center;
+  padding: 2rem;
+  color: var(--a-ink-soft);
+  flex: 1;
+}
+
+.footer {
+  padding: 14px 20px 18px;
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid rgba(201, 162, 39, 0.35);
+  box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.7);
+}
+
+/* 取消：实体黄铜键 */
+.cancelBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 20px;
+  border: 1px solid rgba(0, 0, 0, 0.38);
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #241a06;
+  background: linear-gradient(180deg, var(--a-brass-lit) 0%, var(--a-brass) 52%, #a8831c 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.2),
+    0 3px 0 #6d5710,
+    0 6px 14px rgba(0, 0, 0, 0.38);
+  cursor: pointer;
+  transition:
+    transform var(--a-t-fast) var(--a-ease),
+    box-shadow var(--a-t-fast) var(--a-ease),
+    filter var(--a-t-fast) var(--a-ease);
+}
+
+.cancelBtn:focus-visible {
+  outline: 2px solid var(--a-brass-dark);
+  outline-offset: 2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cardItem:hover {
+    border-color: rgba(201, 162, 39, 0.6);
+    background: rgba(201, 162, 39, 0.09);
+  }
+
+  .cardItem:hover .swapCardSmall {
+    transform: translateY(-3px);
+  }
+
+  .cancelBtn:hover {
+    filter: brightness(1.07);
+    transform: translateY(-1px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.55),
+      inset 0 -2px 0 rgba(0, 0, 0, 0.2),
+      0 4px 0 #6d5710,
+      0 10px 20px rgba(0, 0, 0, 0.42);
+  }
+}
+
+.cardItem:active {
+  transform: translateY(1px);
+}
+
+.cancelBtn:active {
+  transform: translateY(2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 1px 0 #6d5710,
+    0 2px 6px rgba(0, 0, 0, 0.38);
+}
+
+/* 手机：目录册纵向堆叠 */
+@media (max-width: 640px) {
+  .panel {
+    max-width: calc(100vw - 24px);
+    max-height: calc(100dvh - 32px);
+  }
+
+  .cardsContainer {
+    flex-direction: column;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .currentCardItem {
+    width: 100%;
+    padding: 12px 10px 10px;
+  }
+
+  .swapCardLarge {
+    width: min(180px, 52vw);
+  }
+
+  .cardsRow {
+    gap: 10px;
+  }
+
+  .cardItem {
+    width: calc(50% - 5px);
+  }
+
+  .swapCardSmall {
+    width: 100%;
+    max-width: 120px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel {
+    animation: catalogFade 120ms ease-out;
+  }
+
+  .cardItem,
+  .swapCardSmall,
+  .swapIconButton,
+  .favoriteIconButton,
+  .cancelBtn {
+    transition: none;
+  }
+}
+
+@keyframes catalogFade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

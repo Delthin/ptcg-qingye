@@ -1,0 +1,513 @@
+/* ============================================================
+   构筑栏：台面右边的深绒槽位板
+   已放卡牌躺在凹槽里，拖拽悬停时整块板亮起黄铜光。
+   ============================================================ */
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1;
+  border-radius: 9px;
+  overflow: hidden;
+  color: var(--a-on-dark);
+  background:
+    radial-gradient(130% 100% at 50% 0%, rgba(31, 92, 58, 0.5), transparent 58%),
+    linear-gradient(180deg, #1d4b30 0%, var(--a-felt-dark) 62%, #0e281a 100%);
+  border: 1px solid rgba(201, 162, 39, 0.34);
+  box-shadow:
+    inset 0 2px 16px rgba(0, 0, 0, 0.6),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  padding: 0 0 16px;
+}
+
+/* —— 头部：黄铜小铭牌 + 视图切换 —— */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 14px 11px;
+  border-bottom: 1px solid rgba(201, 162, 39, 0.2);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0.04));
+  flex: none;
+}
+
+.header strong {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--a-font-display);
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  color: var(--a-brass-lit);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
+}
+
+.header strong::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--a-brass);
+  transform: rotate(45deg);
+  box-shadow: 0 0 8px rgba(201, 162, 39, 0.7);
+}
+
+.header > button {
+  background: none;
+  border: 0;
+  color: var(--a-on-dark-soft);
+  font: inherit;
+  font-size: 10px;
+  padding: 7px 0;
+  cursor: pointer;
+  min-height: 36px;
+  transition: color var(--a-t-fast) var(--a-ease);
+}
+
+.viewSwitch {
+  display: flex;
+  margin-left: auto;
+  border: 1px solid rgba(201, 162, 39, 0.32);
+  border-radius: 5px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.24);
+}
+
+.viewSwitch button {
+  background: none;
+  border: 0;
+  color: var(--a-on-dark-soft);
+  font-size: 15px;
+  width: 34px;
+  height: 32px;
+  cursor: pointer;
+  transition: color var(--a-t-fast) var(--a-ease), background var(--a-t-fast) var(--a-ease);
+}
+
+.viewSwitch button[aria-pressed='true'] {
+  background: linear-gradient(180deg, var(--a-brass-lit), var(--a-brass) 60%, #a8831c);
+  color: #241a06;
+}
+
+/* —— 槽位板：拖入时黄铜外发光 —— */
+.list {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201, 162, 39, 0.35) rgba(0, 0, 0, 0.25);
+  outline-offset: -3px;
+  padding: 0 12px 20px;
+  transition: box-shadow var(--a-t-fast) var(--a-ease), background var(--a-t-fast) var(--a-ease);
+}
+
+.list::-webkit-scrollbar {
+  width: 10px;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background: rgba(201, 162, 39, 0.32);
+  border-radius: 5px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.list::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.list[data-over='true'] {
+  outline: 2px solid rgba(201, 162, 39, 0.85);
+  background: rgba(201, 162, 39, 0.06);
+  box-shadow: inset 0 0 36px rgba(201, 162, 39, 0.22);
+}
+
+/* —— 分组：黄铜小标题 —— */
+.group h2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--a-font-display);
+  font-weight: 400;
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+  color: var(--a-on-dark);
+  margin: 14px 0 10px;
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  padding: 8px 4px;
+  background: linear-gradient(180deg, rgba(14, 40, 26, 0.96), rgba(14, 40, 26, 0.88));
+  border-bottom: 1px solid rgba(201, 162, 39, 0.18);
+}
+
+.group h2::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  background: var(--a-brass);
+  transform: rotate(45deg);
+  box-shadow: 0 0 7px rgba(201, 162, 39, 0.7);
+  margin-right: 4px;
+}
+
+.group h2 > span {
+  font: 700 14px var(--a-font-num);
+  color: var(--a-brass-lit);
+}
+
+/* —— 行（列表视图）：绒面上的木条 —— */
+.row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 60px;
+  border-radius: 6px;
+  padding: 3px 6px;
+  background: rgba(0, 0, 0, 0.16);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+  transition: background var(--a-t-fast) var(--a-ease);
+}
+
+.row[data-dragging='true'] {
+  z-index: 5;
+  background: rgba(201, 162, 39, 0.12);
+  box-shadow: var(--a-lift-3), inset 0 0 0 1px rgba(201, 162, 39, 0.4);
+  opacity: 0.94;
+}
+
+.cardInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: 0;
+  color: var(--a-on-dark);
+  padding: 4px 0;
+  text-align: left;
+  cursor: pointer;
+  min-height: 44px;
+}
+
+.cardInfo img {
+  width: 36px;
+  height: 50px;
+  object-fit: contain;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+  flex: none;
+}
+
+.cardInfo > span {
+  min-width: 0;
+}
+
+.cardInfo strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 550;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cardInfo small {
+  display: block;
+  font-size: 9px;
+  color: var(--a-on-dark-soft);
+  margin-top: 3px;
+  white-space: nowrap;
+}
+
+.row[data-ownership-issue='true'] .cardInfo img {
+  filter: grayscale(1) brightness(0.68);
+}
+
+.cardInfo small.ownershipIssue {
+  color: #f1b99c;
+  white-space: normal;
+  line-height: 1.5;
+  font-size: 10px;
+}
+
+.removeSlot {
+  min-height: 36px;
+  border: 1px solid rgba(241, 185, 156, 0.45);
+  border-radius: 4px;
+  padding: 5px 8px;
+  background: rgba(0, 0, 0, 0.2);
+  color: #f1b99c;
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.removeSlot:disabled {
+  cursor: default;
+}
+
+/* —— 步进键：黄铜实体小钮 —— */
+.stepper {
+  display: flex;
+  align-items: center;
+  flex: none;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.stepper button {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 36px;
+  background: none;
+  border: 0;
+  color: var(--a-brass-lit);
+  font: inherit;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background var(--a-t-fast) var(--a-ease), transform var(--a-t-fast) var(--a-ease);
+}
+
+.stepper .quantity {
+  font: 700 14px var(--a-font-num);
+  color: var(--a-on-dark);
+  width: 30px;
+  background: none;
+}
+
+.stepper button:disabled {
+  color: #c0bba9;
+  background: rgba(0, 0, 0, 0.15);
+  cursor: default;
+}
+
+.stepper button:active {
+  transform: scale(0.92);
+}
+
+/* —— 拖拽把手 —— */
+.grip {
+  flex: none;
+  border: 0;
+  background: none;
+  color: var(--a-on-dark-soft);
+  font: inherit;
+  font-size: 17px;
+  min-height: 36px;
+  width: 22px;
+  padding: 0;
+  cursor: grab;
+  touch-action: none;
+}
+
+.grip:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* —— 空态：待放卡的凹槽 —— */
+.empty {
+  margin: 26px 10px;
+  padding: 60px 18px;
+  border: 1px dashed rgba(201, 162, 39, 0.4);
+  border-radius: 8px;
+  background: radial-gradient(ellipse at 50% 40%, rgba(42, 122, 77, 0.18), transparent 72%);
+  font-size: 12.5px;
+  text-align: center;
+  line-height: 1.8;
+  color: var(--a-on-dark-soft);
+}
+
+/* —— 规则提示：纸条 —— */
+.ruleMessage {
+  margin: 8px 12px 0;
+  font-size: 11px;
+  line-height: 1.6;
+  color: #8c2310;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border-left: 3px solid #c03318;
+  background: linear-gradient(170deg, var(--a-paper), var(--a-paper-warm));
+  box-shadow: var(--a-lift-1);
+}
+
+.wrap button:focus-visible {
+  outline: 2px solid var(--a-brass-lit);
+  outline-offset: 2px;
+}
+
+/* —— 网格视图：卡牌躺进凹槽 —— */
+.list[data-view='grid'] .groupCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 102px), 1fr));
+  gap: 15px 10px;
+}
+
+.list[data-view='grid'] .row {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+  padding: 5px 5px 6px;
+  align-items: stretch;
+  background: rgba(0, 0, 0, 0.14);
+}
+
+.list[data-view='grid'] .cardInfo {
+  display: block;
+  padding: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.list[data-view='grid'] .cardInfo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 63 / 88;
+  max-width: 132px;
+  max-height: 184px;
+  margin: 0 auto 8px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.22);
+  box-shadow:
+    0 7px 12px rgba(0, 0, 0, 0.45),
+    inset 0 0 0 1px rgba(201, 162, 39, 0.12);
+}
+
+.list[data-view='grid'] .cardInfo strong {
+  font-size: 11px;
+}
+
+.list[data-view='grid'] .cardInfo small {
+  font-size: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.list[data-view='grid'] .stepper {
+  width: 100%;
+  margin-top: 4px;
+}
+
+.list[data-view='grid'] .stepper button {
+  flex: 1;
+  min-width: 0;
+  width: auto;
+}
+
+.list[data-view='grid'] .grip {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 30px;
+  height: 30px;
+  min-height: 30px;
+  background: rgba(14, 40, 26, 0.85);
+  border: 1px solid rgba(201, 162, 39, 0.3);
+  border-radius: 4px;
+  color: var(--a-brass-lit);
+  font-size: 19px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .stepper button:not(:disabled):hover {
+    background: rgba(201, 162, 39, 0.16);
+  }
+
+  .cardInfo:hover strong {
+    color: var(--a-brass-lit);
+  }
+
+  .viewSwitch button:hover {
+    color: var(--a-on-dark);
+  }
+
+  .row:hover {
+    background: rgba(201, 162, 39, 0.07);
+  }
+
+  .header > button:hover {
+    color: var(--a-brass-lit);
+  }
+
+  .grip:hover {
+    color: var(--a-brass-lit);
+  }
+}
+
+@media (max-width: 899px) {
+  .wrap {
+    padding: 0 0 12px;
+  }
+
+  .list[data-view='grid'] .groupCards {
+    gap: 14px 10px;
+  }
+
+  .stepper button,
+  .stepper .quantity {
+    height: 44px;
+    width: 40px;
+  }
+
+  .grip {
+    width: 30px;
+    height: 44px;
+  }
+
+  .list[data-view='grid'] .grip {
+    width: 36px;
+    height: 36px;
+  }
+
+  .viewSwitch button {
+    height: 38px;
+    width: 40px;
+  }
+
+  .header > button {
+    min-height: 44px;
+  }
+}
+
+@media (max-height: 700px) {
+  .wrap {
+    padding-bottom: 8px;
+  }
+
+  .header {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  .list[data-view='grid'] .groupCards {
+    row-gap: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stepper button {
+    transition: none;
+  }
+
+  .stepper button:active {
+    transform: none;
+  }
+
+  .list,
+  .row,
+  .viewSwitch button,
+  .header > button {
+    transition: none;
+  }
+}

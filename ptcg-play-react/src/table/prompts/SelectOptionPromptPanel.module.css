@@ -1,0 +1,172 @@
+/* SelectOption —— 桌上的实体选择键（胡桃木 + 黄铜）。 */
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.option {
+  position: relative;
+  min-height: 48px;
+  padding: 14px 18px;
+  border-radius: 6px;
+  border: 1px solid rgba(201, 162, 39, 0.35);
+  cursor: pointer;
+  overflow: hidden;
+  background:
+    repeating-linear-gradient(44deg,
+      rgba(255, 246, 220, 0.014) 0 1px,
+      transparent 1px 3px),
+    linear-gradient(172deg, #4a3320, #2c1c10);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 236, 190, 0.12),
+    0 3px 0 #1a0f07,
+    0 6px 14px rgba(8, 5, 2, 0.4);
+  transform-origin: center;
+  transition:
+    border-color var(--a-t-fast) var(--a-ease),
+    box-shadow var(--a-t-fast) var(--a-ease),
+    background var(--a-t-fast) var(--a-ease),
+    transform var(--a-t-fast) var(--a-ease);
+  /* 错峰点亮 */
+  animation: optionRise 180ms var(--a-ease-out) both;
+  animation-delay: 60ms;
+}
+
+@keyframes optionRise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.option:nth-child(2) { animation-delay: 84ms; }
+.option:nth-child(3) { animation-delay: 108ms; }
+.option:nth-child(4) { animation-delay: 132ms; }
+.option:nth-child(5) { animation-delay: 156ms; }
+.option:nth-child(n + 6) { animation-delay: 176ms; }
+
+/* 顶部天光线 */
+.option::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom,
+    rgba(255, 246, 220, 0.09),
+    rgba(255, 246, 220, 0) 46%);
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .option:hover:not(.optionDisabled) {
+    border-color: rgba(232, 200, 90, 0.8);
+    transform: translateY(-2px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 236, 190, 0.16),
+      0 5px 0 #1a0f07,
+      0 10px 22px rgba(8, 5, 2, 0.48),
+      0 0 18px rgba(232, 200, 90, 0.14);
+  }
+}
+
+.option:active:not(.optionDisabled) {
+  transform: translateY(2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 236, 190, 0.1),
+    0 1px 0 #1a0f07,
+    0 3px 8px rgba(8, 5, 2, 0.4);
+}
+
+.option:focus-visible {
+  outline: 2px solid var(--a-brass-lit);
+  outline-offset: 3px;
+}
+
+.optionDisabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: linear-gradient(172deg, #2c1c10, #1c1109);
+  border-color: rgba(201, 162, 39, 0.16);
+  box-shadow: inset 0 1px 0 rgba(255, 236, 190, 0.05);
+  transform: none;
+  animation: none;
+}
+
+.optionText {
+  position: relative;
+  z-index: 1;
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--a-on-dark);
+  font-weight: 500;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.optionDisabled .optionText {
+  color: var(--a-on-dark-soft);
+}
+
+.promptActionsOnlyCancel {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-top: 8px;
+}
+
+/* 取消键 → 黄铜描边实体键 */
+.promptActionsOnlyCancel > button {
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid rgba(243, 234, 214, 0.26);
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 650;
+  color: var(--a-on-dark);
+  background: linear-gradient(180deg,
+    rgba(243, 234, 214, 0.08),
+    rgba(243, 234, 214, 0.03));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 2px 6px rgba(8, 5, 2, 0.35);
+  transition:
+    background var(--a-t-fast) var(--a-ease),
+    border-color var(--a-t-fast) var(--a-ease),
+    transform var(--a-t-fast) var(--a-ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .promptActionsOnlyCancel > button:hover:not(:disabled) {
+    background: rgba(201, 162, 39, 0.14);
+    border-color: rgba(201, 162, 39, 0.6);
+    transform: translateY(-1px);
+  }
+}
+
+.promptActionsOnlyCancel > button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .option {
+    animation: none;
+    transition: none;
+  }
+
+  .promptActionsOnlyCancel > button { transition: none; }
+
+  @media (hover: hover) and (pointer: fine) {
+    .option:hover:not(.optionDisabled) { transform: none; }
+    .promptActionsOnlyCancel > button:hover:not(:disabled) { transform: none; }
+  }
+
+  .option:active:not(.optionDisabled) { transform: none; }
+}

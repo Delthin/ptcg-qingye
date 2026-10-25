@@ -1,0 +1,56 @@
+{
+  "note": "MapleRose / PokéWalls wallpapers; original pixels and attribution retained. JPEG originals are converted to PNG locally.",
+  "terms": "https://pokewalls.wordpress.com/about/terms-of-use/",
+  "usage": "私人练习牌桌布局；保留作品署名与来源链接，不宣称原创或开放角色版权，不用于任何收费或衍生商品。",
+  "characterCopyright": "Pokémon / Nintendo / Creatures / GAME FREAK",
+  "assets": [
+    {
+      "asset": "slowpoke.png",
+      "title": "#79 Slowpoke",
+      "label": "呆呆兽",
+      "artist": "MapleRose / PokéWalls",
+      "source": "https://pokewalls.wordpress.com/2011/01/13/79-slowpoke/",
+      "original": "https://pokewalls.wordpress.com/wp-content/uploads/2013/06/79slowpoke1920x1080.jpg"
+    },
+    {
+      "asset": "psyduck.png",
+      "title": "#54 Psyduck",
+      "label": "可达鸭",
+      "artist": "MapleRose / PokéWalls",
+      "source": "https://pokewalls.wordpress.com/2011/08/02/54-psyduck/",
+      "original": "https://pokewalls.wordpress.com/wp-content/uploads/2011/08/54psyduck1920x1080.jpg"
+    },
+    {
+      "asset": "gengar.png",
+      "title": "#94 Gengar",
+      "label": "耿鬼",
+      "artist": "MapleRose / PokéWalls",
+      "source": "https://pokewalls.wordpress.com/2011/01/17/94-gengar/",
+      "original": "https://pokewalls.wordpress.com/wp-content/uploads/2013/06/94gengar1920x1080.jpg"
+    },
+    {
+      "asset": "snorlax.png",
+      "title": "#143 Snorlax",
+      "label": "卡比兽",
+      "artist": "MapleRose / PokéWalls",
+      "source": "https://pokewalls.wordpress.com/2011/01/26/143-snorlax/",
+      "original": "https://pokewalls.wordpress.com/wp-content/uploads/2013/06/143snorlax1920x1080.jpg"
+    },
+    {
+      "asset": "quagsire.png",
+      "title": "#195 Quagsire",
+      "label": "沼王",
+      "artist": "MapleRose / PokéWalls",
+      "source": "https://pokewalls.wordpress.com/2011/03/08/195-quagsire/",
+      "original": "https://pokewalls.wordpress.com/wp-content/uploads/2011/03/195quagsire1920x1080.jpg"
+    },
+    {
+      "asset": "wobbuffet.png",
+      "title": "#202 Wobbuffet",
+      "label": "果然翁",
+      "artist": "MapleRose / PokéWalls",
+      "source": "https://pokewalls.wordpress.com/2012/05/31/202-wobbuffet/",
+      "original": "https://pokewalls.wordpress.com/wp-content/uploads/2012/05/202wobbuffet1920x1080.jpg"
+    }
+  ]
+}

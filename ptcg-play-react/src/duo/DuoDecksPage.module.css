@@ -1,0 +1,1082 @@
+/* ============================================================
+   卡组管理 — 实体卡盒陈列墙
+   胡桃木卡盒立在木架上，盒内衬绿绒、卡组朝外陈列；
+   出战卡盒压着黄铜火漆印、微微前倾受光。
+   与对战大厅共用材质：木纹 / 绒面 / 纸面噪点、黄铜包边。
+   ============================================================ */
+
+.page {
+  /* 材质噪点（与 DuoHomePage 同源） */
+  --noise-wood: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.011 0.17' numOctaves='4' seed='11' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='420' height='240' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  --noise-felt: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  --noise-paper: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='2' seed='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+
+  /* 卡盒几何 */
+  --box-w: 196px;
+  --box-h: 264px;
+  --box-d: 74px;   /* 进深：盒厚 */
+  --card-w: 168px;
+  --card-h: 234px;
+
+  color: var(--a-on-dark);
+}
+
+.page :focus-visible {
+  outline: 2px solid var(--a-brass-lit);
+  outline-offset: 3px;
+}
+
+/* duo-error 在脱离 .duo-shell 的页面里缺盒型，这里只补形状不改配色 */
+.page :global(.duo-error) {
+  margin: 0 0 18px;
+  padding: 12px 16px;
+  border: 1px solid;
+  border-radius: 6px;
+}
+
+/* ---------------- 页头：黄铜细线 + 展示字标题 ---------------- */
+
+.head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 34px;
+}
+
+.headRule {
+  position: relative;
+  display: block;
+  width: 58px;
+  height: 2px;
+  margin-bottom: 16px;
+  border-radius: 1px;
+  background: linear-gradient(90deg, var(--a-brass-lit), rgba(201, 162, 39, 0.12));
+  box-shadow: 0 0 10px rgba(201, 162, 39, 0.45);
+}
+
+.headRule::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: -2.5px;
+  width: 7px;
+  height: 7px;
+  background: var(--a-brass);
+  transform: rotate(45deg);
+  box-shadow: 0 0 9px rgba(201, 162, 39, 0.8);
+}
+
+.headActions {
+  display: flex;
+  flex: none;
+  gap: 12px;
+}
+
+/* ---------------- 陈列区标题：数量 + 搜索凹槽 ---------------- */
+
+.shelfHead {
+  flex-wrap: wrap;
+}
+
+.shelfTools {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.findLabel {
+  display: inline-flex;
+}
+
+.find {
+  width: 230px;
+}
+
+/* ---------------- 卡盒陈列墙 ---------------- */
+
+.wall {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(236px, 1fr));
+  gap: 52px 28px;
+}
+
+.cell {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.noResult {
+  grid-column: 1 / -1;
+}
+
+/* 展台：透视舞台，盒子立在底部（即架板上方） */
+.stage {
+  position: relative;
+  height: 330px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  perspective: 1150px;
+  perspective-origin: 50% 32%;
+}
+
+.ground {
+  position: absolute;
+  left: 50%;
+  bottom: 2px;
+  width: 234px;
+  height: 32px;
+  margin-left: -117px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(2, 1, 0, 0.55), transparent 72%);
+  pointer-events: none;
+  transition: transform var(--a-t) var(--a-ease-out), opacity var(--a-t) var(--a-ease-out);
+}
+
+/* 出战盒：头顶一束暖光 */
+.cellSelected .stage::before {
+  content: '';
+  position: absolute;
+  inset: -30px -40px 4px;
+  background: radial-gradient(58% 52% at 50% 40%, rgba(232, 200, 90, 0.17), transparent 78%);
+  pointer-events: none;
+}
+
+/* ---------------- 卡盒本体（preserve-3d 立方） ---------------- */
+
+.cube {
+  position: relative;
+  flex: none;
+  width: var(--box-w);
+  height: var(--box-h);
+  transform-style: preserve-3d;
+  transform-origin: 50% 100%;
+  transform: rotateX(7deg) rotateY(-4deg);
+  transition: transform var(--a-t-slow) var(--a-ease-out);
+}
+
+.cell:nth-child(even) .cube {
+  transform: rotateX(7deg) rotateY(4deg);
+}
+
+/* 盒底背面：绒面内衬的暗面 */
+.back {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  background:
+    var(--noise-felt) 0 0 / 160px,
+    radial-gradient(ellipse at 50% 30%, var(--a-felt-dark), #0c1c12);
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.6);
+}
+
+/* 盒脊：左受光、右背光（左上光源） */
+.spineL,
+.spineR {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: var(--box-d);
+}
+
+.spineL {
+  left: 0;
+  transform-origin: left center;
+  transform: rotateY(-90deg);
+  background:
+    var(--noise-wood) 0 0 / 420px 240px,
+    repeating-linear-gradient(2deg, rgba(20, 10, 4, 0.18) 0 2px, transparent 2px 8px),
+    linear-gradient(180deg, #6b4a32, #4a3222 60%, #342313);
+  background-blend-mode: overlay, normal, normal;
+  box-shadow: inset -2px 0 5px rgba(0, 0, 0, 0.32);
+}
+
+.spineR {
+  right: 0;
+  transform-origin: right center;
+  transform: rotateY(90deg);
+  background:
+    var(--noise-wood) 0 0 / 420px 240px,
+    repeating-linear-gradient(2deg, rgba(15, 8, 3, 0.24) 0 2px, transparent 2px 8px),
+    linear-gradient(180deg, #3d2a18, #2b1d0f 60%, #1f1409);
+  background-blend-mode: overlay, normal, normal;
+  box-shadow: inset 2px 0 5px rgba(0, 0, 0, 0.38);
+}
+
+/* 盒盖：铰链在盒背，悬停向后掀起，露出绒衬与卡组 */
+.lid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--box-d);
+  transform-origin: 50% 0;
+  transform: rotateX(90deg);
+  transform-style: preserve-3d;
+  transition: transform var(--a-t-slow) var(--a-ease-spring);
+  pointer-events: none;
+}
+
+.lidBoard {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px 8px 12px 12px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background:
+    var(--noise-wood) 0 0 / 420px 240px,
+    linear-gradient(180deg, #74522f, #523722 62%, #3a2812);
+  background-blend-mode: overlay, normal;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 228, 175, 0.25),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.4),
+    0 10px 18px -8px rgba(0, 0, 0, 0.55);
+}
+
+.lidLiner {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px 8px 12px 12px;
+  transform: rotateX(180deg);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background:
+    var(--noise-felt) 0 0 / 160px,
+    linear-gradient(180deg, var(--a-felt-dark), #0b1a10);
+  box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.6);
+}
+
+.lidPlate {
+  position: absolute;
+  left: 50%;
+  bottom: 7px;
+  transform: translateX(-50%);
+  padding: 2px 9px;
+  border-radius: 3px;
+  font-family: var(--a-font-num);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: #3a2a0c;
+  background: linear-gradient(180deg, var(--a-brass-lit), var(--a-brass) 60%, var(--a-brass-dark));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 2px 4px rgba(0, 0, 0, 0.35);
+}
+
+/* 盒身前面板：木框卡窗，卡组顶卡立在窗前 */
+.frontBoard {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  transform: translateZ(calc(var(--box-d) - 8px));
+  background:
+    var(--noise-wood) 0 0 / 420px 240px,
+    repeating-linear-gradient(94deg, rgba(20, 10, 4, 0.22) 0 2px, transparent 2px 9px, rgba(255, 214, 150, 0.045) 9px 11px, transparent 11px 26px),
+    linear-gradient(180deg, #5c422a, #46301d 55%, #32210f);
+  background-blend-mode: overlay, normal, normal;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 228, 175, 0.18),
+    inset 0 -3px 8px rgba(0, 0, 0, 0.45),
+    0 20px 36px -14px rgba(0, 0, 0, 0.6);
+}
+
+.frontBoard::before {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  border-radius: 9px;
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3), inset 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* 盒内卡组：错层卡背，悬停时依次抬起，从盒口探出 */
+.layer,
+.cover {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--card-w);
+  height: var(--card-h);
+  margin: calc(var(--card-h) / -2) 0 0 calc(var(--card-w) / -2);
+  border-radius: 10px;
+}
+
+.layer {
+  background: #14261d url('/assets/duo-cardback.svg') center / cover no-repeat;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(0, 0, 0, 0.3);
+  transform: translateZ(calc(var(--box-d) - var(--i) * 6px));
+  transition: transform var(--a-t-slow) var(--a-ease-spring);
+  transition-delay: calc(var(--i) * 28ms);
+}
+
+/* 朝外的顶卡（打开编辑） */
+.cover {
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  transform: translateZ(var(--box-d));
+  transition: transform var(--a-t) var(--a-ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.coverArt {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  background: #0d1710;
+  box-shadow:
+    0 1px 0 rgba(236, 217, 172, 0.2),
+    0 18px 30px -10px rgba(0, 0, 0, 0.65),
+    0 0 0 1px rgba(0, 0, 0, 0.35);
+}
+
+.cover:focus-visible {
+  outline: none;
+}
+
+.cover:focus-visible .coverArt {
+  box-shadow:
+    0 1px 0 rgba(236, 217, 172, 0.2),
+    0 18px 30px -10px rgba(0, 0, 0, 0.65),
+    0 0 0 3px rgba(232, 200, 90, 0.75),
+    0 0 26px rgba(201, 162, 39, 0.4);
+}
+
+.cover:active {
+  transform: translateZ(var(--box-d)) translateY(2px) scale(0.985);
+}
+
+/* ---------------- 出战火漆印：黄铜浮雕精灵球 ---------------- */
+
+.seal {
+  position: absolute;
+  right: -18px;
+  bottom: 24px;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: rotate(-10deg);
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255, 244, 210, 0.65), transparent 42%),
+    radial-gradient(circle at 50% 45%, var(--a-brass-lit), var(--a-brass) 58%, var(--a-brass-dark) 92%);
+  box-shadow:
+    inset 0 2px 3px rgba(255, 240, 200, 0.5),
+    inset 0 -3px 6px rgba(60, 40, 0, 0.55),
+    0 8px 16px -4px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(201, 162, 39, 0.45);
+  animation: sealStamp var(--a-t-slow) var(--a-ease-spring) both;
+}
+
+.seal::before {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(88, 64, 10, 0.55);
+  box-shadow: 0 1px 0 rgba(255, 240, 200, 0.35);
+}
+
+.seal::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, transparent 0 3px, rgba(58, 42, 8, 0.85) 3px 4.5px, transparent 4.5px),
+    linear-gradient(90deg, transparent 0 42%, rgba(58, 42, 8, 0.85) 42% 58%, transparent 58%),
+    linear-gradient(rgba(58, 42, 8, 0.85) 0 44%, transparent 44%);
+}
+
+@keyframes sealStamp {
+  from { opacity: 0; transform: scale(1.8) rotate(-16deg); }
+  to { opacity: 1; transform: scale(1) rotate(-10deg); }
+}
+
+/* ---------------- 悬停 / 聚焦：开盖、抬卡、盒身回正 ---------------- */
+
+.cell:focus-within .cube {
+  transform: rotateX(5deg) translateY(-6px);
+}
+
+.cell:focus-within .lid {
+  transform: rotateX(128deg);
+}
+
+.cell:focus-within .layer {
+  transform:
+    translateZ(calc(var(--box-d) - var(--i) * 6px))
+    translateY(calc(-4px - var(--i) * 6px))
+    rotate(calc((var(--i) - 2) * 2.2deg));
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cell:hover .cube {
+    transform: rotateX(5deg) translateY(-6px);
+  }
+
+  .cell:hover .lid {
+    transform: rotateX(128deg);
+  }
+
+  .cell:hover .layer {
+    transform:
+      translateZ(calc(var(--box-d) - var(--i) * 6px))
+      translateY(calc(-4px - var(--i) * 6px))
+      rotate(calc((var(--i) - 2) * 2.2deg));
+  }
+
+  .cell:hover .ground {
+    transform: scaleX(1.1);
+    opacity: 0.85;
+  }
+
+  .cell:hover .cover {
+    transform: translateZ(var(--box-d)) translateY(-3px);
+  }
+}
+
+/* 出战盒：回正、前移、压倒性受光 */
+.cell.cellSelected .cube {
+  transform: rotateX(6deg) translateY(-12px);
+}
+
+.cellSelected .coverArt {
+  box-shadow:
+    0 1px 0 rgba(255, 240, 200, 0.35),
+    0 22px 34px -10px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(0, 0, 0, 0.4),
+    0 0 28px rgba(201, 162, 39, 0.35);
+}
+
+.cellSelected .frontBoard {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 228, 175, 0.22),
+    inset 0 -3px 8px rgba(0, 0, 0, 0.45),
+    0 24px 44px -14px rgba(0, 0, 0, 0.65),
+    0 0 30px rgba(201, 162, 39, 0.22);
+}
+
+.cellSelected .ground {
+  transform: scaleX(1.22) translateY(7px);
+}
+
+/* ---------------- 架板：连续木板，黄铜镶口 ---------------- */
+
+.plank {
+  position: relative;
+  flex: none;
+  height: 15px;
+  margin: 0 -14px;
+  border-radius: 2px;
+  background:
+    var(--noise-wood) 0 0 / 420px 240px,
+    linear-gradient(180deg, #6f5136 0%, #4a3222 45%, #31200d 100%);
+  background-blend-mode: overlay, normal;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 228, 175, 0.22),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.55),
+    0 3px 6px rgba(0, 0, 0, 0.4),
+    0 18px 30px -10px rgba(0, 0, 0, 0.5);
+}
+
+.plank::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 1px;
+  height: 1px;
+  background: rgba(232, 200, 90, 0.4);
+}
+
+/* ---------------- 馆藏标签：钉在架板下的纸卡 ---------------- */
+
+.plaque {
+  position: relative;
+  margin-top: 16px;
+  padding: 13px 14px 14px;
+  border-radius: 5px;
+  color: var(--a-ink);
+  background:
+    var(--noise-paper) 0 0 / 140px,
+    linear-gradient(172deg, var(--a-paper) 0%, var(--a-paper-warm) 78%, #ece2ca 100%);
+  border: 1px solid var(--a-paper-edge);
+  box-shadow: var(--a-lift-2), var(--a-inset-paper);
+}
+
+.plaque::before {
+  content: '';
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, var(--a-brass-lit), var(--a-brass-dark));
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+}
+
+.plaqueTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.name {
+  margin: 0;
+  min-width: 0;
+  font-family: var(--a-font-display);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.35;
+  letter-spacing: 0.03em;
+  color: var(--a-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 7px 0 0;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--a-ink-soft);
+}
+
+.meta i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex: none;
+  background: #9a8d7a;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+.metaReady i {
+  background: #4f9a5e;
+  box-shadow: 0 0 5px rgba(79, 154, 94, 0.55);
+}
+
+.metaSelected {
+  color: var(--a-brass-dark);
+  font-weight: 700;
+}
+
+.metaSelected i {
+  background: var(--a-brass);
+  box-shadow: 0 0 6px rgba(201, 162, 39, 0.8);
+}
+
+/* 纸面上的实体按钮：沿用 a-btn 家族，收小一号并适配纸底 */
+.plaque :global(.a-btn) {
+  width: 100%;
+  min-height: 36px;
+  font-size: 12.5px;
+}
+
+.plaque :global(.a-btn-ghost) {
+  min-height: 36px;
+  font-size: 12px;
+  color: var(--a-ink);
+  border-color: rgba(74, 50, 34, 0.32);
+  background: rgba(255, 253, 246, 0.55);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .plaque :global(.a-btn-ghost):hover:not(:disabled) {
+    color: var(--a-ink);
+    border-color: var(--a-brass-dark);
+    background: var(--a-paper);
+  }
+}
+
+.acts {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.actsRow {
+  display: flex;
+  gap: 8px;
+}
+
+.actsRow :global(.a-btn-ghost) {
+  flex: 1;
+  min-width: 0;
+}
+
+/* 纸面小工具键（重命名 / 删除） */
+.iconBtn {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid rgba(74, 50, 34, 0.28);
+  border-radius: 5px;
+  background: rgba(255, 253, 246, 0.55);
+  color: var(--a-ink-soft);
+  cursor: pointer;
+  transition:
+    color var(--a-t-fast) var(--a-ease),
+    border-color var(--a-t-fast) var(--a-ease),
+    background var(--a-t-fast) var(--a-ease),
+    transform var(--a-t-fast) var(--a-ease);
+}
+
+.iconBtn:active:not(:disabled) {
+  transform: scale(0.92);
+}
+
+.iconBtn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .iconBtn:hover:not(:disabled):not(.iconDanger) {
+    color: var(--a-brass-dark);
+    border-color: rgba(138, 111, 20, 0.5);
+    background: var(--a-paper);
+  }
+
+  .iconDanger:hover:not(:disabled) {
+    color: #b3401f;
+    border-color: rgba(179, 64, 31, 0.45);
+    background: rgba(192, 48, 24, 0.07);
+  }
+}
+
+/* ---------------- 空木格：凹槽 + 虚线 + 加号 ---------------- */
+
+.slot {
+  position: relative;
+  flex: none;
+  width: var(--box-w);
+  height: var(--box-h);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.slot::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(13, 8, 2, 0.94), rgba(26, 16, 7, 0.9));
+  box-shadow:
+    inset 0 8px 18px rgba(0, 0, 0, 0.7),
+    inset 0 -1px 0 rgba(255, 225, 170, 0.08),
+    0 1px 0 rgba(255, 228, 175, 0.12);
+  transition: box-shadow var(--a-t) var(--a-ease);
+}
+
+.slot::after {
+  content: '';
+  position: absolute;
+  inset: 11px;
+  border-radius: 8px;
+  border: 1.5px dashed rgba(201, 162, 39, 0.4);
+}
+
+.slotPlus {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 12px;
+  transition: transform var(--a-t) var(--a-ease-spring);
+}
+
+.slotPlus::before,
+.slotPlus::after {
+  content: '';
+  position: absolute;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--a-brass-lit), var(--a-brass-dark));
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.slotPlus::before {
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 3px;
+  margin-top: -1.5px;
+}
+
+.slotPlus::after {
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 3px;
+  margin-left: -1.5px;
+}
+
+.slotTitle {
+  position: relative;
+  margin: 0;
+  font-family: var(--a-font-display);
+  font-weight: 400;
+  font-size: 17px;
+  letter-spacing: 0.1em;
+  color: var(--a-on-dark);
+}
+
+.slotNote {
+  position: relative;
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--a-on-dark-soft);
+}
+
+.slot:active .slotPlus {
+  transform: rotate(90deg) scale(0.9);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .slot:hover .slotPlus {
+    transform: rotate(90deg);
+  }
+
+  .slot:hover::before {
+    box-shadow:
+      inset 0 8px 18px rgba(0, 0, 0, 0.62),
+      inset 0 0 26px rgba(201, 162, 39, 0.14),
+      inset 0 -1px 0 rgba(255, 225, 170, 0.1),
+      0 1px 0 rgba(255, 228, 175, 0.14);
+  }
+}
+
+/* ---------------- 预组卡组：货架上的塑封预组 ---------------- */
+
+.presets {
+  margin-top: 72px;
+}
+
+.goodsRow {
+  list-style: none;
+  display: flex;
+  gap: 26px;
+  margin: 4px 0 0;
+  padding: 10px 13px 26px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201, 162, 39, 0.4) transparent;
+}
+
+.goods {
+  flex: none;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.goodsBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.goodsBtn:focus-visible {
+  outline-offset: 6px;
+}
+
+/* 塑封袋：高光塑料包着卡 */
+.sleeve {
+  position: relative;
+  width: 170px;
+  padding: 6px;
+  border-radius: 12px;
+  background:
+    linear-gradient(115deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.02) 24%, transparent 46%),
+    linear-gradient(245deg, rgba(255, 255, 255, 0.08), transparent 40%),
+    rgba(233, 238, 231, 0.06);
+  border: 1px solid rgba(243, 234, 214, 0.22);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.06),
+    0 16px 26px -12px rgba(0, 0, 0, 0.55);
+  transition: transform var(--a-t) var(--a-ease-out), box-shadow var(--a-t) var(--a-ease-out);
+}
+
+.goodsArt {
+  display: block;
+  width: 100%;
+  aspect-ratio: 512 / 714;
+  border-radius: 8px;
+  object-fit: cover;
+  background: #0d1710;
+  box-shadow: 0 8px 16px -8px rgba(0, 0, 0, 0.6);
+}
+
+/* 掠过塑封的高光 */
+.gloss {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(105deg, transparent 32%, rgba(255, 255, 255, 0.28) 46%, rgba(190, 235, 255, 0.1) 52%, transparent 68%);
+  transform: translateX(-140%);
+  transition: transform 650ms var(--a-ease);
+  pointer-events: none;
+}
+
+/* 纸腰封：印着系列与名称 */
+.band {
+  position: relative;
+  z-index: 1;
+  width: calc(100% + 10px);
+  margin: -54px -5px 0;
+  padding: 9px 12px 10px;
+  border-radius: 3px;
+  text-align: center;
+  background:
+    var(--noise-paper) 0 0 / 140px,
+    linear-gradient(180deg, var(--a-paper), var(--a-paper-warm));
+  border: 1px solid var(--a-paper-edge);
+  box-shadow: 0 10px 18px -8px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.bandKind {
+  display: block;
+  font-family: var(--a-font-num);
+  font-size: 8.5px;
+  letter-spacing: 0.22em;
+  color: color-mix(in srgb, var(--preset-accent, #8398bd) 60%, var(--a-ink));
+}
+
+.bandName {
+  display: block;
+  margin: 4px 0 3px;
+  font-family: var(--a-font-display);
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  color: var(--a-ink);
+}
+
+.bandSub {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 10.5px;
+  line-height: 1.55;
+  color: var(--a-ink-soft);
+}
+
+.goodsPlank {
+  position: relative;
+  flex: none;
+  width: calc(100% + 26px);
+  height: 14px;
+  margin: 14px -13px 0;
+  border-radius: 2px;
+  background:
+    var(--noise-wood) 0 0 / 420px 240px,
+    linear-gradient(180deg, #6f5136 0%, #4a3222 45%, #31200d 100%);
+  background-blend-mode: overlay, normal;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 228, 175, 0.22),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.55),
+    0 3px 6px rgba(0, 0, 0, 0.4),
+    0 16px 26px -10px rgba(0, 0, 0, 0.5);
+}
+
+.goodsPlank::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 1px;
+  height: 1px;
+  background: rgba(232, 200, 90, 0.4);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .goodsBtn:hover .sleeve {
+    transform: translateY(-5px) rotate(-1deg);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.2),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.08),
+      0 24px 34px -12px rgba(0, 0, 0, 0.6);
+  }
+
+  .goodsBtn:hover .gloss {
+    transform: translateX(140%);
+  }
+}
+
+.goodsBtn:active .sleeve {
+  transform: translateY(-1px) scale(0.985);
+}
+
+/* ---------------- 配方说明 ---------------- */
+
+.legal {
+  margin: 4px 0 0;
+  color: var(--a-on-dark-soft);
+  font-size: 11px;
+  line-height: 1.9;
+}
+
+.legal summary {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 34px;
+  color: var(--a-on-dark-soft);
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  transition: color var(--a-t) var(--a-ease);
+}
+
+.legal summary::-webkit-details-marker {
+  display: none;
+}
+
+.legal summary::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  flex: none;
+  background: var(--a-brass);
+  transform: rotate(45deg);
+  box-shadow: 0 0 6px rgba(201, 162, 39, 0.6);
+}
+
+.legal[open] summary {
+  color: var(--a-brass-lit);
+}
+
+.legal p {
+  margin: 2px 0 0;
+  max-width: 720px;
+}
+
+/* ---------------- 辅助 ---------------- */
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+/* ---------------- 响应式 ---------------- */
+
+@media (max-width: 900px) {
+  .wall {
+    grid-template-columns: repeat(auto-fill, minmax(216px, 1fr));
+    gap: 44px 20px;
+  }
+
+  .plank {
+    margin: 0 -10px;
+  }
+
+  .head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  .headActions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .shelfTools {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .find {
+    width: min(220px, 56vw);
+  }
+}
+
+@media (max-width: 640px) {
+  .wall {
+    grid-template-columns: 1fr;
+    gap: 42px;
+  }
+
+  .cell {
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  .stage {
+    height: 316px;
+  }
+
+  .find {
+    width: min(190px, 52vw);
+  }
+}
+
+/* ---------------- 减少动态 ---------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .cube,
+  .lid,
+  .layer,
+  .cover,
+  .ground,
+  .sleeve,
+  .gloss,
+  .slotPlus,
+  .slot::before,
+  .iconBtn,
+  .plaque :global(.a-btn),
+  .plaque :global(.a-btn-ghost),
+  .legal summary {
+    transition: none;
+  }
+
+  .seal {
+    animation: none;
+  }
+}

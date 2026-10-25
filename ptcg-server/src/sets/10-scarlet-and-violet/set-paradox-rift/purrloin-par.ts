@@ -1,0 +1,32 @@
+import { PokemonCard } from '../../../game/store/card/pokemon-card';
+import { Stage, CardType } from '../../../game/store/card/card-types';
+
+export class Purrloin extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardType: CardType[] = [D];
+  public hp: number = 60;
+  public weakness = [{ type: G }];
+  public retreat = [C];
+
+  public attacks = [
+    {
+      name: 'Stampede',
+      cost: [D],
+      damage: 10,
+      text: '',
+    },
+    {
+      name: 'Cat Kick',
+      cost: [C, C],
+      damage: 30,
+      text: '',
+    },
+  ];
+
+  public regulationMark = 'G';
+  public set: string = 'PAR';
+  public setNumber: string = '114';
+  public cardImage: string = 'assets/cardback.png';
+  public name: string = 'Purrloin';
+  public fullName: string = 'Purrloin PAR';
+}

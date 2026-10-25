@@ -1,0 +1,386 @@
+/* ============================================================
+   构成仪表：黄铜环进度 + 三类属性刻度条
+   编辑器（非 compact）坐在胡桃木台面上，是深色仪表；
+   compact 版本用于卡组列表的纸面铭牌，保持纸面墨色。
+   ============================================================ */
+
+@property --fill {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+
+.composition {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  padding: 13px 20px 15px;
+  flex: none;
+  color: var(--a-on-dark);
+  font-variant-numeric: tabular-nums;
+  transition: --fill 420ms var(--a-ease-out);
+}
+
+/* 与下方双栏分界的黄铜细线 */
+.composition::after {
+  content: '';
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(201, 162, 39, 0.35) 0%, rgba(201, 162, 39, 0.12) 55%, transparent 92%);
+  pointer-events: none;
+}
+
+/* —— 总数：黄铜环仪表 —— */
+.total {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  min-width: 168px;
+}
+
+.total > strong {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  font: 700 23px/1 var(--a-font-num);
+  letter-spacing: -0.04em;
+  color: var(--a-on-dark);
+  background: radial-gradient(circle at 50% 42%, rgba(0, 0, 0, 0.34), rgba(0, 0, 0, 0.16));
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.45);
+}
+
+/* 黄铜环：conic 进度，遮罩成圆环 */
+.total > strong::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(from -90deg,
+    var(--a-brass-lit) 0 var(--fill, 0%),
+    rgba(201, 162, 39, 0.16) var(--fill, 0%) 100%);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 8px), #000 calc(100% - 7px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 8px), #000 calc(100% - 7px));
+  filter: drop-shadow(0 0 5px rgba(201, 162, 39, 0.4));
+}
+
+.total[data-complete='true'] > strong::before {
+  filter: drop-shadow(0 0 9px rgba(232, 200, 90, 0.75));
+}
+
+.total[data-over='true'] > strong::before {
+  background: conic-gradient(from -90deg,
+    #e0533a 0 var(--fill, 0%),
+    rgba(224, 83, 58, 0.18) var(--fill, 0%) 100%);
+  filter: drop-shadow(0 0 6px rgba(224, 83, 58, 0.55));
+}
+
+.total[data-over='true'] > strong {
+  color: #f0a28c;
+}
+
+.total > span {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font: 600 13px/1.2 var(--a-font-num);
+  color: var(--a-on-dark-soft);
+}
+
+.total small {
+  font: 500 10px/1.5 var(--a-font-ui);
+  white-space: nowrap;
+  color: var(--a-on-dark-soft);
+}
+
+.total[data-complete='true'] small {
+  color: #8fdba0;
+}
+
+.total[data-over='true'] small,
+.total small[data-unknown='true'] {
+  color: #f0a28c;
+}
+
+/* —— 三类构成：属性色刻度 —— */
+.categories {
+  display: flex;
+  gap: clamp(20px, 4vw, 56px);
+  align-items: center;
+}
+
+.categories > div {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  gap: 3px 10px;
+}
+
+.categories i {
+  font-style: normal;
+  grid-row: span 2;
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  transform: rotate(45deg);
+  background: var(--c, var(--a-fire));
+  box-shadow: 0 0 8px var(--c, var(--a-fire));
+}
+
+.categories span {
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: var(--a-on-dark-soft);
+}
+
+.categories strong {
+  font: 700 22px/1.1 var(--a-font-num);
+  color: var(--a-on-dark);
+}
+
+.categories [data-kind='pokemon'] {
+  --c: var(--a-fire);
+}
+
+.categories [data-kind='trainer'] {
+  --c: var(--a-water);
+}
+
+.categories [data-kind='energy'] {
+  --c: var(--a-grass);
+}
+
+/* —— 比例条：填充剩余台面 —— */
+.track {
+  flex: 1;
+  min-width: 56px;
+  height: 6px;
+  border-radius: 3px;
+  display: flex;
+  gap: 2px;
+  align-self: center;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.35);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.track span {
+  min-width: 0;
+  transition: width var(--a-t) var(--a-ease-out);
+}
+
+.track span[data-kind='pokemon'] {
+  background: linear-gradient(180deg, #f79a5f, var(--a-fire));
+}
+
+.track span[data-kind='trainer'] {
+  background: linear-gradient(180deg, #7cabf5, var(--a-water));
+}
+
+.track span[data-kind='energy'] {
+  background: linear-gradient(180deg, #93d86a, var(--a-grass));
+}
+
+/* ============================================================
+   compact：卡组列表纸面铭牌上的墨色小仪表
+   ============================================================ */
+.compact {
+  padding: 10px 0 6px;
+  gap: 12px;
+  background: none;
+  justify-content: space-between;
+  color: var(--a-ink);
+}
+
+.compact::after {
+  display: none;
+}
+
+.compact .total {
+  min-width: 0;
+  gap: 6px;
+  transition: none;
+}
+
+.compact .total > strong {
+  width: auto;
+  height: auto;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+  font-size: 28px;
+  color: var(--a-ink);
+}
+
+.compact .total > strong::before {
+  display: none;
+}
+
+.compact .total > span {
+  font-size: 12px;
+  color: var(--a-ink-soft);
+}
+
+.compact .total small {
+  display: none;
+}
+
+.compact .total small[data-unknown='true'] {
+  display: block;
+  font-size: 8px;
+  color: #c03318;
+}
+
+.compact .categories {
+  gap: 12px;
+}
+
+.compact .categories > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.compact .categories i {
+  display: none;
+}
+
+.compact .categories span {
+  font-size: 10px;
+  color: var(--a-ink-soft);
+}
+
+.compact .categories strong {
+  font-size: 16px;
+  color: var(--a-ink);
+}
+
+.compact .track {
+  display: none;
+}
+
+/* ============================================================
+   响应式
+   ============================================================ */
+@media (max-width: 760px) {
+  .compact {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .compact .categories {
+    flex: 1;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+
+  .compact .total {
+    flex-basis: 100%;
+  }
+
+  .compact .categories > div {
+    flex: 1;
+  }
+
+  .compact .categories strong {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 600px) {
+  .composition:not(.compact):not(.inline) {
+    flex-wrap: wrap;
+    gap: 12px 16px;
+    padding: 11px 14px 13px;
+    justify-content: space-between;
+  }
+
+  .total {
+    min-width: 0;
+    gap: 10px;
+  }
+
+  .total > strong {
+    width: 62px;
+    height: 62px;
+    font-size: 19px;
+  }
+
+  .total > span {
+    font-size: 12px;
+  }
+
+  .total small {
+    font-size: 9.5px;
+  }
+
+  .categories {
+    gap: 18px;
+  }
+
+  .categories > div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .categories i {
+    display: none;
+  }
+
+  .categories strong {
+    font-size: 20px;
+  }
+
+  .categories span {
+    font-size: 9.5px;
+  }
+
+  .track {
+    order: 5;
+    flex-basis: 100%;
+    min-width: 0;
+  }
+}
+
+/* 编辑器标题右侧：保留暗铜仪表，不占用整行卡池高度。 */
+.inline {
+  padding: 0;
+  gap: 18px;
+  flex-wrap: nowrap;
+}
+.inline::after, .inline .track { display: none; }
+.inline .total { min-width: 0; gap: 8px; }
+.inline .total > strong { width: 44px; height: 44px; font-size: 17px; }
+.inline .total > strong::before {
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+}
+.inline .total > span { font-size: 11px; }
+.inline .total small { font-size: 9px; }
+.inline .categories { gap: 14px; }
+.inline .categories > div { display: grid; grid-template-columns: auto auto; gap: 3px 7px; }
+.inline .categories i { display: block; width: 6px; height: 6px; }
+.inline .categories span { font-size: 9px; white-space: nowrap; }
+.inline .categories strong { font-size: 15px; }
+
+@media (max-width: 600px) {
+  .inline { width: 100%; justify-content: space-between; gap: 12px; }
+  .inline .categories { gap: 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .composition {
+    transition: none;
+  }
+
+  .track span {
+    transition: none;
+  }
+}

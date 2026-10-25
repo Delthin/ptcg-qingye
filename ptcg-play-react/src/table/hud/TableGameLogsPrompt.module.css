@@ -1,0 +1,235 @@
+/*
+ * TableGameLogsPrompt — 战况播报面板（模态）。
+ * 深色绒面 + 黄铜标题条；每条日志带属性色标记点。
+ */
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(10, 7, 4, 0.7);
+  backdrop-filter: blur(3px);
+  pointer-events: auto;
+  animation: backdropDim 220ms ease-out both;
+}
+
+@keyframes backdropDim {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.panel {
+  width: min(640px, 100%);
+  max-height: min(84vh, 680px);
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  border: 1px solid rgba(201, 162, 39, 0.34);
+  color: #f3ead6;
+  background:
+    linear-gradient(178deg, rgba(255, 226, 168, 0.05), transparent 30%),
+    linear-gradient(170deg, #223127 0%, #16241c 52%, #121c16 100%);
+  box-shadow:
+    0 26px 54px rgba(20, 12, 6, 0.44),
+    0 8px 18px rgba(20, 12, 6, 0.28),
+    inset 0 1px 0 rgba(255, 244, 214, 0.08);
+  pointer-events: auto;
+  animation: panelRise 320ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes panelRise {
+  from { opacity: 0; transform: translateY(16px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* 黄铜标题条 */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 18px 12px;
+  border-bottom: 1px solid transparent;
+  border-image: linear-gradient(90deg, var(--a-brass, #c9a227), rgba(201, 162, 39, 0.32) 40%, transparent 92%) 1;
+  background: linear-gradient(90deg, rgba(201, 162, 39, 0.12), transparent 62%);
+}
+
+.title {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--a-font-display);
+  font-weight: 400;
+  font-size: 1.05rem;
+  letter-spacing: 0.05em;
+  color: #f3ead6;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* 标题左侧黄铜小菱形（与 arena a-section 同源） */
+.title::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  flex: none;
+  background: #c9a227;
+  transform: rotate(45deg);
+  box-shadow: 0 0 10px rgba(201, 162, 39, 0.7);
+}
+
+.body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  padding: 12px 18px 8px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201, 162, 39, 0.4) transparent;
+}
+
+.section + .section {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(201, 162, 39, 0.14);
+}
+
+.sectionTitle {
+  margin: 0 0 8px;
+  font-family: var(--a-font-num);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(232, 200, 90, 0.82);
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  padding: 4px 0;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  word-break: break-word;
+  color: rgba(243, 234, 214, 0.9);
+}
+
+/* 属性色标记点 */
+.dot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  transform: translateY(-1.5px);
+  background: #c9a227;
+  box-shadow: 0 0 5px rgba(201, 162, 39, 0.55);
+}
+
+.dot[data-accent='damage'] { background: #e0533a; box-shadow: 0 0 5px rgba(224, 83, 58, 0.6); }
+.dot[data-accent='ko'] { background: #ff6a4d; box-shadow: 0 0 7px rgba(255, 106, 77, 0.8); }
+.dot[data-accent='energy'] { background: #f2c40c; box-shadow: 0 0 5px rgba(242, 196, 12, 0.6); }
+.dot[data-accent='evolve'] { background: #ffd873; box-shadow: 0 0 7px rgba(255, 216, 115, 0.75); }
+.dot[data-accent='status'] { background: #d94f9a; box-shadow: 0 0 5px rgba(217, 79, 154, 0.6); }
+.dot[data-accent='draw'] { background: #4f8ff0; box-shadow: 0 0 5px rgba(79, 143, 240, 0.6); }
+.dot[data-accent='attack'] { background: #f08030; box-shadow: 0 0 5px rgba(240, 128, 48, 0.6); }
+.dot[data-accent='ability'] { background: #6cbf3f; box-shadow: 0 0 5px rgba(108, 191, 63, 0.6); }
+.dot[data-accent='coin'] { background: #c8c0a8; box-shadow: none; }
+.dot[data-accent='system'] { background: rgba(201, 162, 39, 0.55); box-shadow: none; }
+
+.ts {
+  color: rgba(243, 234, 214, 0.42);
+  margin-right: 0;
+  font-family: var(--a-font-num);
+  font-size: 0.66rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.name {
+  font-weight: 600;
+  margin-right: 0;
+  flex: none;
+  color: #e8c85a;
+}
+
+.nameSystem {
+  color: rgba(200, 200, 210, 0.85);
+}
+
+.nameActive {
+  color: #8fe6b8;
+}
+
+.nameOpponent {
+  color: #e0987a;
+}
+
+.footer {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 8px;
+  padding: 12px 18px 16px;
+  border-top: 1px solid rgba(201, 162, 39, 0.18);
+}
+
+.input {
+  flex: 1 1 auto;
+  min-height: 38px;
+  max-height: 88px;
+  resize: vertical;
+  padding: 8px 10px;
+  border-radius: 5px;
+  border: 1px solid rgba(201, 162, 39, 0.26);
+  background: rgba(10, 8, 5, 0.55);
+  color: #f3ead6;
+  font: inherit;
+  font-size: 0.78rem;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.input::placeholder {
+  color: rgba(243, 234, 214, 0.38);
+}
+
+.input:focus {
+  outline: none;
+  border-color: rgba(232, 200, 90, 0.6);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4), 0 0 0 3px rgba(201, 162, 39, 0.18);
+}
+
+.input:disabled {
+  opacity: 0.45;
+}
+
+.sendBtn {
+  align-self: flex-end;
+  padding: 7px 12px !important;
+  font-size: 0.68rem !important;
+}
+
+.closeBtn {
+  padding: 6px 10px !important;
+  font-size: 0.68rem !important;
+}
+
+.empty {
+  margin: 0;
+  opacity: 0.7;
+  font-size: 0.82rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop,
+  .panel {
+    animation: none;
+  }
+}

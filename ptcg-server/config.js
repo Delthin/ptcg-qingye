@@ -1,0 +1,25 @@
+require('dotenv').config({ path: require('path').join(__dirname, '.env') });
+const { config } = require('./output/config');
+const fs = require('fs');
+const path = require('path');
+
+config.duo.enabled = process.env.PTCG_DUO !== '0';
+config.backend.address = process.env.PTCG_BIND || '0.0.0.0';
+config.backend.port = Number(process.env.PTCG_PORT || 8080);
+config.backend.avatarsDir = path.join(__dirname, 'avatars', 'duo');
+config.sets.scansDir = path.join(__dirname, 'scans');
+config.backend.registrationEnabled = !config.duo.enabled;
+const inviteTimeoutMs = Number(process.env.PTCG_INVITE_TIMEOUT_MS || 2 * 60 * 1000);
+if (!Number.isSafeInteger(inviteTimeoutMs) || inviteTimeoutMs < 1000) throw new Error('Invalid invitation timeout');
+config.duo.inviteTimeoutMs = inviteTimeoutMs;
+config.backend.allowCors = !config.duo.enabled;
+config.backend.allowServerChange = false;
+config.backend.defaultLanguage = 'zh';
+config.backend.languages = { zh: '简体中文', en: 'English' };
+config.core.keepMatchIntervalCount = 0;
+const disconnectForfeitMs = Number(process.env.PTCG_DISCONNECT_FORFEIT_MS || 5 * 60 * 1000);
+if (!Number.isSafeInteger(disconnectForfeitMs) || disconnectForfeitMs < 1000) throw new Error('Invalid disconnect timeout');
+config.reconnection.disconnectForfeitMs = disconnectForfeitMs;
+const clientDir = process.env.PTCG_CLIENT_DIR || path.join(__dirname, '../ptcg-play-react/dist');
+if (fs.existsSync(path.join(clientDir, 'index.html'))) config.duo.clientDir = clientDir;
+else if (process.env.PTCG_CLIENT_DIR) throw new Error('Frontend distribution not found; build the React client first.');

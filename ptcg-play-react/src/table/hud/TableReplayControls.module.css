@@ -1,0 +1,45 @@
+.root { display: flex; align-items: center; gap: 8px; color: #ceb984; }
+.meta { font-family: var(--a-font-num); font-size: 11px; font-variant-numeric: tabular-nums; letter-spacing: 0.04em; }
+
+/* 与回合球同族的黄铜圆键 */
+.replayBtn {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(165, 141, 82, 0.4);
+  border-radius: 50%;
+  background: linear-gradient(145deg, #3a2a1a, #221709);
+  color: #cdb987;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow:
+    0 2px 0 #120c06,
+    0 4px 10px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 244, 214, 0.08);
+  transition: color 140ms ease, border-color 140ms ease, transform 140ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 140ms ease;
+}
+
+.replayBtn svg { width: 18px; height: 18px; }
+
+.replayBtn:active:not(:disabled) {
+  transform: translateY(2px);
+  box-shadow: 0 0 0 #120c06, 0 2px 5px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 244, 214, 0.06);
+}
+
+.replayBtn:disabled { opacity: .3; cursor: default; }
+
+.replayBtn:focus-visible { outline: 2px solid #e4d190; outline-offset: 3px; }
+
+@media (hover: hover) and (pointer: fine) {
+  .replayBtn:not(:disabled):hover {
+    color: #f2dda6;
+    border-color: rgba(201, 162, 39, 0.65);
+    transform: translateY(-1px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .replayBtn { transition: none; }
+  .replayBtn:active:not(:disabled) { transform: none; }
+  .replayBtn:not(:disabled):hover { transform: none; }
+}

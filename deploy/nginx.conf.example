@@ -1,0 +1,32 @@
+# Put in nginx http{} context. Replace the reserved example hostname and cert paths.
+map $http_upgrade $ptcg_connection_upgrade {
+    default upgrade;
+    '' close;
+}
+server {
+    listen 80;
+    server_name game.example.invalid;
+    return 301 https://$host$request_uri;
+}
+server {
+    listen 443 ssl;
+    server_name game.example.invalid;
+    ssl_certificate /etc/ptcg/tls/fullchain.pem;
+    ssl_certificate_key /etc/ptcg/tls/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    client_max_body_size 12m;
+    # Do not serve the repository/database/env as a web root.
+    location ~ (^|/)\. { return 404; }
+    location / {
+        proxy_pass http://127.0.0.1:8080;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $ptcg_connection_upgrade;
+        proxy_read_timeout 3600s;
+        proxy_send_timeout 3600s;
+    }
+}

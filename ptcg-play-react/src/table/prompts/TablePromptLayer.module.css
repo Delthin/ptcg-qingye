@@ -1,0 +1,1468 @@
+/*
+ * TablePromptLayer —— 「桌上的实体选择」
+ *
+ * 材质语言对齐 arena.css：胡桃木面板 + 黄铜细边 + 深绒遮罩暗角。
+ * 遮罩保持牌桌可见（卡牌问询不能让人失去上下文）。
+ * 类名与结构不变，仅视觉层。
+ */
+
+/* ============================================================
+   遮罩 + 面板体
+   ============================================================ */
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  /* 深色绒面暗角：中心留视线，四角压暗，轻微模糊仍见牌桌 */
+  background:
+    radial-gradient(ellipse 135% 115% at 50% 40%,
+      rgba(10, 16, 11, 0.32) 0%,
+      rgba(7, 11, 8, 0.56) 62%,
+      rgba(4, 7, 5, 0.7) 100%);
+  backdrop-filter: blur(4px) saturate(0.88);
+  animation: promptBackdropEnter 200ms var(--a-ease-out);
+}
+
+.panel {
+  width: min(520px, 100%);
+  max-height: min(calc(100dvh - 150px), 720px);
+  overflow: auto;
+  padding: 20px 24px;
+  border-radius: 10px;
+  border: 1px solid rgba(201, 162, 39, 0.5);
+  /* 胡桃木底 + 顶部天光 + 纸面细纹 */
+  background:
+    repeating-linear-gradient(44deg,
+      rgba(255, 246, 220, 0.014) 0 1px,
+      transparent 1px 3px),
+    radial-gradient(ellipse 90% 34% at 50% 0%,
+      rgba(232, 200, 90, 0.08),
+      transparent 70%),
+    linear-gradient(172deg, #54371f 0%, #3c2716 48%, #2a1a10 100%);
+  box-shadow:
+    0 26px 54px rgba(8, 5, 2, 0.56),
+    0 8px 18px rgba(8, 5, 2, 0.4),
+    inset 0 1px 0 rgba(255, 236, 190, 0.14),
+    inset 0 0 0 1px rgba(9, 6, 3, 0.4);
+  color: var(--a-on-dark);
+  transform-origin: center center;
+  /* 从下方轻推上来 + 淡入 */
+  animation: promptPanelEnter 300ms var(--a-ease-out);
+}
+
+@keyframes promptBackdropEnter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes promptPanelEnter {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+/* 可选项错峰点亮：从下方浮起（delay 见各 nth-child） */
+@keyframes promptItemRise {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+.panelWide { width: min(920px, 100%); }
+
+/* ============================================================
+   标题 / 信息 / 按钮
+   ============================================================ */
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 14px;
+  padding-bottom: 10px;
+  font-family: var(--a-font-display);
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  color: var(--a-on-dark);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid;
+  border-image: linear-gradient(90deg,
+    var(--a-brass) 0%,
+    rgba(201, 162, 39, 0.3) 42%,
+    transparent 92%) 1;
+}
+
+/* 标题左侧的黄铜小菱形 */
+.title::before {
+  content: '';
+  flex: none;
+  width: 7px;
+  height: 7px;
+  background: var(--a-brass);
+  transform: rotate(45deg);
+  box-shadow: 0 0 10px rgba(201, 162, 39, 0.7);
+}
+
+.message {
+  margin: 0 0 16px;
+  line-height: 1.5;
+  font-size: 0.92rem;
+  color: var(--a-on-dark-soft);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+  justify-content: flex-end;
+}
+
+/* 次要按钮（ShellButton）→ 黄铜描边实体键。
+   只选直接子级 button，避免碰到 portaled 的确认精灵球。 */
+.actions > button,
+.chooseBarActions > button,
+.removeDamageBarControls > button,
+.chooseStartingTopBarActions > button {
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid rgba(243, 234, 214, 0.26);
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  color: var(--a-on-dark);
+  background: linear-gradient(180deg,
+    rgba(243, 234, 214, 0.08),
+    rgba(243, 234, 214, 0.03));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 2px 6px rgba(8, 5, 2, 0.35);
+  transition:
+    background var(--a-t-fast) var(--a-ease),
+    border-color var(--a-t-fast) var(--a-ease),
+    box-shadow var(--a-t-fast) var(--a-ease),
+    transform var(--a-t-fast) var(--a-ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .actions > button:hover:not(:disabled),
+  .chooseBarActions > button:hover:not(:disabled),
+  .removeDamageBarControls > button:hover:not(:disabled),
+  .chooseStartingTopBarActions > button:hover:not(:disabled) {
+    background: linear-gradient(180deg,
+      rgba(243, 234, 214, 0.14),
+      rgba(243, 234, 214, 0.06));
+    border-color: rgba(201, 162, 39, 0.6);
+    transform: translateY(-1px);
+  }
+}
+
+.actions > button:active:not(:disabled),
+.chooseBarActions > button:active:not(:disabled),
+.removeDamageBarControls > button:active:not(:disabled),
+.chooseStartingTopBarActions > button:active:not(:disabled) {
+  transform: translateY(1px);
+  background: rgba(243, 234, 214, 0.05);
+}
+
+/* ============================================================
+   Select（单选列表）
+   ============================================================ */
+
+.selectList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.selectOption {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid rgba(201, 162, 39, 0.22);
+  cursor: pointer;
+  background: linear-gradient(170deg,
+    rgba(255, 246, 220, 0.055),
+    rgba(255, 246, 220, 0.015));
+  color: var(--a-on-dark);
+  transition:
+    background var(--a-t-fast) var(--a-ease),
+    border-color var(--a-t-fast) var(--a-ease),
+    box-shadow var(--a-t-fast) var(--a-ease);
+}
+
+.selectOption:hover {
+  border-color: rgba(201, 162, 39, 0.55);
+  background: rgba(201, 162, 39, 0.08);
+}
+
+.selectOption input {
+  appearance: none;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  flex: none;
+  border: 1px solid var(--a-brass-dark);
+  border-radius: 50%;
+  background: rgba(20, 12, 6, 0.4);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+
+.selectOption input:checked {
+  border-color: var(--a-brass-lit);
+  background: radial-gradient(circle, var(--a-brass-lit) 0 4px, transparent 4.5px), rgba(20, 12, 6, 0.4);
+}
+
+.selectOption input:focus-visible {
+  outline: 2px solid var(--a-brass-lit);
+  outline-offset: 3px;
+}
+
+@media (forced-colors: active) {
+  .selectOption input, .selectOption input:checked { appearance: auto; -webkit-appearance: auto; background: none; box-shadow: none; }
+}
+
+.selectOption:has(input:checked) {
+  border-color: var(--a-brass);
+  background: rgba(201, 162, 39, 0.1);
+  box-shadow:
+    0 0 0 1px rgba(201, 162, 39, 0.35),
+    0 0 16px rgba(232, 200, 90, 0.14);
+}
+
+/* ============================================================
+   ShowCards / ShowMulligan 卡牌行
+   ============================================================ */
+
+.cardRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 12px 0;
+  max-height: 280px;
+  overflow: auto;
+  padding: 6px 4px;
+}
+
+/* 行内卡牌：厚度投影 + 悬停抬起 */
+.cardRow > button {
+  border-radius: 6px;
+  filter: drop-shadow(0 3px 0 rgba(120, 104, 76, 0.55))
+    drop-shadow(0 8px 14px rgba(9, 6, 3, 0.45));
+  transition: transform var(--a-t) var(--a-ease-out), filter var(--a-t) var(--a-ease-out);
+  animation: promptItemRise 180ms var(--a-ease-out) both;
+  animation-delay: 60ms;
+}
+
+.cardRow > button:nth-child(2) { animation-delay: 84ms; }
+.cardRow > button:nth-child(3) { animation-delay: 108ms; }
+.cardRow > button:nth-child(4) { animation-delay: 132ms; }
+.cardRow > button:nth-child(5) { animation-delay: 156ms; }
+.cardRow > button:nth-child(n + 6) { animation-delay: 180ms; }
+
+@media (hover: hover) and (pointer: fine) {
+  .cardRow > button:hover {
+    transform: translateY(-5px);
+    filter: drop-shadow(0 3px 0 rgba(120, 104, 76, 0.55))
+      drop-shadow(0 14px 22px rgba(9, 6, 3, 0.5));
+  }
+}
+
+.cardRow > button:focus-visible {
+  outline: 2px solid var(--a-brass-lit);
+  outline-offset: 3px;
+}
+
+.handBlock { margin-bottom: 20px; }
+
+.handLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-family: var(--a-font-num);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--a-brass-lit);
+}
+
+.handLabel::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--a-brass);
+  transform: rotate(45deg);
+  box-shadow: 0 0 8px rgba(201, 162, 39, 0.6);
+}
+
+/* ============================================================
+   桌面选择条（ChoosePokemon / 伤害分配）
+   ============================================================ */
+
+.chooseBar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: var(--table-prompt-top, 24px);
+  margin: 0 auto;
+  width: min(680px, calc(100vw - 300px));
+  z-index: 45;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 1px solid rgba(201, 162, 39, 0.45);
+  background:
+    repeating-linear-gradient(44deg,
+      rgba(255, 246, 220, 0.012) 0 1px,
+      transparent 1px 3px),
+    linear-gradient(172deg, #4a3320f0, #241608f5);
+  box-shadow:
+    0 14px 32px rgba(8, 5, 2, 0.52),
+    inset 0 1px 0 rgba(255, 236, 190, 0.13);
+  color: var(--a-on-dark);
+  backdrop-filter: blur(4px);
+  animation: chooseBarEnter 240ms var(--a-ease-out);
+}
+
+@keyframes chooseBarEnter {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.chooseBarWrap { flex-wrap: wrap; }
+
+.chooseBarMessage {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--a-font-display);
+  font-size: 15px;
+  letter-spacing: 0.03em;
+  line-height: 1.35;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.chooseBarActions {
+  display: flex;
+  flex-shrink: 0;
+  gap: 10px;
+}
+
+/*
+ * Board hand choose-cards / setup Active — full-width instruction bar at top.
+ * Above the board (z ~0–10), below TableBoardOverlay (40) and sandboxDock (42)
+ * so Leave / End Turn / sandbox controls stay usable on top of the bar.
+ */
+.chooseStartingTopBar {
+  position: fixed;
+  top: var(--table-prompt-top, 24px);
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: min(680px, calc(100vw - 300px));
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 9px 16px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 1px solid rgba(201, 162, 39, 0.45);
+  background:
+    repeating-linear-gradient(44deg,
+      rgba(255, 246, 220, 0.012) 0 1px,
+      transparent 1px 3px),
+    linear-gradient(172deg, #4a3320f0, #241608f5);
+  box-shadow:
+    0 14px 32px rgba(8, 5, 2, 0.52),
+    inset 0 1px 0 rgba(255, 236, 190, 0.13);
+  color: var(--a-on-dark);
+  backdrop-filter: blur(4px);
+  pointer-events: auto;
+  animation: chooseBarEnter 240ms var(--a-ease-out);
+}
+
+@media (max-width: 800px) {
+  .chooseStartingTopBar,
+  .chooseBar {
+    top: var(--table-prompt-top, 56px);
+    width: calc(100vw - 24px);
+    padding: 8px 12px;
+    box-sizing: border-box;
+  }
+}
+
+.chooseStartingTopBarContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  max-width: min(720px, calc(100vw - 40px));
+}
+
+.chooseStartingTopBarMessage {
+  font-family: var(--a-font-display);
+  font-size: 14px;
+  letter-spacing: 0.03em;
+  line-height: 1.35;
+  text-align: center;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.chooseStartingTopBarActions {
+  display: flex;
+  flex-shrink: 0;
+  gap: 10px;
+}
+
+.chooseStartingTopBarActions .chooseStartingTopBarOkBtn {
+  padding: 8px 20px;
+  border: 1.5px solid rgba(255, 255, 255, 0.8);
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: linear-gradient(180deg, #35c2ac, #2eaf9a);
+  box-shadow: 0 4px 12px rgba(46, 175, 154, 0.35);
+}
+
+.chooseStartingTopBarActions .chooseStartingTopBarOkBtn:hover:not(:disabled) {
+  background: linear-gradient(180deg, #3fcdb7, #1e8f7e);
+}
+
+.chooseStartingTopBarActions .chooseStartingTopBarOkBtn:disabled {
+  opacity: 0.45;
+  filter: none;
+}
+
+.chooseStartingTopBarActions .chooseStartingTopBarCancelBtn {
+  padding: 8px 16px;
+  border: 1.5px solid rgba(201, 162, 39, 0.4);
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: var(--a-on-dark);
+  background: rgba(243, 234, 214, 0.06);
+  box-shadow: none;
+}
+
+.chooseStartingTopBarActions .chooseStartingTopBarCancelBtn:hover:not(:disabled) {
+  background: rgba(201, 162, 39, 0.12);
+  border-color: rgba(201, 162, 39, 0.65);
+}
+
+.removeDamageBarControls {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.removeDamageRoundBtn {
+  width: 46px;
+  height: 46px;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  font-size: 1.35rem !important;
+  line-height: 1 !important;
+}
+
+.removeDamagePending {
+  min-width: 34px;
+  text-align: center;
+  font-family: var(--a-font-num);
+  font-size: 1.2rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  color: var(--a-brass-lit);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.55);
+}
+
+/* ============================================================
+   伤害浮动控制器：贴在宝可梦下沿的黄铜木牌
+   put＝砸下伤害（红）/ remove＝治疗（绿金）/ move＝转移（黄铜）
+   ============================================================ */
+
+.removeDamageFloatingHud {
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  display: none;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  /* Anchor is bottom-center of card; top/left set in JS; translate centers on x */
+  transform: translate(-50%, 0);
+  border-radius: 999px;
+  background:
+    repeating-linear-gradient(44deg,
+      rgba(255, 246, 220, 0.014) 0 1px,
+      transparent 1px 3px),
+    linear-gradient(172deg, #453020f7, #241608fa);
+  border: 1px solid rgba(201, 162, 39, 0.5);
+  color: var(--a-on-dark);
+  box-shadow:
+    0 12px 28px rgba(8, 5, 2, 0.55),
+    inset 0 1px 0 rgba(255, 236, 190, 0.14);
+  pointer-events: auto;
+  /* display:none → flex 时重新触发：轻微过冲入场 */
+  animation: damageHudPop 240ms var(--a-ease-spring);
+}
+
+@keyframes damageHudPop {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 8px) scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+}
+
+/* +/−：黄铜硬币键 */
+.removeDamageFloatingHud > button {
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  background: linear-gradient(180deg,
+    var(--a-brass-lit) 0%,
+    var(--a-brass) 52%,
+    #9a7d1c 100%);
+  color: #241a06;
+  font-weight: 700;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.2),
+    0 3px 0 #6d5710,
+    0 6px 12px rgba(0, 0, 0, 0.4);
+  transition:
+    transform var(--a-t-fast) var(--a-ease),
+    box-shadow var(--a-t-fast) var(--a-ease),
+    filter var(--a-t-fast) var(--a-ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .removeDamageFloatingHud > button:hover:not(:disabled) {
+    filter: brightness(1.07);
+    transform: translateY(-1px);
+  }
+}
+
+.removeDamageFloatingHud > button:active:not(:disabled) {
+  transform: translateY(2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.removeDamageFloatingHud > button:disabled {
+  opacity: 0.45;
+  filter: grayscale(0.55) brightness(0.8);
+  cursor: not-allowed;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* 放置伤害：红印 */
+.damageHudPut { border-color: rgba(224, 100, 60, 0.6); }
+
+.damageHudPut .removeDamagePending {
+  color: #ff7a5c;
+  text-shadow: 0 0 12px rgba(224, 83, 58, 0.4), 0 2px 4px rgba(0, 0, 0, 0.55);
+}
+
+/* 移除伤害：治疗（绿金） */
+.damageHudHeal { border-color: rgba(150, 205, 115, 0.55); }
+
+.damageHudHeal .removeDamagePending {
+  color: #a8dd82;
+  text-shadow: 0 0 12px rgba(120, 200, 90, 0.35), 0 2px 4px rgba(0, 0, 0, 0.55);
+}
+
+/* 转移伤害：黄铜 */
+.damageHudMove .removeDamagePending {
+  color: var(--a-brass-lit);
+}
+
+.fallbackType {
+  font-family: var(--a-font-num);
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+/* ============================================================
+   卡牌检索面板（Choose cards catalog）
+   ============================================================ */
+
+.catalogPanel {
+  width: min(1120px, calc(100vw - 40px));
+  height: min(780px, calc(100dvh - 48px));
+  max-height: calc(100dvh - 48px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 24px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-sizing: border-box;
+  background:
+    repeating-linear-gradient(44deg,
+      rgba(255, 246, 220, 0.014) 0 1px,
+      transparent 1px 3px),
+    radial-gradient(ellipse 70% 24% at 20% 0%,
+      rgba(232, 200, 90, 0.09),
+      transparent 70%),
+    linear-gradient(170deg, #4c3320 0%, #33220f 62%, #241708 100%);
+}
+
+.catalogHeader {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 14px;
+}
+
+.catalogHeader > div:first-of-type { flex: 1; min-width: 0; }
+.catalogHeader .title { margin: 0 0 6px; font-size: 19px; }
+.catalogHeader .message { margin: 0; font-size: 13px; color: var(--a-on-dark-soft); }
+
+.catalogEmblem {
+  width: 38px;
+  height: 38px;
+  color: var(--a-brass);
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 8px rgba(201, 162, 39, 0.4));
+}
+
+/* 黄铜计数环：多选进度 */
+.selectionMeter {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--a-font-num);
+  font-size: 17px;
+  color: var(--a-on-dark-soft);
+}
+
+.selectionMeter svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: rgba(201, 162, 39, 0.24);
+  stroke-width: 2;
+}
+
+.selectionMeter .meterFill {
+  stroke: var(--a-brass);
+  transform: rotate(-90deg);
+  transform-origin: center;
+  transition: stroke var(--a-t) var(--a-ease);
+}
+
+.selectionMeter[data-valid] { color: var(--a-brass-lit); }
+
+.selectionMeter[data-valid] .meterFill {
+  stroke: var(--a-brass-lit);
+  filter: drop-shadow(0 0 4px rgba(232, 200, 90, 0.6));
+}
+
+.selectionMeter small { font-size: 11px; margin-left: 2px; }
+
+.catalogTools {
+  display: flex;
+  flex-shrink: 0;
+  gap: 12px;
+  align-items: center;
+}
+
+.catalogSearch {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  min-width: 0;
+  flex: 1;
+  height: 42px;
+  padding: 0 12px;
+  border-radius: 8px;
+  background: rgba(12, 7, 3, 0.5);
+  border: 1px solid rgba(201, 162, 39, 0.22);
+  color: var(--a-on-dark-soft);
+  box-shadow: inset 0 2px 6px rgba(9, 6, 3, 0.45);
+  transition: border-color var(--a-t-fast) var(--a-ease);
+}
+
+.catalogSearch svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+.catalogSearch input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: none;
+  color: var(--a-on-dark);
+  font: inherit;
+  font-size: 14px;
+}
+
+.catalogSearch:focus-within { border-color: rgba(232, 200, 90, 0.65); }
+.catalogSearch input:disabled { opacity: 0.35; }
+
+.catalogHint {
+  flex: none;
+  margin: 0;
+  color: var(--a-on-dark-soft);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.chooseTabs { display: flex; gap: 7px; }
+
+.chooseTab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 7px 12px;
+  border: 1px solid rgba(201, 162, 39, 0.26);
+  border-radius: 8px;
+  background: rgba(20, 12, 6, 0.5);
+  color: var(--a-on-dark-soft);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 650;
+  font-family: var(--a-font-num);
+  transition:
+    border-color var(--a-t-fast) var(--a-ease),
+    background var(--a-t-fast) var(--a-ease),
+    color var(--a-t-fast) var(--a-ease);
+}
+
+.chooseTab svg { width: 19px; height: 19px; }
+
+.chooseTabActive {
+  color: var(--a-brass-lit);
+  border-color: rgba(232, 200, 90, 0.7);
+  background: rgba(201, 162, 39, 0.14);
+  box-shadow: 0 0 12px rgba(232, 200, 90, 0.12);
+}
+
+.chooseSecretRow { margin-bottom: 12px; font-size: 0.9rem; }
+
+.chooseSelectionMeta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  margin: 0 0 10px;
+  height: 24px;
+  padding: 0 10px;
+  border: 1px solid rgba(201, 162, 39, 0.44);
+  border-radius: 3px;
+  font-family: var(--a-font-num);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--a-brass-lit);
+  background: rgba(201, 162, 39, 0.1);
+}
+
+.chooseCardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+  gap: 18px;
+  margin: 12px 0;
+  max-height: min(50dvh, 440px);
+  overflow: auto;
+  padding: 8px;
+  align-content: start;
+  scrollbar-color: #8a6f14 #1d130a;
+}
+
+.catalogPanel .chooseCardsGrid {
+  flex: 1;
+  min-height: 0;
+  max-height: none;
+  margin: 0;
+}
+
+.chooseCardItem {
+  position: relative;
+  min-width: 0;
+  animation: promptItemRise 180ms var(--a-ease-out) both;
+  animation-delay: 70ms;
+}
+
+.chooseCardItem:nth-child(3n + 2) { animation-delay: 94ms; }
+.chooseCardItem:nth-child(3n) { animation-delay: 118ms; }
+.chooseCardItem:nth-child(n + 7) { animation-delay: 140ms; }
+
+.chooseCardBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  border: 2px solid rgba(201, 162, 39, 0.28);
+  border-radius: 9px;
+  background: rgba(16, 10, 5, 0.55);
+  color: var(--a-on-dark-soft);
+  cursor: pointer;
+  text-align: left;
+  box-shadow: 0 4px 10px rgba(8, 5, 2, 0.35);
+  transition:
+    border-color var(--a-t-fast) var(--a-ease),
+    box-shadow var(--a-t-fast) var(--a-ease),
+    transform var(--a-t-fast) var(--a-ease),
+    background var(--a-t-fast) var(--a-ease);
+}
+
+.cardPreview { cursor: zoom-in; }
+
+.choiceFace { width: 100%; aspect-ratio: 2.5 / 3.5; }
+
+.chooseCardName {
+  width: 100%;
+  min-height: 38px;
+  padding: 8px;
+  box-sizing: border-box;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+/* 选中：黄铜外发光 + 微亮 */
+.chooseCardBtnSelected {
+  border-color: var(--a-brass-lit);
+  background: rgba(201, 162, 39, 0.12);
+  box-shadow:
+    0 0 0 1px rgba(232, 200, 90, 0.5),
+    0 0 24px rgba(232, 200, 90, 0.26),
+    0 4px 10px rgba(8, 5, 2, 0.35);
+}
+
+.chooseCardBtn:disabled {
+  filter: grayscale(0.9) brightness(0.6);
+  opacity: 0.45;
+  cursor: default;
+}
+
+.selectionSeal {
+  position: absolute;
+  z-index: 4;
+  left: 5px;
+  top: 5px;
+  width: 26px;
+  height: 26px;
+  padding: 4px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  color: #251b06;
+  background: radial-gradient(circle at 32% 28%, #ffe9ad, var(--a-brass-lit) 55%, var(--a-brass) 100%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5), 0 0 10px rgba(232, 200, 90, 0.45);
+}
+
+.selectionSeal svg { width: 100%; height: 100%; }
+
+.cardPreviewHint {
+  position: absolute;
+  z-index: 4;
+  top: 7px;
+  right: 7px;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  background: rgba(28, 18, 9, 0.93);
+  color: var(--a-on-dark);
+  font-size: 11px;
+  line-height: 1.3;
+  pointer-events: none;
+}
+
+.cardPreviewHint svg { width: 14px; height: 14px; }
+
+.chooseCardToggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  min-height: 44px;
+  margin-top: 8px;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid rgba(201, 162, 39, 0.5);
+  border-radius: 6px;
+  background: rgba(24, 15, 7, 0.75);
+  color: var(--a-on-dark);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.chooseCardToggle svg { width: 18px; height: 18px; }
+.chooseCardToggle[aria-pressed="true"] { background: rgba(201, 162, 39, 0.2); color: var(--a-brass-lit); }
+.chooseCardToggle:disabled { color: #c7b491; border-color: rgba(201, 162, 39, 0.2); cursor: default; }
+
+.selectionDock:empty { display: none; }
+
+.selectionDock {
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  padding: 4px 8px;
+  box-sizing: border-box;
+  border-top: 1px solid rgba(201, 162, 39, 0.22);
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.selectedSummary { flex: none; font-size: 12px; color: var(--a-on-dark-soft); }
+
+.selectedCardChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  max-width: 200px;
+  flex-shrink: 0;
+  padding: 8px 10px;
+  box-sizing: border-box;
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  border-radius: 6px;
+  color: var(--a-on-dark);
+  background: rgba(24, 14, 7, 0.75);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.selectedCardChip > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.selectedCardChip > svg { width: 16px; height: 16px; flex: none; color: var(--a-brass-lit); }
+
+.catalogEmpty {
+  grid-column: 1 / -1;
+  padding: 50px 10px;
+  color: var(--a-on-dark-soft);
+  text-align: center;
+}
+
+.chooseTab:focus-visible,
+.chooseCardBtn:focus-visible,
+.chooseCardToggle:focus-visible,
+.selectedCardChip:focus-visible {
+  outline: 2px solid var(--a-brass-lit);
+  outline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .chooseCardBtn:hover:not(:disabled) {
+    border-color: rgba(232, 200, 90, 0.7);
+    transform: translateY(-2px);
+  }
+
+  .chooseCardToggle:hover:not(:disabled) { border-color: var(--a-brass-lit); background: rgba(201, 162, 39, 0.22); }
+}
+
+/* Short viewports scroll the entire catalog instead of collapsing its card
+   gallery between the fixed heading and selection tray. */
+@media (max-height: 700px) {
+  .catalogPanel { overflow-y: auto; }
+  .catalogPanel .chooseCardsGrid { flex: none; overflow: visible; }
+}
+
+/* 小屏堆叠不溢出 */
+@media (max-width: 600px) {
+  .catalogPanel {
+    width: calc(100vw - 16px);
+    padding: 14px;
+    gap: 10px;
+    border-radius: 10px;
+  }
+
+  .catalogHeader { gap: 9px; }
+  .catalogEmblem { width: 26px; height: 30px; }
+  .catalogHeader .title { font-size: 17px; }
+  .catalogHeader .message { font-size: 12px; }
+  .selectionMeter { width: 42px; height: 42px; font-size: 15px; }
+  .catalogTools { gap: 8px; }
+
+  .chooseCardsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+    gap: 12px;
+    padding: 5px;
+  }
+
+  .chooseCardName { min-height: 32px; }
+}
+
+/* ============================================================
+   ChooseEnergy：能量卡格 + 属性宝石插槽
+   ============================================================ */
+
+.chooseEnergySlots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin: 16px 0 4px;
+  padding: 12px;
+  border-radius: 10px;
+  background: rgba(12, 7, 3, 0.42);
+  border: 1px solid rgba(201, 162, 39, 0.24);
+  box-shadow: inset 0 2px 8px rgba(9, 6, 3, 0.4);
+}
+
+.chooseEnergySlot {
+  width: 87px;
+  height: 120px;
+  padding: 0;
+  border: 2px dashed rgba(201, 162, 39, 0.35);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(20, 12, 6, 0.5);
+  cursor: default;
+  line-height: 0;
+  box-shadow: inset 0 2px 8px rgba(9, 6, 3, 0.45);
+}
+
+.chooseEnergySlot:not(:disabled) { cursor: pointer; }
+
+.chooseEnergySlot:not(:disabled):hover {
+  border-color: rgba(232, 200, 90, 0.75);
+  background: rgba(42, 28, 15, 0.7);
+}
+
+.chooseEnergySlotIcon {
+  width: 36px;
+  height: 36px;
+  filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.5));
+}
+
+.chooseEnergySlot:focus-visible {
+  outline: 2px solid var(--a-brass-lit);
+  outline-offset: 3px;
+}
+
+/* ============================================================
+   Choose prize —— 全屏选奖牌（结构对齐 Angular，材质换桌语）
+   ============================================================ */
+
+@keyframes prizeFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes prizeGlow {
+  from {
+    box-shadow: 0 0 4px 1px rgba(201, 162, 39, 0.3);
+  }
+
+  to {
+    box-shadow: 0 0 10px 2px rgba(232, 200, 90, 0.5);
+  }
+}
+
+.prizeFullscreenRoot {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  animation: prizeFadeIn 240ms var(--a-ease-out);
+}
+
+.prizeFullscreenOverlay {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 135% 115% at 50% 40%,
+      rgba(10, 16, 11, 0.5) 0%,
+      rgba(7, 11, 8, 0.7) 100%);
+  backdrop-filter: blur(4px);
+  z-index: 0;
+}
+
+.prizeFullscreenContainer {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background:
+    repeating-linear-gradient(44deg,
+      rgba(255, 246, 220, 0.012) 0 1px,
+      transparent 1px 3px),
+    linear-gradient(172deg, #4a3320 0%, #33220f 55%, #22150a 100%);
+  color: var(--a-on-dark);
+}
+
+.prizePromptTitle {
+  padding: 1rem 2rem;
+  background: rgba(16, 10, 5, 0.4);
+  border-bottom: 1px solid rgba(201, 162, 39, 0.4);
+  display: flex;
+  align-items: center;
+  width: 100%;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.prizePromptTitle h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-family: var(--a-font-display);
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--a-on-dark);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.prizePromptTitle h2::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: var(--a-brass);
+  transform: rotate(45deg);
+  box-shadow: 0 0 10px rgba(201, 162, 39, 0.7);
+}
+
+.prizeTitleSpacer { flex: 1; }
+
+.prizePromptMessage {
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60px;
+  margin: 0;
+  color: var(--a-on-dark-soft);
+  font-size: 1.05rem;
+  padding: 1rem 0;
+}
+
+.prizePromptMessage p {
+  margin: 0;
+  padding: 0.75rem 2rem;
+  position: relative;
+  width: fit-content;
+  max-width: 80%;
+  text-align: center;
+}
+
+.prizePromptContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 0;
+  position: relative;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+.prizePrizes {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.prizePrizesGrid {
+  width: fit-content;
+  display: grid;
+  grid-template-columns: repeat(2, 90px);
+  grid-template-rows: repeat(3, 125px);
+  gap: 12px;
+  margin: 0;
+  padding: 1rem;
+  position: relative;
+}
+
+.prizePrizeSlot {
+  cursor: pointer;
+  position: relative;
+  width: 90px;
+  height: 125px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  transition: transform 0.2s var(--a-ease-out);
+  animation: promptItemRise 200ms var(--a-ease-out) both;
+  animation-delay: 60ms;
+}
+
+.prizePrizeSlot:nth-child(2) { animation-delay: 84ms; }
+.prizePrizeSlot:nth-child(3) { animation-delay: 108ms; }
+.prizePrizeSlot:nth-child(4) { animation-delay: 132ms; }
+.prizePrizeSlot:nth-child(5) { animation-delay: 156ms; }
+.prizePrizeSlot:nth-child(6) { animation-delay: 180ms; }
+
+.prizePrizeSlot:focus-visible {
+  outline: 2px solid var(--a-brass-lit);
+  outline-offset: 2px;
+}
+
+.prizePrizeSlot:disabled { cursor: not-allowed; }
+.prizePrizeSlot:disabled:not(.prizePrizeSlotEmpty) { opacity: 0.45; }
+
+/* Hover lift is fine-pointer only — touch taps must not scale prize cards. */
+@media (hover: hover) and (pointer: fine) {
+  .prizePrizeSlot:not(.prizePrizeSlotEmpty):hover:not(:disabled) {
+    transform: scale(1.05);
+    z-index: 1;
+  }
+}
+
+.prizePrizeNumber {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background: rgba(24, 14, 7, 0.92);
+  color: var(--a-brass-lit);
+  border: 1px solid rgba(201, 162, 39, 0.5);
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--a-font-num);
+  font-size: 10px;
+  font-weight: 700;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.prizeEmptySlot {
+  width: 100%;
+  height: 100%;
+  border: 2px dashed rgba(201, 162, 39, 0.3);
+  border-radius: 8px;
+  background: rgba(12, 7, 3, 0.35);
+  box-sizing: border-box;
+}
+
+.prizePrizeSlotSelected {
+  z-index: 2;
+  transform: scale(1.05);
+}
+
+.prizePrizeSlotSelected::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 2px solid rgba(232, 200, 90, 0.85);
+  border-radius: 8px;
+  box-shadow:
+    0 0 6px 1px rgba(232, 200, 90, 0.45),
+    0 0 22px rgba(232, 200, 90, 0.25);
+  z-index: 2;
+  pointer-events: none;
+  animation: prizeGlow 1.5s infinite alternate;
+}
+
+.prizePromptActions {
+  padding: 1rem 2rem 2rem;
+  background: rgba(16, 10, 5, 0.4);
+  border-top: 1px solid rgba(201, 162, 39, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.prizeRevealSection {
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+}
+
+.prizePromptCancelBtn {
+  min-height: 40px;
+  padding: 0 18px !important;
+  border: 1px solid rgba(243, 234, 214, 0.28) !important;
+  border-radius: 5px !important;
+  background: rgba(243, 234, 214, 0.07) !important;
+  color: var(--a-on-dark) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+  text-transform: none !important;
+  font-family: inherit !important;
+  font-weight: 650 !important;
+  font-size: 0.9rem !important;
+  letter-spacing: normal !important;
+}
+
+.prizePromptCancelBtn:hover:not(:disabled) {
+  background: rgba(201, 162, 39, 0.14) !important;
+  border-color: rgba(201, 162, 39, 0.6) !important;
+}
+
+.prizePromptConfirmBtn {
+  border: 1px solid rgba(0, 0, 0, 0.4) !important;
+  background: linear-gradient(180deg,
+    var(--a-brass-lit) 0%,
+    var(--a-brass) 52%,
+    #9a7d1c 100%) !important;
+  color: #241a06 !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    0 3px 0 #6d5710,
+    0 6px 14px rgba(0, 0, 0, 0.4) !important;
+  text-transform: none !important;
+  font-family: inherit !important;
+  font-weight: 700 !important;
+  font-size: 0.95rem !important;
+  letter-spacing: normal !important;
+  padding: 10px 24px !important;
+  border-radius: 5px !important;
+  transition:
+    filter var(--a-t-fast) var(--a-ease),
+    transform var(--a-t-fast) var(--a-ease) !important;
+}
+
+.prizePromptConfirmBtn:hover:not(:disabled) {
+  filter: brightness(1.07);
+  transform: translateY(-1px);
+}
+
+.prizePromptConfirmBtn:active:not(:disabled) {
+  transform: translateY(2px);
+}
+
+.prizePromptConfirmBtn:disabled {
+  background: rgba(12, 7, 3, 0.5) !important;
+  color: var(--a-on-dark-soft) !important;
+  opacity: 1 !important;
+  transform: none !important;
+  box-shadow: none !important;
+  filter: grayscale(0.5) !important;
+}
+
+/* ============================================================
+   减少动态
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop,
+  .panel,
+  .chooseBar,
+  .chooseStartingTopBar,
+  .prizeFullscreenRoot,
+  .prizePrizeSlot,
+  .chooseCardItem,
+  .cardRow > button,
+  .selectOption {
+    animation: none;
+  }
+
+  .removeDamageFloatingHud { animation: none; }
+
+  @media (hover: hover) and (pointer: fine) {
+    .prizePrizeSlot:not(.prizePrizeSlotEmpty):hover:not(:disabled) { transform: none; }
+  }
+
+  .prizePrizeSlot,
+  .cardRow > button {
+    transition: none;
+  }
+
+  .actions > button,
+  .chooseBarActions > button,
+  .removeDamageBarControls > button,
+  .chooseStartingTopBarActions > button,
+  .removeDamageFloatingHud > button,
+  .chooseCardBtn {
+    transition: none;
+  }
+
+  .panel {
+    /* Fade only — drop the rise/scale travel. */
+    animation: promptBackdropEnter 0.15s ease-out;
+  }
+
+  .prizeFullscreenRoot {
+    animation: promptBackdropEnter 0.15s ease-out;
+  }
+}

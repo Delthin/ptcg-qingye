@@ -1,0 +1,1569 @@
+/* ============================================================
+   ShopPage — 一间有实体感的卡牌店
+   紧凑货架：一格一件实物 + 短名 + 纸价签，长说明进详情匣；
+   未开卡包收进可折叠玻璃柜；柜台与开包体验台保持原样。
+   材质语言全部复用 arena.css 的 token，与对战大厅同源
+   ============================================================ */
+
+.shop {
+  /* 本页私有的木纹噪声，与大厅同款做法 */
+  --wood-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.011 0.19' numOctaves='4' seed='11' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='180' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+
+  /* AppLayout 的 .layout 自带不透明底色且不生成 stacking context，
+     isolation 让 a-page 的 fixed 桌面底衬留在本页层叠上下文内、盖在它之上 */
+  isolation: isolate;
+}
+
+.shop :is(button, a, select, summary):focus-visible {
+  outline: 2px solid var(--a-brass-lit);
+  outline-offset: 3px;
+}
+
+.shop ::selection {
+  background: rgba(201, 162, 39, 0.32);
+}
+
+/* ---------------- 门头 ---------------- */
+
+.masthead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-bottom: clamp(20px, 3vh, 32px);
+}
+
+.mastTitle {
+  min-width: 0;
+}
+
+/* 标题下的黄铜刻线：亮线压暗线，像嵌进木头的金属丝 */
+.mastRule {
+  display: block;
+  height: 1px;
+  margin-top: 14px;
+  background: linear-gradient(90deg, var(--a-brass) 0%, rgba(201, 162, 39, 0.4) 38%, transparent 92%);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* ---------------- 柜台：黄铜收银盘 ---------------- */
+
+.counter {
+  display: flex;
+  align-items: stretch;
+  gap: 14px;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.45);
+  background:
+    var(--wood-grain) 0 0 / 300px 180px,
+    repeating-linear-gradient(93deg, rgba(12, 6, 2, 0.2) 0 3px, transparent 3px 11px, rgba(255, 214, 150, 0.045) 11px 13px, transparent 13px 30px),
+    linear-gradient(180deg, #5a402a 0%, #463019 55%, #2c1d10 100%);
+  background-blend-mode: overlay, normal, normal;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 225, 170, 0.16),
+    inset 0 -3px 8px rgba(0, 0, 0, 0.45),
+    var(--a-lift-3);
+}
+
+/* 收银盘：柜台上的凹槽黄铜镶边托盘 */
+.register {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 14px 20px;
+  border-radius: 8px;
+  background: linear-gradient(172deg, #241a0f 0%, #170f08 100%);
+  box-shadow:
+    inset 0 3px 10px rgba(0, 0, 0, 0.7),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.6),
+    inset 0 0 0 2px rgba(201, 162, 39, 0.32);
+}
+
+.coin {
+  position: relative;
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  font-family: var(--a-font-display);
+  font-size: 19px;
+  color: #4a3608;
+  background: radial-gradient(circle at 32% 28%, #f7eaad 0%, var(--a-brass-lit) 38%, var(--a-brass) 62%, #8a6f14 100%);
+  box-shadow:
+    inset 0 2px 2px rgba(255, 255, 255, 0.55),
+    inset 0 -3px 5px rgba(0, 0, 0, 0.35),
+    0 3px 7px rgba(0, 0, 0, 0.45);
+}
+
+/* 币缘的刻纹圈 */
+.coin::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  border: 1px dashed rgba(74, 54, 8, 0.5);
+}
+
+.registerRead {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.registerLabel {
+  font-family: var(--a-font-num);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: rgba(232, 200, 90, 0.78);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8);
+}
+
+.registerAmount {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* 余额：黄铜刻字，亮面在上、暗部收底 */
+.registerValue {
+  font-family: var(--a-font-num);
+  font-size: clamp(26px, 3.2vw, 36px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+  background: linear-gradient(180deg, #fdf3d8 0%, var(--a-brass-lit) 48%, var(--a-brass) 72%, #96781a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.65));
+}
+
+.registerUnit {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--a-on-dark-soft);
+}
+
+.registerStatus {
+  font-family: var(--a-font-display);
+  font-weight: 400;
+  font-size: clamp(20px, 2.6vw, 26px);
+  letter-spacing: 0.06em;
+  color: var(--a-on-dark);
+}
+
+.registerNote {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--a-on-dark-soft);
+}
+
+.counterSide {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* 今天可领：黄铜键外的呼吸光环 */
+.checkInBtn {
+  position: relative;
+}
+
+.checkInBtn:not(:disabled)::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 8px;
+  border: 1px solid rgba(232, 200, 90, 0.75);
+  box-shadow: 0 0 14px rgba(232, 200, 90, 0.35);
+  pointer-events: none;
+  animation: checkInPulse 2.4s var(--a-ease-out) infinite;
+}
+
+@keyframes checkInPulse {
+  0% { opacity: 0.9; transform: scale(0.97); }
+  70% { opacity: 0; transform: scale(1.08); }
+  100% { opacity: 0; transform: scale(1.08); }
+}
+
+/* 已签到：安静的铜牌 */
+.checkInDone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 18px;
+  border-radius: 5px;
+  border: 1px solid rgba(201, 162, 39, 0.3);
+  background: rgba(201, 162, 39, 0.07);
+  color: var(--a-on-dark-soft);
+  font-size: 12.5px;
+  letter-spacing: 0.08em;
+}
+
+.checkInDone::before {
+  content: '✓';
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  font-size: 11px;
+  color: #241a06;
+  background: linear-gradient(180deg, var(--a-brass-lit), var(--a-brass));
+}
+
+.linkBtn {
+  align-self: center;
+  background: none;
+  border: 0;
+  padding: 4px 2px;
+  color: var(--a-brass-lit);
+  font-family: var(--a-font-ui);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(232, 200, 90, 0.4);
+  transition: color var(--a-t) var(--a-ease), border-color var(--a-t) var(--a-ease);
+}
+
+.linkBtn:not(:disabled):hover {
+  color: #fdf3d8;
+  border-color: #fdf3d8;
+}
+
+.linkBtn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ---------------- 柜台留言：告示与回执 ---------------- */
+
+.alertNote {
+  position: relative;
+  margin: 16px 0 0;
+  padding: 12px 16px 12px 20px;
+  border-radius: 4px;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: #7c2d24;
+  background: linear-gradient(178deg, #f3e6cd, #e9d9b8);
+  border: 1px solid rgba(124, 45, 36, 0.25);
+  box-shadow: var(--a-lift-2);
+}
+
+/* 钉在纸条左侧的红蜡点 */
+.alertNote::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -6px;
+  width: 11px;
+  height: 11px;
+  margin-top: -5px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #e8927f, #a23730 70%);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* 签到/购买回执：撕边小票 */
+.receiptNote {
+  position: relative;
+  display: inline-block;
+  margin: 16px 0 0;
+  padding: 12px 18px 13px;
+  border-radius: 3px 3px 0 0;
+  font-family: var(--a-font-num);
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+  color: var(--a-ink);
+  background: linear-gradient(178deg, var(--a-paper), var(--a-paper-warm));
+  box-shadow: var(--a-lift-2);
+}
+
+.receiptNote::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 6px;
+  background-image:
+    linear-gradient(45deg, var(--a-paper-warm) 25%, transparent 25.5%),
+    linear-gradient(-45deg, var(--a-paper-warm) 25%, transparent 25.5%);
+  background-size: 12px 12px;
+  background-repeat: repeat-x;
+}
+
+/* ---------------- 商品陈列：紧凑实体货架 ---------------- */
+
+.goodsSection {
+  margin-top: clamp(24px, 3.6vh, 38px);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  background:
+    var(--wood-grain) 0 0 / 300px 180px,
+    repeating-linear-gradient(92deg, rgba(12, 6, 2, 0.18) 0 3px, transparent 3px 12px, rgba(255, 214, 150, 0.04) 12px 14px, transparent 14px 34px),
+    linear-gradient(180deg, #4c3521, #2e1f11);
+  background-blend-mode: overlay, normal, normal;
+  box-shadow: inset 0 1px 0 rgba(255, 225, 170, 0.12), var(--a-lift-2);
+}
+
+.shelfLabels {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* 隔板标签：纸面卡进木槽，按下换黄铜铭牌 */
+.shelfLabel {
+  min-height: 34px;
+  padding: 0 16px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 4px 4px 3px 3px;
+  border: 1px solid rgba(243, 234, 214, 0.18);
+  border-bottom-color: rgba(0, 0, 0, 0.55);
+  background: linear-gradient(180deg, rgba(243, 234, 214, 0.1), rgba(243, 234, 214, 0.03));
+  color: var(--a-on-dark-soft);
+  font-family: var(--a-font-ui);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 2px 0 rgba(0, 0, 0, 0.35);
+  transition: color var(--a-t) var(--a-ease), background var(--a-t) var(--a-ease), transform var(--a-t-fast) var(--a-ease), box-shadow var(--a-t) var(--a-ease), border-color var(--a-t) var(--a-ease);
+}
+
+.shelfLabel:not([aria-pressed='true']):hover {
+  color: var(--a-on-dark);
+  background: linear-gradient(180deg, rgba(243, 234, 214, 0.16), rgba(243, 234, 214, 0.06));
+}
+
+.shelfLabel:not([aria-pressed='true']):active {
+  transform: translateY(1px);
+}
+
+.shelfLabel[aria-pressed='true'] {
+  color: #241a06;
+  border-color: rgba(0, 0, 0, 0.45);
+  background: linear-gradient(180deg, var(--a-brass-lit) 0%, var(--a-brass) 55%, #a8831c 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 2px 0 #6d5710, var(--a-lift-1);
+}
+
+.count {
+  font-family: var(--a-font-num);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--a-on-dark-soft);
+}
+
+/* 一行多格：1280–1360 视口约 6–7 列，中屏 4–5 列 */
+.bins {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(164px, 1fr));
+  gap: 14px 12px;
+}
+
+.binRise {
+  min-width: 0;
+}
+
+/* 整格都是详情入口：木壁货架格 + 底部刻名 */
+.binButton {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 1px solid rgba(0, 0, 0, 0.45);
+  border-radius: 10px;
+  background:
+    radial-gradient(rgba(255, 235, 190, 0.05) 1px, transparent 1.5px) 0 0 / 20px 20px,
+    linear-gradient(180deg, #3a2a19 0%, #241a0e 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 225, 170, 0.1), var(--a-lift-2);
+  cursor: pointer;
+  text-align: center;
+  transition: border-color var(--a-t) var(--a-ease), box-shadow var(--a-t) var(--a-ease), transform var(--a-t-fast) var(--a-ease-out);
+}
+
+.binButton:hover {
+  border-color: rgba(201, 162, 39, 0.55);
+  box-shadow: inset 0 1px 0 rgba(255, 225, 170, 0.14), var(--a-lift-3);
+}
+
+.binButton:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+/* 陈列位：挂孔背板，高度由实物决定 */
+.binStage {
+  --depth: 10px;
+  position: relative;
+  display: block;
+  padding: 10px 10px 30px;
+  border-radius: 9px 9px 0 0;
+  background: radial-gradient(rgba(255, 235, 190, 0.05) 1px, transparent 1.5px) 0 0 / 20px 20px;
+  overflow: hidden;
+}
+
+.binStage[data-unavailable] {
+  filter: saturate(0.5) brightness(0.72);
+}
+
+.binShow {
+  position: relative;
+  /* 容纳实物全高 + 搁板上沿：实物完整可辨，不剪切封面 */
+  height: 168px;
+  display: grid;
+  place-items: end center;
+  perspective: 820px;
+}
+
+/* 格内搁板：凸出的木板 */
+.binShow::before {
+  content: '';
+  position: absolute;
+  left: -10px;
+  right: -10px;
+  bottom: 14px;
+  height: 11px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #7a5638, #4a3220 55%, #2b1c0e);
+  box-shadow: 0 3px 0 #120b05, 0 6px 10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 225, 170, 0.25);
+}
+
+.showShadow {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  width: 62%;
+  height: 12px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.5), transparent 76%);
+}
+
+/* 详情展台：影子贴着更深的搁板 */
+.detailShow .showShadow {
+  bottom: 20px;
+}
+
+/* 固定内容的硬币套装：三枚全部可见，不使用卡包封面。 */
+.coinTray { position: relative; display: flex; align-items: center; justify-content: center; width: 94%; max-width: 330px; gap: 5px; padding: 16px 8px; margin-bottom: 22px; background: #22362c; border-radius: 12px; box-shadow: inset 0 3px 7px #101c1580, 0 8px 12px #100c094d; }
+.coinTray img { display: block; min-width: 0; width: calc((100% - 10px) / 3); aspect-ratio: 1; object-fit: contain; filter: drop-shadow(0 4px 3px #0007); }
+.detailShow .coinTray { padding: 22px 12px; gap: 9px; }
+.coinContents { margin: 16px 0; color: var(--a-ink); line-height: 1.9; }
+.coinContents a { text-underline-offset: 4px; color: var(--a-ink); }
+.coinSamples { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 12px; }
+.coinSamples figure { margin: 0; width: 64px; text-align: center; font-size: 12px; }
+.coinSamples img { width: 64px; height: 64px; object-fit: contain; }
+.coinReceipt { margin: 24px 0; padding: 20px clamp(16px, 3vw, 28px); color: var(--a-ink); background: var(--a-paper); border-radius: 12px; }
+.coinReceipt h2 { margin: 0 0 16px; font-size: 20px; }
+.coinReceipt ul { display: flex; flex-wrap: wrap; gap: 16px 28px; padding: 0; margin: 0 0 20px; list-style: none; }
+.coinReceipt li { display: flex; align-items: center; gap: 12px; min-width: 0; max-width: 100%; }
+.coinReceipt li img { width: 64px; height: 64px; flex: 0 0 64px; object-fit: contain; }
+.coinReceipt li span { min-width: 0; }
+.coinReceipt strong { display: block; font-size: 14px; overflow-wrap: anywhere; }
+.coinReceipt small { display: block; margin-top: 5px; font-size: 12px; font-variant-numeric: tabular-nums; }
+.coinReceipt :is(a, button):focus-visible, .coinContents a:focus-visible { outline: 3px solid var(--a-brass); outline-offset: 4px; }
+.coinReceipt a { min-height: 44px; }
+
+/* 陈列的补充包 */
+.showPack {
+  --depth: 10px;
+  position: relative;
+  width: min(56%, 100px);
+  aspect-ratio: 5 / 7;
+  margin-bottom: 22px;
+  transform-style: preserve-3d;
+  transform: rotateY(26deg) rotateX(4deg);
+  transition: transform var(--a-t) var(--a-ease-out);
+}
+
+/* 陈列的预组/盒装：更厚的盒体 */
+.showBox {
+  --depth: 20px;
+  position: relative;
+  width: min(74%, 126px);
+  aspect-ratio: 10 / 11;
+  margin-bottom: 22px;
+  transform-style: preserve-3d;
+  transform: rotateY(28deg) rotateX(3deg);
+  transition: transform var(--a-t) var(--a-ease-out);
+}
+
+/* 盒顶盖 */
+.showBox::before {
+  content: '';
+  position: absolute;
+  left: 1px;
+  right: 1px;
+  top: 0;
+  height: calc(var(--depth) * 0.85);
+  transform-origin: top center;
+  transform: rotateX(-90deg);
+  background: linear-gradient(90deg, #5a4028, #2c1d10);
+}
+
+.showPackFace,
+.showBoxFace {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+  transform: translateZ(var(--depth, 10px));
+  background: #16241b;
+  box-shadow: 0 12px 20px -10px rgba(0, 0, 0, 0.55);
+}
+
+.showBoxFace {
+  border-radius: 6px;
+}
+
+.boxEdge {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: var(--depth, 20px);
+  transform-origin: right center;
+  transform: rotateY(90deg);
+  background: linear-gradient(180deg, #4c3521, #241a0e 60%, #150d06);
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.5);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .binButton:hover .showPack {
+    transform: rotateY(12deg) rotateX(1deg) translateY(-5px);
+  }
+
+  .binButton:hover .showBox {
+    transform: rotateY(14deg) rotateX(1deg) translateY(-5px);
+  }
+
+  .binButton:hover .packSheen {
+    animation: sheenSweep 950ms var(--a-ease) forwards;
+  }
+}
+
+.binButton:focus-visible .showPack {
+  transform: rotateY(12deg) rotateX(1deg) translateY(-5px);
+}
+
+.binButton:focus-visible .showBox {
+  transform: rotateY(14deg) rotateX(1deg) translateY(-5px);
+}
+
+/* 纸价签在实物下方独立排布，不遮封面。 */
+.priceTag {
+  position: relative;
+  margin: 10px auto 0;
+  z-index: 3;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  padding: 6px 9px 5px 13px;
+  border-radius: 3px;
+  transform: none;
+  background: linear-gradient(176deg, var(--a-paper), var(--a-paper-warm));
+  border: 1px solid var(--a-paper-edge);
+  box-shadow: var(--a-lift-2), inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  color: var(--a-ink);
+}
+
+.priceTag::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, var(--a-brass-lit), var(--a-brass-dark) 80%);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.45), 0 0 0 2px rgba(255, 253, 246, 0.9);
+}
+
+.priceTag strong {
+  font-family: var(--a-font-num);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.priceTag small {
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--a-ink-soft);
+}
+
+/* 限购进度：格角小印 */
+.limitStamp {
+  position: absolute;
+  left: 8px;
+  bottom: 10px;
+  z-index: 3;
+  padding: 2px 7px;
+  border-radius: 2px;
+  transform: rotate(-1.6deg);
+  font-family: var(--a-font-num);
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  color: #9a4433;
+  background: rgba(255, 244, 224, 0.92);
+  border: 1px solid rgba(154, 68, 51, 0.5);
+  box-shadow: var(--a-lift-1);
+}
+
+/* 售罄/限购达标：红印斜盖 */
+.binChip {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 4;
+  padding: 3px 8px;
+  border-radius: 2px;
+  transform: rotate(-2.4deg);
+  font-family: var(--a-font-num);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-indent: 0.14em;
+  color: #f6ead4;
+  background: linear-gradient(172deg, #a23730, #7c2d24);
+  border: 1px solid rgba(246, 234, 212, 0.35);
+  box-shadow: var(--a-lift-1);
+}
+
+/* 商品名：木格下缘的刻字，最多两行 */
+.binName {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.9em;
+  padding: 9px 10px 11px;
+  font-family: var(--a-font-display);
+  font-weight: 400;
+  font-size: 13.5px;
+  line-height: 1.45;
+  letter-spacing: 0.03em;
+  color: var(--a-on-dark);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.6);
+}
+
+/* ---------------- 未拆封：折叠玻璃展示柜（卡包优先，也放预组） ---------------- */
+
+.stockDetails {
+  margin-top: clamp(20px, 3vh, 30px);
+}
+
+.stockSummary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.45);
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  background:
+    var(--wood-grain) 0 0 / 300px 180px,
+    repeating-linear-gradient(92deg, rgba(12, 6, 2, 0.18) 0 3px, transparent 3px 12px, rgba(255, 214, 150, 0.04) 12px 14px, transparent 14px 34px),
+    linear-gradient(180deg, #4c3521, #2e1f11);
+  background-blend-mode: overlay, normal, normal;
+  box-shadow: inset 0 1px 0 rgba(255, 225, 170, 0.12), var(--a-lift-2);
+  transition: border-color var(--a-t) var(--a-ease);
+}
+
+.stockSummary::-webkit-details-marker {
+  display: none;
+}
+
+.stockSummary:hover {
+  border-color: rgba(201, 162, 39, 0.5);
+}
+
+/* 折叠箭头：黄铜小三角 */
+.stockCaret {
+  flex: none;
+  width: 0;
+  height: 0;
+  border-left: 6px solid rgba(232, 200, 90, 0.85);
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  transform-origin: 33% center;
+  transition: transform var(--a-t) var(--a-ease-out);
+}
+
+.stockDetails[open] .stockCaret {
+  transform: rotate(90deg);
+}
+
+.stockTitle {
+  font-family: var(--a-font-display);
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: 0.05em;
+  color: var(--a-on-dark);
+}
+
+/* 包数徽牌：黄铜，收起时也一眼可见 */
+.stockBadge {
+  flex: none;
+  min-width: 30px;
+  padding: 3px 9px;
+  border-radius: 13px;
+  text-align: center;
+  font-family: var(--a-font-num);
+  font-weight: 700;
+  font-size: 12px;
+  color: #241a06;
+  background: linear-gradient(180deg, var(--a-brass-lit) 0%, var(--a-brass) 55%, #a8831c 100%);
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), var(--a-lift-1);
+}
+
+.stockSub {
+  margin-left: auto;
+  font-family: var(--a-font-num);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  color: var(--a-on-dark-soft);
+}
+
+.stockBody {
+  margin-top: 10px;
+}
+
+/* 柜体：木框 + 内衬绒布 + 玻璃反光 */
+.case {
+  position: relative;
+  border-radius: 12px;
+  padding: 7px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  background:
+    var(--wood-grain) 0 0 / 320px 200px,
+    repeating-linear-gradient(92deg, rgba(12, 6, 2, 0.2) 0 3px, transparent 3px 12px, rgba(255, 214, 150, 0.05) 12px 14px, transparent 14px 34px),
+    linear-gradient(180deg, #5c422a, #3a2817 70%, #241708);
+  background-blend-mode: overlay, normal, normal;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 225, 170, 0.18),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.5),
+    var(--a-lift-3);
+}
+
+.caseInner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 8px;
+  padding: clamp(16px, 2.4vw, 26px) clamp(12px, 2vw, 22px) 10px;
+  border-radius: 7px;
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 0%, rgba(42, 122, 77, 0.22), transparent 65%),
+    linear-gradient(180deg, #1d2b21 0%, #12190f 80%, #0c1109 100%);
+  box-shadow:
+    inset 0 4px 16px rgba(0, 0, 0, 0.65),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.5);
+}
+
+/* 玻璃：斜向的两道反光 */
+.caseGlass {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  pointer-events: none;
+  background:
+    linear-gradient(112deg, transparent 18%, rgba(255, 255, 255, 0.045) 24%, rgba(255, 255, 255, 0.11) 27%, transparent 34%),
+    linear-gradient(104deg, transparent 58%, rgba(255, 255, 255, 0.05) 65%, transparent 72%);
+}
+
+.stockEmpty {
+  margin: 0;
+  padding: 26px 24px;
+  border: 1px dashed rgba(201, 162, 39, 0.35);
+  border-radius: 10px;
+  text-align: center;
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+  color: var(--a-on-dark-soft);
+  background: rgba(0, 0, 0, 0.18);
+}
+
+/* ---------------- 塑封卡包：3D 实体 ---------------- */
+
+/* 每组卡包下方的一小段搁板 */
+.packGroup {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px 18px;
+}
+
+.packGroup::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
+  height: 9px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #7a5638, #4a3220 60%, #2c1d10);
+  box-shadow: 0 3px 0 #140d06, 0 6px 10px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 225, 170, 0.22);
+}
+
+.packHit {
+  position: relative;
+  display: block;
+  padding: 10px 20px 16px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  perspective: 820px;
+}
+
+.packHit:disabled {
+  cursor: not-allowed;
+}
+
+.packHit:disabled .packStack {
+  filter: saturate(0.6) brightness(0.75);
+}
+
+/* 塑封物体本体：preserve-3d + 微角，厚度用 --depth */
+.packStack {
+  --depth: 11px;
+  position: relative;
+  display: block;
+  width: clamp(88px, 9vw, 116px);
+  aspect-ratio: 5 / 7;
+  transform-style: preserve-3d;
+  transform: rotateY(24deg) rotateX(5deg);
+  transition: transform var(--a-t) var(--a-ease-out), filter var(--a-t) var(--a-ease);
+}
+
+.packHit:not(:disabled):hover .packStack,
+.packHit:focus-visible .packStack {
+  transform: rotateY(10deg) rotateX(1deg) translateY(-7px);
+}
+
+.packHit:not(:disabled):active .packStack {
+  transform: rotateY(10deg) rotateX(1deg) translateY(-2px) scale(0.98);
+  transition-duration: var(--a-t-fast);
+}
+
+/* 叠在后面的两包：横向堆叠感 */
+.packBehind,
+.packBehindSecond {
+  position: absolute;
+  inset: 0;
+  border-radius: 9px;
+  background: linear-gradient(160deg, #33251a 0%, #1c130b 70%);
+  box-shadow: var(--a-lift-1);
+}
+
+.packBehind {
+  transform: translateZ(5px) translate(-6px, -2px) rotate(-1.6deg);
+}
+
+.packBehindSecond {
+  transform: translateZ(2px) translate(5px, -5px) rotate(1.2deg);
+}
+
+/* 侧棱：塑封的厚度面，压痕竖纹 */
+.packEdge {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  right: 0;
+  width: var(--depth, 11px);
+  transform-origin: right center;
+  transform: rotateY(90deg);
+  border-radius: 2px;
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.16) 0 1px, transparent 1px 3px),
+    linear-gradient(180deg, #d9b545 0%, #a8831c 45%, #6d5710 100%);
+  box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.4);
+}
+
+.packFace,
+.packFaceFallback {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 9px;
+  object-fit: cover;
+  transform: translateZ(var(--depth, 11px));
+  background: #16241b;
+  box-shadow: 0 10px 18px -8px rgba(0, 0, 0, 0.55);
+}
+
+.packFaceFallback {
+  background: #14261d url('/assets/duo-cardback.svg') center / cover no-repeat;
+  filter: brightness(0.9);
+}
+
+/* 塑封反光：静态斜向高光 + 悬停光泽扫过 */
+.packSheen {
+  position: absolute;
+  inset: 0;
+  border-radius: 9px;
+  pointer-events: none;
+  transform: translateZ(calc(var(--depth, 11px) + 1px));
+  background:
+    linear-gradient(115deg, transparent 32%, rgba(255, 255, 255, 0.3) 46%, rgba(255, 255, 255, 0.08) 53%, transparent 66%),
+    linear-gradient(205deg, rgba(255, 255, 255, 0.12), transparent 34%);
+  background-size: 240% 240%, 100% 100%;
+  background-position: -70% 0, 0 0;
+  mix-blend-mode: screen;
+}
+
+.packHit:not(:disabled):hover .packSheen,
+.demoObject:not(:disabled):hover .packSheen {
+  animation: sheenSweep 950ms var(--a-ease) forwards;
+}
+
+@keyframes sheenSweep {
+  from { background-position: -70% 0, 0 0; }
+  to { background-position: 170% 0, 0 0; }
+}
+
+/* 数量角标：黄铜小牌 */
+.packCount {
+  position: absolute;
+  top: 0;
+  right: 6px;
+  z-index: 4;
+  min-width: 26px;
+  height: 26px;
+  padding: 0 8px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  font-family: var(--a-font-num);
+  font-weight: 700;
+  font-size: 12px;
+  color: #241a06;
+  background: linear-gradient(180deg, var(--a-brass-lit) 0%, var(--a-brass) 55%, #a8831c 100%);
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), var(--a-lift-2);
+}
+
+/* 未拆封预组的角标：卡包没有这条，一眼区分包与预组 */
+.packRibbon {
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  z-index: 3;
+  padding: 2px 7px;
+  border-radius: 3px;
+  font-family: var(--a-font-num);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #241a06;
+  background: linear-gradient(180deg, var(--a-brass-lit) 0%, var(--a-brass) 58%, #a8831c 100%);
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), var(--a-lift-1);
+  transform: translateZ(calc(var(--depth, 11px) + 2px));
+}
+
+.packMeta {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  text-align: center;
+}
+
+.packName {
+  font-family: var(--a-font-display);
+  font-weight: 400;
+  font-size: 15px;
+  letter-spacing: 0.05em;
+  color: var(--a-on-dark);
+}
+
+.packSub {
+  font-family: var(--a-font-num);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  color: var(--a-on-dark-soft);
+}
+
+.packActions {
+  display: flex;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+/* 柜内小号黄铜键 */
+:global(.a-btn).packBtn,
+:global(.a-btn-ghost).packBtn {
+  min-height: 32px;
+  padding: 0 13px;
+  font-size: 11.5px;
+}
+
+/* ---------------- 开包体验台（演示模式） ---------------- */
+
+.demoBay {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: clamp(18px, 3vw, 40px);
+  align-items: center;
+  margin-bottom: clamp(20px, 3vh, 30px);
+  padding: clamp(18px, 2.6vw, 30px);
+  border-radius: 12px;
+  border: 1px solid rgba(201, 162, 39, 0.3);
+  background:
+    radial-gradient(ellipse 70% 90% at 12% 50%, rgba(42, 122, 77, 0.2), transparent 65%),
+    linear-gradient(172deg, #241a0f, #150e07);
+  box-shadow: var(--a-lift-3), inset 0 1px 0 rgba(255, 225, 170, 0.1);
+}
+
+.demoCopy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  min-width: 0;
+}
+
+.demoBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  border-radius: 3px;
+  transform: rotate(-1.2deg);
+  font-family: var(--a-font-num);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: #6b5325;
+  background: linear-gradient(176deg, var(--a-paper), var(--a-paper-warm));
+  border: 1px solid var(--a-paper-edge);
+  box-shadow: var(--a-lift-1);
+}
+
+.demoActions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.demoFine {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--a-on-dark-soft);
+}
+
+.demoObject {
+  position: relative;
+  border: 0;
+  background: none;
+  padding: 26px 30px;
+  cursor: pointer;
+  perspective: 900px;
+}
+
+.demoObject:disabled {
+  cursor: not-allowed;
+}
+
+.demoObject:disabled .demoPack {
+  filter: saturate(0.6) brightness(0.75);
+}
+
+/* 环绕演示包的铜圈 */
+.demoOrbit {
+  position: absolute;
+  inset: 8px 4px;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(232, 200, 90, 0.4);
+  animation: orbitSpin 14s linear infinite;
+}
+
+@keyframes orbitSpin {
+  to { transform: rotate(360deg); }
+}
+
+.demoPack {
+  --depth: 16px;
+  position: relative;
+  display: block;
+  width: clamp(120px, 13vw, 158px);
+  aspect-ratio: 5 / 7;
+  transform-style: preserve-3d;
+  transform: rotateY(26deg) rotateX(5deg);
+  transition: transform var(--a-t) var(--a-ease-out), filter var(--a-t) var(--a-ease);
+}
+
+.demoObject:not(:disabled):hover .demoPack {
+  transform: rotateY(10deg) rotateX(1deg) translateY(-6px);
+}
+
+.demoPackArt {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+  transform: translateZ(var(--depth));
+  box-shadow: 0 18px 26px -12px rgba(0, 0, 0, 0.6);
+}
+
+/* 从包里探出的样卡 */
+.demoCard {
+  position: absolute;
+  top: -12%;
+  right: -14%;
+  width: 44%;
+  aspect-ratio: 7 / 10;
+  border-radius: 7px;
+  object-fit: cover;
+  border: 2px solid var(--a-paper);
+  box-shadow: var(--a-lift-3);
+  transform: rotate(7deg);
+  transition: transform var(--a-t) var(--a-ease-out);
+}
+
+.demoObject:not(:disabled):hover .demoCard {
+  transform: rotate(10deg) translateY(-8px);
+}
+
+/* 剪刀封蜡 */
+.demoSeal {
+  position: absolute;
+  bottom: 2%;
+  left: -10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  font-size: 20px;
+  color: #33290f;
+  background: radial-gradient(circle at 34% 30%, #f2e2b8, #d5b887 58%, #a9834e);
+  box-shadow: 0 0 0 2px #8a6f3c, inset 0 1px 0 rgba(255, 255, 255, 0.55), 0 10px 16px -8px rgba(0, 0, 0, 0.55);
+  transform: rotate(-8deg);
+}
+
+.demoSeal small {
+  font-family: var(--a-font-num);
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+
+/* ---------------- 商品详情：柜台木匣 ---------------- */
+
+/* 详情比确认单宽：左实物右纸面，底部购买区常驻 */
+:global(.duo-dialog).dialog {
+  display: flex;
+  flex-direction: column;
+  width: min(880px, calc(100vw - 32px));
+  border: 1px solid rgba(201, 162, 39, 0.38);
+  background:
+    radial-gradient(rgba(255, 235, 190, 0.05) 1px, transparent 1.4px) 0 0 / 20px 20px,
+    linear-gradient(172deg, #3a2a1a 0%, #221709 100%);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.65);
+}
+
+:global(.duo-dialog).dialog h2 {
+  font-family: var(--a-font-display);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+}
+
+.detailBody {
+  display: grid;
+  grid-template-columns: clamp(220px, 34%, 300px) minmax(0, 1fr);
+  gap: 20px;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+/* 左侧：绒布展台上的大实物 */
+.detailStage {
+  --depth: 13px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 0;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 0%, rgba(42, 122, 77, 0.22), transparent 65%),
+    linear-gradient(180deg, #1d2b21 0%, #12190f 80%, #0c1109 100%);
+  box-shadow: inset 0 4px 16px rgba(0, 0, 0, 0.65), inset 0 0 0 1px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.detailStage[data-unavailable] {
+  filter: saturate(0.55) brightness(0.75);
+}
+
+.detailShow {
+  position: relative;
+  width: 100%;
+  height: clamp(230px, 34vh, 310px);
+  display: grid;
+  place-items: end center;
+  perspective: 900px;
+}
+
+/* 展台搁板 */
+.detailShow::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 26px;
+  height: 12px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #7a5638, #4a3220 55%, #2b1c0e);
+  box-shadow: 0 3px 0 #120b05, 0 7px 12px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 225, 170, 0.25);
+}
+
+.detailStage .showPack {
+  --depth: 13px;
+  width: min(56%, 118px);
+  margin-bottom: 34px;
+}
+
+.detailStage .showBox {
+  --depth: 26px;
+  width: min(76%, 158px);
+  margin-bottom: 34px;
+}
+
+.detailStage .priceTag {
+  margin: 0 auto 16px;
+  padding: 8px 12px 7px 18px;
+}
+
+.detailStage .priceTag strong {
+  font-size: 19px;
+}
+
+.detailStage .priceTag small {
+  font-size: 10px;
+}
+
+.detailStage .binChip {
+  top: 12px;
+  left: 12px;
+  font-size: 11px;
+}
+
+/* 右侧：奶油纸说明，长文在纸内滚动 */
+.detailPaper {
+  min-height: 0;
+  max-height: min(46vh, 420px);
+  overflow-y: auto;
+  padding: 18px 20px;
+  border-radius: 8px;
+  background: linear-gradient(176deg, var(--a-paper) 0%, var(--a-paper-warm) 100%);
+  border: 1px solid var(--a-paper-edge);
+  box-shadow: var(--a-lift-2), inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  color: var(--a-ink);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(138, 111, 20, 0.55) rgba(74, 50, 34, 0.08);
+}
+
+.detailSpec {
+  display: block;
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+  border-bottom: 1px dotted rgba(74, 50, 34, 0.32);
+  font-family: var(--a-font-num);
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  color: var(--a-brass-dark);
+}
+
+.detailDesc {
+  margin: 0 0 10px;
+  font-size: 13px;
+  line-height: 1.85;
+  color: var(--a-ink);
+}
+
+.detailDesc:last-child {
+  margin-bottom: 0;
+}
+
+.detailLimit {
+  margin: 10px 0 0;
+  font-family: var(--a-font-num);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--a-ink-soft);
+}
+
+/* 开包规则：纸内的框注 */
+.detailRules {
+  margin: 12px 0 0;
+  padding: 10px 14px;
+  border-radius: 4px;
+  border: 1px dashed rgba(138, 111, 20, 0.45);
+  background: rgba(201, 162, 39, 0.08);
+  font-size: 11.5px;
+  line-height: 1.8;
+  color: var(--a-ink-soft);
+}
+
+.detailPre {
+  margin: 12px 0 0;
+  padding: 10px 14px;
+  border-radius: 4px;
+  border: 1px dashed rgba(138, 111, 20, 0.45);
+  background: rgba(201, 162, 39, 0.08);
+  font-size: 11.5px;
+  line-height: 1.8;
+  color: var(--a-ink-soft);
+}
+
+.detailOff {
+  margin: 12px 0 0;
+  padding: 10px 14px;
+  border-radius: 4px;
+  border-left: 3px solid #9a4433;
+  background: rgba(154, 68, 51, 0.07);
+  font-size: 11.5px;
+  line-height: 1.8;
+  color: #7c2d24;
+}
+
+/* 底部购买区：数量 + 合计 + 动作，常驻匣底 */
+.dock {
+  flex: none;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px dashed rgba(201, 162, 39, 0.4);
+}
+
+.dockRow {
+  display: grid;
+  grid-template-columns: minmax(150px, 220px) minmax(0, 1fr);
+  gap: 12px;
+  align-items: stretch;
+}
+
+.qtyField {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 12px;
+  color: rgba(243, 234, 214, 0.75);
+}
+
+.qtySelect {
+  width: 100%;
+  min-height: 42px;
+  padding: 0 34px 0 12px;
+  border-radius: 5px;
+  border: 1px solid rgba(201, 162, 39, 0.35);
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: #170f07;
+  background-image: var(--a-select-arrow);
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px 8px;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+  color: var(--a-on-dark);
+  font-family: var(--a-font-ui);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.qtySelect:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.purchaseTotal {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 0;
+  padding: 10px 16px;
+  border-radius: 6px;
+  border: 1px dashed rgba(201, 162, 39, 0.4);
+  background: rgba(201, 162, 39, 0.07);
+  color: var(--a-on-dark-soft);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+
+.purchaseTotal strong {
+  font-family: var(--a-font-num);
+  font-size: 20px;
+  color: var(--a-brass-lit);
+}
+
+/* ---------------- 响应式 ---------------- */
+
+@media (max-width: 880px) {
+  .counter {
+    flex-direction: column;
+  }
+
+  .demoBay {
+    grid-template-columns: 1fr;
+  }
+
+  .demoObject {
+    justify-self: center;
+  }
+}
+
+@media (max-width: 700px) {
+  :global(.duo-dialog).dialog {
+    width: min(560px, calc(100vw - 24px));
+  }
+
+  /* 手机上不要再把说明纸压成一截：纸面按内容撑开，由弹窗自己滚 */
+  .detailBody {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    flex: 0 0 auto;
+    gap: 12px;
+  }
+
+  .detailShow {
+    height: clamp(176px, 30vh, 220px);
+  }
+
+  .detailStage .showPack {
+    width: min(44%, 96px);
+    margin-bottom: 30px;
+  }
+
+  .detailStage .showBox {
+    width: min(62%, 128px);
+    margin-bottom: 30px;
+  }
+
+  .detailPaper {
+    max-height: none;
+  }
+
+  .dockRow {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .purchaseTotal {
+    align-items: baseline;
+  }
+}
+
+@media (max-width: 560px) {
+  .masthead {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* 手机两列货架 */
+  .bins {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .binShow {
+    height: 156px;
+  }
+
+  .showPack {
+    width: min(56%, 90px);
+  }
+
+  .showBox {
+    width: min(70%, 112px);
+  }
+
+  .priceTag strong {
+    font-size: 12.5px;
+  }
+
+  .limitStamp,
+  .binChip {
+    font-size: 9px;
+  }
+
+  .stockSummary {
+    flex-wrap: wrap;
+    gap: 8px 10px;
+  }
+
+  .stockSub {
+    display: none;
+  }
+
+  .packActions {
+    width: 100%;
+  }
+
+  .packActions :global(.a-btn).packBtn,
+  .packActions :global(.a-btn-ghost).packBtn {
+    flex: 1;
+  }
+}
+
+/* ---------------- 动效减弱 ---------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .shop :is(*, *::before, *::after) {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+
+  /* 常驻循环动画直接关闭 */
+  .checkInBtn::after,
+  .demoOrbit {
+    animation: none !important;
+  }
+
+  .checkInBtn::after {
+    opacity: 0;
+  }
+}

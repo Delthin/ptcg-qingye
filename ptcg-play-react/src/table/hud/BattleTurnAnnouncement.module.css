@@ -1,0 +1,78 @@
+/*
+ * BattleTurnAnnouncement — 回合开始宣告。
+ * 胡桃木横幅 + 上下黄铜细线；自己是黄铜金字，对手回合压为暗象牙。
+ * 登场节拍在 TSX 的 WAAPI 里：缩放过冲 + 淡出，全程 660ms，不拖沓。
+ */
+
+.banner {
+  position: absolute;
+  top: 45%;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  padding: 15px 0 17px;
+  display: grid;
+  justify-items: center;
+  gap: 5px;
+  opacity: 0;
+  pointer-events: none;
+  color: var(--a-on-dark);
+  background:
+    linear-gradient(90deg, transparent, rgba(31, 92, 58, 0.42) 20% 80%, transparent),
+    linear-gradient(90deg, transparent, rgba(23, 15, 9, 0.93) 14% 86%, transparent);
+}
+
+/* 上下沿黄铜细线，两端渐隐 */
+.banner::before,
+.banner::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 162, 39, 0.75) 24% 76%, transparent);
+}
+
+.banner::before { top: 0; }
+.banner::after { bottom: 0; }
+
+.banner span {
+  font-family: var(--a-font-display);
+  font-weight: 400;
+  font-size: clamp(24px, 3.2vw, 38px);
+  letter-spacing: 0.18em;
+  text-indent: 0.18em;
+  line-height: 1.2;
+  color: transparent;
+  background: linear-gradient(180deg, #fdf3d8 0%, var(--a-brass-lit) 46%, var(--a-brass) 74%, #9a7d1c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 0 18px rgba(232, 200, 90, 0.32)) drop-shadow(0 3px 10px rgba(0, 0, 0, 0.7));
+}
+
+.banner small {
+  font-family: var(--a-font-num);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.34em;
+  text-indent: 0.34em;
+  color: var(--a-brass-lit);
+  text-shadow: 0 0 10px rgba(201, 162, 39, 0.4);
+}
+
+/* 对手回合：整体退后一步（去金、压暗），黄铜线也随之收敛 */
+.banner[data-owner='opponent'] span {
+  color: rgba(226, 216, 193, 0.88);
+  background: none;
+  filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.7));
+}
+
+.banner[data-owner='opponent'] small {
+  color: var(--a-on-dark-soft);
+  text-shadow: none;
+}
+
+.banner[data-owner='opponent']::before,
+.banner[data-owner='opponent']::after {
+  background: linear-gradient(90deg, transparent, rgba(201, 162, 39, 0.38) 24% 76%, transparent);
+}

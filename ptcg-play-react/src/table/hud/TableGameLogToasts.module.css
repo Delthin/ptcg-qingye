@@ -1,0 +1,127 @@
+/*
+ * TableGameLogToasts — 战况播报浮条。
+ * 从屏幕上缘滑入（更长的入程 + 弹簧曲线，落位时带轻推回弹）；
+ * 退出更快、更安静。胡桃木底 + 黄铜细边；属性色标记点对齐 arena token。
+ */
+
+.portalRoot {
+  position: fixed;
+  top: 64px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 530;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  width: min(480px, calc(100vw - 24px));
+  pointer-events: none;
+}
+
+.portalRoot.contained { position: relative; top: auto; left: auto; transform: none; width: 100%; }
+
+.toast {
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  max-width: 100%;
+  padding: 8px 22px;
+  background: linear-gradient(180deg, rgba(44, 30, 19, 0.94), rgba(27, 18, 10, 0.94));
+  border: 1px solid rgba(201, 162, 39, 0.38);
+  border-radius: 7px;
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 244, 214, 0.08);
+  color: var(--a-on-dark);
+  font-size: 0.78rem;
+  line-height: 1.4;
+  text-align: center;
+  transition:
+    opacity 160ms var(--a-ease-out),
+    transform 200ms var(--a-ease-spring);
+}
+
+.toastEntering {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* 从屏幕边缘滑入 + 轻推回弹 */
+@starting-style {
+  .toastEntering {
+    opacity: 0;
+    transform: translateY(-24px) scale(0.96);
+  }
+}
+
+.toastExiting {
+  opacity: 0;
+  transform: translateY(-8px) scale(0.98);
+  transition: opacity 130ms ease-out, transform 130ms ease-out;
+}
+
+.head {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--a-brass);
+  box-shadow: 0 0 5px rgba(201, 162, 39, 0.55);
+}
+
+/* 属性色标记点 */
+.dot[data-accent='damage'] { background: #e0533a; box-shadow: 0 0 5px rgba(224, 83, 58, 0.6); }
+.dot[data-accent='ko'] { background: #ff6a4d; box-shadow: 0 0 7px rgba(255, 106, 77, 0.8); }
+.dot[data-accent='energy'] { background: var(--a-lightning); box-shadow: 0 0 5px rgba(242, 196, 12, 0.6); }
+.dot[data-accent='evolve'] { background: #ffd873; box-shadow: 0 0 7px rgba(255, 216, 115, 0.75); }
+.dot[data-accent='status'] { background: var(--a-psychic); box-shadow: 0 0 5px rgba(217, 79, 154, 0.6); }
+.dot[data-accent='draw'] { background: var(--a-water); box-shadow: 0 0 5px rgba(79, 143, 240, 0.6); }
+.dot[data-accent='attack'] { background: var(--a-fire); box-shadow: 0 0 5px rgba(240, 128, 48, 0.6); }
+.dot[data-accent='ability'] { background: var(--a-grass); box-shadow: 0 0 5px rgba(108, 191, 63, 0.6); }
+.dot[data-accent='coin'] { background: var(--a-colorless); box-shadow: none; }
+.dot[data-accent='system'] { background: rgba(201, 162, 39, 0.55); box-shadow: none; }
+
+.name {
+  font-weight: 600;
+  font-size: 0.62rem;
+  letter-spacing: 0.05em;
+}
+
+.nameSystem { color: rgba(179, 173, 150, 1); }
+.nameActive { color: var(--a-brass-lit); }
+.nameOpponent { color: #d2a985; }
+
+.message {
+  font-weight: 500;
+  word-break: break-word;
+}
+
+@media (max-aspect-ratio: 17/20) {
+  .portalRoot {
+    top: 52px;
+    width: min(360px, calc(100vw - 16px));
+  }
+
+  .toast {
+    font-size: 0.72rem;
+    padding: 6px 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toast {
+    transition: opacity 125ms ease;
+  }
+
+  .toastEntering,
+  .toastExiting {
+    transform: none;
+  }
+}

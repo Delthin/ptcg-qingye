@@ -1,0 +1,474 @@
+/*
+ * 设置页：一块摆在桌上的黄铜控制台。
+ * 每个区块是一张嵌入桌面的绒面铭牌，开关是金属拨片，滑杆是刻槽。
+ */
+
+/* 控制台主体：一整块胡桃木底板，带黄铜细缝 */
+.console {
+  position: relative;
+  padding: 8px;
+  border-radius: 10px;
+  background:
+    linear-gradient(165deg, var(--a-walnut-lit) 0%, var(--a-walnut) 42%, var(--a-walnut-dark) 100%);
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  box-shadow:
+    var(--a-lift-4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* 木纹：极细的斜向条纹 */
+.console::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  pointer-events: none;
+  opacity: 0.5;
+  background: repeating-linear-gradient(
+    97deg,
+    rgba(255, 226, 168, 0.045) 0 1px,
+    transparent 1px 7px
+  );
+}
+
+/* 区块：嵌进木板的绒面铭牌 */
+.block {
+  position: relative;
+  padding: 20px 22px;
+  border-radius: 7px;
+  background: linear-gradient(170deg, rgba(31, 92, 58, 0.5) 0%, rgba(20, 61, 38, 0.68) 100%);
+  border: 1px solid rgba(201, 162, 39, 0.26);
+  box-shadow:
+    inset 0 2px 10px rgba(0, 0, 0, 0.44),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.block + .block {
+  margin-top: 8px;
+}
+
+/* 区块标题：黄铜编号 + 中文名 + 细线 */
+.blockHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  position: relative;
+}
+
+.blockHead::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(201, 162, 39, 0.66) 0%, rgba(201, 162, 39, 0.16) 40%, transparent 90%);
+}
+
+.blockIndex {
+  font-family: var(--a-font-num);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--a-brass);
+}
+
+.blockTitle {
+  margin: 0;
+  font-family: var(--a-font-display);
+  font-size: 19px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  color: var(--a-on-dark);
+}
+
+/* ============================================================
+   桌垫样板
+   ============================================================ */
+
+.matRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+  gap: 12px;
+}
+
+.mat {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 14px 14px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 6px;
+  font-family: inherit;
+  color: var(--a-ink);
+  background: linear-gradient(170deg, var(--a-paper) 0%, var(--a-paper-warm) 100%);
+  box-shadow:
+    var(--a-lift-2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: transform var(--a-t) var(--a-ease-out), box-shadow var(--a-t) var(--a-ease-out);
+}
+
+/* 选中：黄铜包边 + 外发光 */
+.matOn {
+  border-color: var(--a-brass);
+  box-shadow:
+    0 0 0 2px rgba(201, 162, 39, 0.5),
+    var(--a-lift-3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .mat:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      var(--a-lift-3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  }
+}
+
+.mat:active {
+  transform: translateY(0);
+}
+
+.mat strong {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.matState {
+  font-family: var(--a-font-num);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--a-ink-soft);
+}
+
+.matOn .matState {
+  color: #7a5a10;
+  font-weight: 700;
+}
+
+/* 桌垫缩略：一小块绒面 + 中线 */
+.matSwatch,
+.matSwatchArt,
+.matSwatchNote {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 54px;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.44);
+}
+
+/* 整桌桌垫小样：底色由主题表提供，叠一圈印刷徽记示意 */
+.matSwatch i {
+  position: absolute;
+  inset: 12px 22px;
+  border: 1px solid rgba(226, 204, 145, 0.45);
+  border-radius: 50%;
+}
+
+.matSwatch i:last-child {
+  inset: 22px 34px;
+  border-color: rgba(226, 204, 145, 0.28);
+}
+
+/* 角色插画小样：取插画右侧（角色所在处）作缩略 */
+.matSwatchArt {
+  background-size: cover !important;
+  background-position: right center !important;
+}
+
+/* 音乐主题小样：深绿绒面 + 黄铜音符 */
+.matSwatchNote {
+  background: radial-gradient(ellipse at 42% 38%, #2f5240, #16301f 58%, #0e1d14);
+}
+
+.matSwatchNote svg {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 26px;
+  height: 26px;
+  color: #d8c07c;
+}
+
+.tutorialActions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 12px 0; }
+.ruleLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 13px;
+  border: 1px solid rgba(201, 162, 39, 0.28);
+  border-radius: 5px;
+  background: rgba(20, 12, 6, 0.15);
+  color: var(--a-brass-lit);
+  font-size: 12px;
+  text-decoration: none;
+  box-shadow: inset 0 1px 0 rgba(255, 253, 246, 0.05);
+}
+.ruleLink:hover { border-color: var(--a-brass-lit); }
+.ruleLink:focus-visible { outline: 2px solid var(--a-brass-lit); outline-offset: 3px; }
+
+/* ============================================================
+   设置行
+   ============================================================ */
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 52px;
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+.row + .row {
+  border-top: 1px solid rgba(243, 234, 214, 0.08);
+}
+
+.rowLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.rowLabel strong {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--a-on-dark);
+}
+
+.rowLabel small {
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--a-on-dark-soft);
+}
+
+/* ============================================================
+   金属拨片开关
+   ============================================================ */
+
+.switch {
+  position: relative;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* 真正的 checkbox 保留在 DOM 里做无障碍，视觉上藏起来 */
+.switch input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* 拨片轨道：嵌进面板的凹槽 */
+.switchTrack {
+  position: relative;
+  display: block;
+  width: 52px;
+  height: 28px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #16241c 0%, #1f3a2a 100%);
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  box-shadow:
+    inset 0 2px 6px rgba(0, 0, 0, 0.6),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.06);
+  transition: background var(--a-t) var(--a-ease), box-shadow var(--a-t) var(--a-ease);
+}
+
+/* 拨片：黄铜滑块 */
+.switchKnob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(160deg, #f4e6bb 0%, var(--a-brass-lit) 34%, var(--a-brass) 68%, var(--a-brass-dark) 100%);
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.24);
+  transition: transform var(--a-t) var(--a-ease-spring);
+}
+
+/* 打开：轨道亮起，拨片滑过去 */
+.switch input:checked + .switchTrack {
+  background: linear-gradient(180deg, #8a6f14 0%, var(--a-brass) 100%);
+  box-shadow:
+    inset 0 2px 6px rgba(0, 0, 0, 0.34),
+    0 0 10px rgba(201, 162, 39, 0.5);
+}
+
+.switch input:checked + .switchTrack .switchKnob {
+  transform: translateX(24px);
+  background: linear-gradient(160deg, #fffbe8 0%, var(--a-brass-lit) 40%, var(--a-brass) 100%);
+}
+
+/* 键盘焦点 */
+.switch input:focus-visible + .switchTrack {
+  outline: 2px solid var(--a-brass-lit);
+  outline-offset: 3px;
+}
+
+/* ============================================================
+   音量：刻槽滑杆
+   ============================================================ */
+
+.volume {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 52px;
+  padding: 10px 0;
+  border-top: 1px solid rgba(243, 234, 214, 0.08);
+}
+
+/* 曲目下拉：与滑杆同一套黄铜铭牌语言 */
+.select {
+  flex: none;
+  max-width: 62%;
+  min-height: 38px;
+  padding: 0 30px 0 12px;
+  border: 1px solid rgba(201, 162, 39, 0.34);
+  border-radius: 5px;
+  background-color: rgba(20, 12, 6, 0.42);
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--a-brass-lit) 50%),
+    linear-gradient(135deg, var(--a-brass-lit) 50%, transparent 50%);
+  background-position: right 15px center, right 10px center;
+  background-repeat: no-repeat;
+  background-size: 5px 5px, 5px 5px;
+  color: var(--a-on-dark);
+  font-family: inherit;
+  font-size: 12.5px;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  box-shadow: inset 0 1px 0 rgba(255, 253, 246, 0.05);
+}
+
+.select:hover { border-color: rgba(201, 162, 39, 0.6); }
+
+.select:focus-visible { outline: 2px solid var(--a-brass-lit); outline-offset: 3px; }
+
+.select option {
+  background: #241a10;
+  color: #f3ead6;
+}
+
+.volume .rowLabel {
+  flex: none;
+  width: 62px;
+}
+
+.volumeValue {
+  flex: none;
+  min-width: 38px;
+  font-family: var(--a-font-num);
+  font-size: 13px;
+  font-weight: 700;
+  text-align: right;
+  color: var(--a-brass-lit);
+}
+
+.volumeValue::after {
+  content: '%';
+  margin-left: 1px;
+  font-size: 10px;
+  opacity: 0.7;
+}
+
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(201, 162, 39, 0.75) 0%, rgba(201, 162, 39, 0.18) 100%);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.55);
+  cursor: pointer;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(160deg, #f4e6bb 0%, var(--a-brass-lit) 40%, var(--a-brass) 72%, var(--a-brass-dark) 100%);
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 0;
+  border-radius: 50%;
+  background: linear-gradient(160deg, #f4e6bb 0%, var(--a-brass-lit) 40%, var(--a-brass) 72%, var(--a-brass-dark) 100%);
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.slider:focus-visible {
+  outline: 2px solid var(--a-brass-lit);
+  outline-offset: 6px;
+}
+
+/* ============================================================
+   响应式与无障碍
+   ============================================================ */
+
+@media (max-width: 560px) {
+  .block {
+    padding: 16px 16px;
+  }
+
+  .row {
+    gap: 12px;
+  }
+
+  .volume {
+    flex-wrap: wrap;
+  }
+
+  .volume .rowLabel {
+    width: auto;
+  }
+
+  .slider {
+    flex-basis: 100%;
+    order: 3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mat,
+  .switchTrack,
+  .switchKnob {
+    transition: none;
+  }
+
+  .mat:hover {
+    transform: none;
+  }
+}

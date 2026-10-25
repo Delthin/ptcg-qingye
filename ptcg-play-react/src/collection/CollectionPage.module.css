@@ -1,0 +1,922 @@
+/* ============================================================
+   我的卡册 — 摊开在牌桌上的活页集卡册
+   胡桃木封面 / 黄铜活页环 / 奶油纸内页 / 透明卡袋九宫格
+   ============================================================ */
+
+.album {
+  --noise-wood: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.011 0.17' numOctaves='4' seed='11' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='420' height='240' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  --noise-paper: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='2' seed='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+}
+
+/* ---------------- 页头 ---------------- */
+
+.heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.heading a {
+  flex: none;
+}
+
+.collectionKinds { display: flex; gap: 8px; margin: 0 0 24px; }
+.collectionKinds button { min-height: 44px; min-width: 88px; padding: 8px 22px; border: 1px solid var(--a-brass-dark); border-radius: 6px; color: var(--a-paper); background: transparent; font: inherit; cursor: pointer; }
+.collectionKinds button[aria-pressed='true'] { background: var(--a-brass); color: var(--a-ink); }
+.collectionKinds button:focus-visible { outline: 2px solid var(--a-paper); outline-offset: 4px; }
+
+/* ---------------- 扉页藏书票 ---------------- */
+
+.bookplate {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-bottom: 26px;
+  padding: 20px 26px;
+  border-radius: 6px;
+  background:
+    var(--noise-paper, none) 0 0 / 140px,
+    linear-gradient(170deg, var(--a-paper) 0%, var(--a-paper-warm) 100%);
+  border: 1px solid var(--a-paper-edge);
+  box-shadow: var(--a-lift-3), var(--a-inset-paper);
+  color: var(--a-ink);
+}
+
+.seal {
+  position: relative;
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ecd9ac, var(--a-brass) 55%, #8a6f14 95%);
+  box-shadow:
+    inset 0 2px 3px rgba(255, 255, 255, 0.55),
+    inset 0 -3px 6px rgba(0, 0, 0, 0.35),
+    0 4px 10px rgba(20, 12, 6, 0.4),
+    0 0 0 1px rgba(90, 70, 15, 0.6);
+  transform: rotate(-8deg);
+}
+
+.seal::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(66, 48, 8, 0.5);
+}
+
+.sealBall {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(#c94b3d 0 46%, #3a2c14 46% 54%, #f4eee2 54%);
+  box-shadow: 0 0 0 2px #4a3410;
+}
+
+.sealBall::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  margin: -4.5px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fdf6e3, #cdbf9d);
+  box-shadow: 0 0 0 2px #4a3410;
+}
+
+.bookplateMain {
+  flex: 1;
+  min-width: 0;
+}
+
+.collector {
+  margin: 0 0 6px;
+  font-family: var(--a-font-num);
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  color: var(--a-ink-soft);
+}
+
+.tally {
+  display: block;
+  font-family: var(--a-font-display);
+  font-weight: 400;
+  font-size: clamp(22px, 2.6vw, 30px);
+  line-height: 1.1;
+  letter-spacing: 0.04em;
+  color: var(--a-ink);
+}
+
+.bookplateNote {
+  margin: 6px 0 0;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--a-ink-soft);
+}
+
+.progressRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 470px;
+  margin-top: 12px;
+}
+
+.progress {
+  flex: 1;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: rgba(74, 50, 34, 0.16);
+  box-shadow:
+    inset 0 1px 3px rgba(74, 50, 34, 0.32),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.progressFill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #a8831c, var(--a-brass) 40%, var(--a-brass-lit));
+  box-shadow: 0 0 6px rgba(201, 162, 39, 0.55);
+  animation: progressIn 900ms var(--a-ease-out) 320ms both;
+}
+
+@keyframes progressIn {
+  from { width: 0; }
+}
+
+.progressLabel {
+  flex: none;
+  font-family: var(--a-font-num);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--a-ink-soft);
+  white-space: nowrap;
+}
+
+.shopLink {
+  flex: none;
+}
+
+/* ---------------- 同步失败便签 ---------------- */
+
+.errorNote {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 0 0 20px;
+  padding: 14px 18px 12px;
+  border-radius: 5px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: #6d2a20;
+  background: linear-gradient(178deg, #f6e3d0, #eccfae);
+  border: 1px solid rgba(120, 60, 40, 0.35);
+  box-shadow: var(--a-lift-2);
+}
+
+.errorNote::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  width: 11px;
+  height: 11px;
+  margin-left: -5.5px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #d3705d, #a23730);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+}
+
+.resync {
+  margin-left: auto;
+  border: 0;
+  padding: 6px 2px;
+  background: none;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  color: #8a3a24;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  transition: color var(--a-t-fast) var(--a-ease);
+}
+
+.resync:hover { color: #b04a2c; }
+.resync:focus-visible { outline: 2px solid #8a3a24; outline-offset: 2px; border-radius: 3px; }
+
+/* ---------------- 卡册本体：木封面 + 活页纸 ---------------- */
+
+.book {
+  position: relative;
+  border-radius: 14px;
+  padding: clamp(12px, 1.8vw, 20px) clamp(14px, 2vw, 22px) clamp(16px, 2.2vw, 24px);
+  background:
+    var(--noise-wood, none) 0 0 / 420px 240px,
+    repeating-linear-gradient(94deg, rgba(18, 9, 3, 0.24) 0 3px, transparent 3px 10px, rgba(255, 214, 150, 0.04) 10px 12px, transparent 12px 28px),
+    linear-gradient(180deg, #5c422a 0%, #47311d 30%, #331f10 100%);
+  background-blend-mode: overlay, normal, normal;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  box-shadow:
+    var(--a-lift-4),
+    inset 0 1px 0 rgba(255, 225, 170, 0.18),
+    inset 0 -3px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* 活页索引卡舌：贴着内页上沿，按下的一页与纸相连 */
+.tabs {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  padding: 0 clamp(14px, 2.4vw, 34px);
+  margin-bottom: -1px;
+}
+
+.tab {
+  position: relative;
+  z-index: 1;
+  min-height: 40px;
+  padding: 8px 24px 0;
+  border: 1px solid rgba(74, 50, 34, 0.35);
+  border-bottom: 0;
+  border-radius: 9px 9px 0 0;
+  font-family: var(--a-font-display);
+  font-weight: 400;
+  font-size: 15px;
+  letter-spacing: 0.14em;
+  color: rgba(246, 238, 220, 0.8);
+  background: linear-gradient(180deg, #6a4c31, #553b23);
+  box-shadow: inset 0 1px 0 rgba(255, 225, 170, 0.14);
+  cursor: pointer;
+  transition: transform var(--a-t) var(--a-ease-out), background var(--a-t) var(--a-ease), color var(--a-t) var(--a-ease);
+}
+
+.tab::before {
+  content: '';
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  top: 6px;
+  height: 2px;
+  border-radius: 1px;
+  background: rgba(213, 184, 135, 0.28);
+}
+
+.tab[aria-pressed='true'] {
+  z-index: 3;
+  min-height: 46px;
+  color: var(--a-ink);
+  background: linear-gradient(180deg, var(--a-paper-warm), #fbf6e9 88%, #faf4e5);
+  border-color: var(--a-paper-edge);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.tab[aria-pressed='true']::before {
+  background: linear-gradient(90deg, transparent, var(--a-brass), transparent);
+  opacity: 0.8;
+}
+
+.tab:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: translateY(2px);
+}
+
+.tab:not(:disabled):not([aria-pressed='true']):hover {
+  transform: translateY(-2px);
+  color: #f6eecf;
+  background: linear-gradient(180deg, #79583a, #5f432a);
+}
+
+.tab:focus-visible {
+  outline: 2px solid var(--a-brass-lit);
+  outline-offset: 2px;
+}
+
+/* 内页：奶油纸 */
+.paper {
+  position: relative;
+  z-index: 2;
+  border-radius: 8px;
+  padding: clamp(16px, 2.4vw, 28px);
+  background:
+    var(--noise-paper, none) 0 0 / 140px,
+    linear-gradient(178deg, #fbf6e9 0%, var(--a-paper-warm) 58%, #efe6cf 100%);
+  border: 1px solid var(--a-paper-edge);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    inset 0 -2px 8px rgba(120, 90, 50, 0.14),
+    0 3px 10px rgba(20, 12, 6, 0.4);
+  color: var(--a-ink);
+  transform-origin: 50% 0%;
+  animation: pageTurn 620ms var(--a-ease-out) both;
+}
+
+@keyframes pageTurn {
+  from {
+    opacity: 0;
+    transform: perspective(1400px) rotateX(7deg) translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(1400px) rotateX(0deg) translateY(0);
+  }
+}
+
+/* 黄铜包角（内页与藏书票共用） */
+.corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 0 solid var(--a-brass);
+  opacity: 0.75;
+  pointer-events: none;
+  filter: drop-shadow(0 1px 1px rgba(20, 12, 6, 0.4));
+}
+
+.corner[data-p='tl'] { top: 6px; left: 6px; border-top-width: 2px; border-left-width: 2px; border-top-left-radius: 7px; }
+.corner[data-p='tr'] { top: 6px; right: 6px; border-top-width: 2px; border-right-width: 2px; border-top-right-radius: 7px; }
+.corner[data-p='bl'] { bottom: 6px; left: 6px; border-bottom-width: 2px; border-left-width: 2px; border-bottom-left-radius: 7px; }
+.corner[data-p='br'] { bottom: 6px; right: 6px; border-bottom-width: 2px; border-right-width: 2px; border-bottom-right-radius: 7px; }
+
+/* 活页环：三只铜环扣住纸页左缘 */
+.rings {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  pointer-events: none;
+}
+
+.rings i {
+  position: absolute;
+  left: -15px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 4px solid #b08c28;
+  box-shadow:
+    inset 0 1px 2px rgba(255, 240, 200, 0.55),
+    inset 0 -2px 3px rgba(0, 0, 0, 0.45),
+    0 2px 5px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(0, 0, 0, 0.25);
+}
+
+.rings i::after {
+  content: '';
+  position: absolute;
+  right: -3px;
+  top: 50%;
+  width: 5px;
+  height: 9px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: rgba(46, 30, 20, 0.5);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.rings i:nth-child(1) { top: 16%; }
+.rings i:nth-child(2) { top: 48%; }
+.rings i:nth-child(3) { top: 80%; }
+
+/* ---------------- 内页工具行 ---------------- */
+
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 0 2px 18px;
+  margin-bottom: 22px;
+  border-bottom: 1px dashed rgba(74, 50, 34, 0.28);
+}
+
+.search {
+  display: block;
+  flex: 1 1 220px;
+  max-width: 420px;
+  min-width: 0;
+}
+
+.raritySelect {
+  position: relative;
+  display: block;
+  flex: none;
+  min-width: 156px;
+}
+
+.select {
+  width: 100%;
+  height: 40px;
+  padding: 0 34px 0 14px;
+  border: 1px solid rgba(74, 50, 34, 0.3);
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--a-ink);
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%238a6f14' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") right 13px center / 10px 6px no-repeat,
+    var(--a-paper);
+  box-shadow: inset 0 2px 5px rgba(74, 50, 34, 0.16);
+  appearance: none;
+  cursor: pointer;
+  transition: border-color var(--a-t) var(--a-ease), box-shadow var(--a-t) var(--a-ease);
+}
+
+.select:focus {
+  outline: none;
+  border-color: var(--a-brass);
+  box-shadow:
+    inset 0 2px 5px rgba(74, 50, 34, 0.12),
+    0 0 0 3px rgba(201, 162, 39, 0.3);
+}
+
+.resultCount {
+  margin-left: auto;
+  font-family: var(--a-font-num);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--a-ink-soft);
+}
+
+/* ---------------- 九宫格卡袋 ---------------- */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 28px 18px;
+}
+
+.pocket {
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  font-family: inherit;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+/* 档位配色：描边环 + 外发光 + 稀有度文字 */
+.pocket[data-tier='common'] { --rc: rgba(139, 131, 120, 0.42); --rg: rgba(139, 131, 120, 0.16); --rt: #7d7568; }
+.pocket[data-tier='uncommon'] { --rc: rgba(79, 154, 94, 0.55); --rg: rgba(79, 154, 94, 0.26); --rt: #3c7a4a; }
+.pocket[data-tier='rare'] { --rc: rgba(63, 127, 208, 0.6); --rg: rgba(63, 127, 208, 0.28); --rt: #33619f; }
+.pocket[data-tier='holo'] { --rc: rgba(155, 108, 224, 0.66); --rg: rgba(155, 108, 224, 0.36); --rt: #7e4fc4; }
+.pocket[data-tier='ultra'] { --rc: rgba(224, 85, 154, 0.7); --rg: rgba(224, 85, 154, 0.42); --rt: #bf3a7e; }
+.pocket[data-tier='secret'] { --rc: rgba(217, 165, 32, 0.78); --rg: rgba(217, 165, 32, 0.5); --rt: #a3780c; }
+
+.pocketWell {
+  position: relative;
+  display: block;
+  aspect-ratio: 63 / 88;
+  padding: 6px 7px;
+  border-radius: 9px;
+  background: linear-gradient(165deg,
+    rgba(255, 255, 255, 0.5),
+    rgba(255, 255, 255, 0.14) 42%,
+    rgba(255, 255, 255, 0.26) 80%,
+    rgba(255, 255, 255, 0.08));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    inset 0 -2px 5px rgba(120, 90, 50, 0.16),
+    inset 2px 0 4px rgba(120, 90, 50, 0.08),
+    0 1px 0 rgba(255, 255, 255, 0.5),
+    0 0 0 1px var(--rc, rgba(74, 50, 34, 0.2)),
+    0 0 12px -3px var(--rg, transparent),
+    0 0 22px -7px var(--rg, transparent);
+  perspective: 700px;
+  transition: box-shadow var(--a-t) var(--a-ease-out);
+}
+
+.pocketArt {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 5px;
+  filter: drop-shadow(0 3px 5px rgba(20, 12, 6, 0.3));
+  transform: rotateX(1.8deg);
+  transform-origin: 50% 90%;
+  transition: transform var(--a-t) var(--a-ease-out), filter var(--a-t) var(--a-ease);
+}
+
+/* 未拥有的卡：只留下极淡的轮廓，暗示这个卡槽可以放 */
+.pocket[data-owned='false'] .pocketWell {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 2px 6px rgba(74, 50, 34, 0.18),
+    0 1px 0 rgba(255, 255, 255, 0.45),
+    0 0 0 1px rgba(74, 50, 34, 0.14);
+}
+
+.pocket[data-owned='false'] .pocketArt {
+  opacity: 0.15;
+  filter: grayscale(0.85) contrast(0.75);
+}
+
+.pocket[data-owned='false'] .pocketCaption i {
+  color: var(--a-ink-soft);
+}
+
+/* 全息闪卡：卡袋里的彩虹反光 */
+.holo {
+  position: absolute;
+  inset: 6px 7px;
+  border-radius: 5px;
+  pointer-events: none;
+  mix-blend-mode: color-dodge;
+  opacity: 0.5;
+  background:
+    repeating-linear-gradient(115deg,
+      rgba(255, 90, 160, 0.13) 0 6px,
+      rgba(120, 255, 220, 0.11) 6px 12px,
+      rgba(255, 230, 120, 0.12) 12px 18px,
+      rgba(140, 170, 255, 0.13) 18px 24px),
+    linear-gradient(115deg, transparent 32%, rgba(255, 255, 255, 0.3) 46%, transparent 60%);
+  background-size: auto, 220% 220%;
+  animation: holoDrift 5.2s ease-in-out infinite alternate;
+}
+
+.pocket[data-tier='ultra'] .holo {
+  opacity: 0.62;
+  mix-blend-mode: overlay;
+}
+
+.pocket[data-tier='secret'] .holo {
+  opacity: 0.78;
+  mix-blend-mode: overlay;
+  animation: holoDrift 3.6s ease-in-out infinite alternate, hueRoll 7s linear infinite;
+}
+
+@keyframes holoDrift {
+  from { background-position: 0 0, 0% 0%; }
+  to { background-position: 4px 0, 100% 100%; }
+}
+
+@keyframes hueRoll {
+  to { filter: hue-rotate(360deg); }
+}
+
+/* 卡袋塑料面的斜向反光 */
+.sheen {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(115deg,
+    transparent 24%,
+    rgba(255, 255, 255, 0.28) 36%,
+    rgba(255, 255, 255, 0.05) 44%,
+    rgba(255, 255, 255, 0.2) 52%,
+    transparent 66%);
+  mix-blend-mode: screen;
+  opacity: 0.65;
+  transition: transform var(--a-t-slow) var(--a-ease);
+}
+
+/* 持有数量随卡片说明放在底下，不压住卡图。 */
+.countPlate {
+  position: relative;
+  flex-shrink: 0;
+  margin-left: auto;
+  padding: 3px 7px 2px;
+  border-radius: 4px;
+  font-family: var(--a-font-num);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  color: #2a1e06;
+  background: linear-gradient(180deg, #f0d878, var(--a-brass) 55%, #a8831c);
+  border: 1px solid rgba(80, 60, 10, 0.55);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 2px 4px rgba(20, 12, 6, 0.4);
+  transform: none;
+}
+
+.pocketCaption {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 9px;
+}
+
+.pocketCaption strong {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--a-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pocketCaption > span {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  font-family: var(--a-font-num);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--a-ink-soft);
+}
+
+.sourceLabel {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--a-font-ui);
+}
+
+.pocketCaption i {
+  flex-shrink: 0;
+  font-style: normal;
+  color: var(--rt, var(--a-ink-soft));
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pocket:focus-visible {
+  outline: 2px solid var(--a-brass);
+  outline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pocket:hover .pocketWell {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.7),
+      inset 0 -2px 5px rgba(120, 90, 50, 0.14),
+      0 1px 0 rgba(255, 255, 255, 0.5),
+      0 0 0 1px var(--rc, rgba(74, 50, 34, 0.2)),
+      0 0 16px -2px var(--rg, transparent),
+      0 0 30px -6px var(--rg, transparent);
+  }
+
+  .pocket:hover .pocketArt {
+    transform: rotateX(0deg) translateY(-3px) scale(1.02);
+    filter: drop-shadow(0 7px 9px rgba(20, 12, 6, 0.34));
+  }
+
+  .pocket:hover .sheen {
+    transform: translateX(5%);
+  }
+
+  .pocket[data-owned='false']:hover .pocketWell {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.6),
+      inset 0 2px 6px rgba(74, 50, 34, 0.16),
+      0 1px 0 rgba(255, 255, 255, 0.45),
+      0 0 0 1px rgba(74, 50, 34, 0.24);
+  }
+}
+
+.pocket:active .pocketArt {
+  transform: rotateX(0deg) scale(0.98);
+  transition-duration: var(--a-t-fast);
+}
+
+/* ---------------- 空册子 ---------------- */
+
+.empty {
+  margin: 8px 0 0;
+}
+
+.paper .empty {
+  border-color: rgba(74, 50, 34, 0.32);
+  background: radial-gradient(ellipse at 50% 40%, rgba(31, 92, 58, 0.08), transparent 72%);
+}
+
+.empty :global(.a-empty-title) {
+  color: var(--a-ink);
+}
+
+.empty :global(.a-empty-note) {
+  color: var(--a-ink-soft);
+}
+
+.emptyMark {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 70px;
+  background: linear-gradient(120deg, #fffdf6, #efe7d2);
+  border-radius: 2px 6px 6px 2px;
+  border-left: 5px solid var(--a-brass);
+  box-shadow:
+    2px 3px 0 rgba(74, 50, 34, 0.16),
+    4px 5px 0 rgba(74, 50, 34, 0.08),
+    var(--a-lift-2);
+  transform: rotate(-5deg);
+}
+
+.emptyMark :global(.duo-ball) {
+  transform: scale(0.8);
+  opacity: 0.85;
+}
+
+/* ---------------- 翻页脚 ---------------- */
+
+.pageFoot {
+  display: flex;
+  justify-content: center;
+  padding-top: 26px;
+}
+
+/* ---------------- 卡面详情弹窗（DuoDialog 为深色底，内嵌鉴赏台） ---------------- */
+
+.detailDialog.detailDialog {
+  width: min(820px, calc(100vw - 32px));
+}
+
+.printingDetail {
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr);
+  gap: 26px;
+  align-items: start;
+}
+
+/* 绿绒展示托：大卡图主角，左上受光 + 斜向玻璃反光 */
+.printingStage {
+  position: relative;
+  padding: 20px 20px 24px;
+  border-radius: 10px;
+  background:
+    radial-gradient(ellipse 120% 70% at 50% 0%, rgba(42, 122, 77, 0.4), transparent 72%),
+    linear-gradient(170deg, var(--a-felt) 0%, var(--a-felt-dark) 100%);
+  border: 1px solid rgba(9, 24, 14, 0.62);
+  box-shadow: var(--a-inset-felt);
+}
+
+.printingStage img {
+  display: block;
+  width: 100%;
+  border-radius: 8px;
+  filter: drop-shadow(0 14px 16px rgba(6, 4, 1, 0.5));
+}
+
+/* 玻璃保护面：不遮卡面内容，纯反光装饰 */
+.printingStage::after {
+  content: '';
+  position: absolute;
+  inset: 20px 20px 24px;
+  border-radius: 8px;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 95% 55% at 22% 8%, rgba(255, 247, 224, 0.2), transparent 62%),
+    linear-gradient(
+      114deg,
+      transparent 42%,
+      rgba(255, 255, 255, 0.12) 49%,
+      rgba(255, 255, 255, 0.04) 55%,
+      transparent 62%
+    );
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.32);
+}
+
+/* 纸质印刷信息页 */
+.printingInfo {
+  padding: 18px 20px 16px;
+  border-radius: 6px;
+  background: linear-gradient(175deg, var(--a-paper) 0%, var(--a-paper-warm) 100%);
+  border: 1px solid var(--a-paper-edge);
+  box-shadow: var(--a-lift-2), var(--a-inset-paper);
+}
+
+.printingInfo p {
+  margin: 8px 0 0;
+  font-family: var(--a-font-num);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: var(--a-ink-soft);
+}
+
+/* 持有数量铜牌 */
+.countPlaque {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 7px 14px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  font-family: var(--a-font-num);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #ffe9a8;
+  background: linear-gradient(180deg, var(--a-brass-dark) 0%, #6d5710 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 235, 170, 0.35),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4),
+    0 2px 6px rgba(20, 12, 6, 0.3);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+}
+
+.rarityBadge {
+  display: inline-flex;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-family: var(--a-font-num);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--a-brass-dark);
+  border: 1px solid rgba(138, 111, 20, 0.55);
+  background: rgba(201, 162, 39, 0.16);
+}
+
+.dialogNote {
+  margin-top: 10px;
+  font-family: var(--a-font-ui);
+  font-size: 12px;
+  line-height: 1.8;
+  letter-spacing: 0;
+  color: var(--a-ink-soft);
+}
+
+.dialogActions {
+  margin-top: 23px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  align-items: center;
+}
+
+/* ---------------- 屏幕阅读器 ---------------- */
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---------------- 响应式 ---------------- */
+
+@media (max-width: 1150px) {
+  .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+@media (max-width: 900px) {
+  .rings { display: none; }
+  .book { padding-left: clamp(12px, 2.4vw, 18px); }
+}
+
+@media (max-width: 860px) {
+  .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px 14px; }
+  .heading { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .bookplate { flex-wrap: wrap; gap: 16px; padding: 18px; }
+  .seal { width: 54px; height: 54px; }
+  .sealBall { width: 22px; height: 22px; }
+  .shopLink { margin-left: auto; }
+  .search { flex: 1 1 100%; max-width: none; order: 3; }
+  .raritySelect { flex: 1; }
+  .resultCount { display: none; }
+}
+
+@media (max-width: 540px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tab { padding: 7px 16px 0; font-size: 13px; letter-spacing: 0.1em; }
+  .paper { padding: 14px 12px 18px; }
+  .printingDetail { grid-template-columns: 1fr; }
+  .printingStage { max-width: 280px; margin: 0 auto; width: 100%; }
+  .dialogActions { flex-wrap: wrap; }
+  .dialogActions > * { flex: 1; }
+}
+
+/* ---------------- 动效减弱 ---------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .paper,
+  .progressFill,
+  .holo {
+    animation: none;
+  }
+
+  .pocketArt,
+  .pocketWell,
+  .sheen,
+  .tab,
+  .resync {
+    transition: none;
+  }
+
+  .pocketArt { transform: none; }
+}

@@ -1,0 +1,29 @@
+import type { Card, CardList, Player } from 'ptcg-server';
+import type { CardInfoPaneOptions, CardInfoTableAction } from '../../card-info/CardInfoPane';
+
+/** Data shape aligned with Angular `CardInfoPopupData`. */
+export type Board3dCardInfoData = {
+  card?: Card;
+  cardList?: CardList;
+  options?: CardInfoPaneOptions;
+  allowReveal?: boolean;
+  facedown?: boolean;
+  players?: Player[];
+  /** When true, Board3DCanvas shows in-scene inspect plates instead of CardInfoPopup. */
+  inspect3d?: boolean;
+  /** DOM table: inspection is separate from committing a hand play. */
+  onPlayFromHand?: () => void;
+};
+
+export type CardInfoPaneActionResult = (CardInfoTableAction & { cardList?: CardList }) | undefined;
+
+/**
+ * Subset of Angular `CardsBaseService` used by the 3D board.
+ */
+export interface Board3dCardsAdapter {
+  getScanUrlFor3D(card: Card, cardList?: unknown): string;
+  getSleeveUrl(imagePath?: string): string | undefined;
+  showCardInfo(data?: Board3dCardInfoData): Promise<CardInfoPaneActionResult>;
+  showCardInfoList(data?: Board3dCardInfoData): Promise<CardInfoPaneActionResult>;
+}
+

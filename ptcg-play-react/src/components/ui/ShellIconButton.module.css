@@ -1,0 +1,35 @@
+.button {
+  width: 36px;
+  height: 36px;
+  border-radius: 5px;
+  border: 1px solid var(--a-brass-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  line-height: 1;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 3px 0 rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  transition: transform var(--a-t-fast) var(--a-ease-out), filter var(--a-t-fast) var(--a-ease-out);
+  font: inherit;
+  padding: 0;
+}
+
+.button:active:not(:disabled) {
+  transform: translateY(2px);
+}
+.button:focus-visible {
+  outline: 2px solid var(--a-brass-lit);
+  outline-offset: 3px;
+}
+
+.green {
+  background: linear-gradient(165deg, var(--a-felt-lit), var(--a-felt-dark));
+  color: var(--a-on-dark);
+}
+@media (prefers-reduced-motion: reduce) {
+  .button { transition: none; }
+  .button:active:not(:disabled) { transform: none; }
+}

@@ -1,0 +1,82 @@
+import { PokemonCard } from '../../../game/store/card/pokemon-card';
+import { Stage, CardType } from '../../../game/store/card/card-types';
+import {
+  GameMessage,
+  StoreLike,
+  State,
+  ChoosePokemonPrompt,
+  PlayerType,
+  SlotType,
+} from '../../../game';
+import { Effect } from '../../../game/store/effects/effect';
+import { PutCountersEffect } from '../../../game/store/effects/attack-effects';
+import { StateUtils } from '../../../game/store/state-utils';
+import { WAS_ATTACK_USED } from '../../../game/store/prefabs/prefabs';
+import { countHideNSneakPokemonInDiscard } from './hide-n-sneak';
+
+export class Spiritomb extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardType: CardType[] = [P];
+  public hp: number = 60;
+  public weakness = [{ type: D }];
+  public resistance = [{ type: F, value: -30 }];
+  public retreat = [C];
+
+  public attacks = [
+    {
+      name: 'Spiritual End',
+      cost: [P],
+      damage: 0,
+      text: "If you have 13 or more Pokémon that have the Hide 'n' Sneak Ability in your discard pile, choose 2 of your opponent's Pokémon and quadruple the number of damage counters on each of them.",
+    },
+  ];
+
+  public set: string = 'PBL';
+  public setNumber: string = '35';
+  public regulationMark: string = 'J';
+  public cardImage: string = 'assets/cardback.png';
+  public name: string = 'Spiritomb';
+  public fullName: string = 'Spiritomb M5';
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    // Ref: set-dark-explorers/kyogre-ex.ts (Dual Splash — choose opponent Pokémon incl. Active)
+    if (WAS_ATTACK_USED(effect, 0, this)) {
+      const player = effect.player;
+      effect.damage = 0;
+
+      if (countHideNSneakPokemonInDiscard(player) < 13) {
+        return state;
+      }
+
+      const opponent = StateUtils.getOpponent(state, player);
+      const count = Math.min(2, (opponent.active.getPokemonCard() ? 1 : 0)
+        + opponent.bench.filter(slot => slot.getPokemonCard()).length);
+      if (count === 0) return state;
+      return store.prompt(
+        state,
+        new ChoosePokemonPrompt(
+          player.id,
+          GameMessage.CHOOSE_POKEMON_TO_DAMAGE,
+          PlayerType.TOP_PLAYER,
+          [SlotType.ACTIVE, SlotType.BENCH],
+          { min: count, max: count, allowCancel: false },
+        ),
+        (selected) => {
+          const targets = selected || [];
+          targets.forEach((target) => {
+            const current = target.damage;
+            if (current <= 0) {
+              return;
+            }
+            const add = current * 3;
+            const counters = new PutCountersEffect(effect, add);
+            counters.target = target;
+            state = store.reduceEffect(state, counters);
+          });
+        },
+      );
+    }
+
+    return state;
+  }
+}

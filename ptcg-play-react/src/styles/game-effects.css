@@ -1,0 +1,167 @@
+/* ──────────────────────────────────────────────────────────────────────────
+   game-effects — 实体卡牌质感层：指针 3D 倾斜、全息箔面、镜面光斑、
+   入场节拍、状态呼吸。所有类名以 fx- 开头，供各页面 module 组合使用。
+   动效原则：交互反馈 < 200ms ease-out；装饰循环慢速；reduced-motion 全关。
+   ────────────────────────────────────────────────────────────────────────── */
+
+/* 指针驱动的 3D 卡牌。变量由 TiltCard 组件写入。 */
+.fx-tilt {
+  --rx: 0deg;
+  --ry: 0deg;
+  --gx: 50%;
+  --gy: 50%;
+  transform: perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry));
+  transition: transform 130ms cubic-bezier(0.25, 0.8, 0.35, 1);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* 触屏没有 hover 指针，禁用倾斜避免误触后的滞留角度。 */
+@media (hover: none) {
+  .fx-tilt { transform: none; transition: none; }
+}
+
+/* 镜面光斑：跟随指针的卡面反光，盖在卡图上。 */
+.fx-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 3;
+  background:
+    radial-gradient(260px circle at var(--gx, 50%) var(--gy, 50%),
+      rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1) 45%, transparent 70%);
+  mix-blend-mode: soft-light;
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+.fx-tilt:hover .fx-glare,
+.fx-tilt:focus-within .fx-glare { opacity: 1; }
+
+/* 全息箔面：彩虹干涉条纹，指向光斑位置。留给高稀有卡。 */
+.fx-holo {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 2;
+  background:
+    repeating-linear-gradient(115deg,
+      rgba(255, 90, 160, 0.16) 0 14px,
+      rgba(255, 214, 40, 0.15) 14px 28px,
+      rgba(60, 255, 170, 0.14) 28px 42px,
+      rgba(80, 160, 255, 0.16) 42px 56px,
+      rgba(200, 110, 255, 0.15) 56px 70px),
+    radial-gradient(130% 85% at var(--gx, 50%) var(--gy, 40%),
+      rgba(255, 255, 255, 0.55), transparent 58%);
+  mix-blend-mode: overlay;
+  opacity: 0;
+  transition: opacity 260ms ease;
+}
+.fx-tilt:hover .fx-holo,
+.fx-tilt:focus-within .fx-holo { opacity: 0.9; }
+
+/* 实体卡边：亮边 + 深投影 + 纸厚。组合在卡图容器上。 */
+.fx-card-physical {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.6),
+    0 1px 0 rgba(36, 64, 110, 0.2),
+    0 6px 12px rgba(31, 58, 102, 0.24),
+    0 20px 30px -14px rgba(31, 58, 102, 0.4);
+}
+
+/* 入场节拍：列表逐个浮起，延迟用 --rise-delay 内联指定。 */
+.fx-rise {
+  animation: fx-rise 360ms cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  animation-delay: var(--rise-delay, 0ms);
+}
+@keyframes fx-rise {
+  from { opacity: 0; transform: translateY(14px); }
+}
+
+/* 状态呼吸：空闲在线的光环。 */
+.fx-breathe { animation: fx-breathe 2.8s ease-in-out infinite; }
+@keyframes fx-breathe {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(47, 158, 95, 0.22); }
+  50% { box-shadow: 0 0 0 5px rgba(47, 158, 95, 0.1); }
+}
+
+/* 对战中的红色警报呼吸。 */
+.fx-alert { animation: fx-alert 1.6s ease-in-out infinite; }
+@keyframes fx-alert {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(227, 53, 13, 0.25); }
+  50% { box-shadow: 0 0 0 5px rgba(227, 53, 13, 0.12); }
+}
+
+/* 扫光：按钮与徽章的悬停光泽，一次通过。 */
+.fx-gleam { position: relative; overflow: hidden; }
+.fx-gleam::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -60%;
+  width: 45%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  transform: translateX(-160%) skewX(-18deg);
+  pointer-events: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .fx-gleam:not(:disabled):hover::after {
+    animation: fx-gleam-sweep 650ms cubic-bezier(0.3, 0.6, 0.3, 1);
+  }
+}
+@keyframes fx-gleam-sweep {
+  to { transform: translateX(420%) skewX(-18deg); }
+}
+
+/* 漂浮微尘：大面积缓慢平移的粒子场，铺在页面装饰层。 */
+.fx-dust { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.fx-dust::before,
+.fx-dust::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background-repeat: repeat;
+  background-size: 620px 620px;
+  animation: fx-drift 44s linear infinite;
+}
+.fx-dust::before {
+  background-image:
+    radial-gradient(2.5px 2.5px at 46px 82px, rgba(255, 255, 255, 0.85), transparent),
+    radial-gradient(2px 2px at 208px 174px, rgba(255, 246, 214, 0.7), transparent),
+    radial-gradient(2.5px 2.5px at 338px 66px, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(1.5px 1.5px at 452px 300px, rgba(255, 255, 255, 0.55), transparent),
+    radial-gradient(2px 2px at 118px 392px, rgba(255, 250, 224, 0.6), transparent),
+    radial-gradient(1.5px 1.5px at 560px 452px, rgba(255, 255, 255, 0.5), transparent);
+}
+.fx-dust::after {
+  background-image:
+    radial-gradient(1.5px 1.5px at 92px 128px, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(2px 2px at 264px 236px, rgba(255, 243, 200, 0.55), transparent),
+    radial-gradient(1.5px 1.5px at 396px 118px, rgba(255, 255, 255, 0.45), transparent),
+    radial-gradient(2px 2px at 502px 366px, rgba(255, 255, 255, 0.5), transparent);
+  animation-duration: 61s;
+  animation-direction: reverse;
+}
+@keyframes fx-drift {
+  to { transform: translate3d(-620px, -310px, 0); }
+}
+
+/* 偏好回退 ─────────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .fx-tilt { transform: none; transition: none; }
+  .fx-rise { animation: none; }
+  .fx-breathe, .fx-alert { animation: none; box-shadow: none; }
+  .fx-gleam::after { display: none; }
+  .fx-dust { display: none; }
+  .fx-glare, .fx-holo { transition: none; }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .fx-glare, .fx-holo { display: none; }
+}

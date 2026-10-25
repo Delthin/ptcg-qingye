@@ -1,0 +1,76 @@
+/*
+ * TableBoardOverlay — 桌面 HUD 锚位层。
+ * 纯布局容器（不抢桌面）：所有可见件由子模块自带材质；
+ * 这里只定义锚位、层级，以及与回合球同族的胡桃木黄铜圆键（日志按钮）。
+ */
+
+.root {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  color: var(--a-on-dark-soft);
+}
+
+.contained { position: absolute; }
+
+.toolbar { position: absolute; top: 16px; right: 16px; display: flex; align-items: center; gap: 8px; pointer-events: auto; }
+
+/* 日志按钮：与回合球同族的黄铜圆键（胡桃木底 + 黄铜细圈 + 厚度） */
+.logsButton {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  border-radius: 50%;
+  background: linear-gradient(145deg, var(--a-walnut) 0%, var(--a-walnut-dark) 100%);
+  color: #cdb987;
+  box-shadow:
+    0 2px 0 #120c06,
+    0 4px 10px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 244, 214, 0.08);
+  cursor: pointer;
+  transition: color 140ms var(--a-ease), border-color 140ms var(--a-ease), transform 140ms var(--a-ease-out), box-shadow 140ms var(--a-ease);
+}
+
+.logsButton svg { width: 21px; height: 21px; }
+
+.logsButton:active {
+  transform: translateY(2px);
+  box-shadow: 0 0 0 #120c06, 0 2px 5px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 244, 214, 0.06);
+}
+
+.logsButton:focus-visible { outline: 2px solid #e4d190; outline-offset: 4px; }
+
+@media (hover: hover) and (pointer: fine) {
+  .logsButton:hover {
+    color: #f2dfa6;
+    border-color: rgba(201, 162, 39, 0.65);
+    transform: translateY(-1px);
+  }
+}
+
+.eventColumn { position: absolute; right: 16px; top: 70px; width: min(320px, calc(100vw - 32px)); pointer-events: none; }
+.eventColumn > * { pointer-events: auto; }
+.clockTop { position: absolute; top: 16px; left: 16px; }
+.clockSelf { position: absolute; left: 16px; bottom: 20px; }
+.replayControls { position: absolute; right: 148px; bottom: 20px; pointer-events: auto; }
+.adminSpectatorControls { position: absolute; left: 16px; bottom: 110px; pointer-events: auto; }
+
+@media (max-aspect-ratio: 17/20) {
+  .toolbar { top: 8px; right: 8px; gap: 5px; }
+  .logsButton { width: 40px; height: 40px; }
+  .logsButton svg { width: 19px; height: 19px; }
+  .eventColumn { top: 52px; right: 8px; width: min(270px, calc(100vw - 16px)); }
+  .clockSelf { bottom: 118px; left: 8px; }
+  .clockTop { top: 8px; left: 8px; }
+  .replayControls { bottom: 112px; right: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logsButton { transition: none; }
+  .logsButton:active { transform: none; }
+  .logsButton:hover { transform: none; }
+}
