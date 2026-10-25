@@ -1,8 +1,8 @@
 {
-  "name": "ptcg-qingye",
-  "version": "0.1.1",
+  "name": "ptcg-yiqi",
+  "version": "0.1.2",
   "private": true,
-  "description": "青叶牌桌：面向简体中文卡池的 PTCG 收藏、组牌与双人对战应用",
+  "description": "一起打牌：面向简体中文卡池的 PTCG 收藏、组牌与双人对战应用",
   "license": "MIT",
   "engines": { "node": "^22.12.0 || ^24.0.0" },
   "scripts": {

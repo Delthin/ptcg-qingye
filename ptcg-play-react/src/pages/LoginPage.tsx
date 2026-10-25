@@ -112,7 +112,7 @@ export function LoginPage() {
             </div>
           </div>
           <h1 className={styles.logoText}>
-            <span className={styles.logoMain}>训练家卡桌</span>
+            <span className={styles.logoMain}>一起打牌</span>
             <span className={styles.logoSub}>Pokémon Trading Card Game</span>
           </h1>
         </div>

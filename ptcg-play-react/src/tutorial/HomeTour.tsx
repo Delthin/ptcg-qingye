@@ -32,7 +32,7 @@ interface HomeStepConfig {
 const HOME_STEPS: HomeStepConfig[] = [
   {
     targets: ['brand'],
-    title: '欢迎来到训练家卡桌',
+    title: '欢迎来到一起打牌',
     description:
       '注册时，你的账号已收到两套预组（每套 60 张）和对应的 120 张收藏卡，无需完成教学再领取。这里是对战大厅，顶栏可以切换各个页面；先熟悉一圈吧。',
   },

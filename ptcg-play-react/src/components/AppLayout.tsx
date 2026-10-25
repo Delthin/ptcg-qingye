@@ -122,7 +122,7 @@ export function AppLayout() {
                 </defs>
               </svg>
             </div>
-            <span className={styles.brandText}>训练家卡桌</span>
+            <span className={styles.brandText}>一起打牌</span>
           </Link>
 
           {/* 导航菜单 */}
